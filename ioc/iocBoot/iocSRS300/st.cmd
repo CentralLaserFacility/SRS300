@@ -1,0 +1,58 @@
+#!../../bin/linux-x86_64/SRS300
+
+#- You may have to change SRS300 to something else
+#- everywhere it appears in this file
+
+< envPaths
+
+# LANTRONIX RS232 adapter address
+#
+epicsEnvSet("MODEL","$(MODEL=375)")
+epicsEnvSet("ADDR","192.168.0.20:10002")
+epicsEnvSet("A","-1")
+epicsEnvSet("PORT","L0")
+
+epicsEnvSet("STREAM_PROTOCOL_PATH", "${TOP}/proto") 
+
+# PV name prefix
+#
+epicsEnvSet("PREFIX","BENCH:")
+epicsEnvSet("SUFFIX","HVPS:")
+
+cd "${TOP}"
+
+## Register all support components
+dbLoadDatabase "dbd/SRS300.dbd"
+SRS300_registerRecordDeviceDriver pdbbase
+
+drvAsynIPPortConfigure("L0","$(ADDR)",0,0,0)
+
+## Load record instances
+dbLoadRecords("$(ASYN)/db/asynRecord.db","P=$(PREFIX)$(SUFFIX),R=asyn,PORT=$(PORT),ADDR=0,OMAX=256,IMAX=256")
+dbLoadTemplate("db/devSRS_PS375.substitutions","PORT=$(PORT),R=$(SUFFIX),P=$(PREFIX),A=$(A)")
+dbLoadRecords("db/devSRS_PS300_common.db","P=$(PREFIX),R=$(SUFFIX),L=0,A=$(A)")
+
+#dbLoadRecords("$(TOP)/db/devSRS_PS375.db","P=$(PREFIX),R=$(SUFFIX),PORT=$(PORT),A=$(A)")
+
+#dbLoadRecords("db/devSRS_PS310_neg.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
+#dbLoadRecords("db/devSRS_PS310_pos.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
+#dbLoadRecords("db/devSRS_PS325_neg.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
+#dbLoadRecords("db/devSRS_PS325_pos.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
+#dbLoadRecords("db/devSRS_PS350_neg.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
+#dbLoadRecords("db/devSRS_PS350_pos.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
+#dbLoadRecords("db/devSRS_PS355.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
+#dbLoadRecords("db/devSRS_PS365.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
+#dbLoadRecords("db/devSRS_PS370.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
+#dbLoadRecords("db/devSRS_PS375.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
+#dbLoadTemplate("db/devSRS_PSxxx.substitutions","PORT=$(PORT),A=$(A)")
+
+cd "${TOP}/iocBoot/${IOC}"
+
+#Commence IOC running
+iocInit
+
+stringiftest("NEGPOLARITY", "$(MODEL=370)", 5, "YES")
+$(IFNEGPOLARITY) < setNegativePolarity.cmd
+
+## Start any sequence programs
+#seq sncxxx,"user=ktn98257"
