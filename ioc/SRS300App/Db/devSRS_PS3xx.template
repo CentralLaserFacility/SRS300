@@ -219,3 +219,52 @@ record(ai, "$(P)$(R)OutputIget")
     field(SIML, "$(P)$(R)SIM")
     field(SIOL, "$(P)$(R)SIM:OutputIget")
 }
+#
+# Ramp
+#
+record(ai, "$(P)$(R)VRAMPrun") {
+    field(VAL, "0")
+    field(FLNK, "$(P)$(R)VRAMPcycle")
+}
+record(ai, "$(P)$(R)VRAMPstart") {
+    field(DESC, "Set commencing volts for ramp")
+    field(EGU,  "V")
+    field(VAL, "0")
+    field(LOPR, "$(VMIN)")
+    field(HOPR, "$(VMAX)")
+    field(PREC, "3")
+}
+record(ai, "$(P)$(R)VRAMPend") {
+    field(DESC, "Set ultimate voltage for ramp")
+    #field(VAL, "VAL=$(VMAX)")
+    field(VAL, "20000")
+    field(EGU,  "V")
+    field(LOPR, "$(VMIN)")
+    field(HOPR, "$(VMAX)")
+}
+record(ai, "$(P)$(R)VRAMPinterval") {
+    field(DESC, "Set voltage ramp up period")
+    field(VAL, "1") #1 seconds
+    field(LOPR, "1")
+    field(HOPR, "60")
+}
+record(ai, "$(P)$(R)VRAMPincrement") {
+    field(DESC, "Set voltage ramp up increment")
+    field(VAL, "100")
+    field(EGU,  "V")
+}
+record(calcout, "$(P)$(R)VRAMPcycle") {
+    field(DESC, "Set output voltage limit")
+    field(SCAN, "10 second")
+    field(DISA, "$(P)$(R)VRAMPrun")
+    field(INPA, "$(P)$(R)VRAMPcycle")
+    field(INPB, "$(P)$(R)VRAMPend")
+    #Need to key in $(P)$(R)VRAMPincrement but this is compile time perhaps a subsMacro?
+    field(CALC, "A<B ? A+15 : 0")
+    field(EGU,  "V")
+    field(OOPT, "When Non-zero")
+    field(LOPR, "$(VMIN)")
+    field(HOPR, "$(VMAX)")    
+    field(PREC, "3")
+    field(OUT, "$(P)$(R)VLIMset")
+}

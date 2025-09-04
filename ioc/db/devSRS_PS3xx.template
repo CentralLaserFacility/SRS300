@@ -4,7 +4,8 @@
 # This code is distributed subject to a Software License Agreement found
 # in file LICENSE that is included with this distribution.
 ##########################################################################
-record(waveform, "$(P)$(R)IDN") {
+record(waveform, "$(P)$(R)IDN")
+{
     field(DESC, "SCPI identification string")
     field(DTYP, "stream")
     field(INP,  "@ps300.proto getIDN(79) $(PORT) $(A)")
@@ -12,19 +13,22 @@ record(waveform, "$(P)$(R)IDN") {
     field(FTVL, "CHAR")
     field(NELM, "80")
 }
-record(bi, "$(P)$(R)polarity") {
+record(bi, "$(P)$(R)polarity")
+{
     field(DESC, "Device polarity")
     field(DTYP, "")
     field(ZNAM, "+ve")
     field(ONAM, "-ve On")
-    field(VAL, "1") # Dependant on model
+    field(VAL, "-1") # Dependant on model
 }
-record(longin, "$(P)$(R)getESR") {
+record(longin, "$(P)$(R)getESR")
+{
     field(DESC, "SCPI get event status")
     field(DTYP, "stream")
     field(INP,  "@ps300.proto getD(*ESR) $(PORT) $(A)")
 }
-record(bo, "$(P)$(R)TripClear") {
+record(bo, "$(P)$(R)TripClear")
+{
     field(DESC, "Clear a trip")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto cmd(TCLR) $(PORT) $(A)")
@@ -33,7 +37,8 @@ record(bo, "$(P)$(R)TripClear") {
     field(HIGH, "1")
     field(FLNK, "$(P)$(R)getSTB")
 }
-record(bo, "$(P)$(R)HVenable") {
+record(bo, "$(P)$(R)HVenable")
+{
     field(DESC, "Enable output")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto hvOffOn $(PORT) $(A)")
@@ -41,9 +46,24 @@ record(bo, "$(P)$(R)HVenable") {
     field(ONAM, "Turn On")
     field(FLNK, "$(P)$(R)getSTB")
 }
-record(ao, "$(P)$(R)HVset") {
+record(ai, "$(P)$(R)desiredHV")
+{
+    field(DESC, "Set desired output voltage")
+    field(EGU,  "V")
+    field(LOPR, "$(VMIN)")
+    field(HOPR, "$(VMAX)")
+    field(DRVL, "$(VMIN)")
+    field(DRVH, "$(VMAX)")
+    field(PREC, "4")
+    field(PINI, "YES")
+}
+record(ao, "$(P)$(R)HVset")
+{
     field(DESC, "Set output voltage")
     field(DTYP, "stream")
+    #field(DOL, "$(P)$(R)desiredHV")
+    #field(OMSL, "closed_loop")
+    #field(SCAN, "Passive")
     field(OUT,  "@ps300.proto setting(VSET) $(PORT) $(A)")
     field(EGU,  "V")
     field(LOPR, "$(VMIN)")
@@ -54,8 +74,10 @@ record(ao, "$(P)$(R)HVset") {
     field(FLNK, "$(P)$(R)OutputVget")
     field(SIML, "$(P)$(R)SIM")
     field(SIOL, "$(P)$(R)SIM:HVset")
+    field(TPRO, "1")
 }
-record(ao, "$(P)$(R)VLIMset") {
+record(ao, "$(P)$(R)VLIMset")
+{
     field(DESC, "Set output voltage limit")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto setting(VLIM) $(PORT) $(A)")
@@ -67,7 +89,8 @@ record(ao, "$(P)$(R)VLIMset") {
     field(PREC, "3")
     field(FLNK, "$(P)$(R)VLIMget")
 }
-record(ai, "$(P)$(R)VLIMget") {
+record(ai, "$(P)$(R)VLIMget")
+{
     field(DESC, "Get output voltage limit")
     field(DTYP, "stream")
     field(INP,  "@ps300.proto getF(VLIM) $(PORT) $(A)")
@@ -77,7 +100,8 @@ record(ai, "$(P)$(R)VLIMget") {
     field(PREC, "3")
     field(PINI, "YES")
 }
-record(ao, "$(P)$(R)ILIMset") {
+record(ao, "$(P)$(R)ILIMset")
+{
     field(DESC, "Set output current limit")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto setting(ILIM) $(PORT) $(A)")
@@ -89,7 +113,8 @@ record(ao, "$(P)$(R)ILIMset") {
     field(PREC, "3")
     field(FLNK, "$(P)$(R)ILIMget")
 }
-record(ai, "$(P)$(R)ILIMget") {
+record(ai, "$(P)$(R)ILIMget")
+{
     field(DESC, "Get output current limit")
     field(DTYP, "stream")
     field(INP,  "@ps300.proto getF(ILIM) $(PORT) $(A)")
@@ -99,7 +124,8 @@ record(ai, "$(P)$(R)ILIMget") {
     field(PREC, "3")
     field(PINI, "YES")
 }
-record(ao, "$(P)$(R)ITRPset") {
+record(ao, "$(P)$(R)ITRPset")
+{
     field(DESC, "Set output current trip limit")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto setting(ITRP) $(PORT) $(A)")
@@ -111,7 +137,8 @@ record(ao, "$(P)$(R)ITRPset") {
     field(PREC, "3")
     field(FLNK, "$(P)$(R)ITRPget")
 }
-record(ai, "$(P)$(R)ITRPget") {
+record(ai, "$(P)$(R)ITRPget")
+{
     field(DESC, "Get output current trip limit")
     field(DTYP, "stream")
     field(INP,  "@ps300.proto getF(ITRP) $(PORT) $(A)")
@@ -125,7 +152,8 @@ record(ai, "$(P)$(R)ITRPget") {
 #
 # Dummy record to trigger readbacks
 #
-record(seq, "$(P)$(R)ReadbackPoll_") {
+record(seq, "$(P)$(R)ReadbackPoll_")
+{
     field(DESC, "Head of readback chain")
     field(PINI, "YES")
     field(SCAN, "1 second")
@@ -134,7 +162,8 @@ record(seq, "$(P)$(R)ReadbackPoll_") {
     field(LNK3, "$(P)$(R)OutputIget.PROC")
 }
 
-record(mbbiDirect, "$(P)$(R)getSTB") {
+record(mbbiDirect, "$(P)$(R)getSTB")
+{
     field(DESC, "SCPI get status byte")
     field(DTYP, "stream")
     field(INP,  "@ps300.proto getD(*STB) $(PORT) $(A)")
@@ -142,41 +171,47 @@ record(mbbiDirect, "$(P)$(R)getSTB") {
     field(SIML, "$(P)$(R)SIM")
     field(SIOL, "$(P)$(R)SIM:STB")
 }
-record(bi, "$(P)$(R)HVONstatus") {
+record(bi, "$(P)$(R)HVONstatus")
+{
     field(DESC, "Is HV on?")
     field(INP,  "$(P)$(R)getSTB.B7 NPP MS")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(FLNK, "$(P)$(R)ILIMstatus")
 }
-record(bi, "$(P)$(R)ILIMstatus") {
+record(bi, "$(P)$(R)ILIMstatus")
+{
     field(DESC, "Is current limited?")
     field(INP,  "$(P)$(R)getSTB.B3 NPP MS")
     field(ZNAM, "No limit")
     field(ONAM, "Limited")
     field(FLNK, "$(P)$(R)ITRIPstatus")
 }
-record(bi, "$(P)$(R)ITRIPstatus") {
+record(bi, "$(P)$(R)ITRIPstatus")
+{
     field(DESC, "Tripped on overcurrent?")
     field(INP,  "$(P)$(R)getSTB.B2 NPP MS")
     field(ZNAM, "Not tripped")
     field(ONAM, "Tripped")
     field(FLNK, "$(P)$(R)VTRIPstatus")
 }
-record(bi, "$(P)$(R)VTRIPstatus") {
+record(bi, "$(P)$(R)VTRIPstatus")
+{
     field(DESC, "Tripped on overvoltage?")
     field(INP,  "$(P)$(R)getSTB.B1 NPP MS")
     field(ZNAM, "Not tripped")
     field(ONAM, "Tripped")
     field(FLNK, "$(P)$(R)HVSTABLEstatus")
 }
-record(bi, "$(P)$(R)HVSTABLEstatus") {
+record(bi, "$(P)$(R)HVSTABLEstatus")
+{
     field(DESC, "HV stable?")
     field(INP,  "$(P)$(R)getSTB.B0 NPP MS")
     field(ZNAM, "Unstable")
     field(ONAM, "Stable")
 }
-record(ai, "$(P)$(R)OutputVget") {
+record(ai, "$(P)$(R)OutputVget")
+{
     field(DESC, "Output voltage readback")
     field(DTYP, "stream")
     field(INP,  "@ps300.proto getF(VOUT) $(PORT) $(A)")
@@ -187,7 +222,8 @@ record(ai, "$(P)$(R)OutputVget") {
     field(SIML, "$(P)$(R)SIM")
     field(SIOL, "$(P)$(R)SIM:OutputVget")
 }
-record(ai, "$(P)$(R)OutputIget") {
+record(ai, "$(P)$(R)OutputIget")
+{
     field(DESC, "Output current readback")
     field(DTYP, "stream")
     field(INP,  "@ps300.proto getF(IOUT) $(PORT) $(A)")
@@ -199,52 +235,74 @@ record(ai, "$(P)$(R)OutputIget") {
     field(SIOL, "$(P)$(R)SIM:OutputIget")
 }
 
-#
-# Ramp
-#
-record(ai, "$(P)$(R)VRAMPrun") {
-    field(VAL, "0")
-    field(FLNK, "$(P)$(R)VRAMPcycle")
+#Start charge button
+record(bi, "$(P)$(R)chargeStartHelper")
+{
+    field(DESC, "Helper record to start HV charge")
+    field(FLNK, "$(P)$(R)StartCharge")
 }
-record(ai, "$(P)$(R)VRAMPstart") {
-    field(DESC, "Set commencing volts for ramp")
-    field(EGU,  "V")
-    field(VAL, "0")
-    field(LOPR, "$(VMIN)")
-    field(HOPR, "$(VMAX)")
-    field(PREC, "3")
+record(seq, "$(P)$(R)StartCharge")
+{
+    field(DESC, "Sequence to start HV charge")
+    field(DOL1, "$(P)$(R)OutputVget")
+    field(LNK1, "$(P)$(R)VRAMPcycle PP")
+    field(TPRO, "1")
+    #field(LNK2, "$(P)$(R)VRAMPseq PP")
+
 }
-record(ai, "$(P)$(R)VRAMPend") {
-    field(DESC, "Set ultimate voltage for ramp")
-    #field(VAL, "VAL=$(VMAX)")
-    field(VAL, "20000")
-    field(EGU,  "V")
-    field(LOPR, "$(VMIN)")
-    field(HOPR, "$(VMAX)")
+
+
+#ramp
+
+record(ai, "$(P)$(R)VRAMPtimeSet")
+{
+    field(DESC, "Set desired ramp time")
+    field(EGU,  "s")
+    #field(LOPR, "0.1")
+    #field(DRVL, "0.1")
+    field(PINI, "YES")
 }
 record(ai, "$(P)$(R)VRAMPinterval") {
-    field(DESC, "Set voltage ramp up period")
+    field(DESC, "Set voltage ramp up interval between steps")
     field(VAL, "1") #1 seconds
-    field(LOPR, "1")
-    field(HOPR, "60")
 }
-record(ai, "$(P)$(R)VRAMPincrement") {
-    field(DESC, "Set voltage ramp up increment")
-    field(VAL, "100")
-    field(EGU,  "V")
+record(ai, "$(P)$(R)VRAMPstepSize"){
+    field(DESC, "Set voltage ramp step size")
+    field(VAL, "100") #100 V per step
+    field(LOPR, "100")
+}
+
+record(calc, "$(P)$(R)VRAMPstepCalc")
+{
+    field(DESC, "Calculate ramp step size")
+    field(INPA, "$(P)$(R)OutputVget")#ramp starting voltage
+    field(INPB, "$(P)$(R)desiredHV")#ramp ending voltage
+    field(INPC, "$(P)$(R)timeSet")#total time for ramp
+    field(INPD, "$(P)$(R)VRAMPinterval")#interval between steps
+    field(CALC, "((B-A)/(C/D))") # (end - start) / (total time / interval)
+    field(FLNK, "$(P)$(R)VRAMPseq")
 }
 record(calcout, "$(P)$(R)VRAMPcycle") {
     field(DESC, "Set output voltage limit")
-    field(SCAN, "10 second")
-    field(DISA, "$(P)$(R)VRAMPrun")
+    #field(SCAN, "1 second")
+    #field(DISV, "A")   
+    #field(DISA, "B")
     field(INPA, "$(P)$(R)VRAMPcycle")
-    field(INPB, "$(P)$(R)VRAMPend")
-    #Need to key in $(P)$(R)VRAMPincrement but this is compile time perhaps a subsMacro?
-    field(CALC, "A<B ? A+15 : 0")
-    field(EGU,  "V")
-    field(OOPT, "When Non-zero")
-    field(LOPR, "$(VMIN)")
-    field(HOPR, "$(VMAX)")    
-    field(PREC, "3")
-    field(OUT, "$(P)$(R)VLIMset")
+    field(INPB, "$(P)$(R)desiredHV")
+    field(INPC, "$(P)$(R)VRAMPstepSize")
+    field(CALC, "A!=B ? A+C : B")
+    field(FLNK, "$(P)$(R)VRAMPseq")
+    field(TPRO, "1")
+}
+
+record(seq, "$(P)$(R)VRAMPseq")
+{
+    field(DESC, "Sequence to loop voltage ramp")
+    #field(PINI, "YES")
+    #field(SCAN, "Passive")
+    field(DLY1, "1")
+    field(DOL1, "$(P)$(R)VRAMPcycle")
+    field(LNK1, "$(P)$(R)HVset PP")
+    field(LNK2, "$(P)$(R)VRAMPcycle.PROC")
+    field(TPRO, "1")
 }
