@@ -52,8 +52,8 @@ record(ai, "$(P)$(R)desiredHV")
     field(EGU,  "V")
     field(LOPR, "$(VMIN)")
     field(HOPR, "$(VMAX)")
-    field(DRVL, "$(VMIN)")
-    field(DRVH, "$(VMAX)")
+    #field(DRVL, "$(VMIN)")
+    #field(DRVH, "$(VMAX)")
     field(PREC, "4")
     field(PINI, "YES")
 }
@@ -247,7 +247,8 @@ record(seq, "$(P)$(R)StartCharge")
     field(DOL1, "$(P)$(R)OutputVget")
     field(LNK1, "$(P)$(R)VRAMPcycle PP")
     field(TPRO, "1")
-    #field(LNK2, "$(P)$(R)VRAMPseq PP")
+    field(DO2, "4")
+    field(LNK2, "$(P)$(R)VRAMPseq.SCAN ")
 
 }
 
@@ -263,8 +264,9 @@ record(ai, "$(P)$(R)VRAMPtimeSet")
     field(PINI, "YES")
 }
 record(ai, "$(P)$(R)VRAMPinterval") {
-    field(DESC, "Set voltage ramp up interval between steps")
+    field(DESC, "Set ramp up interval")
     field(VAL, "1") #1 seconds
+    field(EGU, "second")
 }
 record(ai, "$(P)$(R)VRAMPstepSize"){
     field(DESC, "Set voltage ramp step size")
@@ -291,18 +293,37 @@ record(calcout, "$(P)$(R)VRAMPcycle") {
     field(INPB, "$(P)$(R)desiredHV")
     field(INPC, "$(P)$(R)VRAMPstepSize")
     field(CALC, "A!=B ? A+C : B")
-    field(FLNK, "$(P)$(R)VRAMPseq")
+    #field(FLNK, "$(P)$(R)VRAMPseq")
+    field(TPRO, "1")
+}
+record(calc, "$(P)$(R)VRAMPdone") {
+    field(DESC, "Check if ramp is done")
+    #field(PINI, "YES")
+    field(INPA, "$(P)$(R)outputVget")
+    field(INPB, "$(P)$(R)desiredHV")
+    field(INPC, "$(P)$(R)VRAMPseq.scan")
+    field(CALC, "A==B ? 0 : C")
+    #field(FLNK, "$(P)$(R)VRAMPfinishSeq")
     field(TPRO, "1")
 }
 
 record(seq, "$(P)$(R)VRAMPseq")
 {
     field(DESC, "Sequence to loop voltage ramp")
-    #field(PINI, "YES")
-    #field(SCAN, "Passive")
+    #field(SCAN, "$(P)$(R)VRAMPdone PP")
     field(DLY1, "1")
-    field(DOL1, "$(P)$(R)VRAMPcycle")
-    field(LNK1, "$(P)$(R)HVset PP")
-    field(LNK2, "$(P)$(R)VRAMPcycle.PROC")
+    field(LNK1, "$(P)$(R)VRAMPcycle.PROC")
+    field(DOL2, "$(P)$(R)VRAMPcycle")
+    field(LNK2, "$(P)$(R)HVset PP")
+    field(FLNK, "$(P)$(R)VRAMPdone")
+    #field(DOL4, "$(P)$(R)VRAMPdone")
+    #field(LNK4, "$(P)$(R)VRAMPseq.SCAN")
+    field(TPRO, "1")
+}
+record(seq, "$(P)$(R)VRAMPseq")
+{
+    field(DESC, "Sequence to finish voltage ramp")
+    field(DOL1, "$(P)$(R)VRAMPdone")
+    field(LNK1, "$(P)$(R)VRAMPseq.SCAN PP")
     field(TPRO, "1")
 }
