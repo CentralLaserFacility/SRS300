@@ -56,6 +56,7 @@ record(ai, "$(P)$(R)desiredHV")
     #field(DRVH, "$(VMAX)")
     field(PREC, "4")
     field(PINI, "YES")
+    field(TPRO, "1")
 }
 record(ao, "$(P)$(R)HVset")
 {
@@ -221,6 +222,7 @@ record(ai, "$(P)$(R)OutputVget")
     field(PREC, "4")
     field(SIML, "$(P)$(R)SIM")
     field(SIOL, "$(P)$(R)SIM:OutputVget")
+    #field(TPRO, "1")
 }
 record(ai, "$(P)$(R)OutputIget")
 {
@@ -244,11 +246,9 @@ record(bi, "$(P)$(R)chargeStartHelper")
 record(seq, "$(P)$(R)StartCharge")
 {
     field(DESC, "Sequence to start HV charge")
-    field(DOL1, "$(P)$(R)OutputVget")
-    field(LNK1, "$(P)$(R)VRAMPcycle PP")
+    #field(DOL1, "$(P)$(R)OutputVget")
+    field(LNK1, "$(P)$(R)VRAMPrampUp.PROC")
     field(TPRO, "1")
-    field(DO2, "4")
-    field(LNK2, "$(P)$(R)VRAMPseq.SCAN ")
 
 }
 
@@ -267,6 +267,7 @@ record(ai, "$(P)$(R)VRAMPinterval") {
     field(DESC, "Set ramp up interval")
     field(VAL, "1") #1 seconds
     field(EGU, "second")
+    field(TPRO, "1")
 }
 record(ai, "$(P)$(R)VRAMPstepSize"){
     field(DESC, "Set voltage ramp step size")
@@ -279,51 +280,38 @@ record(calc, "$(P)$(R)VRAMPstepCalc")
     field(DESC, "Calculate ramp step size")
     field(INPA, "$(P)$(R)OutputVget")#ramp starting voltage
     field(INPB, "$(P)$(R)desiredHV")#ramp ending voltage
-    field(INPC, "$(P)$(R)timeSet")#total time for ramp
+    field(INPC, "$(P)$(R)VRAMPtimeSet")#total time for ramp
     field(INPD, "$(P)$(R)VRAMPinterval")#interval between steps
     field(CALC, "((B-A)/(C/D))") # (end - start) / (total time / interval)
     field(FLNK, "$(P)$(R)VRAMPseq")
 }
-record(calcout, "$(P)$(R)VRAMPcycle") {
-    field(DESC, "Set output voltage limit")
-    #field(SCAN, "1 second")
-    #field(DISV, "A")   
-    #field(DISA, "B")
-    field(INPA, "$(P)$(R)VRAMPcycle")
+
+record(aSub, "$(P)$(R)VRAMPrampUp") {
+    field(DESC, "Subroutine to ramp voltage")
+    field(SCAN, "I/O intr")
+    field(SNAM, "rampup")
+    field(INPA, "$(P)$(R)OutputVget") 
+    field(FTA, "DOUBLE")
     field(INPB, "$(P)$(R)desiredHV")
+    field(FTB, "DOUBLE")
     field(INPC, "$(P)$(R)VRAMPstepSize")
-    field(CALC, "A!=B ? A+C : B")
-    #field(FLNK, "$(P)$(R)VRAMPseq")
+    field(FTC, "DOUBLE")
+    field(INPD, "$(P)$(R)VRAMPinterval")
+    field(FTD, "SHORT")
+    field(OUTA, "$(P)$(R)HVSET")
+    field(FTVA, "DOUBLE")
+    field(OUTB, "$(P)$(R)VRAMPrampHelper")
     field(TPRO, "1")
 }
-record(calc, "$(P)$(R)VRAMPdone") {
-    field(DESC, "Check if ramp is done")
-    #field(PINI, "YES")
-    field(INPA, "$(P)$(R)outputVget")
-    field(INPB, "$(P)$(R)desiredHV")
-    field(INPC, "$(P)$(R)VRAMPseq.scan")
-    field(CALC, "A==B ? 0 : C")
-    #field(FLNK, "$(P)$(R)VRAMPfinishSeq")
-    field(TPRO, "1")
+record(bi, "$(P)$(R)VRAMPrampHelper") {
+    field(DESC, "Helper record to trigger ramp")
+    field(FLNK, "$(P)$(R)VRAMPrampUp")
 }
 
-record(seq, "$(P)$(R)VRAMPseq")
-{
-    field(DESC, "Sequence to loop voltage ramp")
-    #field(SCAN, "$(P)$(R)VRAMPdone PP")
-    field(DLY1, "1")
-    field(LNK1, "$(P)$(R)VRAMPcycle.PROC")
-    field(DOL2, "$(P)$(R)VRAMPcycle")
-    field(LNK2, "$(P)$(R)HVset PP")
-    field(FLNK, "$(P)$(R)VRAMPdone")
-    #field(DOL4, "$(P)$(R)VRAMPdone")
-    #field(LNK4, "$(P)$(R)VRAMPseq.SCAN")
-    field(TPRO, "1")
+record(aSub, "$(P)$(R)VRAMPcalc"){
+    field(DESC, "Calculate ramp step size")
+    field(SCAN, "I/O intr")
+    field(SNAM, "rampcalc")
+
 }
-record(seq, "$(P)$(R)VRAMPseq")
-{
-    field(DESC, "Sequence to finish voltage ramp")
-    field(DOL1, "$(P)$(R)VRAMPdone")
-    field(LNK1, "$(P)$(R)VRAMPseq.SCAN PP")
-    field(TPRO, "1")
-}
+
