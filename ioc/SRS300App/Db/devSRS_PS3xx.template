@@ -243,7 +243,9 @@ record(seq, "$(P)$(R)StartCharge")
     field(DESC, "Sequence to start HV charge")
     #rampcalc/mode stuff here
     field(DO1, "1")
-    field(LNK1, "$(P)$(R)VRAMPactive PP")
+    field(LNK1, "$(P)$(R)VRAMPcalc.PROC PP")
+    #field(DO2, "1")
+    #field(LNK2, "$(P)$(R)VRAMPactive PP")
     field(TPRO, "1")
 
 }
@@ -259,7 +261,7 @@ record(bi, "$(P)$(R)VRAMPactive")
 #_________ramp parameters_______________
 
 
-record(ai, "$(P)$(R)VRAMPtimeSet")# currently unused
+record(ai, "$(P)$(R)VRAMPtimeSet")
 {
     field(DESC, "Set desired ramp time")
     field(EGU,  "s")
@@ -277,6 +279,13 @@ record(ai, "$(P)$(R)VRAMPstepSize"){
     field(LOPR, "100")
 }
 
+record(bi, "$(P)$(R)VRAMPmode"){
+    field(DESC, "Set ramp mode")
+    field(PINI, "YES")
+    field(VAL, "0") #0=automatic, 1=manual
+
+}
+
 #__________ramp procedure_______________
 #_______________________________________
 
@@ -285,7 +294,22 @@ record(ai, "$(P)$(R)VRAMPstepSize"){
 #__________ramp calculation_______________
 record(aSub, "$(P)$(R)VRAMPcalc"){
     field(DESC, "Calculate ramp step size")
-    field(SCAN, "Passive")
     field(SNAM, "rampcalc")
+    field(INPA, "$(P)$(R)OutputVget")
+    field(FTA, "DOUBLE")
+    field(INPB, "$(P)$(R)desiredHV")
+    field(FTB, "DOUBLE")
+    field(INPC, "$(P)$(R)VRAMPtimeSet")
+    field(FTC, "DOUBLE")
+    field(INPD, "$(P)$(R)VRAMPstepSize")
+    field(FTD, "DOUBLE")
+    #field(INPE, "$(P)$(R)VRAMPmode")
+    field(OUTA, "$(P)$(R)VRAMPstepSize PP")
+    field(FTVA, "DOUBLE")
+    field(OUTB, "$(P)$(R)VRAMPinterval PP")
+    field(FTVB, "DOUBLE")
+    field(OUTC, "$(P)$(R)VRAMPactive PP")
+    field(FTVC, "SHORT")
+    field(TPRO, "1")
 
 }
