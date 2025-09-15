@@ -5,8 +5,7 @@
     <P>BENCH:</P>
     <R>HVPS:</R>
   </macros>
-  <width>600</width>
-  <height>400</height>
+  <height>800</height>
   <background_color>
     <color name="GLOBAL canvas" red="200" green="200" blue="200">
     </color>
@@ -172,30 +171,32 @@
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_6</name>
-    <text>Ramp:</text>
-    <x>20</x>
+    <text>Ramp interval:</text>
+    <x>13</x>
     <y>40</y>
-    <width>50</width>
+    <width>130</width>
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>txtSecsRamp</name>
-    <pv_name>$(P)$(R)VRAMPstart</pv_name>
-    <x>70</x>
+    <pv_name>$(P)$(R)VRAMPinterval</pv_name>
+    <x>120</x>
     <y>40</y>
     <width>58</width>
+    <format>1</format>
+    <precision>2</precision>
   </widget>
   <widget type="label" version="2.0.0">
     <name>txtStepIncrement</name>
-    <text>step size</text>
-    <x>148</x>
-    <y>40</y>
-    <width>56</width>
+    <text>Step size</text>
+    <x>13</x>
+    <y>70</y>
+    <width>87</width>
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>txtVoltsRamp</name>
     <pv_name>$(P)$(R)VRAMPstepSize</pv_name>
-    <x>210</x>
-    <y>40</y>
+    <x>82</x>
+    <y>70</y>
     <width>58</width>
   </widget>
   <widget type="led" version="2.0.0">
@@ -635,34 +636,6 @@ else:
       </widget>
     </widget>
   </widget>
-  <widget type="textentry" version="3.0.0">
-    <name>txtVoltsEnd</name>
-    <pv_name>$(P)$(R)VRAMPend</pv_name>
-    <x>220</x>
-    <y>70</y>
-    <width>58</width>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>txtVoltsStart</name>
-    <text>End_V:</text>
-    <x>160</x>
-    <y>70</y>
-    <width>50</width>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>txtVoltsStart</name>
-    <text>Start_V:</text>
-    <x>30</x>
-    <y>70</y>
-    <width>60</width>
-  </widget>
-  <widget type="textentry" version="3.0.0">
-    <name>txtVoltsStart_1</name>
-    <pv_name>$(P)$(R)VRAMPstart</pv_name>
-    <x>90</x>
-    <y>70</y>
-    <width>58</width>
-  </widget>
   <widget type="action_button" version="3.0.0">
     <name>Action Button_2</name>
     <actions>
@@ -674,8 +647,8 @@ else:
     </actions>
     <pv_name>$(P)$(R)chargeStartHelper</pv_name>
     <text>start ramp</text>
-    <x>410</x>
-    <y>50</y>
+    <x>340</x>
+    <y>40</y>
     <tooltip>$(actions)</tooltip>
   </widget>
   <widget type="label" version="2.0.0">
@@ -698,7 +671,7 @@ else:
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_1</name>
-    <pv_name>$(P)$(R)VRAMPseq.PACT</pv_name>
+    <pv_name>$(P)$(R)VRAMPseq.SCAN</pv_name>
     <x>570</x>
     <y>210</y>
   </widget>
@@ -707,5 +680,59 @@ else:
     <text>vramp seq</text>
     <x>570</x>
     <y>190</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_2</name>
+    <pv_name>$(P)$(R)VRAMPdone</pv_name>
+    <x>570</x>
+    <y>284</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_10</name>
+    <text>vramp done</text>
+    <x>570</x>
+    <y>260</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_3</name>
+    <pv_name>$(P)$(R)VRAMPactive</pv_name>
+    <x>570</x>
+    <y>319</y>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_3</name>
+    <actions>
+      <action type="write_pv">
+        <description>Write PV</description>
+        <pv_name>$(pv_name)</pv_name>
+        <value>0</value>
+      </action>
+    </actions>
+    <pv_name>$(P)$(R)VRAMPactive</pv_name>
+    <text>Abort</text>
+    <x>466</x>
+    <y>40</y>
+    <width>64</width>
+    <foreground_color>
+      <color name="Header_ForeGround" red="255" green="255" blue="255">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="STOP" red="255" green="0" blue="0">
+      </color>
+    </background_color>
+    <tooltip>$(actions)</tooltip>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Entry</name>
+    <pv_name>$(P)$(R)VRAMPtimeSet</pv_name>
+    <x>160</x>
+    <y>410</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_7</name>
+    <text>Ramp time</text>
+    <x>90</x>
+    <y>410</y>
   </widget>
 </display>

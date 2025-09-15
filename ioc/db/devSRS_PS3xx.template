@@ -52,8 +52,6 @@ record(ai, "$(P)$(R)desiredHV")
     field(EGU,  "V")
     field(LOPR, "$(VMIN)")
     field(HOPR, "$(VMAX)")
-    #field(DRVL, "$(VMIN)")
-    #field(DRVH, "$(VMAX)")
     field(PREC, "4")
     field(PINI, "YES")
     field(TPRO, "1")
@@ -62,9 +60,6 @@ record(ao, "$(P)$(R)HVset")
 {
     field(DESC, "Set output voltage")
     field(DTYP, "stream")
-    #field(DOL, "$(P)$(R)desiredHV")
-    #field(OMSL, "closed_loop")
-    #field(SCAN, "Passive")
     field(OUT,  "@ps300.proto setting(VSET) $(PORT) $(A)")
     field(EGU,  "V")
     field(LOPR, "$(VMIN)")
@@ -157,7 +152,7 @@ record(seq, "$(P)$(R)ReadbackPoll_")
 {
     field(DESC, "Head of readback chain")
     field(PINI, "YES")
-    field(SCAN, "1 second")
+    field(SCAN, "1 second") #change for voltage monitoring system
     field(LNK1, "$(P)$(R)getSTB.PROC")
     field(LNK2, "$(P)$(R)OutputVget.PROC")
     field(LNK3, "$(P)$(R)OutputIget.PROC")
@@ -222,7 +217,7 @@ record(ai, "$(P)$(R)OutputVget")
     field(PREC, "4")
     field(SIML, "$(P)$(R)SIM")
     field(SIOL, "$(P)$(R)SIM:OutputVget")
-    #field(TPRO, "1")
+
 }
 record(ai, "$(P)$(R)OutputIget")
 {
@@ -237,7 +232,7 @@ record(ai, "$(P)$(R)OutputIget")
     field(SIOL, "$(P)$(R)SIM:OutputIget")
 }
 
-#Start charge button
+#______Start charge button______________
 record(bi, "$(P)$(R)chargeStartHelper")
 {
     field(DESC, "Helper record to start HV charge")
@@ -246,27 +241,34 @@ record(bi, "$(P)$(R)chargeStartHelper")
 record(seq, "$(P)$(R)StartCharge")
 {
     field(DESC, "Sequence to start HV charge")
-    #field(DOL1, "$(P)$(R)OutputVget")
-    field(LNK1, "$(P)$(R)VRAMPrampUp.PROC")
+    #rampcalc/mode stuff here
+    field(DO1, "1")
+    field(LNK1, "$(P)$(R)VRAMPactive PP")
     field(TPRO, "1")
 
 }
+record(bi, "$(P)$(R)VRAMPactive")
+{
+    field(DESC, "Is charge active?")
+    field(ZNAM, "Idle")
+    field(ONAM, "charging")
+    field(TPRO, "1")
+}
 
 
-#ramp
+#_________ramp parameters_______________
 
-record(ai, "$(P)$(R)VRAMPtimeSet")
+
+record(ai, "$(P)$(R)VRAMPtimeSet")# currently unused
 {
     field(DESC, "Set desired ramp time")
     field(EGU,  "s")
-    #field(LOPR, "0.1")
-    #field(DRVL, "0.1")
     field(PINI, "YES")
 }
 record(ai, "$(P)$(R)VRAMPinterval") {
     field(DESC, "Set ramp up interval")
     field(VAL, "1") #1 seconds
-    field(EGU, "second")
+    #field(EGU, "second")
     field(TPRO, "1")
 }
 record(ai, "$(P)$(R)VRAMPstepSize"){
@@ -275,43 +277,15 @@ record(ai, "$(P)$(R)VRAMPstepSize"){
     field(LOPR, "100")
 }
 
-record(calc, "$(P)$(R)VRAMPstepCalc")
-{
-    field(DESC, "Calculate ramp step size")
-    field(INPA, "$(P)$(R)OutputVget")#ramp starting voltage
-    field(INPB, "$(P)$(R)desiredHV")#ramp ending voltage
-    field(INPC, "$(P)$(R)VRAMPtimeSet")#total time for ramp
-    field(INPD, "$(P)$(R)VRAMPinterval")#interval between steps
-    field(CALC, "((B-A)/(C/D))") # (end - start) / (total time / interval)
-    field(FLNK, "$(P)$(R)VRAMPseq")
-}
+#__________ramp procedure_______________
+#_______________________________________
 
-record(aSub, "$(P)$(R)VRAMPrampUp") {
-    field(DESC, "Subroutine to ramp voltage")
-    field(SCAN, "I/O intr")
-    field(SNAM, "rampup")
-    field(INPA, "$(P)$(R)OutputVget") 
-    field(FTA, "DOUBLE")
-    field(INPB, "$(P)$(R)desiredHV")
-    field(FTB, "DOUBLE")
-    field(INPC, "$(P)$(R)VRAMPstepSize")
-    field(FTC, "DOUBLE")
-    field(INPD, "$(P)$(R)VRAMPinterval")
-    field(FTD, "SHORT")
-    field(OUTA, "$(P)$(R)HVSET")
-    field(FTVA, "DOUBLE")
-    field(OUTB, "$(P)$(R)VRAMPrampHelper")
-    field(TPRO, "1")
-}
-record(bi, "$(P)$(R)VRAMPrampHelper") {
-    field(DESC, "Helper record to trigger ramp")
-    field(FLNK, "$(P)$(R)VRAMPrampUp")
-}
 
+
+#__________ramp calculation_______________
 record(aSub, "$(P)$(R)VRAMPcalc"){
     field(DESC, "Calculate ramp step size")
-    field(SCAN, "I/O intr")
+    field(SCAN, "Passive")
     field(SNAM, "rampcalc")
 
 }
-
