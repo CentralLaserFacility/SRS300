@@ -10,36 +10,37 @@
 
 static long rampcalc(aSubRecord *precord){
     double startVoltage, targetVoltage, rampTime, voltageDiff;
-    short stepSize; 
+    short stepSize, mode; 
     float tempStepSize, tempInterval, interval;
 
     startVoltage = *(double*)precord->a;
     targetVoltage = *(double*)precord->b;
     rampTime = *(double*)precord->c;
     stepSize = *(double*)precord->d;
-    //mode = *(short*)precord->e; //1 = auto, 0 = manual
-    if(targetVoltage> startVoltage){
-        voltageDiff = targetVoltage - startVoltage;
-    }
-    else{
-        voltageDiff = startVoltage - targetVoltage;
-    }
-
-    tempStepSize = 100;
-        //calc interval using 200 as a min step size to avoid too fast ramping
-    tempInterval = rampTime/(voltageDiff / stepSize);
-    if (tempInterval < 2){
-        tempInterval = 2;
-        tempStepSize = voltageDiff/( rampTime/ tempInterval);
-            if ( ((short)tempStepSize) < tempStepSize) { //if not integer round up
-                tempStepSize = (short)tempStepSize + 1;
-                tempInterval = rampTime/(voltageDiff / stepSize);
-            }
-
+    mode = *(short*)precord->e; //1 = auto, 0 = manual
+    if mode == 0 {
+        if(targetVoltage> startVoltage){
+            voltageDiff = targetVoltage - startVoltage;
         }
-        stepSize = (short)tempStepSize;
-        interval = tempInterval;
+        else{
+            voltageDiff = startVoltage - targetVoltage;
+        }
 
+        tempStepSize = 100;
+            //calc interval using 200 as a min step size to avoid too fast ramping
+        tempInterval = rampTime/(voltageDiff / stepSize);
+        if (tempInterval < 2){
+            tempInterval = 2;
+            tempStepSize = voltageDiff/( rampTime/ tempInterval);
+                if ( ((short)tempStepSize) < tempStepSize) { //if not integer round up
+                    tempStepSize = (short)tempStepSize + 1;
+                    tempInterval = rampTime/(voltageDiff / stepSize);
+                }
+
+            }
+            stepSize = (short)tempStepSize;
+            interval = tempInterval;
+        }
     
    *(double*)precord->vala = stepSize;
    *(double*)precord->valb = interval;

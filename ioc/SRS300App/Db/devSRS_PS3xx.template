@@ -244,8 +244,6 @@ record(seq, "$(P)$(R)StartCharge")
     #rampcalc/mode stuff here
     field(DO1, "1")
     field(LNK1, "$(P)$(R)VRAMPcalc.PROC PP")
-    #field(DO2, "1")
-    #field(LNK2, "$(P)$(R)VRAMPactive PP")
     field(TPRO, "1")
 
 }
@@ -283,6 +281,9 @@ record(bi, "$(P)$(R)VRAMPmode"){
     field(DESC, "Set ramp mode")
     field(PINI, "YES")
     field(VAL, "0") #0=automatic, 1=manual
+    field(ZNAM, "Automatic")
+    field(ONAM, "Manual")
+    field(TPRO, "1")
 
 }
 
@@ -303,7 +304,8 @@ record(aSub, "$(P)$(R)VRAMPcalc"){
     field(FTC, "DOUBLE")
     field(INPD, "$(P)$(R)VRAMPstepSize")
     field(FTD, "DOUBLE")
-    #field(INPE, "$(P)$(R)VRAMPmode")
+    field(INPE, "$(P)$(R)VRAMPmode")
+    field(FTE, "SHORT")
     field(OUTA, "$(P)$(R)VRAMPstepSize PP")
     field(FTVA, "DOUBLE")
     field(OUTB, "$(P)$(R)VRAMPinterval PP")

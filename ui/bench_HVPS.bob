@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2025-09-16 10:11:43 by jek48386-->
 <display version="2.0.0">
   <name>Stanford SRS375 control screen</name>
   <macros>
@@ -7,69 +8,125 @@
   </macros>
   <height>800</height>
   <background_color>
-    <color name="GLOBAL canvas" red="200" green="200" blue="200">
+    <color name="Button_Background" red="210" green="210" blue="210">
     </color>
   </background_color>
   <actions>
     <action type="write_pv">
-      <description>Write PV</description>
       <pv_name>$(P)$(R)VRAMPrun</pv_name>
       <value>0</value>
+      <description>Write PV</description>
     </action>
   </actions>
+  <widget type="rectangle" version="2.0.0">
+    <name>Rectangle</name>
+    <x>20</x>
+    <y>34</y>
+    <width>241</width>
+    <height>188</height>
+    <line_width>2</line_width>
+    <line_color>
+      <color name="Background" red="255" green="255" blue="255">
+      </color>
+    </line_color>
+    <background_color>
+      <color red="240" green="249" blue="255">
+      </color>
+    </background_color>
+  </widget>
   <widget type="textentry" version="3.0.0">
     <pv_name>$(P)$(R)desiredHV</pv_name>
-    <x>200</x>
-    <y>110</y>
+    <x>169</x>
+    <y>106</y>
+    <width>69</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
     <precision>4</precision>
   </widget>
   <widget type="textentry" version="3.0.0">
     <pv_name>$(P)$(R)VLIMset</pv_name>
-    <x>200</x>
-    <y>140</y>
+    <x>174</x>
+    <y>300</y>
+    <width>74</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
     <precision>3</precision>
   </widget>
   <widget type="textentry" version="3.0.0">
     <pv_name>$(P)$(R)ILIMset</pv_name>
-    <x>200</x>
-    <y>170</y>
+    <x>174</x>
+    <y>330</y>
+    <width>74</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
     <precision>3</precision>
   </widget>
   <widget type="textentry" version="3.0.0">
     <pv_name>$(P)$(R)ITRPset</pv_name>
-    <x>200</x>
-    <y>200</y>
+    <x>174</x>
+    <y>360</y>
+    <width>74</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
     <precision>3</precision>
   </widget>
   <widget type="label" version="2.0.0">
     <text>Desired Voltage:</text>
-    <x>50</x>
-    <y>110</y>
+    <x>48</x>
+    <y>106</y>
     <width>130</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <text>Polarity:</text>
-    <x>30</x>
-    <y>232</y>
+    <x>277</x>
+    <y>438</y>
     <width>55</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <text>Voltage NOW:</text>
-    <x>310</x>
-    <y>110</y>
+    <x>277</x>
+    <y>290</y>
     <width>90</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <text>Current NOW:</text>
-    <x>310</x>
-    <y>140</y>
+    <x>277</x>
+    <y>320</y>
     <width>90</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <text>V Limit NOW:</text>
-    <x>310</x>
-    <y>170</y>
+    <x>277</x>
+    <y>350</y>
     <width>90</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <name>EDM activeXTextClass</name>
@@ -77,7 +134,7 @@
     <width>520</width>
     <height>25</height>
     <font>
-      <font family="Liberation Sans" style="BOLD" size="16.0">
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
       </font>
     </font>
     <foreground_color>
@@ -95,115 +152,184 @@
   <widget type="label" version="2.0.0">
     <name>Label</name>
     <text>I Limit NOW:</text>
-    <x>320</x>
-    <y>200</y>
+    <x>277</x>
+    <y>380</y>
     <width>80</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_1</name>
     <text>I Trip NOW:</text>
-    <x>320</x>
-    <y>230</y>
+    <x>277</x>
+    <y>410</y>
     <width>80</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="bool_button" version="2.0.0">
     <name>Boolean Button</name>
     <pv_name>$(P)$(R)HVenable</pv_name>
-    <x>209</x>
-    <y>230</y>
+    <x>275</x>
+    <y>42</y>
+    <width>102</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txt</name>
     <pv_name>$(P)$(R)polarity</pv_name>
-    <x>90</x>
-    <y>232</y>
+    <x>377</x>
+    <y>438</y>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txtVoltsNow</name>
     <pv_name>$(P)$(R)OutputVget</pv_name>
-    <x>410</x>
-    <y>110</y>
+    <x>377</x>
+    <y>290</y>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txtCurrentNow</name>
     <pv_name>$(P)$(R)OutputIget</pv_name>
-    <x>410</x>
-    <y>140</y>
+    <x>377</x>
+    <y>320</y>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txtV-limNow</name>
     <pv_name>$(P)$(R)VOLTAGE:LIMIT:SP:RBV</pv_name>
-    <x>410</x>
-    <y>170</y>
+    <x>377</x>
+    <y>350</y>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txtCurrLimNow</name>
     <pv_name>$(P)$(R)CURRENT:LIMIT:SP:RBV</pv_name>
-    <x>410</x>
-    <y>200</y>
+    <x>377</x>
+    <y>380</y>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txtTripNow</name>
     <pv_name>$(P)$(R)CURRENT:LIMIT:SP:RBV</pv_name>
-    <x>410</x>
-    <y>230</y>
+    <x>377</x>
+    <y>410</y>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_2</name>
     <text>Set Voltage Limit:</text>
-    <x>50</x>
-    <y>140</y>
+    <x>24</x>
+    <y>300</y>
     <width>130</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_3</name>
     <text>Set Current Limit:</text>
-    <x>50</x>
-    <y>170</y>
+    <x>24</x>
+    <y>330</y>
     <width>130</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_4</name>
     <text>Set Current TripLim:</text>
-    <x>50</x>
-    <y>200</y>
-    <width>130</width>
+    <x>24</x>
+    <y>360</y>
+    <width>148</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_6</name>
     <text>Ramp interval:</text>
-    <x>13</x>
-    <y>40</y>
-    <width>130</width>
+    <x>47</x>
+    <y>135</y>
+    <width>96</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>txtSecsRamp</name>
     <pv_name>$(P)$(R)VRAMPinterval</pv_name>
-    <x>120</x>
-    <y>40</y>
-    <width>58</width>
+    <x>168</x>
+    <y>136</y>
+    <width>69</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
     <format>1</format>
     <precision>2</precision>
   </widget>
   <widget type="label" version="2.0.0">
     <name>txtStepIncrement</name>
-    <text>Step size</text>
-    <x>13</x>
-    <y>70</y>
+    <text>Step size:</text>
+    <x>47</x>
+    <y>163</y>
     <width>87</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>txtVoltsRamp</name>
     <pv_name>$(P)$(R)VRAMPstepSize</pv_name>
-    <x>82</x>
-    <y>70</y>
-    <width>58</width>
+    <x>168</x>
+    <y>163</y>
+    <width>69</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED</name>
     <pv_name>BENCH:HVPS:asyn.STAT</pv_name>
     <x>490</x>
     <y>3</y>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
     <scripts>
       <script file="EmbeddedPy">
         <text><![CDATA[# Embedded python script
@@ -236,29 +362,16 @@ else:
   </widget>
   <widget type="group" version="3.0.0">
     <name>EDM Group 2</name>
-    <x>40</x>
-    <y>270</y>
+    <x>15</x>
+    <y>498</y>
     <width>451</width>
     <height>111</height>
     <style>3</style>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
     <transparent>true</transparent>
-    <widget type="rectangle" version="2.0.0">
-      <name>EDM activeRectangleClass</name>
-      <x>5</x>
-      <y>14</y>
-      <width>442</width>
-      <height>93</height>
-      <line_width>1</line_width>
-      <line_color>
-        <color name="black-14" red="0" green="0" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color name="green-19" red="0" green="128" blue="0">
-        </color>
-      </background_color>
-      <transparent>true</transparent>
-    </widget>
     <widget type="group" version="3.0.0">
       <name>EDM Group 3</name>
       <x>4</x>
@@ -423,9 +536,9 @@ else:
       <name>EDM activeMessageButtonClass</name>
       <actions>
         <action type="write_pv">
-          <description>Reset</description>
           <pv_name>$(pv_name)</pv_name>
           <value>0</value>
+          <description>Reset</description>
         </action>
       </actions>
       <pv_name>$(P)$(R)TripClear</pv_name>
@@ -640,79 +753,59 @@ else:
     <name>Action Button_2</name>
     <actions>
       <action type="write_pv">
-        <description>Write PV</description>
         <pv_name>$(pv_name)</pv_name>
         <value>1</value>
+        <description>Write PV</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)chargeStartHelper</pv_name>
-    <text>start ramp</text>
-    <x>340</x>
-    <y>40</y>
+    <text>Start ramp</text>
+    <x>24</x>
+    <y>233</y>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
+    <background_color>
+      <color red="179" green="230" blue="179">
+      </color>
+    </background_color>
+    <rules>
+      <rule name="dont allow to press while ramping" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0==0">
+          <value>true</value>
+        </exp>
+        <exp bool_exp="pv0==1">
+          <value>false</value>
+        </exp>
+        <pv_name>$(P)$(R)VRAMPactive</pv_name>
+      </rule>
+      <rule name="ramping text" prop_id="text" out_exp="false">
+        <exp bool_exp="pv0==1">
+          <value>Ramping</value>
+        </exp>
+        <pv_name>$(P)$(R)VRAMPactive</pv_name>
+      </rule>
+    </rules>
     <tooltip>$(actions)</tooltip>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_5</name>
-    <text>testing info</text>
-    <x>570</x>
-    <y>90</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <name>Text Update</name>
-    <pv_name>$(P)$(R)VRAMPcycle</pv_name>
-    <x>570</x>
-    <y>150</y>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_8</name>
-    <text>vramp cycle</text>
-    <x>570</x>
-    <y>130</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <name>Text Update_1</name>
-    <pv_name>$(P)$(R)VRAMPseq.SCAN</pv_name>
-    <x>570</x>
-    <y>210</y>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_9</name>
-    <text>vramp seq</text>
-    <x>570</x>
-    <y>190</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <name>Text Update_2</name>
-    <pv_name>$(P)$(R)VRAMPdone</pv_name>
-    <x>570</x>
-    <y>284</y>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_10</name>
-    <text>vramp done</text>
-    <x>570</x>
-    <y>260</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <name>Text Update_3</name>
-    <pv_name>$(P)$(R)VRAMPactive</pv_name>
-    <x>570</x>
-    <y>319</y>
   </widget>
   <widget type="action_button" version="3.0.0">
     <name>Action Button_3</name>
     <actions>
       <action type="write_pv">
-        <description>Write PV</description>
         <pv_name>$(pv_name)</pv_name>
         <value>0</value>
+        <description>Write PV</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)VRAMPactive</pv_name>
     <text>Abort</text>
-    <x>466</x>
-    <y>40</y>
-    <width>64</width>
+    <x>157</x>
+    <y>233</y>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
     <foreground_color>
       <color name="Header_ForeGround" red="255" green="255" blue="255">
       </color>
@@ -726,19 +819,84 @@ else:
   <widget type="textentry" version="3.0.0">
     <name>Text Entry</name>
     <pv_name>$(P)$(R)VRAMPtimeSet</pv_name>
-    <x>160</x>
-    <y>410</y>
+    <x>167</x>
+    <y>190</y>
+    <width>69</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_7</name>
-    <text>Ramp time</text>
-    <x>90</x>
-    <y>410</y>
+    <text>Ramp time:</text>
+    <x>46</x>
+    <y>191</y>
+    <width>83</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
   </widget>
   <widget type="label" version="2.0.0">
-    <name>Label_11</name>
-    <text>Ramp mode</text>
-    <x>45</x>
-    <y>450</y>
+    <name>Label_12</name>
+    <text>Voltage ramp settings</text>
+    <x>53</x>
+    <y>46</y>
+    <width>188</width>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="16.0">
+      </font>
+    </font>
+  </widget>
+  <widget type="choice" version="2.0.0">
+    <name>Choice Button</name>
+    <pv_name>$(P)$(R)VRAMPmode</pv_name>
+    <x>44</x>
+    <y>68</y>
+    <width>190</width>
+    <height>30</height>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
+    <selected_color>
+      <color red="153" green="213" blue="153">
+      </color>
+    </selected_color>
+    <items>
+      <item>Automatic</item>
+      <item>Manual</item>
+    </items>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Entry_1</name>
+    <pv_name>$(P)$(R)HVset</pv_name>
+    <x>100</x>
+    <y>685</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_13</name>
+    <text>immediate set TESTING ONLY</text>
+    <x>59</x>
+    <y>660</y>
+    <width>256</width>
+  </widget>
+  <widget type="rectangle" version="2.0.0">
+    <name>EDM activeRectangleClass</name>
+    <x>26</x>
+    <y>524</y>
+    <width>442</width>
+    <height>93</height>
+    <line_width>1</line_width>
+    <line_color>
+      <color name="black-14" red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <background_color>
+      <color name="green-19" red="0" green="128" blue="0">
+      </color>
+    </background_color>
+    <transparent>true</transparent>
   </widget>
 </display>
