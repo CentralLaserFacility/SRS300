@@ -67,7 +67,7 @@ record(ao, "$(P)$(R)HVset")
     field(DRVL, "$(VMIN)")
     field(DRVH, "$(VMAX)")
     field(PREC, "4")
-    field(FLNK, "$(P)$(R)OutputVget")
+    field(FLNK, "$(P)$(R)voltageMonitor")
     field(SIML, "$(P)$(R)SIM")
     field(SIOL, "$(P)$(R)SIM:HVset")
     field(TPRO, "1")
@@ -154,8 +154,7 @@ record(seq, "$(P)$(R)ReadbackPoll_")
     field(PINI, "YES")
     field(SCAN, "1 second")
     field(LNK1, "$(P)$(R)getSTB.PROC")
-    field(LNK2, "$(P)$(R)OutputVget.PROC")
-    field(LNK3, "$(P)$(R)OutputIget.PROC")
+    field(LNK2, "$(P)$(R)OutputIget.PROC")
 }
 
 record(mbbiDirect, "$(P)$(R)getSTB")
@@ -232,7 +231,15 @@ record(ai, "$(P)$(R)OutputIget")
     field(SIOL, "$(P)$(R)SIM:OutputIget")
 }
 
-#______Start charge button______________
+record(seq, "$(P)$(R)voltageMonitor")
+{
+    field(DESC, "Monitor voltage")
+    field(PINI, "YES")
+    field(SCAN, "1 second")
+    field(LNK1, "$(P)$(R)OutputVget.PROC")
+}
+
+#______Start ramping process______________
 record(bi, "$(P)$(R)chargeStartHelper")
 {
     field(DESC, "Helper record to start HV charge")
@@ -241,9 +248,15 @@ record(bi, "$(P)$(R)chargeStartHelper")
 record(seq, "$(P)$(R)StartCharge")
 {
     field(DESC, "Sequence to start HV charge")
-    #rampcalc/mode stuff here
-    field(DO1, "1")
-    field(LNK1, "$(P)$(R)VRAMPcalc.PROC PP")
+    #set scan to passive (0) so while ramping voltage is only checked after being set and not continuously
+    field(DO1, "0")
+    field(LNK1, "$(P)$(R)voltageMonitor.SCAN")
+    #set delay to 1.4 seconds to allow for voltage to stabilize once set beore being checked again
+    field(DOL2, "$(P)$(R)C_vgetDelay") 
+    field(LNK2, "$(P)$(R)voltageMonitor.DLY1")
+    #process ramp value calculation
+    field(DO3, "1")
+    field(LNK3, "$(P)$(R)VRAMPcalc.PROC PP")
     field(TPRO, "1")
 
 }
@@ -251,12 +264,12 @@ record(bi, "$(P)$(R)VRAMPactive")
 {
     field(DESC, "Is charge active?")
     field(ZNAM, "Idle")
-    field(ONAM, "charging")
+    field(ONAM, "Ramping")
     field(TPRO, "1")
 }
 
 
-#_________ramp parameters_______________
+#______User set ramp parameters_______________
 
 
 record(ai, "$(P)$(R)VRAMPtimeSet")
@@ -267,28 +280,27 @@ record(ai, "$(P)$(R)VRAMPtimeSet")
 }
 record(ai, "$(P)$(R)VRAMPinterval") {
     field(DESC, "Set ramp up interval")
-    field(VAL, "1") #1 seconds
+    field(INP, "$(P)$(R)C_minInterval")
+    field(VAL, "A") 
     field(EGU, "second")
     field(TPRO, "1")
 }
 record(ai, "$(P)$(R)VRAMPstepSize"){
     field(DESC, "Set voltage ramp step size")
-    field(VAL, "100") #100 V per step
+    field(VAL, "100") 
     field(LOPR, "100")
 }
 
 record(bi, "$(P)$(R)VRAMPmode"){
     field(DESC, "Set ramp mode")
     field(PINI, "YES")
-    field(VAL, "0") #0=automatic, 1=manual
+    field(VAL, "0") 
+    #automatic means calculation is performed, manual means user sets step size and interval
     field(ZNAM, "Automatic")
     field(ONAM, "Manual")
     field(TPRO, "1")
 
 }
-
-#__________ramp procedure_______________
-#_______________________________________
 
 
 
@@ -296,6 +308,7 @@ record(bi, "$(P)$(R)VRAMPmode"){
 record(aSub, "$(P)$(R)VRAMPcalc"){
     field(DESC, "Calculate ramp step size")
     field(SNAM, "rampcalc")
+    #inputs
     field(INPA, "$(P)$(R)OutputVget")
     field(FTA, "DOUBLE")
     field(INPB, "$(P)$(R)desiredHV")
@@ -306,12 +319,48 @@ record(aSub, "$(P)$(R)VRAMPcalc"){
     field(FTD, "DOUBLE")
     field(INPE, "$(P)$(R)VRAMPmode")
     field(FTE, "SHORT")
+    field(INPF, "$(P)$(R)VRAMPinterval")
+    field(FTF, "DOUBLE")
+    field(INPG, "$(P)$(R)VRAMPminStepSize")
+    field(FTG, "DOUBLE")
+    field(INPH, "$(P)$(R)C_minInterval")
+    field(FTH, "DOUBLE")
+    field(INPI, "$(P)$(R)C_vgetDelay")
+    field(FTI, "DOUBLE")
+    #outputs
     field(OUTA, "$(P)$(R)VRAMPstepSize PP")
     field(FTVA, "DOUBLE")
     field(OUTB, "$(P)$(R)VRAMPinterval PP")
     field(FTVB, "DOUBLE")
-    field(OUTC, "$(P)$(R)VRAMPactive PP")
-    field(FTVC, "SHORT")
+    field(OUTC, "$(P)$(R)voltageMonitor.DLY1 PP")
+    field(FTVC, "DOUBLE")
+    field(OUTD, "$(P)$(R)VRAMPactive PP")
+    field(FTVD, "SHORT")
     field(TPRO, "1")
 
+}
+#__________constants______________
+record(ai, "$(P)$(R)minStepSize"){
+    field(DESC, "Minimum step size for automatic ramping")
+    field(VAL, "$(VMIN)") 
+    field(LOPR, "$(VMIN)")
+    field(EGU, "V")
+    field(PINI, "YES")
+}
+
+record(ai, "$(P)$(R)C_minInterval"){
+    field(DESC, "Minimum interval between steps")
+    field(VAL, "1.5") #1.5 second minimum to allow for voltage stabilizing before set
+    field(EGU, "second")
+    field(TPRO, "1")
+}
+record(ai, "$(P)$(R)C_vgetDelay"){
+    field(DESC, "Delay after setting voltage before reading back")
+    field(VAL, "1.4") #1.4 second minimum to allow for voltage stabilizing before reading
+    field(EGU, "second")
+    field(TPRO, "1")
+}
+record(ai, "$(P)$(R)C_Precision"){
+    field(DESC, "Precision for ramping")
+    field(VAL, "$(PREC)") #dependant on model
 }

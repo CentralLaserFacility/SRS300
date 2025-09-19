@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2025-09-16 10:11:43 by jek48386-->
 <display version="2.0.0">
   <name>Stanford SRS375 control screen</name>
   <macros>
@@ -13,9 +12,9 @@
   </background_color>
   <actions>
     <action type="write_pv">
+      <description>Write PV</description>
       <pv_name>$(P)$(R)VRAMPrun</pv_name>
       <value>0</value>
-      <description>Write PV</description>
     </action>
   </actions>
   <widget type="rectangle" version="2.0.0">
@@ -38,11 +37,7 @@
     <pv_name>$(P)$(R)desiredHV</pv_name>
     <x>169</x>
     <y>106</y>
-    <width>69</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
+    <width>78</width>
     <precision>4</precision>
   </widget>
   <widget type="textentry" version="3.0.0">
@@ -50,10 +45,6 @@
     <x>174</x>
     <y>300</y>
     <width>74</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
     <precision>3</precision>
   </widget>
   <widget type="textentry" version="3.0.0">
@@ -61,10 +52,6 @@
     <x>174</x>
     <y>330</y>
     <width>74</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
     <precision>3</precision>
   </widget>
   <widget type="textentry" version="3.0.0">
@@ -72,10 +59,6 @@
     <x>174</x>
     <y>360</y>
     <width>74</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
     <precision>3</precision>
   </widget>
   <widget type="label" version="2.0.0">
@@ -83,50 +66,30 @@
     <x>48</x>
     <y>106</y>
     <width>130</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <text>Polarity:</text>
-    <x>277</x>
-    <y>438</y>
+    <x>261</x>
+    <y>448</y>
     <width>55</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <text>Voltage NOW:</text>
-    <x>277</x>
-    <y>290</y>
+    <x>261</x>
+    <y>300</y>
     <width>90</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <text>Current NOW:</text>
-    <x>277</x>
-    <y>320</y>
+    <x>261</x>
+    <y>330</y>
     <width>90</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <text>V Limit NOW:</text>
-    <x>277</x>
-    <y>350</y>
+    <x>261</x>
+    <y>360</y>
     <width>90</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <name>EDM activeXTextClass</name>
@@ -152,24 +115,16 @@
   <widget type="label" version="2.0.0">
     <name>Label</name>
     <text>I Limit NOW:</text>
-    <x>277</x>
-    <y>380</y>
+    <x>261</x>
+    <y>390</y>
     <width>80</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_1</name>
     <text>I Trip NOW:</text>
-    <x>277</x>
-    <y>410</y>
+    <x>261</x>
+    <y>420</y>
     <width>80</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
   </widget>
   <widget type="bool_button" version="2.0.0">
     <name>Boolean Button</name>
@@ -177,70 +132,42 @@
     <x>275</x>
     <y>42</y>
     <width>102</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txt</name>
     <pv_name>$(P)$(R)polarity</pv_name>
-    <x>377</x>
-    <y>438</y>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
+    <x>361</x>
+    <y>448</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txtVoltsNow</name>
     <pv_name>$(P)$(R)OutputVget</pv_name>
-    <x>377</x>
-    <y>290</y>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
+    <x>361</x>
+    <y>300</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txtCurrentNow</name>
     <pv_name>$(P)$(R)OutputIget</pv_name>
-    <x>377</x>
-    <y>320</y>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
+    <x>361</x>
+    <y>330</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txtV-limNow</name>
     <pv_name>$(P)$(R)VOLTAGE:LIMIT:SP:RBV</pv_name>
-    <x>377</x>
-    <y>350</y>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
+    <x>361</x>
+    <y>360</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txtCurrLimNow</name>
     <pv_name>$(P)$(R)CURRENT:LIMIT:SP:RBV</pv_name>
-    <x>377</x>
-    <y>380</y>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
+    <x>361</x>
+    <y>390</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txtTripNow</name>
     <pv_name>$(P)$(R)CURRENT:LIMIT:SP:RBV</pv_name>
-    <x>377</x>
-    <y>410</y>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
+    <x>361</x>
+    <y>420</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_2</name>
@@ -248,10 +175,6 @@
     <x>24</x>
     <y>300</y>
     <width>130</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_3</name>
@@ -259,10 +182,6 @@
     <x>24</x>
     <y>330</y>
     <width>130</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_4</name>
@@ -270,10 +189,6 @@
     <x>24</x>
     <y>360</y>
     <width>148</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_6</name>
@@ -281,21 +196,13 @@
     <x>47</x>
     <y>135</y>
     <width>96</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>txtSecsRamp</name>
     <pv_name>$(P)$(R)VRAMPinterval</pv_name>
     <x>168</x>
     <y>136</y>
-    <width>69</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
+    <width>78</width>
     <format>1</format>
     <precision>2</precision>
   </widget>
@@ -305,21 +212,13 @@
     <x>47</x>
     <y>163</y>
     <width>87</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>txtVoltsRamp</name>
     <pv_name>$(P)$(R)VRAMPstepSize</pv_name>
     <x>168</x>
     <y>163</y>
-    <width>69</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
+    <width>78</width>
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED</name>
@@ -536,9 +435,9 @@ else:
       <name>EDM activeMessageButtonClass</name>
       <actions>
         <action type="write_pv">
+          <description>Reset</description>
           <pv_name>$(pv_name)</pv_name>
           <value>0</value>
-          <description>Reset</description>
         </action>
       </actions>
       <pv_name>$(P)$(R)TripClear</pv_name>
@@ -753,19 +652,15 @@ else:
     <name>Action Button_2</name>
     <actions>
       <action type="write_pv">
+        <description>Write PV</description>
         <pv_name>$(pv_name)</pv_name>
         <value>1</value>
-        <description>Write PV</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)chargeStartHelper</pv_name>
     <text>Start ramp</text>
     <x>24</x>
     <y>233</y>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
     <background_color>
       <color red="179" green="230" blue="179">
       </color>
@@ -793,19 +688,15 @@ else:
     <name>Action Button_3</name>
     <actions>
       <action type="write_pv">
+        <description>Write PV</description>
         <pv_name>$(pv_name)</pv_name>
         <value>0</value>
-        <description>Write PV</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)VRAMPactive</pv_name>
     <text>Abort</text>
     <x>157</x>
     <y>233</y>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
     <foreground_color>
       <color name="Header_ForeGround" red="255" green="255" blue="255">
       </color>
@@ -821,11 +712,7 @@ else:
     <pv_name>$(P)$(R)VRAMPtimeSet</pv_name>
     <x>167</x>
     <y>190</y>
-    <width>69</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
+    <width>78</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_7</name>
@@ -833,10 +720,6 @@ else:
     <x>46</x>
     <y>191</y>
     <width>83</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_12</name>
@@ -844,10 +727,6 @@ else:
     <x>53</x>
     <y>46</y>
     <width>188</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="16.0">
-      </font>
-    </font>
   </widget>
   <widget type="choice" version="2.0.0">
     <name>Choice Button</name>
@@ -856,10 +735,6 @@ else:
     <y>68</y>
     <width>190</width>
     <height>30</height>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
     <selected_color>
       <color red="153" green="213" blue="153">
       </color>
@@ -898,5 +773,12 @@ else:
       </color>
     </background_color>
     <transparent>true</transparent>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_1</name>
+    <pv_name>$(P)$(R)voltageMonitor.SCAN</pv_name>
+    <x>510</x>
+    <y>110</y>
+    <width>120</width>
   </widget>
 </display>

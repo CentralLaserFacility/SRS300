@@ -9,16 +9,23 @@
 
 
 static long rampcalc(aSubRecord *precord){
-    double startVoltage, targetVoltage, rampTime, voltageDiff;
-    short stepSize, mode; 
-    float tempStepSize, tempInterval, interval;
+    double startVoltage, targetVoltage, rampTime, voltageDiff, interval, minStepSize, stepSize, 
+    minInterval, readDelay;
+    short mode; 
 
     startVoltage = *(double*)precord->a;
     targetVoltage = *(double*)precord->b;
     rampTime = *(double*)precord->c;
     stepSize = *(double*)precord->d;
-    mode = *(short*)precord->e; //1 = auto, 0 = manual
-    if mode == 0 {
+    mode = *(short*)precord->e; //0 = auto, 1 = manual
+    interval = *(double*)precord->f;
+    minStepSize = *(double*)precord->g;
+    minInterval = *(double*)precord->h;
+    readDelay = *(double*)precord->i; //time to wait after setting voltage
+
+    if (mode == 0) {
+        //this just makes voltage difference positive for calculation
+        //could use abs() but don't want to add another library for just this
         if(targetVoltage> startVoltage){
             voltageDiff = targetVoltage - startVoltage;
         }
@@ -26,25 +33,38 @@ static long rampcalc(aSubRecord *precord){
             voltageDiff = startVoltage - targetVoltage;
         }
 
-        tempStepSize = 100;
-            //calc interval using 200 as a min step size to avoid too fast ramping
-        tempInterval = rampTime/(voltageDiff / stepSize);
-        if (tempInterval < 2){
-            tempInterval = 2;
-            tempStepSize = voltageDiff/( rampTime/ tempInterval);
-                if ( ((short)tempStepSize) < tempStepSize) { //if not integer round up
-                    tempStepSize = (short)tempStepSize + 1;
-                    tempInterval = rampTime/(voltageDiff / stepSize);
+        stepSize = minStepSize*2;
+            //calc interval using 2xminimum as a min step size to avoid too fast ramping
+        interval = rampTime/(voltageDiff / stepSize);
+
+        if (interval < minInterval){
+            interval = minInterval;
+            stepSize = voltageDiff/( rampTime/ interval);
+                if ( ((short)stepSize) < stepSize) { //is step size decimal?
+                    stepSize = (short)stepSize + 1;//round up to nearest whole number
+                    interval = rampTime/(voltageDiff / stepSize);//recalc interval with new step size
                 }
 
             }
-            stepSize = (short)tempStepSize;
-            interval = tempInterval;
         }
+    else{
+        if (interval < minInterval){
+            readDelay = minInterval-0.1; 
+            //if interval is manually set below minimum, read voltage as late as possible after being set
+            //the delay is to account for stabilizing before being read so we want as close to 1.4 seconds as possible
+            //without going over the interval where the next one will be set
+            //(there will be GUI warning for this)
+
+        }
+    }
     
+
+
    *(double*)precord->vala = stepSize;
    *(double*)precord->valb = interval;
-   *(short*)precord->valc = 1; //event to process ramp
+   *(double*)precord->valc = readDelay;
+   *(short*)precord->vald = 1; //event to process ramp
+
     return 0;
 }
 
