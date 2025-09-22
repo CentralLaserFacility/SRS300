@@ -45,14 +45,20 @@ static long rampcalc(aSubRecord *precord){
             interval = minInterval;
             checkFactor = rampTime/interval; //is interval a factor of ramp time?
             if ((short)checkFactor < checkFactor){//if not a whole number
-                checkFactor = (short)checkFactor; //round DOWN to nearest whole number
-                interval = rampTime/checkFactor; //recalc interval to be a factor of ramp time
+                if ((short)(rampTime/2) < rampTime/2){//if ramp time is not even
+                    checkFactor = (short)checkFactor; //round DOWN to nearest whole number
+                    interval = rampTime/checkFactor; //recalc interval to be a factor of ramp time
+                }
+                else{
+                    interval = 2;//if ramp time is even set interval to 2 seconds
+                }
+
             }
             //recalc step size with new interval
             stepSize = voltageDiff/( rampTime/ interval);
                 if ( ((short)stepSize) < stepSize) { //is step size decimal?
                     stepSize = (short)stepSize + 1;//round up to nearest whole number
-                    interval = rampTime/(voltageDiff / stepSize);//recalc interval with new step size
+                    //interval = rampTime/(voltageDiff / stepSize);//recalc interval with new step size
                 }
 
             }
@@ -72,7 +78,7 @@ static long rampcalc(aSubRecord *precord){
 
    *(double*)precord->vala = stepSize;
    *(double*)precord->valb = interval;
-   *(double*)precord->valc = readDelay;
+   //*(double*)precord->valc = readDelay;
    *(short*)precord->vald = 1; //event to process ramp
 
     return 0;

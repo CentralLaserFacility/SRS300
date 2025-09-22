@@ -41,9 +41,11 @@ record(bo, "$(P)$(R)HVenable")
 {
     field(DESC, "Enable output")
     field(DTYP, "stream")
+    field(VAL, "0")
     field(OUT,  "@ps300.proto hvOffOn $(PORT) $(A)")
     field(ZNAM, "Turn Off")
     field(ONAM, "Turn On")
+    field(PINI, "YES")
     field(FLNK, "$(P)$(R)getSTB")
 }
 record(ai, "$(P)$(R)desiredHV")
@@ -217,6 +219,7 @@ record(ai, "$(P)$(R)OutputVget")
     field(SIML, "$(P)$(R)SIM")
     field(SIOL, "$(P)$(R)SIM:OutputVget")
 
+
 }
 record(ai, "$(P)$(R)OutputIget")
 {
@@ -257,6 +260,8 @@ record(seq, "$(P)$(R)StartCharge")
     #process ramp value calculation
     field(DO3, "1")
     field(LNK3, "$(P)$(R)VRAMPcalc.PROC PP")
+    field(DO4, "1")
+    field(LNK4, "$(P)$(R)voltageMonitor.TPRO")
     field(TPRO, "1")
 
 }
@@ -334,8 +339,9 @@ record(aSub, "$(P)$(R)VRAMPcalc"){
     field(FTVA, "DOUBLE")
     field(OUTB, "$(P)$(R)VRAMPinterval PP")
     field(FTVB, "DOUBLE")
-    field(OUTC, "$(P)$(R)voltageMonitor.DLY1 PP")
-    field(FTVC, "DOUBLE")
+    #possible to add in later an option to override minimum step size?
+    #field(OUTC, "$(P)$(R)voltageMonitor.DLY1")
+    #field(FTVC, "DOUBLE")
     field(OUTD, "$(P)$(R)VRAMPactive PP")
     field(FTVD, "SHORT")
     field(TPRO, "1")
@@ -359,7 +365,7 @@ record(ai, "$(P)$(R)C_minInterval"){
 }
 record(ai, "$(P)$(R)C_vgetDelay"){
     field(DESC, "Delay after setting voltage before reading back")
-    field(VAL, "1.45") #1.45 second minimum to allow for voltage stabilizing before reading
+    field(VAL, "1.3") #1.3 second minimum to allow for voltage stabilizing before reading
     field(EGU, "second")
     field(PINI, "YES")
     field(TPRO, "1")
@@ -368,4 +374,5 @@ record(ai, "$(P)$(R)C_Precision"){
     field(DESC, "Precision for ramping")
     field(PINI, "YES")
     field(VAL, "$(PREC)") #dependant on model
+    field(TPRO, "1")
 }
