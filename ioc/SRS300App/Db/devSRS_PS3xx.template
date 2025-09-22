@@ -366,7 +366,7 @@ record(ai, "$(P)$(R)C_minInterval"){
     field(TPRO, "1")
 }
 record(ai, "$(P)$(R)C_vgetDelay"){
-    field(DESC, "Delay after setting voltage before reading back")
+    field(DESC, "Delay before reading voltage")
     field(VAL, "1.45") #1.45 second minimum to allow for voltage stabilizing before reading
     field(EGU, "second")
     field(PINI, "YES")
