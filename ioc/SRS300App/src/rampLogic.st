@@ -76,7 +76,7 @@ ss RampState{
 
     state RampDown{ 
         when (presentVoltage > targetVoltage+Prec && startCharge == 1){
-            newVoltage = presentVoltage + stepSize;
+            newVoltage = presentVoltage - stepSize;
             if (newVoltage < targetVoltage+minStepSize){ //safety check
                 //if the next step is smaller than minStepSize, set straight to target instead
                 newVoltage = targetVoltage;
@@ -84,7 +84,7 @@ ss RampState{
             HVset = newVoltage;
             pvPut(HVset);
 
-        } state RampupDelay 
+        } state RampDownDelay 
 
 
         when (presentVoltage<=(targetVoltage+Prec) || startCharge == 0){ //stops ramping and returns to initial
