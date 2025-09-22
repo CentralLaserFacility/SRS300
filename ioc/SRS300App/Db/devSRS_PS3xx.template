@@ -354,6 +354,10 @@ record(ai, "$(P)$(R)C_minStepSize"){
     field(PINI, "YES")
 }
 
+#the device needs approximately 1.4 seconds to stabilize voltage after setting before reading it again
+#so the minimum interval between steps is set to 1.5 seconds to allow for this
+#and the delay after setting voltage before reading back is set to 1.45 seconds
+#so that it reads just after it has stabilised but before the next step is set
 record(ai, "$(P)$(R)C_minInterval"){
     field(DESC, "Minimum interval between steps")
     field(VAL, "1.5") #1.5 second minimum to allow for voltage stabilizing and reading before setting new val

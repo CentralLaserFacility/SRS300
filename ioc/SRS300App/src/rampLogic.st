@@ -89,6 +89,7 @@ ss RampState{
 
         when (presentVoltage<=(targetVoltage+Prec) || startCharge == 0){ //stops ramping and returns to initial
             startCharge = 0;
+            //"scan" menu represents 1 second as "6" so this sets to scan normally again (1 second)
             voltageMonitorScan = 6;
             voltageMonitorDelay = 0;
             pvPut(voltageMonitorScan);
