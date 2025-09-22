@@ -10,7 +10,7 @@
 
 static long rampcalc(aSubRecord *precord){
     double startVoltage, targetVoltage, rampTime, voltageDiff, interval, minStepSize, stepSize, 
-    minInterval, readDelay;
+    minInterval, readDelay, checkFactor;
     short mode; 
 
     startVoltage = *(double*)precord->a;
@@ -33,12 +33,22 @@ static long rampcalc(aSubRecord *precord){
             voltageDiff = startVoltage - targetVoltage;
         }
 
-        stepSize = minStepSize*2;
+        stepSize = minStepSize;
             //calc interval using 2xminimum as a min step size to avoid too fast ramping
         interval = rampTime/(voltageDiff / stepSize);
 
         if (interval < minInterval){
+            //calculation to find new interval based on minimum interval
+            //this works by checking if the minimum interval is a factor of the ramp time
+            //if not, it rounds down to the nearest whole number factor and divides ramp time by that
+            //this finds the lowest number it can use that is above the minimum interval
             interval = minInterval;
+            checkFactor = rampTime/interval; //is interval a factor of ramp time?
+            if ((short)checkFactor < checkFactor){//if not a whole number
+                checkFactor = (short)checkFactor; //round DOWN to nearest whole number
+                interval = rampTime/checkFactor; //recalc interval to be a factor of ramp time
+            }
+            //recalc step size with new interval
             stepSize = voltageDiff/( rampTime/ interval);
                 if ( ((short)stepSize) < stepSize) { //is step size decimal?
                     stepSize = (short)stepSize + 1;//round up to nearest whole number

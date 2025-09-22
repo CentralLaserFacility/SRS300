@@ -275,14 +275,16 @@ record(bi, "$(P)$(R)VRAMPactive")
 record(ai, "$(P)$(R)VRAMPtimeSet")
 {
     field(DESC, "Set desired ramp time")
+    field(VAL, "1.5") #default 1.5 seconds
     field(EGU,  "s")
+    field(LOPR, "1.5")
     field(PINI, "YES")
 }
 record(ai, "$(P)$(R)VRAMPinterval") {
-    field(DESC, "Set ramp up interval")
-    field(INP, "$(P)$(R)C_minInterval")
-    field(VAL, "A") 
+    field(DESC, "Set ramp up interval") 
+    field(VAL, "$(P)$(R)C_minInterval")
     field(EGU, "second")
+    field(PINI, "YES")
     field(TPRO, "1")
 }
 record(ai, "$(P)$(R)VRAMPstepSize"){
@@ -321,7 +323,7 @@ record(aSub, "$(P)$(R)VRAMPcalc"){
     field(FTE, "SHORT")
     field(INPF, "$(P)$(R)VRAMPinterval")
     field(FTF, "DOUBLE")
-    field(INPG, "$(P)$(R)VRAMPminStepSize")
+    field(INPG, "$(P)$(R)C_minStepSize")
     field(FTG, "DOUBLE")
     field(INPH, "$(P)$(R)C_minInterval")
     field(FTH, "DOUBLE")
@@ -340,7 +342,7 @@ record(aSub, "$(P)$(R)VRAMPcalc"){
 
 }
 #__________constants______________
-record(ai, "$(P)$(R)minStepSize"){
+record(ai, "$(P)$(R)C_minStepSize"){
     field(DESC, "Minimum step size for automatic ramping")
     field(VAL, "$(VMIN)") 
     field(LOPR, "$(VMIN)")
@@ -352,15 +354,18 @@ record(ai, "$(P)$(R)C_minInterval"){
     field(DESC, "Minimum interval between steps")
     field(VAL, "1.5") #1.5 second minimum to allow for voltage stabilizing and reading before setting new val
     field(EGU, "second")
+    field(PINI, "YES")
     field(TPRO, "1")
 }
 record(ai, "$(P)$(R)C_vgetDelay"){
     field(DESC, "Delay after setting voltage before reading back")
-    field(VAL, "1.4") #1.4 second minimum to allow for voltage stabilizing before reading
+    field(VAL, "1.45") #1.45 second minimum to allow for voltage stabilizing before reading
     field(EGU, "second")
+    field(PINI, "YES")
     field(TPRO, "1")
 }
 record(ai, "$(P)$(R)C_Precision"){
     field(DESC, "Precision for ramping")
+    field(PINI, "YES")
     field(VAL, "$(PREC)") #dependant on model
 }

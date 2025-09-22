@@ -4,7 +4,7 @@ double currentVoltage;
 double targetVoltage;
 double stepSize;
 float interval;
-string startCharge;
+double startCharge;
 double HVset;
 double voltageMonitorScan;
 double voltageMonitorDelay;
@@ -19,29 +19,30 @@ assign startCharge to "{P}{R}VRAMPactive";
 assign HVset to "{P}{R}HVset";
 assign voltageMonitorScan to "{P}{R}voltageMonitor.SCAN";
 assign voltageMonitorDelay to "{P}{R}voltageMonitor.DLY1";
-assign minStepSize to "{P}{R}minStepSize"; 
+assign minStepSize to "{P}{R}C_minStepSize"; 
 assign Prec to "{P}{R}C_Precision";
 
 monitor currentVoltage;
 monitor targetVoltage;
 monitor stepSize;
 monitor interval;
-monitor startCharge;
+monitor startCharge;// 1=Ramping, 0=Idle
 monitor minStepSize;
+monitor Prec;
 
 ss RampState{
 
     state initial{/*stays idle then decides rampup or rampdown once started*/
-        when (startCharge == "Ramping" && currentVoltage<targetVoltage){
+        when (startCharge == 1 && currentVoltage<targetVoltage){
         } state RampUp
-        when (startCharge == "Ramping" && currentVoltage>targetVoltage){
+        when (startCharge == 1 && currentVoltage>targetVoltage){
         } state RampDown
-        when (startCharge == "Idle" || currentVoltage==targetVoltage){
+        when (startCharge == 0 || currentVoltage==targetVoltage){
         } state initial
     }
 
     state RampUp{
-        when (currentVoltage < targetVoltage-prec  && startCharge == "Ramping"){
+        when (currentVoltage < targetVoltage-Prec && startCharge == 1){
             if (currentVoltage + stepSize < targetVoltage-minStepSize)
             { //ramp up
                 HVset = currentVoltage += stepSize;
@@ -50,12 +51,14 @@ ss RampState{
             else if  (currentVoltage + stepSize >= targetVoltage-minStepSize)
             { //final step
                 HVset = targetVoltage;
+                //startCharge = 0; //stops ramping after final step
+                //pvPut(startCharge);
                 pvPut(HVset);
             }
         } state RampupDelay 
 
-        when (currentVoltage >= targetVoltage-prec || startCharge == "Idle"){ //stops ramping and returns to initial
-            startCharge = "Idle";
+        when (currentVoltage >= targetVoltage-Prec || startCharge == 0){ //stops ramping and returns to initial
+            startCharge = 0;
             //"scan" menu represents 1 second as "6" so this sets to scan normally again (1 second)
             voltageMonitorScan = 6;
             voltageMonitorDelay = 0;
@@ -71,7 +74,7 @@ ss RampState{
     }
 
     state RampDown{ 
-        when (currentVoltage>targetVoltage+prec && startCharge == "Ramping"){ 
+        when (currentVoltage>targetVoltage+Prec && startCharge == 1){ 
             if (currentVoltage - stepSize > targetVoltage+minStepSize){ //ramp down
                 HVset = currentVoltage -= stepSize;
                 pvPut(HVset);
@@ -82,8 +85,8 @@ ss RampState{
             }
         } state RampDownDelay 
 
-        when (currentVoltage<=targetVoltage+prec || startCharge == "Idle"){ //stops ramping and returns to initial
-            startCharge = "Idle";
+        when (currentVoltage<=targetVoltage+Prec || startCharge == 0){ //stops ramping and returns to initial
+            startCharge = 0;
             voltageMonitorScan = 6;
             voltageMonitorDelay = 0;
             pvPut(voltageMonitorScan);
