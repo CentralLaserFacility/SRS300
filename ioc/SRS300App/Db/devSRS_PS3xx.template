@@ -350,7 +350,7 @@ record(ai, "$(P)$(R)minStepSize"){
 
 record(ai, "$(P)$(R)C_minInterval"){
     field(DESC, "Minimum interval between steps")
-    field(VAL, "1.5") #1.5 second minimum to allow for voltage stabilizing before set
+    field(VAL, "1.5") #1.5 second minimum to allow for voltage stabilizing and reading before setting new val
     field(EGU, "second")
     field(TPRO, "1")
 }
