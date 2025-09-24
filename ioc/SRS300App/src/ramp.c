@@ -3,27 +3,26 @@
 #include <epicsExport.h>
 #include <registryFunction.h>
 
-//output a: current voltage
-//output b: event, whether to reprocess record
-
-
+//calculates step size and interval based on user input of target voltage and ramp time
+//time interval between steps is calculated based on step size being equal to minimum
+//if calculated interval is below minimum interval, interval is set to a factor of the total time that is above the minimum
+//step size is recalculated based on the new interval
 
 static long rampcalc(aSubRecord *precord){
     double startVoltage, targetVoltage, rampTime, voltageDiff, interval, minStepSize, stepSize, 
     minInterval, readDelay, checkFactor;
-    short mode; 
+    enum mode; 
 
     startVoltage = *(double*)precord->a;
     targetVoltage = *(double*)precord->b;
     rampTime = *(double*)precord->c;
     stepSize = *(double*)precord->d;
-    mode = *(short*)precord->e; //0 = auto, 1 = manual
+    mode = *(enum*)precord->e;
     interval = *(double*)precord->f;
     minStepSize = *(double*)precord->g;
     minInterval = *(double*)precord->h;
-    readDelay = *(double*)precord->i; //time to wait after setting voltage
 
-    if (mode == 0) {
+    if (mode == "Automatic") {
         //this just makes voltage difference positive for calculation
         //could use abs() but don't want to add another library for just this
         if(targetVoltage> startVoltage){
@@ -33,8 +32,16 @@ static long rampcalc(aSubRecord *precord){
             voltageDiff = startVoltage - targetVoltage;
         }
 
+        //check for possible divide by 0 errors
+        if(voltageDiff == 0){
+            return 1; //if present voltage is the same as target send error and do not output
+        }
+        if (minStepSize == 0){
+            minStepSize = 1; //ensure step size cannot be 0
+        }
+
         stepSize = minStepSize;
-            //calc interval using 2xminimum as a min step size to avoid too fast ramping
+        //calc interval using 2xminimum as a min step size to avoid too fast ramping
         interval = rampTime/(voltageDiff / stepSize);
 
         if (interval < minInterval){
@@ -52,7 +59,6 @@ static long rampcalc(aSubRecord *precord){
                 else{
                     interval = 2;//if ramp time is even set interval to 2 seconds
                 }
-
             }
             //recalc step size with new interval
             stepSize = voltageDiff/( rampTime/ interval);
@@ -60,27 +66,12 @@ static long rampcalc(aSubRecord *precord){
                     stepSize = (short)stepSize + 1;//round up to nearest whole number
                     //interval = rampTime/(voltageDiff / stepSize);//recalc interval with new step size
                 }
-
             }
         }
-    else{
-        if (interval < minInterval){
-            readDelay = minInterval-0.1; 
-            //if interval is manually set below minimum, read voltage as late as possible after being set
-            //the delay is to account for stabilizing before being read so we want as close to 1.4 seconds as possible
-            //without going over the interval where the next one will be set
-            //(there will be GUI warning for this)
-
-        }
-    }
-    
-
 
    *(double*)precord->vala = stepSize;
    *(double*)precord->valb = interval;
-   //*(double*)precord->valc = readDelay;
-   *(short*)precord->vald = 1; //event to process ramp
-
+   *(short*)precord->valc = 1; //event to process ramp
     return 0;
 }
 

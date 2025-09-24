@@ -4,6 +4,10 @@
 # This code is distributed subject to a Software License Agreement found
 # in file LICENSE that is included with this distribution.
 ##########################################################################
+
+#____________Temp proto commands_____________
+#----------------------------------------------
+
 record(waveform, "$(P)$(R)IDN")
 {
     field(DESC, "SCPI identification string")
@@ -37,43 +41,7 @@ record(bo, "$(P)$(R)TripClear")
     field(HIGH, "1")
     field(FLNK, "$(P)$(R)getSTB")
 }
-record(bo, "$(P)$(R)HVenable")
-{
-    field(DESC, "Enable output")
-    field(DTYP, "stream")
-    field(VAL, "0")
-    field(OUT,  "@ps300.proto hvOffOn $(PORT) $(A)")
-    field(ZNAM, "Turn Off")
-    field(ONAM, "Turn On")
-    field(PINI, "YES")
-    field(FLNK, "$(P)$(R)getSTB")
-}
-record(ai, "$(P)$(R)desiredHV")
-{
-    field(DESC, "Set desired output voltage")
-    field(EGU,  "V")
-    field(LOPR, "$(VMIN)")
-    field(HOPR, "$(VMAX)")
-    field(PREC, "4")
-    field(PINI, "YES")
-    field(TPRO, "1")
-}
-record(ao, "$(P)$(R)HVset")
-{
-    field(DESC, "Set output voltage")
-    field(DTYP, "stream")
-    field(OUT,  "@ps300.proto setting(VSET) $(PORT) $(A)")
-    field(EGU,  "V")
-    field(LOPR, "$(VMIN)")
-    field(HOPR, "$(VMAX)")
-    field(DRVL, "$(VMIN)")
-    field(DRVH, "$(VMAX)")
-    field(PREC, "4")
-    field(FLNK, "$(P)$(R)voltageMonitor")
-    field(SIML, "$(P)$(R)SIM")
-    field(SIOL, "$(P)$(R)SIM:HVset")
-    field(TPRO, "1")
-}
+
 record(ao, "$(P)$(R)VLIMset")
 {
     field(DESC, "Set output voltage limit")
@@ -84,7 +52,7 @@ record(ao, "$(P)$(R)VLIMset")
     field(HOPR, "$(VMAX)")
     field(DRVL, "$(VMIN)")
     field(DRVH, "$(VMAX)")
-    field(PREC, "3")
+    field(PREC, "$(P)$(R)C_Precision")
     field(FLNK, "$(P)$(R)VLIMget")
 }
 record(ai, "$(P)$(R)VLIMget")
@@ -95,7 +63,7 @@ record(ai, "$(P)$(R)VLIMget")
     field(EGU,  "V")
     field(LOPR, "$(VMIN)")
     field(HOPR, "$(VMAX)")
-    field(PREC, "3")
+    field(PREC, "$(P)$(R)C_Precision")
     field(PINI, "YES")
 }
 record(ao, "$(P)$(R)ILIMset")
@@ -108,7 +76,7 @@ record(ao, "$(P)$(R)ILIMset")
     field(HOPR, "$(IMAX)")
     field(DRVL, "$(IMIN)")
     field(DRVH, "$(IMAX)")
-    field(PREC, "3")
+    field(PREC, "$(P)$(R)C_Precision")
     field(FLNK, "$(P)$(R)ILIMget")
 }
 record(ai, "$(P)$(R)ILIMget")
@@ -119,7 +87,7 @@ record(ai, "$(P)$(R)ILIMget")
     field(EGU,  "A")
     field(LOPR, "$(IMIN)")
     field(HOPR, "$(IMAX)")
-    field(PREC, "3")
+    field(PREC, "$(P)$(R)C_Precision")
     field(PINI, "YES")
 }
 record(ao, "$(P)$(R)ITRPset")
@@ -132,7 +100,7 @@ record(ao, "$(P)$(R)ITRPset")
     field(HOPR, "$(IMAX)")
     field(DRVL, "$(IMIN)")
     field(DRVH, "$(IMAX)")
-    field(PREC, "3")
+    field(PREC, "$(P)$(R)C_Precision")
     field(FLNK, "$(P)$(R)ITRPget")
 }
 record(ai, "$(P)$(R)ITRPget")
@@ -143,7 +111,7 @@ record(ai, "$(P)$(R)ITRPget")
     field(EGU,  "A")
     field(LOPR, "0")
     field(HOPR, "$(IMAX)")
-    field(PREC, "3")
+    field(PREC, "$(P)$(R)C_Precision")
     field(PINI, "YES")
 }
 
@@ -207,20 +175,7 @@ record(bi, "$(P)$(R)HVSTABLEstatus")
     field(ZNAM, "Unstable")
     field(ONAM, "Stable")
 }
-record(ai, "$(P)$(R)OutputVget")
-{
-    field(DESC, "Output voltage readback")
-    field(DTYP, "stream")
-    field(INP,  "@ps300.proto getF(VOUT) $(PORT) $(A)")
-    field(EGU,  "V")
-    field(LOPR, "$(VMIN)")
-    field(HOPR, "$(VMAX)")
-    field(PREC, "4")
-    field(SIML, "$(P)$(R)SIM")
-    field(SIOL, "$(P)$(R)SIM:OutputVget")
 
-
-}
 record(ai, "$(P)$(R)OutputIget")
 {
     field(DESC, "Output current readback")
@@ -229,9 +184,112 @@ record(ai, "$(P)$(R)OutputIget")
     field(EGU,  "A")
     field(LOPR, "0")
     field(HOPR, "500.0e-6")
-    field(PREC, "4")
+    field(PREC, "$(P)$(R)C_Precision")
     field(SIML, "$(P)$(R)SIM")
     field(SIOL, "$(P)$(R)SIM:OutputIget")
+}
+#________________________________________________________
+
+
+
+record(bo, "$(P)$(R)HVenable")
+{#Turn high voltage on/off
+    field(DESC, "Enable output")
+    field(DTYP, "stream")
+    field(VAL, "0")
+    field(OUT,  "@ps300.proto hvOffOn $(PORT) $(A)")
+    field(ZNAM, "Turn Off")
+    field(ONAM, "Turn On")
+    field(PINI, "YES")
+    field(FLNK, "$(P)$(R)getSTB")
+}
+
+#____________________________________________
+#_________Start ramping process______________
+
+record(bi, "$(P)$(R)chargeStartHelper")
+{
+    field(DESC, "Helper record to start HV charge")
+    field(FLNK, "$(P)$(R)StartCharge")
+}
+record(seq, "$(P)$(R)StartCharge")
+{
+    field(DESC, "Sequence to start HV charge")
+    #set scan to passive (0 as DO1 only takes doubles) 
+    #so while ramping voltage is only checked after being set and not continuously
+    field(DO1, "0")
+    field(LNK1, "$(P)$(R)voltageMonitor.SCAN")
+    #set delay to 1.45 seconds to allow for voltage to stabilize once set beore being checked again
+    field(DOL2, "$(P)$(R)C_vgetDelay") 
+    field(LNK2, "$(P)$(R)voltageMonitor.DLY1")
+    #process ramp value calculation
+    field(DO3, "1")
+    field(LNK3, "$(P)$(R)VRAMPcalc.PROC PP")
+}
+
+record(bi, "$(P)$(R)VRAMPactive")
+{#when set to 1 ("Ramping") the state machine will begin the ramping process
+    field(DESC, "Is charge active?")
+    field(ZNAM, "Idle")
+    field(ONAM, "Ramping")
+}
+
+#_____________________________________________
+#______User set ramp parameters_______________
+
+record(ai, "$(P)$(R)VRAMPtimeSet")
+{
+    field(DESC, "Set desired ramp time")
+    field(VAL, "$(P)$(R)C_minInterval")
+    field(EGU,  "seconds")
+    field(LOPR, "$(P)$(R)C_minInterval")
+    field(PINI, "YES")
+}
+record(ai, "$(P)$(R)VRAMPinterval") {
+    field(DESC, "Set ramp up interval") 
+    field(VAL, "$(P)$(R)C_minInterval")
+    field(EGU, "seconds")
+    field(PINI, "YES")
+}
+record(ai, "$(P)$(R)VRAMPstepSize"){
+    field(DESC, "Set voltage ramp step size")
+    field(VAL, $(VMIN)) 
+    field(LOPR, $(VMIN))
+}
+
+record(bi, "$(P)$(R)VRAMPmode"){
+    field(DESC, "Set ramp mode")
+    field(PINI, "YES")
+    field(VAL, "0") #Automatic mode by default
+    #automatic means calculation is performed, manual means user sets step size and interval
+    field(ZNAM, "Automatic")
+    field(ONAM, "Manual")
+}
+
+record(ai, "$(P)$(R)desiredHV")
+{
+    field(DESC, "Set target output voltage")
+    field(EGU,  "V")
+    field(LOPR, "$(VMIN)")
+    field(HOPR, "$(VMAX)")
+    field(PREC, "$(P)$(R)C_Precision")
+    field(PINI, "YES")
+}
+#__________________________________________
+#__________Voltage get and set_____________
+
+record(ao, "$(P)$(R)HVset")
+{#sets the device's high voltage, should only be set through the state machine's ramping process
+    field(DESC, "Set output voltage")
+    field(DTYP, "stream")
+    field(OUT,  "@ps300.proto setting(VSET) $(PORT) $(A)")
+    field(EGU,  "V")
+    field(LOPR, "$(VMIN)")
+    field(HOPR, "$(VMAX)")
+    field(DRVL, "$(VMIN)")
+    field(DRVH, "$(VMAX)")
+    field(PREC, "$(P)$(R)C_Precision")
+    field(FLNK, "$(P)$(R)voltageMonitor")
 }
 
 record(seq, "$(P)$(R)voltageMonitor")
@@ -242,73 +300,18 @@ record(seq, "$(P)$(R)voltageMonitor")
     field(LNK1, "$(P)$(R)OutputVget.PROC")
 }
 
-#______Start ramping process______________
-record(bi, "$(P)$(R)chargeStartHelper")
+record(ai, "$(P)$(R)OutputVget")
 {
-    field(DESC, "Helper record to start HV charge")
-    field(FLNK, "$(P)$(R)StartCharge")
-}
-record(seq, "$(P)$(R)StartCharge")
-{
-    field(DESC, "Sequence to start HV charge")
-    #set scan to passive (0) so while ramping voltage is only checked after being set and not continuously
-    field(DO1, "0")
-    field(LNK1, "$(P)$(R)voltageMonitor.SCAN")
-    #set delay to 1.4 seconds to allow for voltage to stabilize once set beore being checked again
-    field(DOL2, "$(P)$(R)C_vgetDelay") 
-    field(LNK2, "$(P)$(R)voltageMonitor.DLY1")
-    #process ramp value calculation
-    field(DO3, "1")
-    field(LNK3, "$(P)$(R)VRAMPcalc.PROC PP")
-    field(TPRO, "1")
-
-}
-record(bi, "$(P)$(R)VRAMPactive")
-{
-    field(DESC, "Is charge active?")
-    field(ZNAM, "Idle")
-    field(ONAM, "Ramping")
-    field(TPRO, "1")
+    field(DESC, "Output voltage readback")
+    field(DTYP, "stream")
+    field(INP,  "@ps300.proto getF(VOUT) $(PORT) $(A)")
+    field(EGU,  "V")
+    field(LOPR, "$(VMIN)")
+    field(HOPR, "$(VMAX)")
+    field(PREC, "$(P)$(R)C_Precision")
 }
 
-
-#______User set ramp parameters_______________
-
-
-record(ai, "$(P)$(R)VRAMPtimeSet")
-{
-    field(DESC, "Set desired ramp time")
-    field(VAL, "1.5") #default 1.5 seconds
-    field(EGU,  "s")
-    field(LOPR, "1.5")
-    field(PINI, "YES")
-}
-record(ai, "$(P)$(R)VRAMPinterval") {
-    field(DESC, "Set ramp up interval") 
-    field(VAL, "$(P)$(R)C_minInterval")
-    field(EGU, "second")
-    field(PINI, "YES")
-    field(TPRO, "1")
-}
-record(ai, "$(P)$(R)VRAMPstepSize"){
-    field(DESC, "Set voltage ramp step size")
-    field(VAL, "100") 
-    field(LOPR, "100")
-}
-
-record(bi, "$(P)$(R)VRAMPmode"){
-    field(DESC, "Set ramp mode")
-    field(PINI, "YES")
-    field(VAL, "0") 
-    #automatic means calculation is performed, manual means user sets step size and interval
-    field(ZNAM, "Automatic")
-    field(ONAM, "Manual")
-    field(TPRO, "1")
-
-}
-
-
-
+#_________________________________________
 #__________ramp calculation_______________
 record(aSub, "$(P)$(R)VRAMPcalc"){
     field(DESC, "Calculate ramp step size")
@@ -323,29 +326,25 @@ record(aSub, "$(P)$(R)VRAMPcalc"){
     field(INPD, "$(P)$(R)VRAMPstepSize")
     field(FTD, "DOUBLE")
     field(INPE, "$(P)$(R)VRAMPmode")
-    field(FTE, "SHORT")
+    field(FTE, "ENUM")
     field(INPF, "$(P)$(R)VRAMPinterval")
     field(FTF, "DOUBLE")
     field(INPG, "$(P)$(R)C_minStepSize")
     field(FTG, "DOUBLE")
     field(INPH, "$(P)$(R)C_minInterval")
     field(FTH, "DOUBLE")
-    field(INPI, "$(P)$(R)C_vgetDelay")
-    field(FTI, "DOUBLE")
     #outputs
     field(OUTA, "$(P)$(R)VRAMPstepSize PP")
     field(FTVA, "DOUBLE")
     field(OUTB, "$(P)$(R)VRAMPinterval PP")
     field(FTVB, "DOUBLE")
-    #possible to add in later an option to override minimum step size?
-    #field(OUTC, "$(P)$(R)voltageMonitor.DLY1")
-    #field(FTVC, "DOUBLE")
-    field(OUTD, "$(P)$(R)VRAMPactive PP")
-    field(FTVD, "SHORT")
-    field(TPRO, "1")
+    field(OUTC, "$(P)$(R)VRAMPactive PP")
+    field(FTVC, "SHORT")
 
 }
-#__________constants______________
+
+#_______________________________________
+#_____________constants_________________
 record(ai, "$(P)$(R)C_minStepSize"){
     field(DESC, "Minimum step size for automatic ramping")
     field(VAL, "$(VMIN)") 
@@ -354,27 +353,29 @@ record(ai, "$(P)$(R)C_minStepSize"){
     field(PINI, "YES")
 }
 
-#the device needs approximately 1.4 seconds to stabilize voltage after setting before reading it again
+#the device needs approximately 1.45 seconds to stabilize voltage after setting before reading it again
 #so the minimum interval between steps is set to 1.5 seconds to allow for this
 #and the delay after setting voltage before reading back is set to 1.45 seconds
 #so that it reads just after it has stabilised but before the next step is set
 record(ai, "$(P)$(R)C_minInterval"){
     field(DESC, "Minimum interval between steps")
     field(VAL, "1.5") #1.5 second minimum to allow for voltage stabilizing and reading before setting new val
-    field(EGU, "second")
+    field(EGU, "seconds")
     field(PINI, "YES")
-    field(TPRO, "1")
 }
 record(ai, "$(P)$(R)C_vgetDelay"){
     field(DESC, "Delay before reading voltage")
     field(VAL, "1.45") #1.45 second minimum to allow for voltage stabilizing before reading
-    field(EGU, "second")
+    field(EGU, "seconds")
     field(PINI, "YES")
-    field(TPRO, "1")
+}
+record(ai, "$(P)$(R)C_Tolerance"){
+    field(DESC, "Tolerance for ramping")
+    field(PINI, "YES")
+    field(VAL, "$(TOLERANCE)") #dependant on model
 }
 record(ai, "$(P)$(R)C_Precision"){
-    field(DESC, "Precision for ramping")
+    field(DESC, "number of decimal places")
     field(PINI, "YES")
-    field(VAL, "$(PREC)") #dependant on model
-    field(TPRO, "1")
+    field(VAL, "$(PREC)")
 }

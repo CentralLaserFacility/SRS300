@@ -9,7 +9,7 @@ double HVset;
 enum voltageMonitorScan;
 double voltageMonitorDelay;
 double minStepSize;
-short Prec; //precision for stopping ramping
+short Tolerance; //Tolerance for stopping ramping
 double newVoltage;
 
 assign presentVoltage to "{P}{R}OutputVget"; //change $(P)$(R) syntax
@@ -21,15 +21,15 @@ assign HVset to "{P}{R}HVset";
 assign voltageMonitorScan to "{P}{R}voltageMonitor.SCAN";
 assign voltageMonitorDelay to "{P}{R}voltageMonitor.DLY1";
 assign minStepSize to "{P}{R}C_minStepSize"; 
-assign Prec to "{P}{R}C_Precision";
+assign Tolerance to "{P}{R}C_Tolerance";
 
 monitor presentVoltage;
 monitor targetVoltage;
 monitor stepSize;
 monitor interval;
-monitor startCharge;// 1=Ramping, 0=Idle
+monitor startCharge;
 monitor minStepSize;
-monitor Prec;
+monitor Tolerance;
 
 ss RampState{
 
@@ -43,7 +43,7 @@ ss RampState{
     }
 
     state RampUp{
-        when (presentVoltage < targetVoltage-Prec && startCharge == "Ramping"){
+        when (presentVoltage < targetVoltage-Tolerance && startCharge == "Ramping"){
             printf("Ramping Up\n");
             newVoltage = presentVoltage + stepSize;
             if (newVoltage > targetVoltage-minStepSize){ //safety check
@@ -56,7 +56,7 @@ ss RampState{
 
         } state RampupDelay 
 
-        when (presentVoltage >= (targetVoltage-Prec) || startCharge == "Idle"){ //stops ramping and returns to initial
+        when (presentVoltage >= (targetVoltage-Tolerance) || startCharge == "Idle"){ //stops ramping and returns to initial
             startCharge = "Idle";
             printf("Ramping Complete\n");
             voltageMonitorScan = "1 second";
@@ -74,7 +74,7 @@ ss RampState{
     }
 
     state RampDown{ 
-        when (presentVoltage > targetVoltage+Prec && startCharge == "Ramping"){
+        when (presentVoltage > targetVoltage+Tolerance && startCharge == "Ramping"){
             newVoltage = presentVoltage - stepSize;
             if (newVoltage < targetVoltage+minStepSize){ //safety check
                 //if the next step is smaller than minStepSize, set straight to target instead
@@ -86,7 +86,7 @@ ss RampState{
         } state RampDownDelay 
 
 
-        when (presentVoltage<=(targetVoltage+Prec) || startCharge == "Idle"){ //stops ramping and returns to initial
+        when (presentVoltage<=(targetVoltage+Tolerance) || startCharge == "Idle"){ //stops ramping and returns to initial
             startCharge = "Idle";
             voltageMonitorScan = "1 second";
             voltageMonitorDelay = 0;
