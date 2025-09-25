@@ -10,19 +10,20 @@
 
 static long rampcalc(aSubRecord *precord){
     double startVoltage, targetVoltage, rampTime, voltageDiff, interval, minStepSize, stepSize, 
-    minInterval, readDelay, checkFactor;
-    enum mode; 
+    minInterval, checkFactor;
+    short mode; 
 
     startVoltage = *(double*)precord->a;
     targetVoltage = *(double*)precord->b;
     rampTime = *(double*)precord->c;
     stepSize = *(double*)precord->d;
-    mode = *(enum*)precord->e;
+    mode = *(short*)precord->e; //0 = automatic, 1= manual
+    // for mode to be a string, an unnecessary library would need to be included
     interval = *(double*)precord->f;
     minStepSize = *(double*)precord->g;
     minInterval = *(double*)precord->h;
 
-    if (mode == "Automatic") {
+    if (mode == 0) {
         //this just makes voltage difference positive for calculation
         //could use abs() but don't want to add another library for just this
         if(targetVoltage> startVoltage){
