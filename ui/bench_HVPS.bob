@@ -1,75 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Saved on 2025-04-17 15:40:14 by ktn98257-->
 <display version="2.0.0">
   <name>Stanford SRS375 control screen</name>
   <macros>
     <P>BENCH:</P>
     <R>HVPS:</R>
   </macros>
-  <width>520</width>
-  <height>400</height>
+  <height>800</height>
   <background_color>
-    <color name="GLOBAL canvas" red="200" green="200" blue="200">
+    <color name="Button_Background" red="210" green="210" blue="210">
     </color>
   </background_color>
   <actions>
     <action type="write_pv">
+      <description>Write PV</description>
       <pv_name>$(P)$(R)VRAMPrun</pv_name>
       <value>0</value>
     </action>
   </actions>
-  <widget type="textentry" version="3.0.0">
-    <pv_name>$(P)$(R)HVset</pv_name>
-    <x>200</x>
-    <y>110</y>
-    <precision>4</precision>
+  <widget type="rectangle" version="2.0.0">
+    <name>Rectangle</name>
+    <x>20</x>
+    <y>34</y>
+    <width>271</width>
+    <height>188</height>
+    <line_width>2</line_width>
+    <line_color>
+      <color name="Background" red="255" green="255" blue="255">
+      </color>
+    </line_color>
+    <background_color>
+      <color red="240" green="249" blue="255">
+      </color>
+    </background_color>
   </widget>
   <widget type="textentry" version="3.0.0">
     <pv_name>$(P)$(R)VLIMset</pv_name>
-    <x>200</x>
-    <y>140</y>
+    <x>173</x>
+    <y>293</y>
+    <width>74</width>
     <precision>3</precision>
   </widget>
   <widget type="textentry" version="3.0.0">
     <pv_name>$(P)$(R)ILIMset</pv_name>
-    <x>200</x>
-    <y>170</y>
+    <x>173</x>
+    <y>323</y>
+    <width>74</width>
     <precision>3</precision>
   </widget>
   <widget type="textentry" version="3.0.0">
     <pv_name>$(P)$(R)ITRPset</pv_name>
-    <x>200</x>
-    <y>200</y>
+    <x>173</x>
+    <y>353</y>
+    <width>74</width>
     <precision>3</precision>
   </widget>
   <widget type="label" version="2.0.0">
     <text>Desired Voltage:</text>
-    <x>50</x>
-    <y>110</y>
-    <width>130</width>
+    <x>48</x>
+    <y>106</y>
+    <width>112</width>
   </widget>
   <widget type="label" version="2.0.0">
     <text>Polarity:</text>
-    <x>30</x>
-    <y>232</y>
+    <x>25</x>
+    <y>470</y>
     <width>55</width>
   </widget>
   <widget type="label" version="2.0.0">
-    <text>Voltage NOW:</text>
-    <x>310</x>
-    <y>110</y>
-    <width>90</width>
+    <text>Present Voltage:</text>
+    <x>327</x>
+    <y>84</y>
+    <width>120</width>
   </widget>
   <widget type="label" version="2.0.0">
-    <text>Current NOW:</text>
-    <x>310</x>
-    <y>140</y>
-    <width>90</width>
+    <text>Present Current:</text>
+    <x>327</x>
+    <y>114</y>
+    <width>136</width>
   </widget>
   <widget type="label" version="2.0.0">
     <text>V Limit NOW:</text>
-    <x>310</x>
-    <y>170</y>
+    <x>25</x>
+    <y>382</y>
     <width>90</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -78,7 +90,7 @@
     <width>520</width>
     <height>25</height>
     <font>
-      <font family="Liberation Sans" style="BOLD" size="16.0">
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
       </font>
     </font>
     <foreground_color>
@@ -96,142 +108,104 @@
   <widget type="label" version="2.0.0">
     <name>Label</name>
     <text>I Limit NOW:</text>
-    <x>320</x>
-    <y>200</y>
+    <x>25</x>
+    <y>412</y>
     <width>80</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_1</name>
     <text>I Trip NOW:</text>
-    <x>320</x>
-    <y>230</y>
+    <x>25</x>
+    <y>442</y>
     <width>80</width>
   </widget>
   <widget type="bool_button" version="2.0.0">
     <name>Boolean Button</name>
-    <x>209</x>
-    <y>230</y>
+    <pv_name>$(P)$(R)HVenable</pv_name>
+    <x>327</x>
+    <y>37</y>
+    <width>102</width>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txt</name>
     <pv_name>$(P)$(R)polarity</pv_name>
-    <x>90</x>
-    <y>232</y>
+    <x>173</x>
+    <y>470</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txtVoltsNow</name>
     <pv_name>$(P)$(R)OutputVget</pv_name>
-    <x>410</x>
-    <y>110</y>
+    <x>438</x>
+    <y>85</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txtCurrentNow</name>
     <pv_name>$(P)$(R)OutputIget</pv_name>
-    <x>410</x>
-    <y>140</y>
+    <x>438</x>
+    <y>114</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txtV-limNow</name>
     <pv_name>$(P)$(R)VOLTAGE:LIMIT:SP:RBV</pv_name>
-    <x>410</x>
-    <y>170</y>
+    <x>173</x>
+    <y>382</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txtCurrLimNow</name>
     <pv_name>$(P)$(R)CURRENT:LIMIT:SP:RBV</pv_name>
-    <x>410</x>
-    <y>200</y>
+    <x>173</x>
+    <y>412</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txtTripNow</name>
     <pv_name>$(P)$(R)CURRENT:LIMIT:SP:RBV</pv_name>
-    <x>410</x>
-    <y>230</y>
+    <x>173</x>
+    <y>442</y>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_2</name>
     <text>Set Voltage Limit:</text>
-    <x>50</x>
-    <y>140</y>
+    <x>23</x>
+    <y>293</y>
     <width>130</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_3</name>
     <text>Set Current Limit:</text>
-    <x>50</x>
-    <y>170</y>
+    <x>23</x>
+    <y>323</y>
     <width>130</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_4</name>
     <text>Set Current TripLim:</text>
-    <x>50</x>
-    <y>200</y>
-    <width>130</width>
+    <x>23</x>
+    <y>353</y>
+    <width>148</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_6</name>
-    <text>Ramp:</text>
-    <x>20</x>
-    <y>40</y>
-    <width>50</width>
-  </widget>
-  <widget type="textentry" version="3.0.0">
-    <name>txtSecsRamp</name>
-    <pv_name>$(P)$(R)VRAMPstart</pv_name>
-    <x>70</x>
-    <y>40</y>
-    <width>58</width>
+    <text>Ramp interval:</text>
+    <x>48</x>
+    <y>162</y>
+    <width>96</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>txtStepIncrement</name>
-    <text>voltPlus:</text>
-    <x>148</x>
-    <y>40</y>
-    <width>56</width>
-  </widget>
-  <widget type="textentry" version="3.0.0">
-    <name>txtVoltsRamp</name>
-    <pv_name>$(P)$(R)VRAMPincrement</pv_name>
-    <x>210</x>
-    <y>40</y>
-    <width>58</width>
-  </widget>
-  <widget type="action_button" version="3.0.0">
-    <name>btnRampUp</name>
-    <actions>
-      <action type="write_pv">
-        <description>RampUp</description>
-        <pv_name>$(P)$(R)VRAMPrun</pv_name>
-        <value>1</value>
-      </action>
-    </actions>
-    <pv_name>$(P)$(R)VRAMPrun</pv_name>
-    <x>300</x>
-    <y>40</y>
-    <width>95</width>
-    <tooltip>$(actions)</tooltip>
-  </widget>
-  <widget type="action_button" version="3.0.0">
-    <name>btnRampDown</name>
-    <actions>
-      <action type="write_pv">
-        <description>RampDown</description>
-        <pv_name>$(P)$(R)VRAMPRun</pv_name>
-        <value>0</value>
-      </action>
-    </actions>
-    <pv_name>$(P)$(R)VRAMPrun</pv_name>
-    <x>410</x>
-    <y>40</y>
-    <width>95</width>
-    <tooltip>$(actions)</tooltip>
+    <text>Step size:</text>
+    <x>48</x>
+    <y>190</y>
+    <width>87</width>
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED</name>
     <pv_name>BENCH:HVPS:asyn.STAT</pv_name>
     <x>490</x>
     <y>3</y>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
     <scripts>
       <script file="EmbeddedPy">
         <text><![CDATA[# Embedded python script
@@ -264,29 +238,16 @@ else:
   </widget>
   <widget type="group" version="3.0.0">
     <name>EDM Group 2</name>
-    <x>40</x>
-    <y>270</y>
+    <x>17</x>
+    <y>527</y>
     <width>451</width>
     <height>111</height>
     <style>3</style>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      </font>
+    </font>
     <transparent>true</transparent>
-    <widget type="rectangle" version="2.0.0">
-      <name>EDM activeRectangleClass</name>
-      <x>5</x>
-      <y>14</y>
-      <width>442</width>
-      <height>93</height>
-      <line_width>1</line_width>
-      <line_color>
-        <color name="black-14" red="0" green="0" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color name="green-19" red="0" green="128" blue="0">
-        </color>
-      </background_color>
-      <transparent>true</transparent>
-    </widget>
     <widget type="group" version="3.0.0">
       <name>EDM Group 3</name>
       <x>4</x>
@@ -664,32 +625,227 @@ else:
       </widget>
     </widget>
   </widget>
-  <widget type="textentry" version="3.0.0">
-    <name>txtVoltsEnd</name>
-    <pv_name>$(P)$(R)VRAMPend</pv_name>
-    <x>220</x>
-    <y>70</y>
-    <width>58</width>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_2</name>
+    <actions>
+      <action type="write_pv">
+        <description>Write PV</description>
+        <pv_name>$(pv_name)</pv_name>
+        <value>1</value>
+      </action>
+    </actions>
+    <pv_name>$(P)$(R)chargeStartHelper</pv_name>
+    <text>Start ramp</text>
+    <x>41</x>
+    <y>234</y>
+    <background_color>
+      <color red="179" green="230" blue="179">
+      </color>
+    </background_color>
+    <rules>
+      <rule name="dont allow to press while ramping" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0==0">
+          <value>true</value>
+        </exp>
+        <exp bool_exp="pv0==1">
+          <value>false</value>
+        </exp>
+        <pv_name>$(P)$(R)VRAMPactive</pv_name>
+      </rule>
+      <rule name="ramping text" prop_id="text" out_exp="false">
+        <exp bool_exp="pv0==1">
+          <value>Ramping</value>
+        </exp>
+        <pv_name>$(P)$(R)VRAMPactive</pv_name>
+      </rule>
+      <rule name="New Rule" prop_id="enabled" out_exp="false">
+        <exp bool_exp="pv0==0">
+          <value>false</value>
+        </exp>
+        <pv_name>$(P)$(R)HVONstatus</pv_name>
+      </rule>
+    </rules>
+    <tooltip>$(actions)</tooltip>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_3</name>
+    <actions>
+      <action type="write_pv">
+        <description>Write PV</description>
+        <pv_name>$(pv_name)</pv_name>
+        <value>0</value>
+      </action>
+    </actions>
+    <pv_name>$(P)$(R)VRAMPactive</pv_name>
+    <text>Abort</text>
+    <x>174</x>
+    <y>234</y>
+    <foreground_color>
+      <color name="Header_ForeGround" red="255" green="255" blue="255">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="STOP" red="255" green="0" blue="0">
+      </color>
+    </background_color>
+    <tooltip>$(actions)</tooltip>
   </widget>
   <widget type="label" version="2.0.0">
-    <name>txtVoltsStart</name>
-    <text>End_V:</text>
-    <x>160</x>
-    <y>70</y>
-    <width>50</width>
+    <name>Label_7</name>
+    <text>Ramp time:</text>
+    <x>48</x>
+    <y>133</y>
+    <width>83</width>
   </widget>
   <widget type="label" version="2.0.0">
-    <name>txtVoltsStart</name>
-    <text>Start_V:</text>
-    <x>30</x>
-    <y>70</y>
-    <width>60</width>
+    <name>Label_12</name>
+    <text>Voltage ramp settings</text>
+    <x>85</x>
+    <y>44</y>
+    <width>160</width>
   </widget>
-  <widget type="textentry" version="3.0.0">
-    <name>txtVoltsStart_1</name>
-    <pv_name>$(P)$(R)VRAMPstart</pv_name>
-    <x>90</x>
-    <y>70</y>
-    <width>58</width>
+  <widget type="choice" version="2.0.0">
+    <name>Choice Button</name>
+    <pv_name>$(P)$(R)VRAMPmode</pv_name>
+    <x>63</x>
+    <y>68</y>
+    <width>190</width>
+    <height>30</height>
+    <selected_color>
+      <color red="153" green="213" blue="153">
+      </color>
+    </selected_color>
+    <items>
+      <item>Automatic</item>
+      <item>Manual</item>
+    </items>
+  </widget>
+  <widget type="rectangle" version="2.0.0">
+    <name>EDM activeRectangleClass</name>
+    <x>31</x>
+    <y>522</y>
+    <width>442</width>
+    <height>93</height>
+    <line_width>1</line_width>
+    <line_color>
+      <color name="black-14" red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <background_color>
+      <color name="green-19" red="0" green="128" blue="0">
+      </color>
+    </background_color>
+    <transparent>true</transparent>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update DV</name>
+    <pv_name>$(P)$(R)desiredHV</pv_name>
+    <x>170</x>
+    <y>107</y>
+    <width>95</width>
+    <height>18</height>
+    <precision>2</precision>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_Ri</name>
+    <pv_name>$(P)$(R)VRAMPinterval</pv_name>
+    <x>170</x>
+    <y>162</y>
+    <width>95</width>
+    <height>18</height>
+    <precision>2</precision>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_SS</name>
+    <pv_name>$(P)$(R)VRAMPstepSize</pv_name>
+    <x>170</x>
+    <y>190</y>
+    <width>95</width>
+    <height>18</height>
+    <precision>2</precision>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_RT</name>
+    <pv_name>$(P)$(R)VRAMPtimeSet</pv_name>
+    <x>170</x>
+    <y>134</y>
+    <width>95</width>
+    <height>18</height>
+    <precision>2</precision>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner DV</name>
+    <pv_name>$(P)$(R)desiredHV</pv_name>
+    <x>170</x>
+    <y>106</y>
+    <precision>2</precision>
+    <show_units>true</show_units>
+    <vertical_alignment>1</vertical_alignment>
+    <rules>
+      <rule name="New Rule" prop_id="visible" out_exp="false">
+        <exp bool_exp="pv0==1">
+          <value>false</value>
+        </exp>
+        <pv_name>$(P)$(R)VRAMPactive</pv_name>
+      </rule>
+    </rules>
+    <increment>100.0</increment>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_Ri</name>
+    <pv_name>$(P)$(R)VRAMPinterval</pv_name>
+    <x>170</x>
+    <y>161</y>
+    <precision>2</precision>
+    <show_units>true</show_units>
+    <vertical_alignment>1</vertical_alignment>
+    <rules>
+      <rule name="visibility " prop_id="visible" out_exp="false">
+        <exp bool_exp="pv0==1 || pv1== 0">
+          <value>false</value>
+        </exp>
+        <pv_name>$(P)$(R)VRAMPactive</pv_name>
+        <pv_name>$(P)$(R)VRAMPmode</pv_name>
+      </rule>
+    </rules>
+    <maximum>1000000.0</maximum>
+    <increment>0.5</increment>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_SS</name>
+    <pv_name>$(P)$(R)VRAMPstepSize</pv_name>
+    <x>170</x>
+    <y>190</y>
+    <show_units>true</show_units>
+    <vertical_alignment>1</vertical_alignment>
+    <rules>
+      <rule name="visibility " prop_id="visible" out_exp="false">
+        <exp bool_exp="pv0==1 || pv1== 0">
+          <value>false</value>
+        </exp>
+        <pv_name>$(P)$(R)VRAMPactive</pv_name>
+        <pv_name>$(P)$(R)VRAMPmode</pv_name>
+      </rule>
+    </rules>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>Spinner_RT</name>
+    <pv_name>$(P)$(R)VRAMPtimeSet</pv_name>
+    <x>170</x>
+    <y>134</y>
+    <precision>2</precision>
+    <show_units>true</show_units>
+    <vertical_alignment>1</vertical_alignment>
+    <rules>
+      <rule name="Ramping visibility" prop_id="visible" out_exp="false">
+        <exp bool_exp="pv0==1 || pv1==1">
+          <value>false</value>
+        </exp>
+        <pv_name>$(P)$(R)VRAMPactive</pv_name>
+        <pv_name>$(P)$(R)VRAMPmode</pv_name>
+      </rule>
+    </rules>
+    <maximum>1000000.0</maximum>
+    <increment>0.5</increment>
   </widget>
 </display>

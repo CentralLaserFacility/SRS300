@@ -21,6 +21,8 @@ SRS300_DBD += sscan.dbd
 SRS300_DBD += utilities.dbd
 SRS300_DBD += asyn.dbd
 SRS300_DBD += stream.dbd
+SRS300_DBD += asub.dbd
+SRS300_DBD += rampLogic.dbd
 #ifdef FTDI
 #SRS300_DBD += drvAsynSerialPort.dbd
 #endif
@@ -35,10 +37,17 @@ SRS300_LIBS += asyn
 SRS300_LIBS += stream
 SRS300_LIBS += autosave
 SRS300_LIBS += utilities
+SRS300_LIBS += seq
 SRS300_SYS_LIBS += pcre
 
 # SRS300_registerRecordDeviceDriver.cpp derives from SRS300.dbd
 SRS300_SRCS += SRS300_registerRecordDeviceDriver.cpp
+SRS300_SRCS += ramp.c
+
+
+# Add SNL program
+SRS300_SNCFLAGS += +r
+SRS300_SRCS += rampLogic.st
 
 # Build the main IOC entry point on workstation OSs.
 SRS300_SRCS_DEFAULT += SRS300Main.cpp

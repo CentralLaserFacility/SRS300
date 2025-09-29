@@ -55,4 +55,5 @@ stringiftest("NEGPOLARITY", "$(MODEL=370)", 5, "YES")
 $(IFNEGPOLARITY) < setNegativePolarity.cmd
 
 ## Start any sequence programs
-#seq sncxxx,"user=ktn98257"
+seq &rampLogic, "P=$(PREFIX),R=$(SUFFIX),L=0,A=$(A)"
+
