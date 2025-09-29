@@ -52,7 +52,7 @@ record(ao, "$(P)$(R)VLIMset")
     field(HOPR, "$(VMAX)")
     field(DRVL, "$(VMIN)")
     field(DRVH, "$(VMAX)")
-    field(PREC, "$(P)$(R)C_Precision")
+    field(PREC, "$(PREC)")
     field(FLNK, "$(P)$(R)VLIMget")
 }
 record(ai, "$(P)$(R)VLIMget")
@@ -63,7 +63,7 @@ record(ai, "$(P)$(R)VLIMget")
     field(EGU,  "V")
     field(LOPR, "$(VMIN)")
     field(HOPR, "$(VMAX)")
-    field(PREC, "$(P)$(R)C_Precision")
+    field(PREC, "$(PREC)")
     field(PINI, "YES")
 }
 record(ao, "$(P)$(R)ILIMset")
@@ -76,7 +76,7 @@ record(ao, "$(P)$(R)ILIMset")
     field(HOPR, "$(IMAX)")
     field(DRVL, "$(IMIN)")
     field(DRVH, "$(IMAX)")
-    field(PREC, "$(P)$(R)C_Precision")
+    field(PREC, "$(PREC)")
     field(FLNK, "$(P)$(R)ILIMget")
 }
 record(ai, "$(P)$(R)ILIMget")
@@ -87,7 +87,7 @@ record(ai, "$(P)$(R)ILIMget")
     field(EGU,  "A")
     field(LOPR, "$(IMIN)")
     field(HOPR, "$(IMAX)")
-    field(PREC, "$(P)$(R)C_Precision")
+    field(PREC, "$(PREC)")
     field(PINI, "YES")
 }
 record(ao, "$(P)$(R)ITRPset")
@@ -100,7 +100,7 @@ record(ao, "$(P)$(R)ITRPset")
     field(HOPR, "$(IMAX)")
     field(DRVL, "$(IMIN)")
     field(DRVH, "$(IMAX)")
-    field(PREC, "$(P)$(R)C_Precision")
+    field(PREC, "$(PREC)")
     field(FLNK, "$(P)$(R)ITRPget")
 }
 record(ai, "$(P)$(R)ITRPget")
@@ -111,7 +111,7 @@ record(ai, "$(P)$(R)ITRPget")
     field(EGU,  "A")
     field(LOPR, "0")
     field(HOPR, "$(IMAX)")
-    field(PREC, "$(P)$(R)C_Precision")
+    field(PREC, "$(PREC)")
     field(PINI, "YES")
 }
 
@@ -184,7 +184,7 @@ record(ai, "$(P)$(R)OutputIget")
     field(EGU,  "A")
     field(LOPR, "0")
     field(HOPR, "500.0e-6")
-    field(PREC, "$(P)$(R)C_Precision")
+    field(PREC, "$(PREC)")
     field(SIML, "$(P)$(R)SIM")
     field(SIOL, "$(P)$(R)SIM:OutputIget")
 }
@@ -236,25 +236,26 @@ record(bi, "$(P)$(R)VRAMPactive")
 #_____________________________________________
 #______User set ramp parameters_______________
 
-record(ai, "$(P)$(R)VRAMPtimeSet")
-{
+record(ai, "$(P)$(R)VRAMPtimeSet"){
+    #LOPR and VAl passed in from setOnStart as cannot be set to a pv directly
     field(DESC, "Set desired ramp time")
-    field(VAL, "$(P)$(R)C_minInterval")
+    field(HOPR, "1000000")#HOPR must be set and setting to Inf is not supported by ui
     field(EGU,  "seconds")
-    field(LOPR, "$(P)$(R)C_minInterval")
     field(PINI, "YES")
 }
 record(ai, "$(P)$(R)VRAMPinterval") {
+    #^^above comments apply
     field(DESC, "Set ramp up interval") 
-    field(VAL, "$(P)$(R)C_minInterval")
-    field(LOPR, "$(P)$(R)C_minInterval")
+    field(HOPR, "1000000")
     field(EGU, "seconds")
     field(PINI, "YES")
 }
+
 record(ai, "$(P)$(R)VRAMPstepSize"){
     field(DESC, "Set voltage ramp step size")
     field(VAL, "$(VMIN)") 
     field(LOPR, "$(VMIN)")
+    field(HOPR, "$(VMAX)")
     field(PINI, "YES")
 }
 
@@ -271,6 +272,7 @@ record(ai, "$(P)$(R)desiredHV")
 {
     field(DESC, "Set target output voltage")
     field(EGU,  "V")
+    field(VAL, "$(VMIN)")
     field(LOPR, "$(VMIN)")
     field(HOPR, "$(VMAX)")
     field(PREC, "$(PREC)")
@@ -289,7 +291,7 @@ record(ao, "$(P)$(R)HVset")
     field(HOPR, "$(VMAX)")
     field(DRVL, "$(VMIN)")
     field(DRVH, "$(VMAX)")
-    field(PREC, "$(P)$(R)C_Precision")
+    field(PREC, "$(PREC)")
     field(FLNK, "$(P)$(R)voltageMonitor")
 }
 
@@ -309,7 +311,7 @@ record(ai, "$(P)$(R)OutputVget")
     field(EGU,  "V")
     field(LOPR, "$(VMIN)")
     field(HOPR, "$(VMAX)")
-    field(PREC, "$(P)$(R)C_Precision")
+    field(PREC, "$(PREC)")
 }
 
 #_________________________________________
@@ -363,6 +365,7 @@ record(ai, "$(P)$(R)C_minInterval"){
     field(VAL, "1.5") #1.5 second minimum to allow for voltage stabilizing and reading before setting new val
     field(EGU, "seconds")
     field(PINI, "YES")
+    field(FLNK, "$(P)$(R)setOnStart")
 }
 record(ai, "$(P)$(R)C_vgetDelay"){
     field(DESC, "Delay before reading voltage")
@@ -379,4 +382,17 @@ record(ai, "$(P)$(R)C_Precision"){
     field(DESC, "number of decimal places")
     field(PINI, "YES")
     field(VAL, "$(PREC)")
+}
+record(seq,"$(P)$(R)setOnStart"){
+    #HOPR and LOPR can't take values from links and can only take doubles
+    #So values must be passed in through sequence
+    field(DESC, "sets values from constants")
+    field(DOL1, "$(P)$(R)C_minInterval")
+    field(LNK1, "$(P)$(R)VRAMPtimeSet.LOPR PP")
+    field(DOL2, "$(P)$(R)C_minInterval")
+    field(LNK2, "$(P)$(R)VRAMPinterval.LOPR PP")
+    field(DOL3, "$(P)$(R)C_minInterval")
+    field(LNK3, "$(P)$(R)VRAMPtimeSet PP")
+    field(DOL4, "$(P)$(R)C_minInterval")
+    field(LNK4, "$(P)$(R)VRAMPinterval PP")    
 }

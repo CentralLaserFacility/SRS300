@@ -12,9 +12,9 @@
   </background_color>
   <actions>
     <action type="write_pv">
+      <description>Write PV</description>
       <pv_name>$(P)$(R)VRAMPrun</pv_name>
       <value>0</value>
-      <description>Write PV</description>
     </action>
   </actions>
   <widget type="rectangle" version="2.0.0">
@@ -412,9 +412,9 @@ else:
       <name>EDM activeMessageButtonClass</name>
       <actions>
         <action type="write_pv">
+          <description>Reset</description>
           <pv_name>$(pv_name)</pv_name>
           <value>0</value>
-          <description>Reset</description>
         </action>
       </actions>
       <pv_name>$(P)$(R)TripClear</pv_name>
@@ -629,9 +629,9 @@ else:
     <name>Action Button_2</name>
     <actions>
       <action type="write_pv">
+        <description>Write PV</description>
         <pv_name>$(pv_name)</pv_name>
         <value>1</value>
-        <description>Write PV</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)chargeStartHelper</pv_name>
@@ -671,9 +671,9 @@ else:
     <name>Action Button_3</name>
     <actions>
       <action type="write_pv">
+        <description>Write PV</description>
         <pv_name>$(pv_name)</pv_name>
         <value>0</value>
-        <description>Write PV</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)VRAMPactive</pv_name>
@@ -739,11 +739,12 @@ else:
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update DV</name>
-    <pv_name>$(P)$(R)desiredVoltage</pv_name>
+    <pv_name>$(P)$(R)desiredHV</pv_name>
     <x>170</x>
     <y>107</y>
     <width>95</width>
     <height>18</height>
+    <precision>2</precision>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_Ri</name>
@@ -752,6 +753,7 @@ else:
     <y>162</y>
     <width>95</width>
     <height>18</height>
+    <precision>2</precision>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_SS</name>
@@ -760,6 +762,7 @@ else:
     <y>190</y>
     <width>95</width>
     <height>18</height>
+    <precision>2</precision>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_RT</name>
@@ -768,14 +771,15 @@ else:
     <y>134</y>
     <width>95</width>
     <height>18</height>
+    <precision>2</precision>
   </widget>
   <widget type="spinner" version="2.0.0">
     <name>Spinner DV</name>
     <pv_name>$(P)$(R)desiredHV</pv_name>
     <x>170</x>
     <y>106</y>
+    <precision>2</precision>
     <show_units>true</show_units>
-    <horizontal_alignment>1</horizontal_alignment>
     <vertical_alignment>1</vertical_alignment>
     <rules>
       <rule name="New Rule" prop_id="visible" out_exp="false">
@@ -792,23 +796,19 @@ else:
     <pv_name>$(P)$(R)VRAMPinterval</pv_name>
     <x>170</x>
     <y>161</y>
+    <precision>2</precision>
     <show_units>true</show_units>
-    <horizontal_alignment>1</horizontal_alignment>
     <vertical_alignment>1</vertical_alignment>
     <rules>
-      <rule name="Ramping visibility " prop_id="visible" out_exp="false">
-        <exp bool_exp="pv0==1">
+      <rule name="visibility " prop_id="visible" out_exp="false">
+        <exp bool_exp="pv0==1 || pv1== 0">
           <value>false</value>
         </exp>
         <pv_name>$(P)$(R)VRAMPactive</pv_name>
-      </rule>
-      <rule name="Mode visibility" prop_id="visible" out_exp="false">
-        <exp bool_exp="pv0==0">
-          <value>false</value>
-        </exp>
         <pv_name>$(P)$(R)VRAMPmode</pv_name>
       </rule>
     </rules>
+    <maximum>1000000.0</maximum>
     <increment>0.5</increment>
   </widget>
   <widget type="spinner" version="2.0.0">
@@ -817,19 +817,13 @@ else:
     <x>170</x>
     <y>190</y>
     <show_units>true</show_units>
-    <horizontal_alignment>1</horizontal_alignment>
     <vertical_alignment>1</vertical_alignment>
     <rules>
-      <rule name="Ramping visibility " prop_id="visible" out_exp="false">
-        <exp bool_exp="pv0==1">
+      <rule name="visibility " prop_id="visible" out_exp="false">
+        <exp bool_exp="pv0==1 || pv1== 0">
           <value>false</value>
         </exp>
         <pv_name>$(P)$(R)VRAMPactive</pv_name>
-      </rule>
-      <rule name="Mode visibility" prop_id="visible" out_exp="false">
-        <exp bool_exp="pv0==0">
-          <value>false</value>
-        </exp>
         <pv_name>$(P)$(R)VRAMPmode</pv_name>
       </rule>
     </rules>
@@ -839,22 +833,19 @@ else:
     <pv_name>$(P)$(R)VRAMPtimeSet</pv_name>
     <x>170</x>
     <y>134</y>
+    <precision>2</precision>
     <show_units>true</show_units>
-    <horizontal_alignment>1</horizontal_alignment>
     <vertical_alignment>1</vertical_alignment>
     <rules>
       <rule name="Ramping visibility" prop_id="visible" out_exp="false">
-        <exp bool_exp="pv0==1">
+        <exp bool_exp="pv0==1 || pv1==1">
           <value>false</value>
         </exp>
         <pv_name>$(P)$(R)VRAMPactive</pv_name>
-      </rule>
-      <rule name="Mode visibility" prop_id="visible" out_exp="false">
-        <exp bool_exp="pv0==1">
-          <value>false</value>
-        </exp>
         <pv_name>$(P)$(R)VRAMPmode</pv_name>
       </rule>
     </rules>
+    <maximum>1000000.0</maximum>
+    <increment>0.5</increment>
   </widget>
 </display>
