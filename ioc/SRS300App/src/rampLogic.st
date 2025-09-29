@@ -1,7 +1,7 @@
 program rampLogic
-%%#define Ramping 1
-%%#define Idle 0
-%%#define RegularScan 6 //regular scan = 1 second
+%%#define RAMPING 1
+%%#define IDLE 0
+%%#define REGULAR_SCAN 6 //regular scan = 1 second
 //to change default scan see scan menu and change 6 accordingly
 
 double presentVoltage;
@@ -38,16 +38,16 @@ monitor Tolerance;
 ss RampState{
 
     state initial{//stays idle then decides rampup or rampdown once started
-        when (startCharge == Ramping && presentVoltage<targetVoltage){
+        when (startCharge == RAMPING && presentVoltage<targetVoltage){
         } state RampUp
-        when (startCharge == Ramping && presentVoltage>targetVoltage){
+        when (startCharge == RAMPING && presentVoltage>targetVoltage){
         } state RampDown
-        when (startCharge == Idle || presentVoltage==targetVoltage){
+        when (startCharge == IDLE || presentVoltage==targetVoltage){
         } state initial
     }
 
     state RampUp{
-        when (presentVoltage < targetVoltage-Tolerance && startCharge == Ramping){
+        when (presentVoltage < targetVoltage-Tolerance && startCharge == RAMPING){
             newVoltage = presentVoltage + stepSize;
             if (newVoltage > targetVoltage-minStepSize){ //safety check
                 //if the next step is smaller than minStepSize, set straight to target instead
@@ -58,9 +58,9 @@ ss RampState{
 
         } state RampupDelay 
 
-        when (presentVoltage >= (targetVoltage-Tolerance) || startCharge == Idle){ //stops ramping and returns to initial
-            startCharge = Idle;
-            voltageMonitorScan = RegularScan; 
+        when (presentVoltage >= (targetVoltage-Tolerance) || startCharge == IDLE){ //stops ramping and returns to initial
+            startCharge = IDLE;
+            voltageMonitorScan = REGULAR_SCAN; 
             voltageMonitorDelay = 0;
             pvPut(voltageMonitorScan);
             pvPut(voltageMonitorDelay);
@@ -74,7 +74,7 @@ ss RampState{
     }
 
     state RampDown{ 
-        when (presentVoltage > targetVoltage+Tolerance && startCharge == Ramping){
+        when (presentVoltage > targetVoltage+Tolerance && startCharge == RAMPING){
             newVoltage = presentVoltage - stepSize;
             if (newVoltage < targetVoltage+minStepSize){ //safety check
                 //if the next step is smaller than minStepSize, set straight to target instead
@@ -86,9 +86,9 @@ ss RampState{
         } state RampDownDelay 
 
 
-        when (presentVoltage<=(targetVoltage+Tolerance) || startCharge == Idle){ //stops ramping and returns to initial
-            startCharge = Idle;
-            voltageMonitorScan = RegularScan; 
+        when (presentVoltage<=(targetVoltage+Tolerance) || startCharge == IDLE){ //stops ramping and returns to initial
+            startCharge = IDLE;
+            voltageMonitorScan = REGULAR_SCAN; 
             voltageMonitorDelay = 0;
             pvPut(voltageMonitorScan);
             pvPut(voltageMonitorDelay);
