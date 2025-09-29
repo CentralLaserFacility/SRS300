@@ -2,6 +2,7 @@
 #include <aSubRecord.h>
 #include <epicsExport.h>
 #include <registryFunction.h>
+#include <string.h>
 
 //calculates step size and interval based on user input of target voltage and ramp time
 //time interval between steps is calculated based on step size being equal to minimum
@@ -11,19 +12,28 @@
 static long rampcalc(aSubRecord *precord){
     double startVoltage, targetVoltage, rampTime, voltageDiff, interval, minStepSize, stepSize, 
     minInterval, checkFactor;
-    short mode; 
+    char *mode;
+    short miniHop;
 
     startVoltage = *(double*)precord->a;
     targetVoltage = *(double*)precord->b;
     rampTime = *(double*)precord->c;
     stepSize = *(double*)precord->d;
-    mode = *(short*)precord->e; //0 = automatic, 1= manual
-    // for mode to be a string, an unnecessary library would need to be included
+    mode = (char*)precord->e;
     interval = *(double*)precord->f;
     minStepSize = *(double*)precord->g;
     minInterval = *(double*)precord->h;
 
-    if (mode == 0) {
+    //if voltage already reached do not continue
+    if(startVoltage == targetVoltage){
+        return 1;
+    }
+    miniHop = 0;
+    if(startVoltage+minStepSize>targetVoltage){
+        miniHop = 1;
+    }
+
+    if (strcmp(mode, "Automatic") == 0) {//if mode = automatic
         //this just makes voltage difference positive for calculation
         //could use abs() but don't want to add another library for just this
         if(targetVoltage> startVoltage){

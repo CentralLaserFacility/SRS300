@@ -114,7 +114,7 @@ record(ai, "$(P)$(R)ITRPget")
     field(PREC, "$(PREC)")
     field(PINI, "YES")
 }
-
+#__________________________________________________________
 #
 # Dummy record to trigger readbacks
 #
@@ -329,7 +329,7 @@ record(aSub, "$(P)$(R)VRAMPcalc"){
     field(INPD, "$(P)$(R)VRAMPstepSize")
     field(FTD, "DOUBLE")
     field(INPE, "$(P)$(R)VRAMPmode")
-    field(FTE, "SHORT")
+    field(FTE, "STRING")
     field(INPF, "$(P)$(R)VRAMPinterval")
     field(FTF, "DOUBLE")
     field(INPG, "$(P)$(R)C_minStepSize")
