@@ -13,7 +13,7 @@ static long rampcalc(aSubRecord *precord){
     double startVoltage, targetVoltage, rampTime, voltageDiff, interval, minStepSize, stepSize, 
     minInterval, checkFactor;
     char *mode;
-    short miniHop;
+    short miniHop, active;
 
     startVoltage = *(double*)precord->a;
     targetVoltage = *(double*)precord->b;
@@ -23,13 +23,17 @@ static long rampcalc(aSubRecord *precord){
     interval = *(double*)precord->f;
     minStepSize = *(double*)precord->g;
     minInterval = *(double*)precord->h;
+    
 
     //if voltage already reached do not continue
     if(startVoltage == targetVoltage){
         return 1;
     }
-    miniHop = 0;
+    miniHop = 0; //*** Magic numbers
+    active = 1;
+    //if target voltage requires step below minimum step size, output error message
     if(startVoltage+minStepSize>targetVoltage){
+        active = 0;
         miniHop = 1;
     }
 
@@ -82,7 +86,8 @@ static long rampcalc(aSubRecord *precord){
 
    *(double*)precord->vala = stepSize;
    *(double*)precord->valb = interval;
-   *(short*)precord->valc = 1; //event to process ramp
+   *(short*)precord->valc = active; //event to process ramp
+   *(short*)precord->vald = miniHop;//is the increase too small?
     return 0;
 }
 
