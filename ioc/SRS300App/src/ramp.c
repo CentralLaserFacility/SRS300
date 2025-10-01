@@ -38,7 +38,11 @@ static long rampcalc(aSubRecord *precord){
     else{
         voltageDiff = startVoltage - targetVoltage;
     }
+    if(voltageDiff == 0){
+        return 1; //if present voltage is the same as target send error and do not output
+    }
 
+    
     miniHop = 0; //*** Magic numbers
     active = 1;
     //if target voltage requires step below minimum step size, output error message
@@ -49,9 +53,6 @@ static long rampcalc(aSubRecord *precord){
 
     if (strcmp(mode, "Automatic") == 0) {//if mode = automatic
         //check for possible divide by 0 errors
-        if(voltageDiff == 0){
-            return 1; //if present voltage is the same as target send error and do not output
-        }
         if (minStepSize == 0){
             minStepSize = 1; //ensure step size cannot be 0
         }
