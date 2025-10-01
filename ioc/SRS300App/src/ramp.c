@@ -29,24 +29,25 @@ static long rampcalc(aSubRecord *precord){
     if(startVoltage == targetVoltage){
         return 1;
     }
+
+    //this just makes voltage difference positive for calculation
+    //could use abs() but don't want to add another library for just this
+    if(targetVoltage> startVoltage){
+        voltageDiff = targetVoltage - startVoltage;
+    }
+    else{
+        voltageDiff = startVoltage - targetVoltage;
+    }
+
     miniHop = 0; //*** Magic numbers
     active = 1;
     //if target voltage requires step below minimum step size, output error message
-    if(startVoltage+minStepSize>targetVoltage){
+    if(voltageDiff<minStepSize){
         active = 0;
         miniHop = 1;
     }
 
     if (strcmp(mode, "Automatic") == 0) {//if mode = automatic
-        //this just makes voltage difference positive for calculation
-        //could use abs() but don't want to add another library for just this
-        if(targetVoltage> startVoltage){
-            voltageDiff = targetVoltage - startVoltage;
-        }
-        else{
-            voltageDiff = startVoltage - targetVoltage;
-        }
-
         //check for possible divide by 0 errors
         if(voltageDiff == 0){
             return 1; //if present voltage is the same as target send error and do not output
