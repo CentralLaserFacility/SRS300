@@ -123,7 +123,6 @@ record(fanout, "$(P)$(R)ReadbackPoll_")
 {
     field(DESC, "Head of readback chain")
     field(PINI, "YES")
-    #field(SELM, "All")
     field(SCAN, "1 second")
     field(LNK1, "$(P)$(R)getSTB")
     field(LNK2, "$(P)$(R)HVONstatus")
@@ -132,7 +131,6 @@ record(fanout, "$(P)$(R)ReadbackPoll_")
     field(LNK5, "$(P)$(R)VTRIPstatus")
     field(LNK6, "$(P)$(R)HVSTABLEstatus")
     field(LNK7, "$(P)$(R)OutputIget")
-    #field(TPRO, "1")
 }
 
 record(mbbiDirect, "$(P)$(R)getSTB")
@@ -142,7 +140,6 @@ record(mbbiDirect, "$(P)$(R)getSTB")
     field(INP,  "@ps300.proto getD(*STB) $(PORT) $(A)")
     field(SIML, "$(P)$(R)SIM")
     field(SIOL, "$(P)$(R)SIM:STB")
-    field(TPRO, "1")
 }
 record(bi, "$(P)$(R)HVONstatus")
 {
@@ -150,7 +147,6 @@ record(bi, "$(P)$(R)HVONstatus")
     field(INP,  "$(P)$(R)getSTB.B7 NPP MS")
     field(ZNAM, "Off")
     field(ONAM, "On")
-    field(TPRO, "1")
 }
 record(bi, "$(P)$(R)ILIMstatus")
 {
