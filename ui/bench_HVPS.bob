@@ -12,9 +12,9 @@
   </background_color>
   <actions>
     <action type="write_pv">
+      <description>Write PV</description>
       <pv_name>$(P)$(R)VRAMPrun</pv_name>
       <value>0</value>
-      <description>Write PV</description>
     </action>
   </actions>
   <widget type="rectangle" version="2.0.0">
@@ -29,7 +29,7 @@
       </color>
     </line_color>
     <background_color>
-      <color red="240" green="249" blue="255" alpha="72">
+      <color red="240" green="249" blue="255" alpha="155">
       </color>
     </background_color>
   </widget>
@@ -255,9 +255,9 @@ else:
     <name>Action Button_2</name>
     <actions>
       <action type="write_pv">
+        <description>Write PV</description>
         <pv_name>$(pv_name)</pv_name>
         <value>1</value>
-        <description>Write PV</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)chargeStartHelper</pv_name>
@@ -297,9 +297,9 @@ else:
     <name>Action Button_3</name>
     <actions>
       <action type="write_pv">
+        <description>Write PV</description>
         <pv_name>$(pv_name)</pv_name>
         <value>0</value>
-        <description>Write PV</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)VRAMPactive</pv_name>
@@ -493,6 +493,7 @@ else:
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED_1</name>
+    <pv_name>$(P)$(R)HVSTABLEstatus</pv_name>
     <x>128</x>
     <y>343</y>
     <width>18</width>
@@ -514,16 +515,17 @@ else:
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED_2</name>
+    <pv_name>$(P)$(R)VTRIPstatus</pv_name>
     <x>308</x>
     <y>343</y>
     <width>18</width>
     <height>18</height>
     <off_color>
-      <color name="MAJOR" red="255" green="0" blue="0">
+      <color red="0" green="224" blue="0">
       </color>
     </off_color>
     <on_color>
-      <color red="0" green="224" blue="0">
+      <color name="MAJOR" red="255" green="0" blue="0">
       </color>
     </on_color>
   </widget>
@@ -535,16 +537,17 @@ else:
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED_3</name>
+    <pv_name>$(P)$(R)ITRIPstatus</pv_name>
     <x>308</x>
     <y>365</y>
     <width>18</width>
     <height>18</height>
     <off_color>
-      <color name="MAJOR" red="255" green="0" blue="0">
+      <color red="0" green="224" blue="0">
       </color>
     </off_color>
     <on_color>
-      <color red="0" green="224" blue="0">
+      <color name="MAJOR" red="255" green="0" blue="0">
       </color>
     </on_color>
   </widget>
@@ -556,16 +559,17 @@ else:
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED_4</name>
+    <pv_name>$(P)$(R)ILIMstatus</pv_name>
     <x>128</x>
     <y>365</y>
     <width>18</width>
     <height>18</height>
     <off_color>
-      <color name="ActiveText" red="255" green="255" blue="0">
+      <color red="0" green="224" blue="0">
       </color>
     </off_color>
     <on_color>
-      <color red="0" green="224" blue="0">
+      <color name="ActiveText" red="255" green="255" blue="0">
       </color>
     </on_color>
   </widget>
@@ -573,9 +577,9 @@ else:
     <name>EDM activeMessageButtonClass</name>
     <actions>
       <action type="write_pv">
+        <description>Reset</description>
         <pv_name>$(pv_name)</pv_name>
         <value>0</value>
-        <description>Reset</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)TripClear</pv_name>
@@ -624,6 +628,7 @@ else:
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED_8</name>
+    <pv_name>$(P)$(R)VRAMPactive</pv_name>
     <x>423</x>
     <y>343</y>
     <width>18</width>
@@ -641,9 +646,9 @@ else:
     <name>EDM activeMessageButtonClass_2</name>
     <actions>
       <action type="write_pv">
+        <description>Reset</description>
         <pv_name>$(pv_name)</pv_name>
         <value>0</value>
-        <description>Reset</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)TripClear</pv_name>
@@ -664,5 +669,30 @@ else:
       <color red="179" green="230" blue="230">
       </color>
     </background_color>
+  </widget>
+  <widget type="multi_state_led" version="2.0.0">
+    <name>LED (Multi State)</name>
+    <x>350</x>
+    <y>450</y>
+    <width>0</width>
+    <height>0</height>
+    <states>
+      <state>
+        <value>0</value>
+        <label>State 1</label>
+        <color>
+          <color name="Off" red="60" green="100" blue="60">
+          </color>
+        </color>
+      </state>
+      <state>
+        <value>1</value>
+        <label>State 2</label>
+        <color>
+          <color name="On" red="0" green="255" blue="0">
+          </color>
+        </color>
+      </state>
+    </states>
   </widget>
 </display>
