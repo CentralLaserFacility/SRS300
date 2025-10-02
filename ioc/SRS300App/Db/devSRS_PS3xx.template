@@ -360,7 +360,9 @@ record(aSub, "$(P)$(R)VRAMPcalc"){
     field(OUTC, "$(P)$(R)VRAMPactive PP")
     field(FTVC, "SHORT")
     field(OUTD, "$(P)$(R)E_smallStep PP")
-    field(FTD, "SHORT")
+    field(FTVD, "SHORT")
+    field(OUTE, "$(P)$(R)VRAMPtimeSet PP")
+    field(FTVE, "DOUBLE")
 
 }
 

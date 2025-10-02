@@ -24,7 +24,6 @@ static long rampcalc(aSubRecord *precord){
     minStepSize = *(double*)precord->g;
     minInterval = *(double*)precord->h;
     
-
     //if voltage already reached do not continue
     if(startVoltage == targetVoltage){
         return 1;
@@ -42,7 +41,7 @@ static long rampcalc(aSubRecord *precord){
         return 1; //if present voltage is the same as target send error and do not output
     }
 
-    
+
     miniHop = 0; //*** Magic numbers
     active = 1;
     //if target voltage requires step below minimum step size, output error message
@@ -81,15 +80,21 @@ static long rampcalc(aSubRecord *precord){
             stepSize = voltageDiff/( rampTime/ interval);
                 if ( ((short)stepSize) < stepSize) { //is step size decimal?
                     stepSize = (short)stepSize + 1;//round up to nearest whole number
-                    //interval = rampTime/(voltageDiff / stepSize);//recalc interval with new step size
                 }
             }
         }
-
+    else{
+        //shows how long ramping will take based on user's manual input
+        rampTime = (interval*(voltageDiff/stepSize));
+        if(rampTime<interval){
+            rampTime=interval;
+        }
+    }
    *(double*)precord->vala = stepSize;
    *(double*)precord->valb = interval;
    *(short*)precord->valc = active; //event to process ramp
    *(short*)precord->vald = miniHop;//is the increase too small?
+   *(double*)precord->vale = rampTime;
     return 0;
 }
 
