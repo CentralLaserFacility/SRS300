@@ -491,22 +491,6 @@ else:
     <y>345</y>
     <width>55</width>
   </widget>
-  <widget type="led" version="2.0.0">
-    <name>LED_1</name>
-    <pv_name>$(P)$(R)HVSTABLEstatus</pv_name>
-    <x>128</x>
-    <y>343</y>
-    <width>18</width>
-    <height>18</height>
-    <off_color>
-      <color name="MAJOR" red="255" green="0" blue="0">
-      </color>
-    </off_color>
-    <on_color>
-      <color red="0" green="224" blue="0">
-      </color>
-    </on_color>
-  </widget>
   <widget type="label" version="2.0.0">
     <name>Label_9</name>
     <text>Overvoltage trip</text>
@@ -690,6 +674,51 @@ else:
         <label>State 2</label>
         <color>
           <color name="On" red="0" green="255" blue="0">
+          </color>
+        </color>
+      </state>
+    </states>
+  </widget>
+  <widget type="multi_state_led" version="2.0.0">
+    <name>LED (Multi State)_1</name>
+    <pv_name>$(P)$(R)StableMultiState</pv_name>
+    <x>128</x>
+    <y>343</y>
+    <width>18</width>
+    <height>18</height>
+    <rules>
+      <rule name="while ramping allow for 1 second of instability" prop_id="states[1].color" out_exp="false">
+        <exp bool_exp="pv0==1">
+          <value>
+            <color red="0" green="224" blue="0">
+            </color>
+          </value>
+        </exp>
+        <pv_name>$(P)$(R)VRAMPactive</pv_name>
+      </rule>
+    </rules>
+    <states>
+      <state>
+        <value>0</value>
+        <label></label>
+        <color>
+          <color red="0" green="224" blue="60">
+          </color>
+        </color>
+      </state>
+      <state>
+        <value>1</value>
+        <label></label>
+        <color>
+          <color name="ActiveText" red="255" green="255" blue="0">
+          </color>
+        </color>
+      </state>
+      <state>
+        <value>2</value>
+        <label></label>
+        <color>
+          <color name="MAJOR" red="255" green="0" blue="0">
           </color>
         </color>
       </state>

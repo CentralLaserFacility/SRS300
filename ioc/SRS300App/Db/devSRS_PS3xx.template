@@ -175,6 +175,19 @@ record(bi, "$(P)$(R)HVSTABLEstatus")
     field(INP,  "$(P)$(R)getSTB.B0 NPP MS")
     field(ZNAM, "Unstable")
     field(ONAM, "Stable")
+    field(FLNK, "$(P)$(R)StableMultiState")
+}
+record(calc, "$(P)$(R)StableMultiState")
+{#while ramping, stability briefly becomes unstable
+#to get more accurate LED it should check for if it's unstable twice in a row
+#0=stable(green), 1=warning(yellow), 2 = unstable(red)
+#(while ramping, 1 will be green as it is expected and shouldn't be seen as a warning)
+    field(INPA, "$(P)$(R)StableMultiState")
+    field(INPB, "$(P)$(R)HVSTABLEstatus")
+    field(CALC, "B=0 ? MIN(A+1,2): 0") 
+    # if unstable, val will be whichever is smallest, A+1 or 2 (meaning it can only increase to maximum 2)
+    #if stable it is set back to 0
+
 }
 
 record(ai, "$(P)$(R)OutputIget")
@@ -295,6 +308,7 @@ record(ao, "$(P)$(R)HVset")
     field(DRVH, "$(VMAX)")
     field(PREC, "$(PREC)")
     field(FLNK, "$(P)$(R)voltageMonitor")
+
 }
 
 record(seq, "$(P)$(R)voltageMonitor")
@@ -407,5 +421,5 @@ record(seq,"$(P)$(R)setOnStart"){
 record(bi,"$(P)$(R)E_smallStep"){
     field(DESC, "Warning for step being too small")#*** add ui
     field(ZNAM, "Safe")
-    field(ONAM, "Warning: Step below minimum")
+    field(ONAM, "Step below minimum")
 }
