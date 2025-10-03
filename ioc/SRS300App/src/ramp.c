@@ -85,7 +85,7 @@ static long rampcalc(aSubRecord *precord){
         }
     else{
         //shows how long ramping will take based on user's manual input
-        rampTime = (interval*(voltageDiff/stepSize));
+        rampTime = (interval*(short)(voltageDiff/stepSize));
         if(rampTime<interval){
             rampTime=interval;
         }
