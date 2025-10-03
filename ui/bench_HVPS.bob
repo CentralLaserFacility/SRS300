@@ -29,7 +29,7 @@
       </color>
     </line_color>
     <background_color>
-      <color red="240" green="249" blue="255" alpha="155">
+      <color red="240" green="249" blue="255" alpha="142">
       </color>
     </background_color>
   </widget>
@@ -686,17 +686,6 @@ else:
     <y>343</y>
     <width>18</width>
     <height>18</height>
-    <rules>
-      <rule name="while ramping allow for 1 second of instability" prop_id="states[1].color" out_exp="false">
-        <exp bool_exp="pv0==1">
-          <value>
-            <color red="0" green="224" blue="0">
-            </color>
-          </value>
-        </exp>
-        <pv_name>$(P)$(R)VRAMPactive</pv_name>
-      </rule>
-    </rules>
     <states>
       <state>
         <value>0</value>
@@ -710,12 +699,20 @@ else:
         <value>1</value>
         <label></label>
         <color>
-          <color name="ActiveText" red="255" green="255" blue="0">
+          <color red="0" green="224" blue="0">
           </color>
         </color>
       </state>
       <state>
         <value>2</value>
+        <label></label>
+        <color>
+          <color name="ActiveText" red="255" green="255" blue="0">
+          </color>
+        </color>
+      </state>
+      <state>
+        <value>3</value>
         <label></label>
         <color>
           <color name="MAJOR" red="255" green="0" blue="0">
