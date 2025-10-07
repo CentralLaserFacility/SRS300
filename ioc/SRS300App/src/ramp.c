@@ -13,7 +13,7 @@ static long rampcalc(aSubRecord *precord){
     double startVoltage, targetVoltage, rampTime, voltageDiff, interval, minStepSize, stepSize, 
     minInterval, checkFactor;
     char *mode;
-    short miniHop;
+    short miniHop, active;
 
     startVoltage = *(double*)precord->a;
     targetVoltage = *(double*)precord->b;
@@ -23,30 +23,35 @@ static long rampcalc(aSubRecord *precord){
     interval = *(double*)precord->f;
     minStepSize = *(double*)precord->g;
     minInterval = *(double*)precord->h;
-
+    
     //if voltage already reached do not continue
     if(startVoltage == targetVoltage){
         return 1;
     }
-    miniHop = 0;
-    if(startVoltage+minStepSize>targetVoltage){
+
+    //this just makes voltage difference positive for calculation
+    //could use abs() but don't want to add another library for just this
+    if(targetVoltage> startVoltage){
+        voltageDiff = targetVoltage - startVoltage;
+    }
+    else{
+        voltageDiff = startVoltage - targetVoltage;
+    }
+    if(voltageDiff == 0){
+        return 1; //if present voltage is the same as target send error and do not output
+    }
+
+
+    miniHop = 0; //*** Magic numbers
+    active = 1;
+    //if target voltage requires step below minimum step size, output error message
+    if(voltageDiff<minStepSize){
+        active = 0;
         miniHop = 1;
     }
 
     if (strcmp(mode, "Automatic") == 0) {//if mode = automatic
-        //this just makes voltage difference positive for calculation
-        //could use abs() but don't want to add another library for just this
-        if(targetVoltage> startVoltage){
-            voltageDiff = targetVoltage - startVoltage;
-        }
-        else{
-            voltageDiff = startVoltage - targetVoltage;
-        }
-
         //check for possible divide by 0 errors
-        if(voltageDiff == 0){
-            return 1; //if present voltage is the same as target send error and do not output
-        }
         if (minStepSize == 0){
             minStepSize = 1; //ensure step size cannot be 0
         }
@@ -75,14 +80,21 @@ static long rampcalc(aSubRecord *precord){
             stepSize = voltageDiff/( rampTime/ interval);
                 if ( ((short)stepSize) < stepSize) { //is step size decimal?
                     stepSize = (short)stepSize + 1;//round up to nearest whole number
-                    //interval = rampTime/(voltageDiff / stepSize);//recalc interval with new step size
                 }
             }
         }
-
+    else{
+        //shows how long ramping will take based on user's manual input
+        rampTime = (interval*(short)(voltageDiff/stepSize));
+        if(rampTime<interval){
+            rampTime=interval;
+        }
+    }
    *(double*)precord->vala = stepSize;
    *(double*)precord->valb = interval;
-   *(short*)precord->valc = 1; //event to process ramp
+   *(short*)precord->valc = active; //event to process ramp
+   *(short*)precord->vald = miniHop;//is the increase too small?
+   *(double*)precord->vale = rampTime;
     return 0;
 }
 
