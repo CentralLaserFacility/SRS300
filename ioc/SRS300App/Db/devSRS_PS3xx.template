@@ -239,7 +239,18 @@ record(seq, "$(P)$(R)StartCharge")
     field(DOL2, "$(P)$(R)C_vgetDelay") 
     field(LNK2, "$(P)$(R)voltageMonitor.DLY1")
     #process ramp value calculation
-    field(LNK3, "$(P)$(R)VRAMPcalc PP")
+    field(DO3, "1")
+    field(LNK3, "$(P)$(R)startTime PP")
+    field(DOL4, "$(P)$(R)OutputVget")
+    field(LNK4, "$(P)$(R)startVoltage PP")
+    field(DO5, "1")
+    field(LNK5, "$(P)$(R)YaxisMax.PROC PP")
+    field(DO6, "1")
+    field(LNK6, "$(P)$(R)YaxisMin.PROC PP")
+    field(DLY7, "0.5 seconds")
+    field(DO7, "1")
+    field(LNK7, "$(P)$(R)voltageGraphArray.RES PP")
+    field(LNK8, "$(P)$(R)VRAMPcalc PP")#*** VRAMPready pre active?
 }
 
 record(bi, "$(P)$(R)VRAMPactive")
@@ -427,3 +438,62 @@ record(bi,"$(P)$(R)E_smallStep"){
     field(ZNAM, "Safe")
     field(ONAM, "Step below minimum")
 }
+
+
+#_________________________________________
+#____________voltage graph xy________________
+
+record(compress, "$(P)$(R)voltageGraphArray"){
+    field(DESC, "Array for present voltage values")
+    field(INP, "$(P)$(R)OutputVget")
+    field(ALG, "4")#*** circular buffer
+    field(NSAM, "10000")
+    field(EGU, "V")
+}
+
+record(calcout, "$(P)$(R)appendArray"){
+    field(DESC, "Append to array at regular intervals")
+    field(SCAN, "8")
+    field(INPA, "$(P)$(R)startTime NPP")
+    field(INPB, "$(P)$(R)currentTime PP")
+    field(INPC, "$(P)$(R)VRAMPtimeSet")
+    field(INPD, "$(P)$(R)VRAMPinterval")
+    field(CALC, "B-A >= C+10 ")
+    field(OUT, "$(P)$(R)voltageGraphArray.PROC")
+    field(OOPT, "2") #trigger OUT link when 0
+}
+
+record(ai, "$(P)$(R)startTime"){
+    field(DESC, "start time for ramping")
+    field(DTYP, "Soft Timestamp")
+}
+record(ai,"$(P)$(R)currentTime") {
+    field(DESC, "Time now")
+    field(DTYP, "Soft Timestamp")
+}
+record(ai, "$(P)$(R)startVoltage"){
+    field(DESC, "Voltage at start of ramp")
+    field(EGU, "V")
+    field(PINI, "YES")
+}
+
+record(calc, "$(P)$(R)YaxisMax"){
+    field(DESC, "calc Y axis maximum")
+    field(INPA, "$(P)$(R)desiredHV")
+    field(INPB, "$(P)$(R)startVoltage")
+    field(INPC, "$(P)$(R)C_minStepSize")
+    field(CALC, "MAX(A,B)+C")
+
+}
+record(calc, "$(P)$(R)YaxisMin"){
+    field(DESC, "calc Y axis minimum")
+    field(INPA, "$(P)$(R)desiredHV")
+    field(INPB, "$(P)$(R)startVoltage")
+    field(INPC, "$(P)$(R)C_minStepSize")
+    field(CALC, "MIN(A,B)-C")
+}
+
+#record(calc, "$(P)$(R)rampGraphTime")
+
+
+
