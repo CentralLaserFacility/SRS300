@@ -4,6 +4,7 @@ program rampLogic
 %%#define REGULAR_SCAN 6 //regular scan = 1 second
 //to change default scan see scan menu and change 6 accordingly
 %%#define PASSIVE 0 // 0 = passive scanning
+%%#define END 1 // 1 = ramp ended
 
 double presentVoltage;
 double targetVoltage;
@@ -17,6 +18,7 @@ double minStepSize;
 short Tolerance; //Tolerance for stopping ramping
 double newVoltage;
 double readbackPollScan;
+short endCharge; // 1 = ramp ended, 0 = not ended
 
 assign presentVoltage to "{P}{R}OutputVget"; //change $(P)$(R) syntax
 assign targetVoltage to "{P}{R}desiredHV";
@@ -29,6 +31,7 @@ assign voltageMonitorDelay to "{P}{R}voltageMonitor.DLY1";
 assign minStepSize to "{P}{R}C_minStepSize"; 
 assign Tolerance to "{P}{R}C_Tolerance";
 assign readbackPollScan to "{P}{R}ReadbackPoll_.SCAN";
+assign endCharge to "{P}{R}endCharge";
 
 monitor presentVoltage;
 monitor targetVoltage;
@@ -64,19 +67,13 @@ ss RampState{
             pvPut(HVset);
             readbackPollScan = REGULAR_SCAN;//set back to regular scanning while safe
             pvPut(readbackPollScan);
-
-
         } state RampupDelay 
 
         when (presentVoltage >= (targetVoltage-Tolerance) || startCharge == IDLE){ //stops ramping and returns to initial
             startCharge = IDLE;
-            voltageMonitorScan = REGULAR_SCAN; 
-            voltageMonitorDelay = 0;
-            readbackPollScan = REGULAR_SCAN;
-            pvPut(readbackPollScan);
-            pvPut(voltageMonitorScan);
-            pvPut(voltageMonitorDelay);
+            endCharge = END;
             pvPut(startCharge);
+            pvPut(endCharge);
         } state initial
     }
 
@@ -96,21 +93,17 @@ ss RampState{
             }
             HVset = newVoltage;
             pvPut(HVset);
-            readbackPollScan = REGULAR_SCAN;
+            readbackPollScan = REGULAR_SCAN;//set back to regular scanning while safe
             pvPut(readbackPollScan);
-
+            
         } state RampDownDelay 
 
 
         when (presentVoltage<=(targetVoltage+Tolerance) || startCharge == IDLE){ //stops ramping and returns to initial
             startCharge = IDLE;
-            voltageMonitorScan = REGULAR_SCAN; 
-            voltageMonitorDelay = 0;
-            readbackPollScan = REGULAR_SCAN;
-            pvPut(readbackPollScan);
-            pvPut(voltageMonitorScan);
-            pvPut(voltageMonitorDelay);
+            endCharge = END;
             pvPut(startCharge);
+            pvPut(endCharge);
         } state initial
     }   
     state RampDownDelay{ // delays by interval time

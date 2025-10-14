@@ -247,10 +247,13 @@ record(seq, "$(P)$(R)StartCharge")
     field(LNK5, "$(P)$(R)YaxisMax.PROC PP")
     field(DO6, "1")
     field(LNK6, "$(P)$(R)YaxisMin.PROC PP")
-    field(DLY7, "0.5 seconds")
     field(DO7, "1")
     field(LNK7, "$(P)$(R)voltageGraphArray.RES PP")
-    field(LNK8, "$(P)$(R)VRAMPcalc PP")#*** VRAMPready pre active?
+    field(DOL8, "$(P)$(R)YaxisMin")
+    field(LNK8, "$(P)$(R)autoscaleControlMin PP")
+    field(DOL9, "$(P)$(R)YaxisMax")
+    field(LNK9, "$(P)$(R)autoscaleControlMax PP")
+    field(LNKA, "$(P)$(R)VRAMPcalc PP")#*** VRAMPready pre active?
 }
 
 record(bi, "$(P)$(R)VRAMPactive")
@@ -493,7 +496,87 @@ record(calc, "$(P)$(R)YaxisMin"){
     field(CALC, "MIN(A,B)-C")
 }
 
-#record(calc, "$(P)$(R)rampGraphTime")
+record(calc, "$(P)$(R)idleYaxisMax"){
+    field(DESC, "Set Y axis max when not ramping")
+    field(INPA, "$(P)$(R)OutputVget")
+    field(INPB, "$(P)$(R)C_minStepSize")
+    field(CALC, "A + B")
+}
+
+record(calc, "$(P)$(R)idleYaxisMin"){
+    field(DESC, "Set Y axis min when not ramping")
+    field(INPA, "$(P)$(R)OutputVget")
+    field(INPB, "$(P)$(R)C_minStepSize")
+    field(INPC, "$(P)$(R)graphScale")
+    field(CALC, "A>C ? A - C : 0")
+}
+
+record(ai, "$(P)$(R)graphScale"){
+    field(DESC, "Set graph scale")
+    field(PINI, "YES")
+    field(VAL, "5000")
+}
+
+#____________________________________________
+#____________data browser____________________
 
 
+record(ai, "$(P)$(R)autoscaleControlMax"){
+    field(DESC, "Control autoscale maximum")
+    field(PINI, "YES")
+}
 
+record(ai, "$(P)$(R)autoscaleControlMin"){
+    field(DESC, "Control autoscale minimum")
+    field(PINI, "YES")
+}
+
+record(seq, "$(P)$(R)idleZoom"){
+    field(DESC, "Auto zoom data browser")
+    field(DOL1, "$(P)$(R)idleYaxisMax PP")
+    field(LNK1, "$(P)$(R)autoscaleControlMax PP")
+    field(DOL2, "$(P)$(R)idleYaxisMin PP")
+    field(LNK2, "$(P)$(R)autoscaleControlMin PP")
+    field(PINI, "YES")
+}
+record(seq, "$(P)$(R)rampZoom"){
+    field(DESC, "Auto zoom data browser")
+    field(DOL1, "$(P)$(R)YaxisMax")
+    field(LNK1, "$(P)$(R)autoscaleControlMax PP")
+    field(DOL2, "$(P)$(R)YaxisMin")
+    field(LNK2, "$(P)$(R)autoscaleControlMin PP")
+    field(TPRO, "1")
+}
+record(seq, "$(P)$(R)outZoom"){
+    field(DESC, "Auto zoom data browser out fully")
+    field(DO1, "$(VMAX)")
+    field(LNK1, "$(P)$(R)autoscaleControlMax PP")
+    field(DOL2, "$(VMIN)")
+    field(LNK2, "$(P)$(R)autoscaleControlMin PP")   
+}
+
+record(bi, "$(P)$(R)toolbarShow"){
+    field(DESC, "Show toolbar")
+    field(ZNAM, "Hide Toolbar")
+    field(ONAM, "Show Toolbar")
+    field(VAL, "0")
+    field(PINI, "YES")
+}
+
+
+#____________________________________________
+#___________End of ramp sequence_____________
+
+record(seq, "$(P)$(R)endCharge")
+{
+    field(DESC, "Sequence to end HV charge")
+    field(DO1, "0")
+    field(LNK1, "$(P)$(R)VRAMPactive PP")
+    field(DO2, "6")
+    field(LNK2, "$(P)$(R)voltageMonitor.SCAN")
+    field(DO3, "0")
+    field(LNK3, "$(P)$(R)voltageMonitor.DLY1")
+    field(DO4, "6")
+    field(LNK4, "$(P)$(R)ReadbackPoll_.SCAN")
+    field(LNK5, "$(P)$(R)idleZoom PP")
+}
