@@ -58,7 +58,7 @@ static long rampcalc(aSubRecord *precord){
 
         stepSize = minStepSize;
         //calc interval using 2xminimum as a min step size to avoid too fast ramping
-        interval = rampTime/(voltageDiff / stepSize);
+        interval = rampTime/(short)(voltageDiff / stepSize);
 
         if (interval < minInterval){
             //calculation to find new interval based on minimum interval

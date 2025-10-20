@@ -13,9 +13,9 @@
   </background_color>
   <actions>
     <action type="write_pv">
+      <description>Write PV</description>
       <pv_name>$(P)$(R)VRAMPrun</pv_name>
       <value>0</value>
-      <description>Write PV</description>
     </action>
   </actions>
   <widget type="rectangle" version="2.0.0">
@@ -154,9 +154,9 @@ else:
     <name>Action Button_2</name>
     <actions>
       <action type="write_pv">
+        <description>Write PV</description>
         <pv_name>$(pv_name)</pv_name>
         <value>1</value>
-        <description>Write PV</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)chargeStartHelper</pv_name>
@@ -191,14 +191,15 @@ else:
       </rule>
     </rules>
     <tooltip>$(actions)</tooltip>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="action_button" version="3.0.0">
     <name>Action Button_3</name>
     <actions>
       <action type="write_pv">
+        <description>Write PV</description>
         <pv_name>$(pv_name)</pv_name>
         <value>0</value>
-        <description>Write PV</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)VRAMPactive</pv_name>
@@ -474,12 +475,12 @@ else:
     <name>EDM activeMessageButtonClass</name>
     <actions>
       <action type="write_pv">
-        <pv_name>$(pv_name)</pv_name>
-        <value>0</value>
         <description>Reset</description>
+        <pv_name>$(pv_name)</pv_name>
+        <value>1</value>
       </action>
     </actions>
-    <pv_name>$(P)$(R)TripClear</pv_name>
+    <pv_name>$(P)$(R)hardReset</pv_name>
     <text>Reset</text>
     <x>20</x>
     <y>538</y>
@@ -497,6 +498,7 @@ else:
       <color red="179" green="230" blue="230">
       </color>
     </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_15</name>
@@ -527,9 +529,9 @@ else:
     <name>EDM activeMessageButtonClass_2</name>
     <actions>
       <action type="write_pv">
+        <description>Reset</description>
         <pv_name>$(pv_name)</pv_name>
         <value>0</value>
-        <description>Reset</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)TripClear</pv_name>
@@ -550,6 +552,7 @@ else:
       <color red="179" green="230" blue="230">
       </color>
     </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="multi_state_led" version="2.0.0">
     <name>LED (Multi State)</name>
@@ -727,9 +730,9 @@ else:
     <name>Action Button_4</name>
     <actions>
       <action type="write_pv">
+        <description>Write PV</description>
         <pv_name>$(pv_name)</pv_name>
         <value>1</value>
-        <description>Write PV</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)outZoom</pv_name>
@@ -737,6 +740,7 @@ else:
     <x>344</x>
     <y>593</y>
     <tooltip>$(actions)</tooltip>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="bool_button" version="2.0.0">
     <name>Boolean Button_1</name>
@@ -754,6 +758,7 @@ else:
       </color>
     </on_color>
     <show_led>false</show_led>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txtVoltsNow_1</name>
