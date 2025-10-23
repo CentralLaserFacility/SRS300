@@ -427,3 +427,26 @@ record(bi,"$(P)$(R)E_smallStep"){
     field(ZNAM, "Safe")
     field(ONAM, "Step below minimum")
 }
+
+#______________________________________________
+#_______________Reset button__________________
+
+record(seq, "$(P)$(R)hardReset"){
+    field(DESC, "Hard reset sequence")
+    field(DO1, "0")
+    field(LNK1, "$(P)$(R)HVenable PP")
+    field(DO2, "1")
+    field(LNK2, "$(P)$(R)TripClear PP")
+    field(LNK3, "$(P)$(R)ResetDevice.PROC PP")
+    field(DO4, "1")
+    field(LNK4, "$(P)$(R)HVenable PP")
+}
+
+record(bo, "$(P)$(R)ResetDevice")
+{
+    field(DESC, "Reset device")
+    field(DTYP, "stream")
+    field(OUT,  "@ps300.proto cmd(RST) $(PORT) $(A)")
+    field(ZNAM, "Reset Device")
+    field(ONAM, "Reset Device")
+}
