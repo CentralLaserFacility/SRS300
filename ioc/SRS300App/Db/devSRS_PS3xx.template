@@ -444,10 +444,20 @@ record(seq,"$(P)$(R)setOnStart"){
 #__________________________________________
 #_____________error messages_______________
 
-record(bi,"$(P)$(R)E_smallStep"){
+
+record(bo,"$(P)$(R)E_smallStep"){
     field(DESC, "Warning for step being too small")#*** add ui
     field(ZNAM, "Safe")
-    field(ONAM, "Step below minimum")
+    field(ONAM, "Step size below minimum")
+    field(OUT, "$(P)$(R)errorMessage PP")
+    field(PINI, "YES")
+}
+
+record(mbbi, "$(P)$(R)errorMessage"){
+    field(DESC, "Error message for ramping")
+    field(PINI, "YES")
+    field(ZRST, "No Error")
+    field(ONST, "Step size below minimum")
 }
 
 
