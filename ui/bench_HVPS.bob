@@ -566,7 +566,7 @@ else:
         <value>0</value>
       </action>
     </actions>
-    <pv_name>$(P)$(R)TripClear</pv_name>
+    <pv_name>$(P)$(R)hardReset</pv_name>
     <text>Reset</text>
     <x>17</x>
     <y>408</y>
@@ -658,8 +658,8 @@ else:
     <name>LED (Multi State)</name>
     <x>350</x>
     <y>450</y>
-    <width>0</width>
-    <height>0</height>
+    <width>1</width>
+    <height>1</height>
     <states>
       <state>
         <value>0</value>
