@@ -217,9 +217,16 @@ record(bo, "$(P)$(R)HVenable")
     field(ZNAM, "Turn Off")
     field(ONAM, "Turn On")
     field(PINI, "YES")
-    field(FLNK, "$(P)$(R)getSTB")
+    field(FLNK, "$(P)$(R)HVenableSeq")
 }
 
+record(seq, "$(P)$(R)HVenableSeq")
+{
+    field(DESC, "Sequence to dis/enable HV")
+    field(DO1, "$(VMIN)")
+    field(LNK1, "$(P)$(R)HVset PP")
+    field(LNK2, "$(P)$(R)getSTB.PROC PP")
+}
 #____________________________________________
 #_________Start ramping process______________
 
