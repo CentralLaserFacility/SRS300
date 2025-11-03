@@ -454,30 +454,6 @@ record(mbbi, "$(P)$(R)errorMessage"){
     field(ONST, "Step size below minimum")
 }
 
-
-#_________________________________________
-#____________voltage graph xy________________
-
-record(compress, "$(P)$(R)voltageGraphArray"){
-    field(DESC, "Array for present voltage values")
-    field(INP, "$(P)$(R)OutputVget")
-    field(ALG, "4")#*** circular buffer
-    field(NSAM, "10000")
-    field(EGU, "V")
-}
-
-record(calcout, "$(P)$(R)appendArray"){
-    field(DESC, "Append to array at regular intervals")
-    field(SCAN, "8")
-    field(INPA, "$(P)$(R)startTime NPP")
-    field(INPB, "$(P)$(R)currentTime PP")
-    field(INPC, "$(P)$(R)VRAMPtimeSet")
-    field(INPD, "$(P)$(R)VRAMPinterval")
-    field(CALC, "B-A >= C+10 ")
-    field(OUT, "$(P)$(R)voltageGraphArray.PROC")
-    field(OOPT, "2") #trigger OUT link when 0
-}
-
 record(ai, "$(P)$(R)startTime"){
     field(DESC, "start time for ramping")
     field(DTYP, "Soft Timestamp")
@@ -492,6 +468,10 @@ record(ai, "$(P)$(R)startVoltage"){
     field(PINI, "YES")
 }
 
+#______________________________________________
+#__________Autoscale for data browser__________
+
+#calculate y axis max and min for ramping
 record(calc, "$(P)$(R)YaxisMax"){
     field(DESC, "calc Y axis maximum")
     field(INPA, "$(P)$(R)desiredHV")
@@ -508,6 +488,7 @@ record(calc, "$(P)$(R)YaxisMin"){
     field(CALC, "MIN(A,B)-C")
 }
 
+#calculates y axis max and min for idle state
 record(calc, "$(P)$(R)idleYaxisMax"){
     field(DESC, "Set Y axis max when not ramping")
     field(INPA, "$(P)$(R)OutputVget")
@@ -523,16 +504,7 @@ record(calc, "$(P)$(R)idleYaxisMin"){
     field(CALC, "A>C ? A - C : 0")
 }
 
-record(ai, "$(P)$(R)graphScale"){
-    field(DESC, "Set graph scale")
-    field(PINI, "YES")
-    field(VAL, "5000")
-}
-
-#____________________________________________
-#____________data browser____________________
-
-
+#pvs to be plotted invisibly on the graph for autoscaling
 record(ai, "$(P)$(R)autoscaleControlMax"){
     field(DESC, "Control autoscale maximum")
     field(PINI, "YES")
@@ -543,6 +515,7 @@ record(ai, "$(P)$(R)autoscaleControlMin"){
     field(PINI, "YES")
 }
 
+#uses the above calculated values to set the autoscale pvs depending on whether ramping or idle
 record(seq, "$(P)$(R)idleZoom"){
     field(DESC, "Auto zoom data browser")
     field(DOL1, "$(P)$(R)idleYaxisMax PP")
@@ -559,16 +532,10 @@ record(seq, "$(P)$(R)rampZoom"){
     field(LNK2, "$(P)$(R)autoscaleControlMin PP")
     field(TPRO, "1")
 }
-record(seq, "$(P)$(R)outZoom"){
-    field(DESC, "Auto zoom data browser out fully")
-    field(DO1, "$(VMAX)")
-    field(LNK1, "$(P)$(R)autoscaleControlMax PP")
-    field(DOL2, "$(VMIN)")
-    field(LNK2, "$(P)$(R)autoscaleControlMin PP")   
-}
+
 
 record(bi, "$(P)$(R)toolbarShow"){
-    field(DESC, "Show toolbar")
+    field(DESC, "Show/hide toolbar")
     field(ZNAM, "Hide Toolbar")
     field(ONAM, "Show Toolbar")
     field(VAL, "0")

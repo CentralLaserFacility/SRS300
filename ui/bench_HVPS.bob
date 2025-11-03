@@ -5,23 +5,23 @@
     <P>BENCH:</P>
     <R>HVPS:</R>
   </macros>
-  <width>740</width>
-  <height>650</height>
+  <width>700</width>
+  <height>740</height>
   <background_color>
     <color name="Button_Background" red="210" green="210" blue="210">
     </color>
   </background_color>
   <actions>
     <action type="write_pv">
-      <description>Write PV</description>
       <pv_name>$(P)$(R)VRAMPrun</pv_name>
       <value>0</value>
+      <description>Write PV</description>
     </action>
   </actions>
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle</name>
-    <x>19</x>
-    <y>151</y>
+    <x>18</x>
+    <y>60</y>
     <width>289</width>
     <height>188</height>
     <line_width>1</line_width>
@@ -36,10 +36,10 @@
   </widget>
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_1</name>
-    <x>19</x>
-    <y>411</y>
+    <x>328</x>
+    <y>111</y>
     <width>289</width>
-    <height>139</height>
+    <height>138</height>
     <line_width>1</line_width>
     <line_color>
       <color name="Header_Background" red="77" green="77" blue="77">
@@ -52,8 +52,8 @@
   </widget>
   <widget type="label" version="2.0.0">
     <text>Desired Voltage:</text>
-    <x>55</x>
-    <y>222</y>
+    <x>54</x>
+    <y>131</y>
     <width>112</width>
   </widget>
   <widget type="label" version="2.0.0">
@@ -77,38 +77,26 @@
     <horizontal_alignment>1</horizontal_alignment>
     <vertical_alignment>1</vertical_alignment>
   </widget>
-  <widget type="bool_button" version="2.0.0">
-    <name>Boolean Button</name>
-    <pv_name>$(P)$(R)HVenable</pv_name>
-    <x>20</x>
-    <y>35</y>
-    <width>84</width>
-    <height>29</height>
-    <on_color>
-      <color name="On" red="0" green="255" blue="0">
-      </color>
-    </on_color>
-  </widget>
   <widget type="textupdate" version="2.0.0">
     <name>txt</name>
     <pv_name>$(P)$(R)polarity</pv_name>
-    <x>215</x>
-    <y>495</y>
+    <x>524</x>
+    <y>195</y>
     <width>77</width>
     <height>17</height>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_6</name>
     <text>Ramp interval:</text>
-    <x>55</x>
-    <y>278</y>
+    <x>54</x>
+    <y>187</y>
     <width>96</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>txtStepIncrement</name>
     <text>Step size:</text>
-    <x>55</x>
-    <y>306</y>
+    <x>54</x>
+    <y>215</y>
     <width>87</width>
   </widget>
   <widget type="led" version="2.0.0">
@@ -154,15 +142,15 @@ else:
     <name>Action Button_2</name>
     <actions>
       <action type="write_pv">
-        <description>Write PV</description>
         <pv_name>$(pv_name)</pv_name>
         <value>1</value>
+        <description>Write PV</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)chargeStartHelper</pv_name>
     <text>Start ramp</text>
-    <x>48</x>
-    <y>349</y>
+    <x>47</x>
+    <y>258</y>
     <background_color>
       <color red="179" green="230" blue="179">
       </color>
@@ -197,15 +185,15 @@ else:
     <name>Action Button_3</name>
     <actions>
       <action type="write_pv">
-        <description>Write PV</description>
         <pv_name>$(pv_name)</pv_name>
         <value>0</value>
+        <description>Write PV</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)VRAMPactive</pv_name>
     <text>Abort</text>
-    <x>181</x>
-    <y>349</y>
+    <x>180</x>
+    <y>258</y>
     <foreground_color>
       <color name="Header_ForeGround" red="255" green="255" blue="255">
       </color>
@@ -219,15 +207,15 @@ else:
   <widget type="label" version="2.0.0">
     <name>Label_7</name>
     <text>Ramp time:</text>
-    <x>55</x>
-    <y>249</y>
+    <x>54</x>
+    <y>158</y>
     <width>83</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_12</name>
     <text>Voltage ramp settings</text>
-    <x>29</x>
-    <y>137</y>
+    <x>28</x>
+    <y>46</y>
     <width>160</width>
     <font>
       <font family="Liberation Sans" style="REGULAR" size="16.0">
@@ -242,8 +230,8 @@ else:
   <widget type="choice" version="2.0.0">
     <name>Choice Button</name>
     <pv_name>$(P)$(R)VRAMPmode</pv_name>
-    <x>70</x>
-    <y>184</y>
+    <x>69</x>
+    <y>93</y>
     <width>190</width>
     <height>30</height>
     <selected_color>
@@ -258,8 +246,8 @@ else:
   <widget type="textupdate" version="2.0.0">
     <name>Text Update DV</name>
     <pv_name>$(P)$(R)desiredHV</pv_name>
-    <x>177</x>
-    <y>223</y>
+    <x>176</x>
+    <y>132</y>
     <width>95</width>
     <height>18</height>
     <precision>2</precision>
@@ -267,8 +255,8 @@ else:
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_Ri</name>
     <pv_name>$(P)$(R)VRAMPinterval</pv_name>
-    <x>177</x>
-    <y>278</y>
+    <x>176</x>
+    <y>187</y>
     <width>95</width>
     <height>18</height>
     <precision>2</precision>
@@ -276,8 +264,8 @@ else:
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_SS</name>
     <pv_name>$(P)$(R)VRAMPstepSize</pv_name>
-    <x>177</x>
-    <y>306</y>
+    <x>176</x>
+    <y>215</y>
     <width>95</width>
     <height>18</height>
     <precision>2</precision>
@@ -285,8 +273,8 @@ else:
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_RT</name>
     <pv_name>$(P)$(R)VRAMPtimeSet</pv_name>
-    <x>177</x>
-    <y>250</y>
+    <x>176</x>
+    <y>159</y>
     <width>95</width>
     <height>18</height>
     <precision>2</precision>
@@ -294,8 +282,8 @@ else:
   <widget type="spinner" version="2.0.0">
     <name>Spinner DV</name>
     <pv_name>$(P)$(R)desiredHV</pv_name>
-    <x>177</x>
-    <y>222</y>
+    <x>176</x>
+    <y>131</y>
     <precision>2</precision>
     <show_units>true</show_units>
     <background_color>
@@ -316,8 +304,8 @@ else:
   <widget type="spinner" version="2.0.0">
     <name>Spinner_Ri</name>
     <pv_name>$(P)$(R)VRAMPinterval</pv_name>
-    <x>177</x>
-    <y>277</y>
+    <x>176</x>
+    <y>186</y>
     <precision>2</precision>
     <show_units>true</show_units>
     <background_color>
@@ -340,8 +328,8 @@ else:
   <widget type="spinner" version="2.0.0">
     <name>Spinner_SS</name>
     <pv_name>$(P)$(R)VRAMPstepSize</pv_name>
-    <x>177</x>
-    <y>306</y>
+    <x>176</x>
+    <y>215</y>
     <show_units>true</show_units>
     <background_color>
       <color red="179" green="230" blue="230">
@@ -361,8 +349,8 @@ else:
   <widget type="spinner" version="2.0.0">
     <name>Spinner_RT</name>
     <pv_name>$(P)$(R)VRAMPtimeSet</pv_name>
-    <x>177</x>
-    <y>250</y>
+    <x>176</x>
+    <y>159</y>
     <precision>2</precision>
     <show_units>true</show_units>
     <background_color>
@@ -385,8 +373,8 @@ else:
   <widget type="label" version="2.0.0">
     <name>Label_5</name>
     <text>Status</text>
-    <x>32</x>
-    <y>402</y>
+    <x>341</x>
+    <y>102</y>
     <width>52</width>
     <font>
       <font family="Liberation Sans" style="REGULAR" size="16.0">
@@ -401,21 +389,21 @@ else:
   <widget type="label" version="2.0.0">
     <name>Label_8</name>
     <text>Stable</text>
-    <x>30</x>
-    <y>465</y>
+    <x>339</x>
+    <y>165</y>
     <width>55</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_9</name>
     <text>Overvoltage trip</text>
-    <x>161</x>
-    <y>439</y>
+    <x>470</x>
+    <y>139</y>
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED_2</name>
     <pv_name>$(P)$(R)VTRIPstatus</pv_name>
-    <x>276</x>
-    <y>437</y>
+    <x>585</x>
+    <y>137</y>
     <width>18</width>
     <height>18</height>
     <off_color>
@@ -430,14 +418,14 @@ else:
   <widget type="label" version="2.0.0">
     <name>Label_10</name>
     <text>Overcurrent trip</text>
-    <x>161</x>
-    <y>466</y>
+    <x>470</x>
+    <y>166</y>
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED_3</name>
     <pv_name>$(P)$(R)ITRIPstatus</pv_name>
-    <x>276</x>
-    <y>464</y>
+    <x>585</x>
+    <y>164</y>
     <width>18</width>
     <height>18</height>
     <off_color>
@@ -452,15 +440,15 @@ else:
   <widget type="label" version="2.0.0">
     <name>Label_11</name>
     <text>Current limit</text>
-    <x>30</x>
-    <y>492</y>
+    <x>339</x>
+    <y>192</y>
     <width>89</width>
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED_4</name>
     <pv_name>$(P)$(R)ILIMstatus</pv_name>
-    <x>119</x>
-    <y>493</y>
+    <x>428</x>
+    <y>193</y>
     <width>18</width>
     <height>18</height>
     <off_color>
@@ -476,15 +464,15 @@ else:
     <name>EDM activeMessageButtonClass</name>
     <actions>
       <action type="write_pv">
-        <description>Reset</description>
         <pv_name>$(pv_name)</pv_name>
         <value>1</value>
+        <description>Reset</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)hardReset</pv_name>
     <text>Reset</text>
-    <x>19</x>
-    <y>560</y>
+    <x>327</x>
+    <y>258</y>
     <width>68</width>
     <height>24</height>
     <font>
@@ -504,21 +492,21 @@ else:
   <widget type="label" version="2.0.0">
     <name>Label_15</name>
     <text>Polarity</text>
-    <x>160</x>
-    <y>494</y>
+    <x>469</x>
+    <y>194</y>
     <width>55</width>
   </widget>
   <widget type="label" version="2.0.0">
     <name>Label_18</name>
     <text>Ramping</text>
-    <x>30</x>
-    <y>438</y>
+    <x>339</x>
+    <y>138</y>
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED_8</name>
     <pv_name>$(P)$(R)VRAMPactive</pv_name>
-    <x>119</x>
-    <y>439</y>
+    <x>428</x>
+    <y>139</y>
     <width>18</width>
     <height>18</height>
     <on_color>
@@ -530,15 +518,15 @@ else:
     <name>EDM activeMessageButtonClass_2</name>
     <actions>
       <action type="write_pv">
-        <description>Reset</description>
         <pv_name>$(pv_name)</pv_name>
         <value>0</value>
+        <description>Reset</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)TripClear</pv_name>
     <text>Clear trip</text>
-    <x>95</x>
-    <y>560</y>
+    <x>403</x>
+    <y>258</y>
     <width>68</width>
     <height>25</height>
     <font>
@@ -557,8 +545,8 @@ else:
   </widget>
   <widget type="multi_state_led" version="2.0.0">
     <name>LED (Multi State)</name>
-    <x>377</x>
-    <y>471</y>
+    <x>46</x>
+    <y>509</y>
     <width>1</width>
     <height>1</height>
     <states>
@@ -583,8 +571,8 @@ else:
   <widget type="multi_state_led" version="2.0.0">
     <name>LED (Multi State)_1</name>
     <pv_name>$(P)$(R)StableMultiState</pv_name>
-    <x>119</x>
-    <y>466</y>
+    <x>428</x>
+    <y>166</y>
     <width>18</width>
     <height>18</height>
     <states>
@@ -623,101 +611,13 @@ else:
     </states>
     <fallback_label></fallback_label>
   </widget>
-  <widget type="xyplot" version="3.0.0">
-    <name>X/Y Plot_2</name>
-    <x>345</x>
-    <y>55</y>
-    <width>340</width>
-    <height>250</height>
-    <rules>
-      <rule name="Yminimum" prop_id="y_axes[0].minimum" out_exp="true">
-        <exp bool_exp="True">
-          <expression>pvInt0</expression>
-        </exp>
-        <pv_name>$(P)$(R)YaxisMin</pv_name>
-      </rule>
-      <rule name="Ymaximum" prop_id="y_axes[0].maximum" out_exp="true">
-        <exp bool_exp="True">
-          <expression>pvInt0</expression>
-        </exp>
-        <pv_name>$(P)$(R)YaxisMax</pv_name>
-      </rule>
-      <rule name="set X" prop_id="x_axis.maximum" out_exp="true">
-        <exp bool_exp="True">
-          <expression>((pv0)*5)+(pv1*5)</expression>
-        </exp>
-        <pv_name>$(P)$(R)VRAMPtimeSet</pv_name>
-        <pv_name>$(P)$(R)VRAMPinterval</pv_name>
-      </rule>
-    </rules>
-    <x_axis>
-      <title>_</title>
-      <autoscale>false</autoscale>
-      <log_scale>false</log_scale>
-      <minimum>0.0</minimum>
-      <maximum>100.0</maximum>
-      <show_grid>false</show_grid>
-      <title_font>
-        <font name="Default Bold" family="Liberation Sans" style="BOLD" size="14.0">
-        </font>
-      </title_font>
-      <scale_font>
-        <font name="Default" family="Liberation Sans" style="REGULAR" size="14.0">
-        </font>
-      </scale_font>
-      <visible>false</visible>
-    </x_axis>
-    <y_axes>
-      <y_axis>
-        <title>Voltage</title>
-        <autoscale>false</autoscale>
-        <log_scale>false</log_scale>
-        <minimum>0.0</minimum>
-        <maximum>5000.0</maximum>
-        <show_grid>false</show_grid>
-        <title_font>
-          <font name="Default Bold" family="Liberation Sans" style="BOLD" size="14.0">
-          </font>
-        </title_font>
-        <scale_font>
-          <font name="Default" family="Liberation Sans" style="REGULAR" size="14.0">
-          </font>
-        </scale_font>
-        <on_right>false</on_right>
-        <visible>true</visible>
-        <color>
-          <color red="0" green="0" blue="0">
-          </color>
-        </color>
-      </y_axis>
-    </y_axes>
-    <traces>
-      <trace>
-        <name></name>
-        <x_pv>$(P)$(R)voltageGraphArray.TIME</x_pv>
-        <y_pv>$(P)$(R)voltageGraphArray</y_pv>
-        <err_pv></err_pv>
-        <axis>0</axis>
-        <trace_type>2</trace_type>
-        <color>
-          <color red="255" green="0" blue="0">
-          </color>
-        </color>
-        <line_width>1</line_width>
-        <line_style>0</line_style>
-        <point_type>0</point_type>
-        <point_size>10</point_size>
-        <visible>true</visible>
-      </trace>
-    </traces>
-  </widget>
   <widget type="databrowser" version="2.0.0">
     <name>Data Browser_2</name>
     <file>voltageGraph.plt</file>
-    <x>344</x>
-    <y>330</y>
-    <width>340</width>
-    <height>250</height>
+    <x>13</x>
+    <y>368</y>
+    <width>619</width>
+    <height>319</height>
     <rules>
       <rule name="show toolbar" prop_id="show_toolbar" out_exp="true">
         <exp bool_exp="True">
@@ -727,27 +627,11 @@ else:
       </rule>
     </rules>
   </widget>
-  <widget type="action_button" version="3.0.0">
-    <name>Action Button_4</name>
-    <actions>
-      <action type="write_pv">
-        <description>Write PV</description>
-        <pv_name>$(pv_name)</pv_name>
-        <value>1</value>
-      </action>
-    </actions>
-    <pv_name>$(P)$(R)outZoom</pv_name>
-    <text>Zoom out</text>
-    <x>344</x>
-    <y>593</y>
-    <tooltip>$(actions)</tooltip>
-    <border_alarm_sensitive>false</border_alarm_sensitive>
-  </widget>
   <widget type="bool_button" version="2.0.0">
     <name>Boolean Button_1</name>
     <pv_name>$(P)$(R)toolbarShow</pv_name>
-    <x>453</x>
-    <y>593</y>
+    <x>16</x>
+    <y>697</y>
     <off_label>Show toolbar</off_label>
     <off_color>
       <color name="Button_Background" red="210" green="210" blue="210">
@@ -764,8 +648,8 @@ else:
   <widget type="textupdate" version="2.0.0">
     <name>txtVoltsNow_1</name>
     <pv_name>$(P)$(R)OutputVget</pv_name>
-    <x>127</x>
-    <y>74</y>
+    <x>233</x>
+    <y>344</y>
     <width>84</width>
     <font>
       <font family="Eras Bold ITC" style="REGULAR" size="16.0">
@@ -779,8 +663,8 @@ else:
   <widget type="textupdate" version="2.0.0">
     <name>txtCurrentNow_1</name>
     <pv_name>$(P)$(R)OutputIget</pv_name>
-    <x>127</x>
-    <y>99</y>
+    <x>438</x>
+    <y>344</y>
     <width>83</width>
     <font>
       <font family="Eras Bold ITC" style="REGULAR" size="16.0">
@@ -794,8 +678,8 @@ else:
   <widget type="label" version="2.0.0">
     <name>Label_16</name>
     <text>Output current:</text>
-    <x>19</x>
-    <y>99</y>
+    <x>330</x>
+    <y>344</y>
     <background_color>
       <color red="230" green="230" blue="230">
       </color>
@@ -805,8 +689,8 @@ else:
   <widget type="label" version="2.0.0">
     <name>Label_17</name>
     <text>Output voltage:</text>
-    <x>19</x>
-    <y>74</y>
+    <x>125</x>
+    <y>344</y>
     <background_color>
       <color red="230" green="230" blue="230">
       </color>
@@ -816,14 +700,14 @@ else:
   <widget type="label" version="2.0.0">
     <name>Label_1</name>
     <text>Error status:</text>
-    <x>30</x>
-    <y>519</y>
+    <x>339</x>
+    <y>219</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update</name>
     <pv_name>$(P)$(R)errorMessage</pv_name>
-    <x>110</x>
-    <y>519</y>
+    <x>419</x>
+    <y>219</y>
     <width>182</width>
     <background_color>
       <color red="255" green="0" blue="0" alpha="0">
@@ -840,5 +724,69 @@ else:
         <pv_name>$(P)$(R)E_smallStep</pv_name>
       </rule>
     </rules>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(P)$(R)HVenable</pv_name>
+        <value>1</value>
+        <description>WritePV</description>
+      </action>
+    </actions>
+    <text>HV On</text>
+    <x>326</x>
+    <y>60</y>
+    <width>85</width>
+    <rules>
+      <rule name="selected colour" prop_id="background_color" out_exp="false">
+        <exp bool_exp="pv0==1">
+          <value>
+            <color red="179" green="230" blue="179">
+            </color>
+          </value>
+        </exp>
+        <pv_name>$(P)$(R)HVenable</pv_name>
+      </rule>
+    </rules>
+    <tooltip>$(actions)</tooltip>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_1</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(P)$(R)HVenable</pv_name>
+        <value>0</value>
+        <description>WritePV</description>
+      </action>
+    </actions>
+    <text>HV Off</text>
+    <x>424</x>
+    <y>60</y>
+    <width>85</width>
+    <rules>
+      <rule name="selected colour" prop_id="background_color" out_exp="false">
+        <exp bool_exp="pv0==0">
+          <value>
+            <color red="153" green="0" blue="0">
+            </color>
+          </value>
+        </exp>
+        <pv_name>$(P)$(R)HVenable</pv_name>
+      </rule>
+    </rules>
+    <tooltip>$(actions)</tooltip>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label</name>
+    <text>Output Voltage graph</text>
+    <x>238</x>
+    <y>315</y>
+    <width>194</width>
+    <height>24</height>
+    <font>
+      <font family="Eras Bold ITC" style="REGULAR" size="16.0">
+      </font>
+    </font>
   </widget>
 </display>
