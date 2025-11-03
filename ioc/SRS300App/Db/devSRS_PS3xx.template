@@ -17,14 +17,7 @@ record(waveform, "$(P)$(R)IDN")
     field(FTVL, "CHAR")
     field(NELM, "80")
 }
-record(bi, "$(P)$(R)polarity")
-{
-    field(DESC, "Device polarity")
-    field(DTYP, "")
-    field(ZNAM, "+ve")
-    field(ONAM, "-ve On")
-    field(VAL, "-1") # Dependant on model
-}
+
 record(longin, "$(P)$(R)getESR")
 {
     field(DESC, "SCPI get event status")
@@ -427,6 +420,7 @@ record(ai, "$(P)$(R)C_Precision"){
     field(PINI, "YES")
     field(VAL, "$(PREC)")
 }
+
 record(seq,"$(P)$(R)setOnStart"){
     #HOPR and LOPR can't take values from links and can only take doubles
     #So values must be passed in through sequence
@@ -598,7 +592,6 @@ record(seq, "$(P)$(R)endCharge")
     field(LNK5, "$(P)$(R)idleZoom PP")
 }
 
-
 #______________________________________________
 #_______________Reset button__________________
 
@@ -621,3 +614,17 @@ record(bo, "$(P)$(R)ResetDevice")
     field(ZNAM, "Reset Device")
     field(ONAM, "Reset Device")
 }
+
+#__________________________________________
+#_______________Polarity___________________
+
+
+record(bi, "$(P)$(R)polarity")
+{
+    field(DESC, "Device polarity")
+    field(ZNAM, "+ve")
+    field(ONAM, "-ve On")
+    field(VAL, "$(POLARITY)") # Dependant on model
+    field(PINI, "YES")
+}
+
