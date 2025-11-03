@@ -13,9 +13,9 @@
   </background_color>
   <actions>
     <action type="write_pv">
+      <description>Write PV</description>
       <pv_name>$(P)$(R)VRAMPrun</pv_name>
       <value>0</value>
-      <description>Write PV</description>
     </action>
   </actions>
   <widget type="rectangle" version="2.0.0">
@@ -142,9 +142,9 @@ else:
     <name>Action Button_2</name>
     <actions>
       <action type="write_pv">
+        <description>Write PV</description>
         <pv_name>$(pv_name)</pv_name>
         <value>1</value>
-        <description>Write PV</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)chargeStartHelper</pv_name>
@@ -185,9 +185,9 @@ else:
     <name>Action Button_3</name>
     <actions>
       <action type="write_pv">
+        <description>Write PV</description>
         <pv_name>$(pv_name)</pv_name>
         <value>0</value>
-        <description>Write PV</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)VRAMPactive</pv_name>
@@ -464,9 +464,9 @@ else:
     <name>EDM activeMessageButtonClass</name>
     <actions>
       <action type="write_pv">
+        <description>Reset</description>
         <pv_name>$(pv_name)</pv_name>
         <value>1</value>
-        <description>Reset</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)hardReset</pv_name>
@@ -518,9 +518,9 @@ else:
     <name>EDM activeMessageButtonClass_2</name>
     <actions>
       <action type="write_pv">
+        <description>Reset</description>
         <pv_name>$(pv_name)</pv_name>
         <value>0</value>
-        <description>Reset</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)TripClear</pv_name>
@@ -729,9 +729,9 @@ else:
     <name>Action Button</name>
     <actions>
       <action type="write_pv">
+        <description>WritePV</description>
         <pv_name>$(P)$(R)HVenable</pv_name>
         <value>1</value>
-        <description>WritePV</description>
       </action>
     </actions>
     <text>HV On</text>
@@ -755,9 +755,9 @@ else:
     <name>Action Button_1</name>
     <actions>
       <action type="write_pv">
+        <description>WritePV</description>
         <pv_name>$(P)$(R)HVenable</pv_name>
         <value>0</value>
-        <description>WritePV</description>
       </action>
     </actions>
     <text>HV Off</text>
@@ -768,7 +768,7 @@ else:
       <rule name="selected colour" prop_id="background_color" out_exp="false">
         <exp bool_exp="pv0==0">
           <value>
-            <color red="153" green="0" blue="0">
+            <color red="255" green="128" blue="128">
             </color>
           </value>
         </exp>
@@ -780,12 +780,12 @@ else:
   <widget type="label" version="2.0.0">
     <name>Label</name>
     <text>Output Voltage graph</text>
-    <x>238</x>
+    <x>233</x>
     <y>315</y>
-    <width>194</width>
-    <height>24</height>
+    <width>189</width>
+    <height>32</height>
     <font>
-      <font family="Eras Bold ITC" style="REGULAR" size="16.0">
+      <font family="Lato Heavy" style="REGULAR" size="16.0">
       </font>
     </font>
   </widget>
