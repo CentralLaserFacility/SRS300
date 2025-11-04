@@ -439,7 +439,7 @@ record(seq,"$(P)$(R)setOnStart"){
 record(bo,"$(P)$(R)E_smallStep"){
     field(DESC, "Warning for step being too small")
     field(ZNAM, "Safe")
-    field(ONAM, "Minimum step larger than requested change")
+    field(ONAM, "Voltage change below min")
     field(OUT, "$(P)$(R)errorMessage PP")
     field(PINI, "YES")
 }
@@ -448,17 +448,9 @@ record(mbbi, "$(P)$(R)errorMessage"){
     field(DESC, "Error message for ramping")
     field(PINI, "YES")
     field(ZRST, "No Error")
-    field(ONST, "Step size below minimum")
+    field(ONST, "Voltage change below min")
 }
 
-record(ai, "$(P)$(R)startTime"){
-    field(DESC, "start time for ramping")
-    field(DTYP, "Soft Timestamp")
-}
-record(ai,"$(P)$(R)currentTime") {
-    field(DESC, "Time now")
-    field(DTYP, "Soft Timestamp")
-}
 record(ai, "$(P)$(R)startVoltage"){
     field(DESC, "Voltage at start of ramp")
     field(EGU, "V")
@@ -468,7 +460,12 @@ record(ai, "$(P)$(R)startVoltage"){
 #______________________________________________
 #__________Autoscale for data browser__________
 
+#data browser doesn't allow for changing the y axis limits using rules
+#so instead, autoscale is used and two pvs are plotted invisibly on the graph to control it
+#the autoscale pvs are calculated differently depending on whether it is ramping or idle
+
 #calculate y axis max and min for ramping
+#calculated such that y axis shows between starting voltage and target voltage plus a small margin
 record(calc, "$(P)$(R)YaxisMax"){
     field(DESC, "calc Y axis maximum")
     field(INPA, "$(P)$(R)desiredHV")
@@ -486,6 +483,8 @@ record(calc, "$(P)$(R)YaxisMin"){
 }
 
 #calculates y axis max and min for idle state
+#calculated to show maximum 5000V on Y axis when idle plus a small margin
+#for readability of graph when not ramping
 record(calc, "$(P)$(R)idleYaxisMax"){
     field(DESC, "Set Y axis max when not ramping")
     field(INPA, "$(P)$(R)OutputVget")
@@ -501,7 +500,14 @@ record(calc, "$(P)$(R)idleYaxisMin"){
     field(CALC, "A>C ? A - C : 0")
 }
 
-#pvs to be plotted invisibly on the graph for autoscaling
+record(ai, "$(P)$(R)graphScale"){
+    field(DESC, "Margin for graph y axis when idle")
+    field(VAL, "5000") #5000V margin by default
+    field(EGU, "V")
+    field(PINI, "YES")
+}
+
+#pvs to be plotted invisibly on the graph to control the autoscale feature in data browser
 record(ai, "$(P)$(R)autoscaleControlMax"){
     field(DESC, "Control autoscale maximum")
     field(PINI, "YES")
@@ -512,7 +518,7 @@ record(ai, "$(P)$(R)autoscaleControlMin"){
     field(PINI, "YES")
 }
 
-#uses the above calculated values to set the autoscale pvs depending on whether ramping or idle
+#sequences to set autoscale pvs to the calculated values
 record(seq, "$(P)$(R)idleZoom"){
     field(DESC, "Auto zoom data browser")
     field(DOL1, "$(P)$(R)idleYaxisMax PP")
@@ -530,9 +536,8 @@ record(seq, "$(P)$(R)rampZoom"){
     field(TPRO, "1")
 }
 
-
 record(bi, "$(P)$(R)toolbarShow"){
-    field(DESC, "Show/hide toolbar")
+    field(DESC, "Show/hide toolbar in ui")
     field(ZNAM, "Hide Toolbar")
     field(ONAM, "Show Toolbar")
     field(VAL, "0")
