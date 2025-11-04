@@ -1,31 +1,26 @@
-# Install directories
-/bin/
-/cfg/
-/db/
-/dbd/
-/html/
-/include/
-/lib/
-/templates/
+**envPaths
+**/configure/O.*/
+**/*App/Db/O.*/
+**/*App/src/O.*/
+**/dbd/
+**/bin/
+**/db/
+!**/*App/Db/
+**.log
+**.sav*
+**/.metadata/*
+**BOY Examples*
+**BOY Image Library/*
 
-# Local configuration files
-/configure/*.local
-
-# iocBoot generated files
-/iocBoot/*ioc*/cdCommands
-/iocBoot/*ioc*/dllPath.bat
-/iocBoot/*ioc*/envPaths
-/iocBoot/*ioc*/relPaths.sh
-
-# iocsh
+**.*~
+.vscode
+**.vs/
+**/__pycache__/*
+assets
+/.iocsh_history
 .iocsh_history
 
-# Build directories
-O.*/
-
-# Common files created by other tools
 /QtC-*
-/.vscode/
 *.orig
 *.log
 .*.swp
