@@ -17,14 +17,7 @@ record(waveform, "$(P)$(R)IDN")
     field(FTVL, "CHAR")
     field(NELM, "80")
 }
-record(bi, "$(P)$(R)polarity")
-{
-    field(DESC, "Device polarity")
-    field(DTYP, "")
-    field(ZNAM, "+ve")
-    field(ONAM, "-ve On")
-    field(VAL, "-1") # Dependant on model
-}
+
 record(longin, "$(P)$(R)getESR")
 {
     field(DESC, "SCPI get event status")
@@ -217,7 +210,15 @@ record(bo, "$(P)$(R)HVenable")
     field(ZNAM, "Turn Off")
     field(ONAM, "Turn On")
     field(PINI, "YES")
-    field(FLNK, "$(P)$(R)getSTB")
+    field(FLNK, "$(P)$(R)HVenableSeq")
+}
+
+record(seq, "$(P)$(R)HVenableSeq")
+{
+    field(DESC, "Sequence to dis/enable HV")
+    field(DO1, "$(VMIN)")
+    field(LNK1, "$(P)$(R)HVset PP")
+    field(LNK2, "$(P)$(R)getSTB.PROC PP")
 }
 
 #____________________________________________
@@ -238,8 +239,19 @@ record(seq, "$(P)$(R)StartCharge")
     #set delay to 1.45 seconds to allow for voltage to stabilize once set beore being checked again
     field(DOL2, "$(P)$(R)C_vgetDelay") 
     field(LNK2, "$(P)$(R)voltageMonitor.DLY1")
-    #process ramp value calculation
-    field(LNK3, "$(P)$(R)VRAMPcalc PP")
+    #get/set values for graphing
+    field(DOL3, "$(P)$(R)OutputVget")
+    field(LNK3, "$(P)$(R)startVoltage PP")
+    field(DO4, "1")
+    field(LNK4, "$(P)$(R)YaxisMax.PROC PP")
+    field(DO5, "1")
+    field(LNK5, "$(P)$(R)YaxisMin.PROC PP")
+    field(DOL6, "$(P)$(R)YaxisMin")
+    field(LNK6, "$(P)$(R)autoscaleControlMin PP")
+    field(DOL7, "$(P)$(R)YaxisMax")
+    field(LNK7, "$(P)$(R)autoscaleControlMax PP")
+    #calculate ramp parameters
+    field(LNK8, "$(P)$(R)VRAMPcalc PP")
 }
 
 record(bi, "$(P)$(R)VRAMPactive")
@@ -405,6 +417,7 @@ record(ai, "$(P)$(R)C_Precision"){
     field(PINI, "YES")
     field(VAL, "$(PREC)")
 }
+
 record(seq,"$(P)$(R)setOnStart"){
     #HOPR and LOPR can't take values from links and can only take doubles
     #So values must be passed in through sequence
@@ -422,8 +435,165 @@ record(seq,"$(P)$(R)setOnStart"){
 #__________________________________________
 #_____________error messages_______________
 
-record(bi,"$(P)$(R)E_smallStep"){
-    field(DESC, "Warning for step being too small")#*** add ui
+
+record(bo,"$(P)$(R)E_smallStep"){
+    field(DESC, "Warning for step being too small")
     field(ZNAM, "Safe")
-    field(ONAM, "Step below minimum")
+    field(ONAM, "Voltage change below min")
+    field(OUT, "$(P)$(R)errorMessage PP")
+    field(PINI, "YES")
 }
+#mbbi to hold error messages, to be updated with more error statuses if needed
+record(mbbi, "$(P)$(R)errorMessage"){
+    field(DESC, "Error message for ramping")
+    field(PINI, "YES")
+    field(ZRST, "No Error")
+    field(ONST, "Voltage change below min")
+}
+
+record(ai, "$(P)$(R)startVoltage"){
+    field(DESC, "Voltage at start of ramp")
+    field(EGU, "V")
+    field(PINI, "YES")
+}
+
+#______________________________________________
+#__________Autoscale for data browser__________
+
+#data browser doesn't allow for changing the y axis limits using rules
+#so instead, autoscale is used and two pvs are plotted invisibly on the graph to control it
+#the autoscale pvs are calculated differently depending on whether it is ramping or idle
+
+#calculate y axis max and min for ramping
+#calculated such that y axis shows between starting voltage and target voltage plus a small margin
+record(calc, "$(P)$(R)YaxisMax"){
+    field(DESC, "calc Y axis maximum")
+    field(INPA, "$(P)$(R)desiredHV")
+    field(INPB, "$(P)$(R)startVoltage")
+    field(INPC, "$(P)$(R)C_minStepSize")
+    field(CALC, "MAX(A,B)+C")
+
+}
+record(calc, "$(P)$(R)YaxisMin"){
+    field(DESC, "calc Y axis minimum")
+    field(INPA, "$(P)$(R)desiredHV")
+    field(INPB, "$(P)$(R)startVoltage")
+    field(INPC, "$(P)$(R)C_minStepSize")
+    field(CALC, "MIN(A,B)-C")
+}
+
+#calculates y axis max and min for idle state
+#calculated to show maximum 5000V on Y axis when idle plus a small margin
+#for readability of graph when not ramping
+record(calc, "$(P)$(R)idleYaxisMax"){
+    field(DESC, "Set Y axis max when not ramping")
+    field(INPA, "$(P)$(R)OutputVget")
+    field(INPB, "$(P)$(R)C_minStepSize")
+    field(CALC, "A + B")
+}
+
+record(calc, "$(P)$(R)idleYaxisMin"){
+    field(DESC, "Set Y axis min when not ramping")
+    field(INPA, "$(P)$(R)OutputVget")
+    field(INPB, "$(P)$(R)C_minStepSize")
+    field(INPC, "$(P)$(R)graphScale")
+    field(CALC, "A>C ? A - C : 0")
+}
+
+record(ai, "$(P)$(R)graphScale"){
+    field(DESC, "Margin for graph y axis when idle")
+    field(VAL, "5000") #5000V margin by default
+    field(EGU, "V")
+    field(PINI, "YES")
+}
+
+#pvs to be plotted invisibly on the graph to control the autoscale feature in data browser
+record(ai, "$(P)$(R)autoscaleControlMax"){
+    field(DESC, "Control autoscale maximum")
+    field(PINI, "YES")
+}
+
+record(ai, "$(P)$(R)autoscaleControlMin"){
+    field(DESC, "Control autoscale minimum")
+    field(PINI, "YES")
+}
+
+#sequences to set autoscale pvs to the calculated values
+record(seq, "$(P)$(R)idleZoom"){
+    field(DESC, "Auto zoom data browser")
+    field(DOL1, "$(P)$(R)idleYaxisMax PP")
+    field(LNK1, "$(P)$(R)autoscaleControlMax PP")
+    field(DOL2, "$(P)$(R)idleYaxisMin PP")
+    field(LNK2, "$(P)$(R)autoscaleControlMin PP")
+    field(PINI, "YES")
+}
+record(seq, "$(P)$(R)rampZoom"){
+    field(DESC, "Auto zoom data browser")
+    field(DOL1, "$(P)$(R)YaxisMax")
+    field(LNK1, "$(P)$(R)autoscaleControlMax PP")
+    field(DOL2, "$(P)$(R)YaxisMin")
+    field(LNK2, "$(P)$(R)autoscaleControlMin PP")
+    field(TPRO, "1")
+}
+
+record(bi, "$(P)$(R)toolbarShow"){
+    field(DESC, "Show/hide toolbar in ui")
+    field(ZNAM, "Hide Toolbar")
+    field(ONAM, "Show Toolbar")
+    field(VAL, "0")
+    field(PINI, "YES")
+}
+
+#____________________________________________
+#___________End of ramp sequence_____________
+
+record(seq, "$(P)$(R)endCharge")
+{
+    field(DESC, "Sequence to end HV charge")
+    field(DO1, "0")
+    field(LNK1, "$(P)$(R)VRAMPactive PP")
+    field(DO2, "6")
+    field(LNK2, "$(P)$(R)voltageMonitor.SCAN")
+    field(DO3, "0")
+    field(LNK3, "$(P)$(R)voltageMonitor.DLY1")
+    field(DO4, "6")
+    field(LNK4, "$(P)$(R)ReadbackPoll_.SCAN")
+    field(LNK5, "$(P)$(R)idleZoom PP")
+}
+
+#______________________________________________
+#_______________Reset button__________________
+
+record(seq, "$(P)$(R)hardReset"){
+    field(DESC, "Hard reset sequence")
+    field(DO1, "0")
+    field(LNK1, "$(P)$(R)HVenable PP")
+    field(DO2, "1")
+    field(LNK2, "$(P)$(R)TripClear PP")
+    field(LNK3, "$(P)$(R)ResetDevice.PROC PP")
+    field(DO4, "1")
+    field(LNK4, "$(P)$(R)HVenable PP")
+}
+
+record(bo, "$(P)$(R)ResetDevice")
+{
+    field(DESC, "Reset device")
+    field(DTYP, "stream")
+    field(OUT,  "@ps300.proto cmd(RST) $(PORT) $(A)")
+    field(ZNAM, "Reset Device")
+    field(ONAM, "Reset Device")
+}
+
+#__________________________________________
+#_______________Polarity___________________
+
+
+record(bi, "$(P)$(R)polarity")
+{
+    field(DESC, "Device polarity")
+    field(ZNAM, "+ve")
+    field(ONAM, "-ve On")
+    field(VAL, "$(POLARITY)") # Dependant on model
+    field(PINI, "YES")
+}
+

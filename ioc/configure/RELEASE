@@ -29,7 +29,7 @@ SSCAN = $(SUPPORT)/sscan/current
 STREAM = $(SUPPORT)/stream/current
 AUTOSAVE = $(SUPPORT)/autosave/current
 IOCSTATS = $(SUPPORT)/iocstats/current
-UTILITIES = $(SUPPORT)/utilities
+UTILITIES = $(SUPPORT)/utilities/current
 
 # If using the sequencer, point SNCSEQ at its top directory:
 SNCSEQ = $(SUPPORT)/seq/current
