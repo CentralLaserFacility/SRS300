@@ -4,6 +4,7 @@
 **/*App/src/O.*/
 **/dbd/
 **/bin/
+**/lib/
 **/db/
 !**/*App/Db/
 **.log
