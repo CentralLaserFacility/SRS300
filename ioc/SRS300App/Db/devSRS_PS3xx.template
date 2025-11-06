@@ -236,9 +236,6 @@ record(seq, "$(P)$(R)StartCharge")
     #so while ramping voltage is only checked after being set and not continuously
     field(DO1, "0")
     field(LNK1, "$(P)$(R)voltageMonitor.SCAN")
-    #set delay to 1.45 seconds to allow for voltage to stabilize once set beore being checked again
-    field(DOL2, "$(P)$(R)C_vgetDelay") 
-    field(LNK2, "$(P)$(R)voltageMonitor.DLY1")
     #get/set values for graphing
     field(DOL3, "$(P)$(R)OutputVget")
     field(LNK3, "$(P)$(R)startVoltage PP")
@@ -321,8 +318,6 @@ record(ao, "$(P)$(R)HVset")
     field(DRVL, "$(VMIN)")
     field(DRVH, "$(VMAX)")
     field(PREC, "$(PREC)")
-    field(FLNK, "$(P)$(R)voltageMonitor")
-
 }
 
 record(seq, "$(P)$(R)voltageMonitor")
@@ -410,7 +405,7 @@ record(ai, "$(P)$(R)C_vgetDelay"){
 record(ai, "$(P)$(R)C_Tolerance"){
     field(DESC, "Tolerance for ramping")
     field(PINI, "YES")
-    field(VAL, "$(TOLERANCE)") #dependant on model
+    field(VAL, "$(TOLERANCE)") #dependent on model
 }
 record(ai, "$(P)$(R)C_Precision"){
     field(DESC, "number of decimal places")
