@@ -261,10 +261,6 @@ record(bi, "$(P)$(R)chargeStartHelper")
 record(seq, "$(P)$(R)StartCharge")
 {
     field(DESC, "Sequence to start HV charge")
-    #set scan to passive (0 as DO1 only takes doubles) 
-    #so while ramping voltage is only checked after being set and not continuously
-    field(DO1, "0")
-    field(LNK1, "$(P)$(R)voltageMonitor.SCAN")
     #get/set values for graphing
     field(DOL3, "$(P)$(R)OutputVget")
     field(LNK3, "$(P)$(R)startVoltage PP")

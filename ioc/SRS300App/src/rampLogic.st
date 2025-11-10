@@ -16,7 +16,6 @@ double interval;
 short startCharge;// 1 = ramping, 0 = Idle
 double HVset;
 short voltageMonitorScan; 
-double voltageMonitorDelay;
 double minStepSize;
 short Tolerance; //Tolerance for stopping ramping
 double newVoltage;
@@ -31,7 +30,6 @@ assign interval to "{P}{R}VRAMPinterval";
 assign startCharge to "{P}{R}VRAMPactive";
 assign HVset to "{P}{R}HVset";
 assign voltageMonitorScan to "{P}{R}voltageMonitor.SCAN";
-//*** voltageMonitorDelay to "{P}{R}voltageMonitor.DLY1";
 assign minStepSize to "{P}{R}C_minStepSize"; 
 assign Tolerance to "{P}{R}C_Tolerance";
 assign readbackPollScan to "{P}{R}ReadbackPoll_.SCAN";
@@ -52,11 +50,15 @@ ss RampState{
             readbackPollScan = PASSIVE;//status scanning must be paused while voltage is being set
             pvPut(readbackPollScan);
             rampDirection = RAMP_UP;
+            voltageMonitorScan = PASSIVE;//set to passive scanning before ramping
+            pvPut(voltageMonitorScan); 
         } state RampUp
         when (startCharge == RAMPING && presentVoltage>targetVoltage){
             readbackPollScan = PASSIVE;
             pvPut(readbackPollScan);
             rampDirection = RAMP_DOWN;
+            voltageMonitorScan = PASSIVE;
+            pvPut(voltageMonitorScan); 
         } state RampDown
         when (startCharge == IDLE || presentVoltage==targetVoltage){
         } state initial
