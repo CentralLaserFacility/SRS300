@@ -735,7 +735,7 @@ else:
       </action>
     </actions>
     <text>HV On</text>
-    <x>326</x>
+    <x>328</x>
     <y>60</y>
     <width>85</width>
     <rules>
@@ -761,7 +761,7 @@ else:
       </action>
     </actions>
     <text>HV Off</text>
-    <x>424</x>
+    <x>426</x>
     <y>60</y>
     <width>85</width>
     <rules>
