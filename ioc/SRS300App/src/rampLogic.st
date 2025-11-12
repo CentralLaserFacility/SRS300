@@ -22,6 +22,8 @@ double newVoltage;
 double readbackPollScan;
 short endCharge; // 1 = ramp ended, 0 = not ended
 short rampDirection; // 1 = ramp up, 0 = ramp down
+short monitorPROC;
+short readbackPollPROC;
 
 assign presentVoltage to "{P}{R}OutputVget"; //change $(P)$(R) syntax
 assign targetVoltage to "{P}{R}desiredHV";
@@ -30,9 +32,11 @@ assign interval to "{P}{R}VRAMPinterval";
 assign startCharge to "{P}{R}VRAMPactive";
 assign HVset to "{P}{R}HVset";
 assign voltageMonitorScan to "{P}{R}voltageMonitor.SCAN";
+assign monitorPROC to "{P}{R}voltageMonitor.PROC";
 assign minStepSize to "{P}{R}C_minStepSize"; 
 assign Tolerance to "{P}{R}C_Tolerance";
 assign readbackPollScan to "{P}{R}ReadbackPoll_.SCAN";
+assign readbackPollPROC to "{P}{R}ReadbackPoll_.PROC";
 assign endCharge to "{P}{R}endCharge";
 
 monitor presentVoltage;
@@ -112,11 +116,20 @@ ss RampState{
             voltageMonitorScan = REGULAR_SCAN;
             pvPut(voltageMonitorScan);
             pvPut(readbackPollScan);
+            monitorPROC = 1; //force to update immediately after delay
+            pvPut(monitorPROC);
+            readbackPollPROC = 1;
+            pvPut(readbackPollPROC);
         } state IntervalDelay
     }
 
     state IntervalDelay{ 
         when ((delay(interval-SCAN_DELAY)) && (rampDirection == RAMP_UP)){// delays by rest of interval time
+            monitorPROC = 1; //force to update immediately before next ramp step
+            pvPut(monitorPROC);
+            readbackPollPROC = 1;
+            pvPut(readbackPollPROC);
+
             voltageMonitorScan = PASSIVE;//set back to passive scanning before ramping
             pvPut(voltageMonitorScan);            
             readbackPollScan = PASSIVE;
