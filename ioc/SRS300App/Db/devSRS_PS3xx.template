@@ -584,7 +584,7 @@ record(bi, "$(P)$(R)polarity")
     field(DESC, "Device polarity")
     field(ZNAM, "+ve")
     field(ONAM, "-ve On")
-    field(VAL, "$(POLARITY)") # Dependant on model
+    field(VAL, "$(POLARITY)") # Dependent on model
     field(PINI, "YES")
 }
 
