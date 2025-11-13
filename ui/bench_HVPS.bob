@@ -197,9 +197,9 @@ else:
       </action>
     </actions>
     <text>HV On</text>
-    <x>25</x>
-    <y>36</y>
-    <width>85</width>
+    <x>575</x>
+    <y>72</y>
+    <width>72</width>
     <rules>
       <rule name="selected colour" prop_id="background_color" out_exp="false">
         <exp bool_exp="pv0==1">
@@ -223,9 +223,9 @@ else:
       </action>
     </actions>
     <text>HV Off</text>
-    <x>123</x>
-    <y>37</y>
-    <width>85</width>
+    <x>661</x>
+    <y>71</y>
+    <width>68</width>
     <rules>
       <rule name="selected colour" prop_id="background_color" out_exp="false">
         <exp bool_exp="pv0==0">
@@ -945,8 +945,8 @@ else:
   </widget>
   <widget type="group" version="3.0.0">
     <name>error status</name>
-    <x>481</x>
-    <y>286</y>
+    <x>482</x>
+    <y>287</y>
     <width>248</width>
     <height>23</height>
     <style>2</style>
@@ -987,5 +987,33 @@ else:
       </rules>
       <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_40</name>
+    <text>High Voltage Enabled</text>
+    <x>331</x>
+    <y>76</y>
+    <width>272</width>
+    <font>
+      <font family="Liberation Sans" style="ITALIC" size="20.0">
+      </font>
+    </font>
+    <rules>
+      <rule name="Text" prop_id="text" out_exp="false">
+        <exp bool_exp="pv0==0">
+          <value>High Voltage Disabled</value>
+        </exp>
+        <exp bool_exp="pv0==1">
+          <value>High Voltage Enabled</value>
+        </exp>
+        <pv_name>$(P)$(R)HVONstatus</pv_name>
+      </rule>
+    </rules>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_14</name>
+    <pv_name>$(P)$(R)HVONstatus</pv_name>
+    <x>534</x>
+    <y>77</y>
   </widget>
 </display>
