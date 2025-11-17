@@ -19,21 +19,6 @@
     </action>
   </actions>
   <grid_visible>false</grid_visible>
-  <widget type="rectangle" version="2.0.0">
-    <name>Rectangle_6</name>
-    <x>850</x>
-    <y>670</y>
-    <width>271</width>
-    <height>130</height>
-    <line_color>
-      <color red="178" green="197" blue="205">
-      </color>
-    </line_color>
-    <background_color>
-      <color red="178" green="197" blue="205">
-      </color>
-    </background_color>
-  </widget>
   <widget type="label" version="2.0.0">
     <name>EDM activeXTextClass</name>
     <text>Bench SR375 HVPS</text>
@@ -104,8 +89,8 @@ else:
       </action>
     </actions>
     <text>HV On</text>
-    <x>575</x>
-    <y>72</y>
+    <x>571</x>
+    <y>51</y>
     <width>72</width>
     <rules>
       <rule name="selected colour" prop_id="background_color" out_exp="false">
@@ -130,8 +115,8 @@ else:
       </action>
     </actions>
     <text>HV Off</text>
-    <x>661</x>
-    <y>71</y>
+    <x>657</x>
+    <y>50</y>
     <width>68</width>
     <rules>
       <rule name="selected colour" prop_id="background_color" out_exp="false">
@@ -148,8 +133,8 @@ else:
   </widget>
   <widget type="group" version="3.0.0">
     <name>VRAMP settings</name>
-    <x>26</x>
-    <y>76</y>
+    <x>22</x>
+    <y>55</y>
     <width>296</width>
     <height>248</height>
     <style>3</style>
@@ -428,8 +413,8 @@ else:
   </widget>
   <widget type="group" version="3.0.0">
     <name>Output Voltage Graph</name>
-    <x>24</x>
-    <y>330</y>
+    <x>20</x>
+    <y>309</y>
     <width>724</width>
     <height>460</height>
     <style>3</style>
@@ -538,8 +523,8 @@ else:
   </widget>
   <widget type="group" version="3.0.0">
     <name>error status</name>
-    <x>482</x>
-    <y>287</y>
+    <x>478</x>
+    <y>266</y>
     <width>254</width>
     <height>23</height>
     <style>2</style>
@@ -584,12 +569,12 @@ else:
   <widget type="label" version="2.0.0">
     <name>Label_40</name>
     <text>High Voltage Enabled</text>
-    <x>333</x>
-    <y>74</y>
-    <width>272</width>
+    <x>323</x>
+    <y>55</y>
+    <width>210</width>
     <height>32</height>
     <font>
-      <font family="Lato Semibold" style="ITALIC" size="20.0">
+      <font family="Liberation Sans" style="ITALIC" size="20.0">
       </font>
     </font>
     <rules>
@@ -607,8 +592,8 @@ else:
   <widget type="led" version="2.0.0">
     <name>LED_14</name>
     <pv_name>$(P)$(R)HVONstatus</pv_name>
-    <x>534</x>
-    <y>77</y>
+    <x>528</x>
+    <y>56</y>
   </widget>
   <widget type="group" version="3.0.0">
     <name>Group</name>
@@ -660,153 +645,242 @@ else:
       </background_color>
     </widget>
   </widget>
-  <widget type="rectangle" version="2.0.0">
-    <name>Rectangle_5</name>
-    <x>857</x>
-    <y>661</y>
-    <width>275</width>
-    <height>131</height>
-    <line_width>1</line_width>
-    <line_color>
-      <color red="128" green="128" blue="128">
-      </color>
-    </line_color>
-    <background_color>
-      <color red="224" green="229" blue="232">
-      </color>
-    </background_color>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_3</name>
-    <text>Set current limit:</text>
-    <x>875</x>
-    <y>716</y>
-    <width>120</width>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_4</name>
-    <text>Set voltage limit:</text>
-    <x>875</x>
-    <y>695</y>
-    <width>120</width>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_13</name>
-    <text>Set current trip limit:</text>
-    <x>875</x>
-    <y>736</y>
-    <width>150</width>
-  </widget>
-  <widget type="spinner" version="2.0.0">
-    <name>Spinner</name>
-    <pv_name>$(P)$(R)C_voltageLimit</pv_name>
-    <x>1015</x>
-    <y>696</y>
-    <background_color>
-      <color red="179" green="230" blue="230">
-      </color>
-    </background_color>
-  </widget>
-  <widget type="spinner" version="2.0.0">
-    <name>Spinner_1</name>
-    <pv_name>$(P)$(R)C_currentLimit</pv_name>
-    <x>1015</x>
-    <y>716</y>
-    <precision>4</precision>
-    <show_units>true</show_units>
-    <background_color>
-      <color red="179" green="230" blue="230">
-      </color>
-    </background_color>
-    <increment>1.0E-4</increment>
-  </widget>
-  <widget type="spinner" version="2.0.0">
-    <name>Spinner_2</name>
-    <pv_name>$(P)$(R)C_currentTripLimit</pv_name>
-    <x>1015</x>
-    <y>736</y>
-    <precision>4</precision>
-    <show_units>true</show_units>
-    <background_color>
-      <color red="179" green="230" blue="230">
-      </color>
-    </background_color>
-    <increment>1.0E-4</increment>
-  </widget>
-  <widget type="action_button" version="3.0.0">
-    <name>Action Button_4</name>
-    <actions>
-      <action type="write_pv">
-        <description>Write PV</description>
-        <pv_name>$(pv_name)</pv_name>
-        <value>1</value>
-      </action>
-    </actions>
-    <pv_name>$(P)$(R)setNewLimits.PROC</pv_name>
-    <text>Apply</text>
-    <x>874</x>
-    <y>763</y>
-    <width>70</width>
-    <height>20</height>
-    <tooltip>$(actions)</tooltip>
-    <border_alarm_sensitive>false</border_alarm_sensitive>
-  </widget>
-  <widget type="action_button" version="3.0.0">
-    <name>Action Button_5</name>
-    <actions>
-      <action type="write_pv">
-        <description>Write PV</description>
-        <pv_name>$(pv_name)</pv_name>
-        <value>1</value>
-      </action>
-    </actions>
-    <pv_name>$(P)$(R)resetLimits.PROC</pv_name>
-    <text>set to default</text>
-    <x>953</x>
-    <y>763</y>
-    <width>95</width>
-    <height>20</height>
-    <tooltip>$(actions)</tooltip>
-    <border_alarm_sensitive>false</border_alarm_sensitive>
-  </widget>
-  <widget type="action_button" version="3.0.0">
-    <name>Action Button_6</name>
-    <actions>
-      <action type="write_pv">
-        <description>Write PV</description>
-        <pv_name>$(pv_name)</pv_name>
-        <value>1</value>
-      </action>
-    </actions>
-    <pv_name>$(P)$(R)limitMenuClosed.PROC</pv_name>
-    <text>close</text>
-    <x>1061</x>
-    <y>763</y>
-    <width>55</width>
-    <height>20</height>
-    <tooltip>$(actions)</tooltip>
-    <border_alarm_sensitive>false</border_alarm_sensitive>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_41</name>
-    <text>Device Safety Settings</text>
-    <x>858</x>
-    <y>650</y>
-    <width>171</width>
-    <font>
-      <font family="Liberation Sans" style="REGULAR" size="16.0">
+  <widget type="group" version="3.0.0">
+    <name>status</name>
+    <x>322</x>
+    <y>87</y>
+    <width>174</width>
+    <height>203</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="rectangle" version="2.0.0">
+      <name>Rectangle_2</name>
+      <y>9</y>
+      <width>174</width>
+      <height>161</height>
+      <line_width>1</line_width>
+      <line_color>
+        <color name="Header_Background" red="77" green="77" blue="77">
+        </color>
+      </line_color>
+      <background_color>
+        <color red="240" green="249" blue="255" alpha="125">
+        </color>
+      </background_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_16</name>
+      <text>Status</text>
+      <x>13</x>
+      <width>52</width>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
       </font>
-    </font>
-    <background_color>
-      <color red="224" green="229" blue="232">
-      </color>
-    </background_color>
-    <transparent>false</transparent>
+      <background_color>
+        <color name="Button_Background" red="210" green="210" blue="210">
+        </color>
+      </background_color>
+      <transparent>false</transparent>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_17</name>
+      <text>Stable</text>
+      <x>11</x>
+      <y>63</y>
+      <width>55</width>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_19</name>
+      <text>Overvoltage trip</text>
+      <x>11</x>
+      <y>118</y>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_5</name>
+      <pv_name>$(P)$(R)VTRIPstatus</pv_name>
+      <x>126</x>
+      <y>117</y>
+      <width>18</width>
+      <height>18</height>
+      <off_color>
+        <color red="128" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color name="MAJOR" red="255" green="0" blue="0">
+        </color>
+      </on_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_20</name>
+      <text>Overcurrent trip</text>
+      <x>11</x>
+      <y>145</y>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_6</name>
+      <pv_name>$(P)$(R)ITRIPstatus</pv_name>
+      <x>126</x>
+      <y>144</y>
+      <width>18</width>
+      <height>18</height>
+      <off_color>
+        <color red="128" green="0" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color name="MAJOR" red="255" green="0" blue="0">
+        </color>
+      </on_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_21</name>
+      <text>Current limit</text>
+      <x>11</x>
+      <y>90</y>
+      <width>89</width>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_7</name>
+      <pv_name>$(P)$(R)ILIMstatus</pv_name>
+      <x>126</x>
+      <y>88</y>
+      <width>18</width>
+      <height>18</height>
+      <off_color>
+        <color red="153" green="153" blue="0">
+        </color>
+      </off_color>
+      <on_color>
+        <color name="ActiveText" red="255" green="255" blue="0">
+        </color>
+      </on_color>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Reset button</name>
+      <actions>
+        <action type="write_pv">
+          <description>Reset</description>
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+        </action>
+      </actions>
+      <pv_name>$(P)$(R)hardReset</pv_name>
+      <text>Reset</text>
+      <x>2</x>
+      <y>178</y>
+      <width>68</width>
+      <height>24</height>
+      <font>
+        <font family="Liberation Sans" style="BOLD" size="14.0">
+        </font>
+      </font>
+      <foreground_color>
+        <color name="black-14" red="0" green="0" blue="0">
+        </color>
+      </foreground_color>
+      <background_color>
+        <color red="179" green="230" blue="230">
+        </color>
+      </background_color>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_23</name>
+      <text>Ramping</text>
+      <x>11</x>
+      <y>36</y>
+    </widget>
+    <widget type="led" version="2.0.0">
+      <name>LED_9</name>
+      <pv_name>$(P)$(R)VRAMPactive</pv_name>
+      <x>126</x>
+      <y>34</y>
+      <width>18</width>
+      <height>18</height>
+      <on_color>
+        <color red="0" green="224" blue="0">
+        </color>
+      </on_color>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>EDM activeMessageButtonClass_3</name>
+      <actions>
+        <action type="write_pv">
+          <description>Reset</description>
+          <pv_name>$(pv_name)</pv_name>
+          <value>0</value>
+        </action>
+      </actions>
+      <pv_name>$(P)$(R)TripClear</pv_name>
+      <text>Clear trip</text>
+      <x>75</x>
+      <y>178</y>
+      <width>68</width>
+      <height>25</height>
+      <font>
+        <font family="Liberation Sans" style="BOLD" size="14.0">
+        </font>
+      </font>
+      <foreground_color>
+        <color name="black-14" red="0" green="0" blue="0">
+        </color>
+      </foreground_color>
+      <background_color>
+        <color red="179" green="230" blue="230">
+        </color>
+      </background_color>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="multi_state_led" version="2.0.0">
+      <name>LED (Multi State)_2</name>
+      <pv_name>$(P)$(R)StableMultiState</pv_name>
+      <x>126</x>
+      <y>61</y>
+      <width>18</width>
+      <height>18</height>
+      <states>
+        <state>
+          <value>0</value>
+          <label></label>
+          <color>
+            <color red="0" green="224" blue="60">
+            </color>
+          </color>
+        </state>
+        <state>
+          <value>1</value>
+          <label></label>
+          <color>
+            <color red="0" green="224" blue="0">
+            </color>
+          </color>
+        </state>
+        <state>
+          <value>2</value>
+          <label></label>
+          <color>
+            <color name="ActiveText" red="255" green="255" blue="0">
+            </color>
+          </color>
+        </state>
+        <state>
+          <value>3</value>
+          <label></label>
+          <color>
+            <color name="MAJOR" red="255" green="0" blue="0">
+            </color>
+          </color>
+        </state>
+      </states>
+      <fallback_label></fallback_label>
+    </widget>
   </widget>
   <widget type="group" version="3.0.0">
     <name>device settings</name>
-    <x>517</x>
-    <y>104</y>
+    <x>513</x>
+    <y>83</y>
     <width>219</width>
     <height>175</height>
     <style>3</style>
@@ -1088,8 +1162,8 @@ else:
   </widget>
   <widget type="group" version="3.0.0">
     <name>advanced settings</name>
-    <x>513</x>
-    <y>104</y>
+    <x>509</x>
+    <y>83</y>
     <width>224</width>
     <height>179</height>
     <style>3</style>
@@ -1353,239 +1427,8 @@ else:
         <height>23</height>
         <transparent>true</transparent>
         <tooltip>$(actions)</tooltip>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
       </widget>
-    </widget>
-  </widget>
-  <widget type="group" version="3.0.0">
-    <name>status</name>
-    <x>326</x>
-    <y>108</y>
-    <width>174</width>
-    <height>203</height>
-    <style>3</style>
-    <transparent>true</transparent>
-    <widget type="rectangle" version="2.0.0">
-      <name>Rectangle_2</name>
-      <y>9</y>
-      <width>174</width>
-      <height>161</height>
-      <line_width>1</line_width>
-      <line_color>
-        <color name="Header_Background" red="77" green="77" blue="77">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="240" green="249" blue="255" alpha="125">
-        </color>
-      </background_color>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_16</name>
-      <text>Status</text>
-      <x>13</x>
-      <width>52</width>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <background_color>
-        <color name="Button_Background" red="210" green="210" blue="210">
-        </color>
-      </background_color>
-      <transparent>false</transparent>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_17</name>
-      <text>Stable</text>
-      <x>11</x>
-      <y>63</y>
-      <width>55</width>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_19</name>
-      <text>Overvoltage trip</text>
-      <x>11</x>
-      <y>118</y>
-    </widget>
-    <widget type="led" version="2.0.0">
-      <name>LED_5</name>
-      <pv_name>$(P)$(R)VTRIPstatus</pv_name>
-      <x>126</x>
-      <y>117</y>
-      <width>18</width>
-      <height>18</height>
-      <off_color>
-        <color red="128" green="0" blue="0">
-        </color>
-      </off_color>
-      <on_color>
-        <color name="MAJOR" red="255" green="0" blue="0">
-        </color>
-      </on_color>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_20</name>
-      <text>Overcurrent trip</text>
-      <x>11</x>
-      <y>145</y>
-    </widget>
-    <widget type="led" version="2.0.0">
-      <name>LED_6</name>
-      <pv_name>$(P)$(R)ITRIPstatus</pv_name>
-      <x>126</x>
-      <y>144</y>
-      <width>18</width>
-      <height>18</height>
-      <off_color>
-        <color red="128" green="0" blue="0">
-        </color>
-      </off_color>
-      <on_color>
-        <color name="MAJOR" red="255" green="0" blue="0">
-        </color>
-      </on_color>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_21</name>
-      <text>Current limit</text>
-      <x>11</x>
-      <y>90</y>
-      <width>89</width>
-    </widget>
-    <widget type="led" version="2.0.0">
-      <name>LED_7</name>
-      <pv_name>$(P)$(R)ILIMstatus</pv_name>
-      <x>126</x>
-      <y>88</y>
-      <width>18</width>
-      <height>18</height>
-      <off_color>
-        <color red="153" green="153" blue="0">
-        </color>
-      </off_color>
-      <on_color>
-        <color name="ActiveText" red="255" green="255" blue="0">
-        </color>
-      </on_color>
-    </widget>
-    <widget type="action_button" version="3.0.0">
-      <name>EDM activeMessageButtonClass_1</name>
-      <actions>
-        <action type="write_pv">
-          <description>Reset</description>
-          <pv_name>$(pv_name)</pv_name>
-          <value>1</value>
-        </action>
-      </actions>
-      <pv_name>$(P)$(R)hardReset</pv_name>
-      <text>Reset</text>
-      <x>2</x>
-      <y>178</y>
-      <width>68</width>
-      <height>24</height>
-      <font>
-        <font family="Liberation Sans" style="BOLD" size="14.0">
-        </font>
-      </font>
-      <foreground_color>
-        <color name="black-14" red="0" green="0" blue="0">
-        </color>
-      </foreground_color>
-      <background_color>
-        <color red="179" green="230" blue="230">
-        </color>
-      </background_color>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_23</name>
-      <text>Ramping</text>
-      <x>11</x>
-      <y>36</y>
-    </widget>
-    <widget type="led" version="2.0.0">
-      <name>LED_9</name>
-      <pv_name>$(P)$(R)VRAMPactive</pv_name>
-      <x>126</x>
-      <y>34</y>
-      <width>18</width>
-      <height>18</height>
-      <on_color>
-        <color red="0" green="224" blue="0">
-        </color>
-      </on_color>
-    </widget>
-    <widget type="action_button" version="3.0.0">
-      <name>EDM activeMessageButtonClass_3</name>
-      <actions>
-        <action type="write_pv">
-          <description>Reset</description>
-          <pv_name>$(pv_name)</pv_name>
-          <value>0</value>
-        </action>
-      </actions>
-      <pv_name>$(P)$(R)TripClear</pv_name>
-      <text>Clear trip</text>
-      <x>75</x>
-      <y>178</y>
-      <width>68</width>
-      <height>25</height>
-      <font>
-        <font family="Liberation Sans" style="BOLD" size="14.0">
-        </font>
-      </font>
-      <foreground_color>
-        <color name="black-14" red="0" green="0" blue="0">
-        </color>
-      </foreground_color>
-      <background_color>
-        <color red="179" green="230" blue="230">
-        </color>
-      </background_color>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-    </widget>
-    <widget type="multi_state_led" version="2.0.0">
-      <name>LED (Multi State)_2</name>
-      <pv_name>$(P)$(R)StableMultiState</pv_name>
-      <x>126</x>
-      <y>61</y>
-      <width>18</width>
-      <height>18</height>
-      <states>
-        <state>
-          <value>0</value>
-          <label></label>
-          <color>
-            <color red="0" green="224" blue="60">
-            </color>
-          </color>
-        </state>
-        <state>
-          <value>1</value>
-          <label></label>
-          <color>
-            <color red="0" green="224" blue="0">
-            </color>
-          </color>
-        </state>
-        <state>
-          <value>2</value>
-          <label></label>
-          <color>
-            <color name="ActiveText" red="255" green="255" blue="0">
-            </color>
-          </color>
-        </state>
-        <state>
-          <value>3</value>
-          <label></label>
-          <color>
-            <color name="MAJOR" red="255" green="0" blue="0">
-            </color>
-          </color>
-        </state>
-      </states>
-      <fallback_label></fallback_label>
     </widget>
   </widget>
 </display>
