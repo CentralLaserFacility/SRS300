@@ -218,7 +218,9 @@ record(seq, "$(P)$(R)HVenableSeq")
     field(DESC, "Sequence to dis/enable HV")
     field(DO1, "$(VMIN)")
     field(LNK1, "$(P)$(R)HVset PP")
-    field(LNK2, "$(P)$(R)getSTB.PROC PP")
+    field(DO2, "0")
+    field(LNK2, "$(P)$(R)VRAMPactive PP")
+    field(LNK3, "$(P)$(R)getSTB.PROC PP")
 }
 
 #____________________________________________
