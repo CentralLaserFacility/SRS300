@@ -79,7 +79,7 @@ record(ai, "$(P)$(R)ILIMget")
     field(INP,  "@ps300.proto getF(ILIM) $(PORT) $(A)")
     field(EGU,  "A")
     field(LOPR, "$(IMIN)")
-    field(HOPR, "$(IMAX)") #***
+    field(HOPR, "$(IMAX)")
     field(PREC, "$(PREC)")
     field(PINI, "YES")
 }
@@ -106,7 +106,7 @@ record(ai, "$(P)$(R)ITRPget")
     field(HOPR, "$(IMAX)")
     field(PREC, "$(PREC)")
     field(PINI, "YES")
-    
+
 }
 #__________________________________________________________
 #
@@ -198,9 +198,8 @@ record(ai, "$(P)$(R)OutputIget")
     field(SIML, "$(P)$(R)SIM")
     field(SIOL, "$(P)$(R)SIM:OutputIget")
 }
+
 #________________________________________________________
-
-
 
 record(bo, "$(P)$(R)HVenable")
 {#Turn high voltage on/off
@@ -298,13 +297,15 @@ record(bi, "$(P)$(R)VRAMPmode"){
     field(ONAM, "Manual")
 }
 
-record(ai, "$(P)$(R)desiredHV")
+record(ao, "$(P)$(R)desiredHV")
 {
     field(DESC, "Set target output voltage")
     field(EGU,  "V")
     field(VAL, "$(VMIN)")
     field(LOPR, "$(VMIN)")
     field(HOPR, "$(VMAX)")
+    field(DRVL, "$(VMIN)")
+    field(DRVH, "$(VMAX)")
     field(PREC, "$(PREC)")
     field(PINI, "YES")
 }
@@ -478,6 +479,9 @@ record(seq,"$(P)$(R)setNewLimits"){
     field(LNK7, "$(P)$(R)HVset.DRVH PP")
     field(DOL8, "$(P)$(R)C_voltageLimit")
     field(LNK8, "$(P)$(R)OutputVget.HOPR PP")
+    field(DOL9, "$(P)$(R)C_voltageLimit")
+    field(LNK9, "$(P)$(R)desiredHV.DRVH PP")
+
 }
 
 #If the menu is closed before changes are applied, limit values are changed back to what they were previously
