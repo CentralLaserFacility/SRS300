@@ -218,7 +218,9 @@ record(seq, "$(P)$(R)HVenableSeq")
     field(DESC, "Sequence to dis/enable HV")
     field(DO1, "$(VMIN)")
     field(LNK1, "$(P)$(R)HVset PP")
-    field(LNK2, "$(P)$(R)getSTB.PROC PP")
+    field(DO2, "0")
+    field(LNK2, "$(P)$(R)VRAMPactive PP")
+    field(LNK3, "$(P)$(R)getSTB.PROC PP")
 }
 
 #____________________________________________
@@ -232,13 +234,6 @@ record(bi, "$(P)$(R)chargeStartHelper")
 record(seq, "$(P)$(R)StartCharge")
 {
     field(DESC, "Sequence to start HV charge")
-    #set scan to passive (0 as DO1 only takes doubles) 
-    #so while ramping voltage is only checked after being set and not continuously
-    field(DO1, "0")
-    field(LNK1, "$(P)$(R)voltageMonitor.SCAN")
-    #set delay to 1.45 seconds to allow for voltage to stabilize once set beore being checked again
-    field(DOL2, "$(P)$(R)C_vgetDelay") 
-    field(LNK2, "$(P)$(R)voltageMonitor.DLY1")
     #get/set values for graphing
     field(DOL3, "$(P)$(R)OutputVget")
     field(LNK3, "$(P)$(R)startVoltage PP")
@@ -323,8 +318,6 @@ record(ao, "$(P)$(R)HVset")
     field(DRVL, "$(VMIN)")
     field(DRVH, "$(VMAX)")
     field(PREC, "$(PREC)")
-    field(FLNK, "$(P)$(R)voltageMonitor")
-
 }
 
 record(seq, "$(P)$(R)voltageMonitor")
@@ -675,6 +668,6 @@ record(bi, "$(P)$(R)polarity")
     field(DESC, "Device polarity")
     field(ZNAM, "+ve")
     field(ONAM, "-ve On")
-    field(VAL, "$(POLARITY)") # Dependant on model
+    field(VAL, "$(POLARITY)") # Dependent on model
     field(PINI, "YES")
 }

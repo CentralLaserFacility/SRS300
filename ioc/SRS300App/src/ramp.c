@@ -50,7 +50,7 @@ static long rampcalc(aSubRecord *precord){
         miniHop = 1;
     }
 
-    if (strcmp(mode, "Automatic") == 0) {//if mode = automatic
+    else if (strcmp(mode, "Automatic") == 0) {//if mode = automatic
         //check for possible divide by 0 errors
         if (minStepSize == 0){
             minStepSize = 1; //ensure step size cannot be 0
