@@ -106,6 +106,7 @@ record(ai, "$(P)$(R)ITRPget")
     field(HOPR, "$(IMAX)")
     field(PREC, "$(PREC)")
     field(PINI, "YES")
+
 }
 #__________________________________________________________
 #
@@ -197,9 +198,8 @@ record(ai, "$(P)$(R)OutputIget")
     field(SIML, "$(P)$(R)SIM")
     field(SIOL, "$(P)$(R)SIM:OutputIget")
 }
+
 #________________________________________________________
-
-
 
 record(bo, "$(P)$(R)HVenable")
 {#Turn high voltage on/off
@@ -292,13 +292,15 @@ record(bi, "$(P)$(R)VRAMPmode"){
     field(ONAM, "Manual")
 }
 
-record(ai, "$(P)$(R)desiredHV")
+record(ao, "$(P)$(R)desiredHV")
 {
     field(DESC, "Set target output voltage")
     field(EGU,  "V")
     field(VAL, "$(VMIN)")
     field(LOPR, "$(VMIN)")
     field(HOPR, "$(VMAX)")
+    field(DRVL, "$(VMIN)")
+    field(DRVH, "$(VMAX)")
     field(PREC, "$(PREC)")
     field(PINI, "YES")
 }
@@ -411,6 +413,32 @@ record(ai, "$(P)$(R)C_Precision"){
     field(VAL, "$(PREC)")
 }
 
+record(ai, "$(P)$(R)C_voltageLimit"){
+    field(DESC, "Maximum voltage for device")
+    field(PINI, "YES")
+    field(HOPR, "$(VMAX)")
+    field(VAL, "$(VMAX)") #dependent on model
+    field(EGU, "V")
+}
+
+record(ai, "$(P)$(R)C_currentLimit"){
+    field(DESC, "Maximum current for device")
+    field(PINI, "YES")
+    field(LOPR, "$(IMIN)")
+    field(HOPR, "$(IMAX)")
+    field(VAL, "$(IMAX)") #dependent on model
+    field(EGU, "A")
+}
+
+record(ai, "$(P)$(R)C_currentTripLimit"){
+    field(DESC, "Maximum current trip limit for device")
+    field(VAL, "$(IMAX)") #dependent on model
+    field(HOPR, "$(IMAX)")
+    field(EGU, "A")
+    field(PREC, "$(PREC)")
+    
+}
+
 record(seq,"$(P)$(R)setOnStart"){
     #HOPR and LOPR can't take values from links and can only take doubles
     #So values must be passed in through sequence
@@ -422,12 +450,66 @@ record(seq,"$(P)$(R)setOnStart"){
     field(DOL3, "$(P)$(R)C_minInterval")
     field(LNK3, "$(P)$(R)VRAMPtimeSet PP")
     field(DOL4, "$(P)$(R)C_minInterval")
-    field(LNK4, "$(P)$(R)VRAMPinterval PP")    
+    field(LNK4, "$(P)$(R)VRAMPinterval PP")
 }
+
+#when changes are applied from the limit menu, set the device limits to the new values
+record(seq,"$(P)$(R)setNewLimits"){
+    field(DESC, "sets limits from constants")
+    field(DOL1, "$(P)$(R)C_voltageLimit")
+    field(LNK1, "$(P)$(R)VLIMset PP")
+    field(DOL2, "$(P)$(R)C_currentLimit")
+    field(LNK2, "$(P)$(R)ILIMset PP")
+    field(DOL3, "$(P)$(R)C_currentTripLimit")
+    field(LNK3, "$(P)$(R)ITRPset PP")
+    field(DOL4, "$(P)$(R)C_voltageLimit")
+    field(LNK4, "$(P)$(R)VRAMPstepSize.HOPR PP")
+    field(DOL5, "$(P)$(R)C_voltageLimit")
+    field(LNK5, "$(P)$(R)desiredHV.HOPR")
+    field(DOL6, "$(P)$(R)C_voltageLimit")
+    field(LNK6, "$(P)$(R)HVset.HOPR")
+    field(DOL7, "$(P)$(R)C_voltageLimit")
+    field(LNK7, "$(P)$(R)HVset.DRVH PP")
+    field(DOL8, "$(P)$(R)C_voltageLimit")
+    field(LNK8, "$(P)$(R)OutputVget.HOPR PP")
+    field(DOL9, "$(P)$(R)C_voltageLimit")
+    field(LNK9, "$(P)$(R)desiredHV.DRVH PP")
+
+}
+
+#If the menu is closed before changes are applied, limit values are changed back to what they were previously
+record(seq, "$(P)$(R)limitMenuClosed"){
+    field(DESC, "Sequence to run when limit menu closed")
+    field(DOL1, "$(P)$(R)VLIMget PP")
+    field(LNK1, "$(P)$(R)C_voltageLimit PP")
+    field(DOL2, "$(P)$(R)ILIMget PP")
+    field(LNK2, "$(P)$(R)C_currentLimit PP")
+    field(DOL3, "$(P)$(R)ITRPget PP")
+    field(LNK3, "$(P)$(R)C_currentTripLimit PP")
+}
+
+#If limits are reset to default from the menu, set device limits to default values
+record(seq, "$(P)$(R)resetLimits"){
+    field(DESC, "Reset limits to default from device")
+    field(DO1, "$(VMAX)")
+    field(LNK1, "$(P)$(R)C_voltageLimit PP")
+    field(DO2, "$(IMAX)")
+    field(LNK2, "$(P)$(R)C_currentLimit PP")
+    field(DO3, "$(IMAX)")
+    field(LNK3, "$(P)$(R)C_currentTripLimit PP")
+    field(LNK4, "$(P)$(R)setNewLimits PP")
+}
+
+record(bi, "$(P)$(R)limitMenuOpen"){
+    field(DESC, "Open/close limit menu (ui)")
+    field(ZNAM, "Closed")
+    field(ONAM, "Open")
+    field(PINI, "YES")
+}
+
 
 #__________________________________________
 #_____________error messages_______________
-
 
 record(bo,"$(P)$(R)E_smallStep"){
     field(DESC, "Warning for step being too small")
@@ -526,7 +608,7 @@ record(seq, "$(P)$(R)rampZoom"){
     field(LNK1, "$(P)$(R)autoscaleControlMax PP")
     field(DOL2, "$(P)$(R)YaxisMin")
     field(LNK2, "$(P)$(R)autoscaleControlMin PP")
-    field(TPRO, "1")
+    
 }
 
 record(bi, "$(P)$(R)toolbarShow"){
@@ -589,4 +671,3 @@ record(bi, "$(P)$(R)polarity")
     field(VAL, "$(POLARITY)") # Dependent on model
     field(PINI, "YES")
 }
-

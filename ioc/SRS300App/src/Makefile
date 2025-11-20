@@ -37,7 +37,7 @@ SRS300_LIBS += asyn
 SRS300_LIBS += stream
 SRS300_LIBS += autosave
 SRS300_LIBS += utilities
-SRS300_LIBS += seq
+SRS300_LIBS += seq pv
 SRS300_SYS_LIBS += pcre
 
 # SRS300_registerRecordDeviceDriver.cpp derives from SRS300.dbd
