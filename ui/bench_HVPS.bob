@@ -416,7 +416,7 @@ else:
     <x>20</x>
     <y>309</y>
     <width>724</width>
-    <height>460</height>
+    <height>481</height>
     <style>3</style>
     <background_color>
       <color red="255" green="255" blue="255" alpha="0">
@@ -428,7 +428,7 @@ else:
       <x>3</x>
       <y>54</y>
       <width>706</width>
-      <height>356</height>
+      <height>377</height>
       <rules>
         <rule name="show toolbar" prop_id="show_toolbar" out_exp="true">
           <exp bool_exp="True">
@@ -441,8 +441,8 @@ else:
     <widget type="bool_button" version="2.0.0">
       <name>toolbar</name>
       <pv_name>$(P)$(R)toolbarShow</pv_name>
-      <x>6</x>
-      <y>420</y>
+      <x>3</x>
+      <y>441</y>
       <off_label>Show toolbar</off_label>
       <off_color>
         <color name="Button_Background" red="210" green="210" blue="210">
@@ -1027,7 +1027,7 @@ else:
       <width>55</width>
     </widget>
     <widget type="textupdate" version="2.0.0">
-      <name>Text Update_3</name>
+      <name>voltage limit</name>
       <pv_name>$(P)$(R)VLIMget</pv_name>
       <x>130</x>
       <y>149</y>
@@ -1035,16 +1035,16 @@ else:
       <precision>1</precision>
     </widget>
     <widget type="textupdate" version="2.0.0">
-      <name>Text Update_4</name>
-      <pv_name>$(P)$(R)ILIMget</pv_name>
+      <name>current limit</name>
+      <pv_name>$(P)$(R)ILIMmA</pv_name>
       <x>129</x>
       <y>66</y>
       <width>72</width>
       <precision>4</precision>
     </widget>
     <widget type="textupdate" version="2.0.0">
-      <name>Text Update_5</name>
-      <pv_name>$(P)$(R)ITRPget</pv_name>
+      <name>current trip limit</name>
+      <pv_name>$(P)$(R)ITRPmA</pv_name>
       <x>129</x>
       <y>93</y>
       <width>72</width>
@@ -1246,42 +1246,44 @@ else:
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_6</name>
-      <pv_name>$(P)$(R)C_voltageLimit</pv_name>
+      <pv_name>$(P)$(R)voltageLimit</pv_name>
       <x>122</x>
       <y>61</y>
-      <width>90</width>
+      <width>95</width>
+      <show_units>true</show_units>
       <background_color>
         <color red="179" green="230" blue="230">
         </color>
       </background_color>
+      <increment>100.0</increment>
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_7</name>
-      <pv_name>$(P)$(R)C_currentLimit</pv_name>
+      <pv_name>$(P)$(R)currentLimitmA</pv_name>
       <x>122</x>
       <y>85</y>
-      <width>90</width>
+      <width>95</width>
       <precision>4</precision>
       <show_units>true</show_units>
       <background_color>
         <color red="179" green="230" blue="230">
         </color>
       </background_color>
-      <increment>1.0E-4</increment>
+      <increment>0.01</increment>
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_8</name>
-      <pv_name>$(P)$(R)C_currentTripLimit</pv_name>
+      <pv_name>$(P)$(R)currentTripLimitmA</pv_name>
       <x>122</x>
       <y>109</y>
-      <width>90</width>
+      <width>95</width>
       <precision>4</precision>
       <show_units>true</show_units>
       <background_color>
         <color red="179" green="230" blue="230">
         </color>
       </background_color>
-      <increment>1.0E-4</increment>
+      <increment>0.01</increment>
     </widget>
     <widget type="action_button" version="3.0.0">
       <name>Action Button_10</name>
