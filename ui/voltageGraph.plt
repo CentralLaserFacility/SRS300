@@ -6,7 +6,7 @@
   <update_period>1.0</update_period>
   <scroll_step>1</scroll_step>
   <scroll>true</scroll>
-  <start>-1 minutes</start>
+  <start>-2 minutes</start>
   <end>now</end>
   <archive_rescale>STAGGER</archive_rescale>
   <foreground>
@@ -35,8 +35,8 @@
         <green>0</green>
         <blue>0</blue>
       </color>
-      <min>-5.0</min>
-      <max>105.0</max>
+      <min>-260.0</min>
+      <max>5460.0</max>
       <grid>false</grid>
       <autoscale>true</autoscale>
       <log_scale>false</log_scale>
