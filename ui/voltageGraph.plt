@@ -35,8 +35,8 @@
         <green>0</green>
         <blue>0</blue>
       </color>
-      <min>-260.0</min>
-      <max>5460.0</max>
+      <min>-5.0</min>
+      <max>105.0</max>
       <grid>false</grid>
       <autoscale>true</autoscale>
       <log_scale>false</log_scale>
@@ -123,14 +123,14 @@
       <request>OPTIMIZED</request>
     </pv>
     <pv>
-      <display_name>Voltage</display_name>
+      <display_name>Current</display_name>
       <visible>true</visible>
-      <name>BENCH:HVPS:OutputVget</name>
-      <axis>0</axis>
+      <name>BENCH:HVPS:OutputImA</name>
+      <axis>1</axis>
       <color>
-        <red>255</red>
+        <red>0</red>
         <green>0</green>
-        <blue>0</blue>
+        <blue>255</blue>
       </color>
       <trace_type>AREA</trace_type>
       <linewidth>2</linewidth>
@@ -143,14 +143,14 @@
       <request>OPTIMIZED</request>
     </pv>
     <pv>
-      <display_name>Current</display_name>
+      <display_name>Voltage</display_name>
       <visible>true</visible>
-      <name>BENCH:HVPS:OutputImA</name>
-      <axis>1</axis>
+      <name>BENCH:HVPS:OutputVget</name>
+      <axis>0</axis>
       <color>
-        <red>0</red>
+        <red>255</red>
         <green>0</green>
-        <blue>255</blue>
+        <blue>0</blue>
       </color>
       <trace_type>AREA</trace_type>
       <linewidth>2</linewidth>

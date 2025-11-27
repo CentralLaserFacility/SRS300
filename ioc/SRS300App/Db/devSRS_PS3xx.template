@@ -145,8 +145,7 @@ record(fanout, "$(P)$(R)ReadbackPoll_")
     field(LNK3, "$(P)$(R)ILIMstatus")
     field(LNK4, "$(P)$(R)ITRIPstatus")
     field(LNK5, "$(P)$(R)VTRIPstatus")
-    field(LNK6, "$(P)$(R)HVSTABLEstatus")
-    field(LNK7, "$(P)$(R)OutputIget")
+
 }
 
 record(mbbiDirect, "$(P)$(R)getSTB")
@@ -164,27 +163,41 @@ record(bi, "$(P)$(R)HVONstatus")
     field(ZNAM, "Off")
     field(ONAM, "On")
 }
-record(bi, "$(P)$(R)ILIMstatus")
+record(calcout, "$(P)$(R)ILIMstatus")
 {
     field(DESC, "Is current limited?")
-    field(INP,  "$(P)$(R)getSTB.B3 NPP MS")
-    field(ZNAM, "No limit")
-    field(ONAM, "Limited")
+    field(INPA,  "$(P)$(R)getSTB.B3 NPP MS")
+    field(OOPT, "When Non-zero")
+    field(CALC, "A == 1 ? 3 : 0") #3 in mbbi record represents current limit
+    field(OUT, "$(P)$(R)TripStatus.B3 PP")
 }
-record(bi, "$(P)$(R)ITRIPstatus")
+record(calcout, "$(P)$(R)ITRIPstatus")
 {
     field(DESC, "Tripped on overcurrent?")
-    field(INP,  "$(P)$(R)getSTB.B2 NPP MS")
-    field(ZNAM, "Not tripped")
-    field(ONAM, "Tripped")
+    field(INPA,  "$(P)$(R)getSTB.B2 NPP MS")
+    field(OOPT, "When Non-zero")
+    field(CALC, "A") #2 in mbbi record represents current trip
+    field(OUT, "$(P)$(R)TripStatus.B2 PP")
 }
-record(bi, "$(P)$(R)VTRIPstatus")
+record(calcout, "$(P)$(R)VTRIPstatus")
 {
     field(DESC, "Tripped on overvoltage?")
-    field(INP,  "$(P)$(R)getSTB.B1 NPP MS")
-    field(ZNAM, "Not tripped")
-    field(ONAM, "Tripped")
+    field(INPA,  "$(P)$(R)getSTB.B1 NPP MS")
+    field(OOPT, "When Non-zero")
+    field(CALC, "A") #1 in mbbi record represents voltage trip
+    field(OUT, "$(P)$(R)TripStatus.B1")
 }
+
+record(mbbiDirect, "$(P)$(R)TripStatus")
+{
+    field(DESC, "Overall trip status")
+    #B1 = overvoltage trip
+    #B2 = overcurrent trip
+    #B3 = current limit active
+    field(PINI, "YES")
+
+}
+
 record(bi, "$(P)$(R)HVSTABLEstatus")
 {
     field(DESC, "HV stable?")
@@ -193,6 +206,7 @@ record(bi, "$(P)$(R)HVSTABLEstatus")
     field(ONAM, "Stable")
     field(FLNK, "$(P)$(R)StableMultiState")
 }
+
 record(calc, "$(P)$(R)StableMultiState")
 {#while ramping, stability briefly becomes unstable
 #to get more accurate LED it should check for if it's unstable twice in a row
@@ -204,14 +218,13 @@ record(calc, "$(P)$(R)StableMultiState")
     #if stable it is set back to 1 (or 0 if ramping)
     #states: 1 = stable, 2 = warning, 3 = unstable
     #while ramping states will begin at 0 to allow for 1 extra second of instability which is expected
-    
-
 }
 
 record(ai, "$(P)$(R)OutputIget")
 {
     field(DESC, "Output current readback")
     field(DTYP, "stream")
+    field(SCAN, ".1 second")
     field(INP,  "@ps300.proto getF(IOUT) $(PORT) $(A)")
     field(EGU,  "A")
     field(LOPR, "0")
@@ -304,11 +317,14 @@ record(ai, "$(P)$(R)VRAMPinterval") {
     field(PINI, "YES")
 }
 
-record(ai, "$(P)$(R)VRAMPstepSize"){
+record(ao, "$(P)$(R)VRAMPstepSize"){
     field(DESC, "Set voltage ramp step size")
     field(VAL, "$(VMIN)") 
     field(LOPR, "$(VMIN)")
     field(HOPR, "$(VMAX)")
+    field(DRVL, "$(VMIN)")
+    field(DRVH, "$(VMAX)")
+    field(EGU, "V")
     field(PINI, "YES")
 }
 
@@ -355,14 +371,9 @@ record(seq, "$(P)$(R)voltageMonitor")
     field(PINI, "YES")
     field(SCAN, "1 second")
     field(LNK1, "$(P)$(R)OutputVget.PROC")
+    field(LNK2, "$(P)$(R)HVSTABLEstatus.PROC")
 }
-record(seq, "$(P)$(R)currentMonitor")
-{
-    field(DESC, "Monitor voltage")
-    field(PINI, "YES")
-    field(SCAN, ".1 second")
-    field(LNK1, "$(P)$(R)OutputIget.PROC")
-}
+
 record(ai, "$(P)$(R)OutputVget")
 {
     field(DESC, "Output voltage readback")
@@ -632,6 +643,7 @@ record(calc, "$(P)$(R)idleYaxisMin"){
     field(INPB, "$(P)$(R)C_minStepSize")
     field(INPC, "$(P)$(R)graphScale")
     field(CALC, "A>C ? A - C : 0")
+    
 }
 
 record(ai, "$(P)$(R)graphScale"){
@@ -690,16 +702,25 @@ record(ai, "$(P)$(R)currentYaxisMin"){
 
 #____________________________________________
 #___________End of ramp sequence_____________
+record(calcout, "$(P)$(R)StopRamp"){
+    field(DESC, "Checks if ramping needs to be stopped")
+    field(INPA, "$(P)$(R)HVONstatus")
+    field(INPB, "$(P)$(R)TripStatus")
+    field(CALC, "A==0 || B!=0 ? 1 : 0")
+    field(OUT, "$(P)$(R)endCharge PP")
+    field(OOPT, "When Non-zero")
+}
+
 
 record(seq, "$(P)$(R)endCharge")
 {
     field(DESC, "Sequence to end HV charge")
     field(DO1, "0")
     field(LNK1, "$(P)$(R)VRAMPactive PP")
-    field(DO2, "6")
+    field(DO2, "6")#DO field only takes double, 6 represents 1 second scan
     field(LNK2, "$(P)$(R)voltageMonitor.SCAN")
-    field(DO4, "9")
-    field(LNK4, "$(P)$(R)ReadbackPoll_.SCAN")
+    #field(DO4, "6")
+    #field(LNK4, "$(P)$(R)ReadbackPoll_.SCAN")
     field(LNK5, "$(P)$(R)idleZoom PP")
 }
 
@@ -711,7 +732,7 @@ record(seq, "$(P)$(R)hardReset"){
     field(DO1, "0")
     field(LNK1, "$(P)$(R)HVenable PP")
     field(DO2, "1")
-    field(LNK2, "$(P)$(R)TripClear PP")
+    field(LNK2, "$(P)$(R)TripClearSeq.PROC PP")
     field(LNK3, "$(P)$(R)ResetDevice.PROC PP")
 }
 
@@ -724,6 +745,15 @@ record(bo, "$(P)$(R)ResetDevice")
     field(ONAM, "Reset Device")
 }
 
+record(seq, "$(P)$(R)tripClearSeq"){
+    field(DESC, "Sequence to clear trip and reset device")
+    field(DO1, "0")
+    field(LNK1, "$(P)$(R)TripStatus PP")
+    field(DO2, "1")
+    field(LNK2, "$(P)$(R)TripClear.PROC PP")
+    field(LNK3, "$(P)$(R)ReadbackPoll_.PROC PP")
+
+}
 #__________________________________________
 #_______________Polarity___________________
 
