@@ -309,10 +309,11 @@ record(ai, "$(P)$(R)VRAMPtimeSet"){
     field(EGU,  "seconds")
     field(PINI, "YES")
 }
-record(ai, "$(P)$(R)VRAMPinterval") {
+record(ao, "$(P)$(R)VRAMPinterval") {
     #^^above comments apply
     field(DESC, "Set ramp up interval") 
     field(HOPR, "1000000")
+    field(DRVH, "1000000")
     field(EGU, "seconds")
     field(PINI, "YES")
 }
@@ -522,6 +523,8 @@ record(seq,"$(P)$(R)setOnStart"){
     field(DOL6, "$(P)$(R)C_IMAXmA")
     field(LNK6, "$(P)$(R)currentTripLimitmA.HOPR PP")
     field(LNK7, "$(P)$(R)resetLimits.PROC PP")
+    field(DOL8, "$(P)$(R)C_minInterval")
+    field(LNK8, "$(P)$(R)VRAMPinterval.DRVL PP")
 }
 
 #when changes are applied from the limit menu, set the device limits to the new values
