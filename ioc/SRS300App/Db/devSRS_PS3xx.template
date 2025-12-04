@@ -195,8 +195,6 @@ record(mbbiDirect, "$(P)$(R)TripStatus")
     #B2 = overcurrent trip
     #B3 = current limit active
     field(PINI, "YES")
-    field(TPRO, "1")
-
 }
 
 record(bi, "$(P)$(R)HVSTABLEstatus")
