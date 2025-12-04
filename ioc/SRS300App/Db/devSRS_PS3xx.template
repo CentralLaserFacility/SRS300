@@ -167,7 +167,7 @@ record(calcout, "$(P)$(R)ILIMstatus")
 {
     field(DESC, "Is current limited?")
     field(INPA,  "$(P)$(R)getSTB.B3 NPP MS")
-    field(OOPT, "5")
+    field(OOPT, "Transition To Non-zero")
     field(CALC, "A == 1 ? 3 : 0") #3 in mbbi record represents current limit
     field(OUT, "$(P)$(R)TripStatus.B3")
 }
@@ -175,7 +175,7 @@ record(calcout, "$(P)$(R)ITRIPstatus")
 {
     field(DESC, "Tripped on overcurrent?")
     field(INPA,  "$(P)$(R)getSTB.B2 NPP MS")
-    field(OOPT, "5")
+    field(OOPT, "Transition To Non-zero")
     field(CALC, "A") #2 in mbbi record represents current trip
     field(OUT, "$(P)$(R)TripStatus.B2")
 }
@@ -183,7 +183,7 @@ record(calcout, "$(P)$(R)VTRIPstatus")
 {
     field(DESC, "Tripped on overvoltage?")
     field(INPA,  "$(P)$(R)getSTB.B1 NPP MS")
-    field(OOPT, "5")
+    field(OOPT, "Transition To Non-zero")
     field(CALC, "A") #1 in mbbi record represents voltage trip
     field(OUT, "$(P)$(R)TripStatus.B1")
 }
@@ -706,15 +706,6 @@ record(ai, "$(P)$(R)currentYaxisMin"){
 
 #____________________________________________
 #___________End of ramp sequence_____________
-record(calcout, "$(P)$(R)StopRamp"){
-    field(DESC, "Checks if ramping needs to be stopped")
-    field(INPA, "$(P)$(R)HVONstatus")
-    #field(INPB, "$(P)$(R)TripStatus")
-    #field(CALC, "A==0 || B!=0 ? 1 : 0")
-    #field(OUT, "$(P)$(R)endCharge PP")
-    #field(OOPT, "When Non-zero")
-}
-
 
 record(seq, "$(P)$(R)endCharge")
 {
