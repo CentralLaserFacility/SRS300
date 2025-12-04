@@ -516,22 +516,6 @@ else:
         </font>
       </font>
     </widget>
-    <widget type="textupdate" version="2.0.0">
-      <name>txtCurrentNow_2</name>
-      <pv_name>$(P)$(R)OutputIget</pv_name>
-      <x>564</x>
-      <y>29</y>
-      <width>83</width>
-      <font>
-        <font family="Eras Bold ITC" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <background_color>
-        <color red="230" green="230" blue="230">
-        </color>
-      </background_color>
-      <precision>4</precision>
-    </widget>
   </widget>
   <widget type="group" version="3.0.0">
     <name>error status</name>
