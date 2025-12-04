@@ -100,7 +100,7 @@ else:
             </color>
           </value>
         </exp>
-        <pv_name>$(P)$(R)HVenable</pv_name>
+        <pv_name>$(P)$(R)HVONstatus</pv_name>
       </rule>
     </rules>
     <tooltip>$(actions)</tooltip>
@@ -126,7 +126,7 @@ else:
             </color>
           </value>
         </exp>
-        <pv_name>$(P)$(R)HVenable</pv_name>
+        <pv_name>$(P)$(R)HVONstatus</pv_name>
       </rule>
     </rules>
     <tooltip>$(actions)</tooltip>
@@ -205,7 +205,7 @@ else:
       <name>Start ramp</name>
       <actions>
         <action type="write_pv">
-          <description>Write PV</description>
+          <description>Start ramp</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
         </action>
@@ -219,25 +219,21 @@ else:
         </color>
       </background_color>
       <rules>
-        <rule name="dont allow to press while ramping" prop_id="enabled" out_exp="false">
-          <exp bool_exp="pv0==0">
-            <value>true</value>
-          </exp>
-          <exp bool_exp="pv0==1">
+        <rule name="dont allow to press while ramping or HV disabled" prop_id="enabled" out_exp="false">
+          <exp bool_exp="pv0==1 || pv1 == 0">
             <value>false</value>
           </exp>
           <pv_name>$(P)$(R)VRAMPactive</pv_name>
+          <pv_name>$(P)$(R)HVONstatus</pv_name>
         </rule>
-        <rule name="ramping text" prop_id="text" out_exp="false">
+        <rule name="button text" prop_id="text" out_exp="false">
           <exp bool_exp="pv0==1">
             <value>Ramping</value>
           </exp>
-          <pv_name>$(P)$(R)VRAMPactive</pv_name>
-        </rule>
-        <rule name="New Rule" prop_id="enabled" out_exp="false">
-          <exp bool_exp="pv0==0">
-            <value>false</value>
+          <exp bool_exp="pv1 == 0">
+            <value>HV disabled</value>
           </exp>
+          <pv_name>$(P)$(R)VRAMPactive</pv_name>
           <pv_name>$(P)$(R)HVONstatus</pv_name>
         </rule>
       </rules>
@@ -476,7 +472,7 @@ else:
       <pv_name>$(P)$(R)OutputImA</pv_name>
       <x>471</x>
       <y>29</y>
-      <width>83</width>
+      <width>93</width>
       <font>
         <font family="Eras Bold ITC" style="REGULAR" size="16.0">
         </font>
@@ -714,7 +710,7 @@ else:
     </widget>
     <widget type="led" version="2.0.0">
       <name>LED_5</name>
-      <pv_name>$(P)$(R)VTRIPstatus</pv_name>
+      <pv_name>$(P)$(R)TripStatus.B1</pv_name>
       <x>126</x>
       <y>117</y>
       <width>18</width>
@@ -736,7 +732,7 @@ else:
     </widget>
     <widget type="led" version="2.0.0">
       <name>LED_6</name>
-      <pv_name>$(P)$(R)ITRIPstatus</pv_name>
+      <pv_name>$(P)$(R)TripStatus.B2</pv_name>
       <x>126</x>
       <y>144</y>
       <width>18</width>
@@ -759,7 +755,7 @@ else:
     </widget>
     <widget type="led" version="2.0.0">
       <name>LED_7</name>
-      <pv_name>$(P)$(R)ILIMstatus</pv_name>
+      <pv_name>$(P)$(R)TripStatus.B3</pv_name>
       <x>126</x>
       <y>88</y>
       <width>18</width>
@@ -829,7 +825,7 @@ else:
           <value>0</value>
         </action>
       </actions>
-      <pv_name>$(P)$(R)TripClear</pv_name>
+      <pv_name>$(P)$(R)tripClearSeq</pv_name>
       <text>Clear trip</text>
       <x>75</x>
       <y>178</y>
