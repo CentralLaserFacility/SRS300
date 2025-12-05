@@ -32,6 +32,21 @@ dbLoadRecords("$(ASYN)/db/asynRecord.db","P=$(PREFIX)$(SUFFIX),R=asyn,PORT=$(POR
 dbLoadTemplate("db/devSRS_PS375.substitutions","PORT=$(PORT),R=$(SUFFIX),P=$(PREFIX),A=$(A)")
 dbLoadRecords("db/devSRS_PS300_common.db","P=$(PREFIX),R=$(SUFFIX),L=0,A=$(A)")
 
+# specify where save files should go
+set_savefile_path("$(TOP)/autoSaveRestore")
+
+## specify where request files can be found
+# current directory 
+set_requestfile_path("$(TOP)/autoSaveRestore")
+# specify where request files can be found
+set_requestfile_path("$(AUTOSAVE)/asApp/Db/")
+
+dbLoadRecords("$(AUTOSAVE)/db/configMenu.db","P=$(PREFIX),R=$(SUFFIX),CONFIG=ramp1")
+
+set_pass0_restoreFile("RampSettings.sav", "P=$(PREFIX),R=$(SUFFIX),CONFIG=ramp1,CONFIGMENU=1")
+set_pass1_restoreFile("RampSettings.sav", "P=$(PREFIX),R=$(SUFFIX),CONFIG=ramp1,CONFIGMENU=1")
+
+create_monitor_set("ramp1Menu.req", 5 , "P=$(Prefix),CONFIG=ramp1,CONFIGMENU=1")
 #dbLoadRecords("$(TOP)/db/devSRS_PS375.db","P=$(PREFIX),R=$(SUFFIX),PORT=$(PORT),A=$(A)")
 
 #dbLoadRecords("db/devSRS_PS310_neg.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
