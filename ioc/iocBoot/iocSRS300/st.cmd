@@ -46,7 +46,6 @@ dbLoadRecords("$(AUTOSAVE)/db/configMenu.db","P=$(PREFIX)$(SUFFIX),CONFIG=ramp1"
 set_pass0_restoreFile("ramp1Menu.sav", "P=$(PREFIX)$(SUFFIX),CONFIG=ramp1,CONFIGMENU=1")
 set_pass1_restoreFile("ramp1Menu.sav", "P=$(PREFIX)$(SUFFIX),CONFIG=ramp1,CONFIGMENU=1")
 
-create_monitor_set("ramp1Menu.req", 5 , "P=$(PREFIX)$(SUFFIX), CONFIG=ramp1,CONFIGMENU=1")
 #dbLoadRecords("$(TOP)/db/devSRS_PS375.db","P=$(PREFIX),R=$(SUFFIX),PORT=$(PORT),A=$(A)")
 
 #dbLoadRecords("db/devSRS_PS310_neg.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
@@ -65,6 +64,8 @@ cd "${TOP}/iocBoot/${IOC}"
 
 #Commence IOC running
 iocInit
+
+create_monitor_set("ramp1Menu.req", 5, "P=$(PREFIX)$(SUFFIX), CONFIG=ramp1,CONFIGMENU=1")
 
 stringiftest("NEGPOLARITY", "$(MODEL=370)", 5, "YES")
 $(IFNEGPOLARITY) < setNegativePolarity.cmd
