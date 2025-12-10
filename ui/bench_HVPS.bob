@@ -873,14 +873,19 @@ else:
       <fallback_label></fallback_label>
     </widget>
   </widget>
-  <widget type="group" version="3.0.0">
-    <name>device settings</name>
-    <x>513</x>
-    <y>83</y>
-    <width>219</width>
-    <height>175</height>
-    <style>3</style>
-    <transparent>true</transparent>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button</name>
+    <actions>
+      <action type="write_pv">
+        <description>WritePV</description>
+        <pv_name>$(P)$(R)HVenable</pv_name>
+        <value>1</value>
+      </action>
+    </actions>
+    <text>HV On</text>
+    <x>328</x>
+    <y>60</y>
+    <width>85</width>
     <rules>
       <rule name="visible" prop_id="visible" out_exp="false">
         <exp bool_exp="pv0==1">
@@ -1156,14 +1161,19 @@ else:
       </widget>
     </widget>
   </widget>
-  <widget type="group" version="3.0.0">
-    <name>advanced settings</name>
-    <x>509</x>
-    <y>83</y>
-    <width>224</width>
-    <height>179</height>
-    <style>3</style>
-    <transparent>true</transparent>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_1</name>
+    <actions>
+      <action type="write_pv">
+        <description>WritePV</description>
+        <pv_name>$(P)$(R)HVenable</pv_name>
+        <value>0</value>
+      </action>
+    </actions>
+    <text>HV Off</text>
+    <x>426</x>
+    <y>60</y>
+    <width>85</width>
     <rules>
       <rule name="popup" prop_id="visible" out_exp="false">
         <exp bool_exp="pv0==1">
