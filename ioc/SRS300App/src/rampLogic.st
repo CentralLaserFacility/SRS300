@@ -8,6 +8,8 @@ program rampLogic
 %%#define SCAN_DELAY 1.45 //delay time for voltage to stabilize after setting new voltage
 %%#define RAMP_UP 1
 %%#define RAMP_DOWN 0
+%%#define DISABLED 0
+%%#define ENABLED 1
 
 double presentVoltage;
 double targetVoltage;
@@ -19,11 +21,11 @@ short voltageMonitorScan;
 double minStepSize;
 short Tolerance; //Tolerance for stopping ramping
 double newVoltage;
-double readbackPollScan;
 short endCharge; // 1 = ramp ended, 0 = not ended
 short rampDirection; // 1 = ramp up, 0 = ramp down
 short monitorPROC;
-short readbackPollPROC;
+short HVonStatus; // 1 = HV on, 0 = HV off
+
 
 assign presentVoltage to "{P}{R}OutputVget"; //change $(P)$(R) syntax
 assign targetVoltage to "{P}{R}desiredHV";
@@ -35,9 +37,8 @@ assign voltageMonitorScan to "{P}{R}voltageMonitor.SCAN";
 assign monitorPROC to "{P}{R}voltageMonitor.PROC";
 assign minStepSize to "{P}{R}C_minStepSize"; 
 assign Tolerance to "{P}{R}C_Tolerance";
-assign readbackPollScan to "{P}{R}ReadbackPoll_.SCAN";
-assign readbackPollPROC to "{P}{R}ReadbackPoll_.PROC";
 assign endCharge to "{P}{R}endCharge";
+assign HVonStatus to "{P}{R}HVONstatus";
 
 monitor presentVoltage;
 monitor targetVoltage;
@@ -46,30 +47,36 @@ monitor interval;
 monitor startCharge;
 monitor minStepSize;
 monitor Tolerance;
+monitor HVonStatus;
 
 ss RampState{
 
     state initial{//stays idle then decides rampup or rampdown once started
-        when (startCharge == RAMPING && presentVoltage<targetVoltage){
-            readbackPollScan = PASSIVE;//status scanning must be paused while voltage is being set
-            pvPut(readbackPollScan);
+        when (startCharge == IDLE || presentVoltage==targetVoltage){
+            //do nothing, stay idle
+        } state initial
+        when (startCharge == RAMPING && HVonStatus == DISABLED){
+            //if HV is off, do not ramp
+            startCharge = IDLE;
+            endCharge = END;
+            pvPut(startCharge);
+            pvPut(endCharge);
+        } state initial
+        when (startCharge == RAMPING && presentVoltage<targetVoltage && HVonStatus == ENABLED){
+            //status scanning must be paused while voltage is being set
             rampDirection = RAMP_UP;
             voltageMonitorScan = PASSIVE;//set to passive scanning before ramping
             pvPut(voltageMonitorScan); 
         } state RampUp
-        when (startCharge == RAMPING && presentVoltage>targetVoltage){
-            readbackPollScan = PASSIVE;
-            pvPut(readbackPollScan);
+        when (startCharge == RAMPING && presentVoltage>targetVoltage && HVonStatus == ENABLED){
             rampDirection = RAMP_DOWN;
             voltageMonitorScan = PASSIVE;
             pvPut(voltageMonitorScan); 
         } state RampDown
-        when (startCharge == IDLE || presentVoltage==targetVoltage){
-        } state initial
     }
 
     state RampUp{
-        when (presentVoltage < targetVoltage-Tolerance && startCharge == RAMPING){
+        when (presentVoltage < targetVoltage-Tolerance && startCharge == RAMPING && HVonStatus == ENABLED){
             newVoltage = presentVoltage + stepSize;
             if (newVoltage > targetVoltage-minStepSize){ //safety check
                 //if the next step is smaller than minStepSize, set straight to target instead
@@ -79,7 +86,7 @@ ss RampState{
             pvPut(HVset);
         } state StableDelay 
 
-        when (presentVoltage >= (targetVoltage-Tolerance) || startCharge == IDLE){ //stops ramping and returns to initial
+        when (presentVoltage >= (targetVoltage-Tolerance) || startCharge == IDLE || HVonStatus == DISABLED){ //stops ramping and returns to initial
             startCharge = IDLE;
             endCharge = END;
             pvPut(startCharge);
@@ -88,7 +95,7 @@ ss RampState{
     }
 
     state RampDown{ 
-        when (presentVoltage > targetVoltage+Tolerance && startCharge == RAMPING){
+        when (presentVoltage > targetVoltage+Tolerance && startCharge == RAMPING && HVonStatus == ENABLED){
             newVoltage = presentVoltage - stepSize;
             if (newVoltage < targetVoltage+minStepSize){ //safety check
                 //if the next step is smaller than minStepSize, set straight to target instead
@@ -99,7 +106,7 @@ ss RampState{
             
         } state StableDelay 
 
-        when (presentVoltage<=(targetVoltage+Tolerance) || startCharge == IDLE){ //stops ramping and returns to initial
+        when (presentVoltage<=(targetVoltage+Tolerance) || startCharge == IDLE || HVonStatus == DISABLED){ //stops ramping and returns to initial
             startCharge = IDLE;
             endCharge = END;
             pvPut(startCharge);
@@ -112,14 +119,11 @@ ss RampState{
 
     state StableDelay{ 
         when (delay(SCAN_DELAY)){// delays by 1.45 seconds to allow voltage to stabilize
-            readbackPollScan = REGULAR_SCAN;//set back to regular scanning while safe
+            //set back to regular scanning while safe
             voltageMonitorScan = REGULAR_SCAN;
             pvPut(voltageMonitorScan);
-            pvPut(readbackPollScan);
             monitorPROC = 1; //force to update immediately after delay
             pvPut(monitorPROC);
-            readbackPollPROC = 1;
-            pvPut(readbackPollPROC);
         } state IntervalDelay
     }
 
@@ -127,21 +131,13 @@ ss RampState{
         when ((delay(interval-SCAN_DELAY)) && (rampDirection == RAMP_UP)){// delays by rest of interval time
             monitorPROC = 1; //force to update immediately before next ramp step
             pvPut(monitorPROC);
-            readbackPollPROC = 1;
-            pvPut(readbackPollPROC);
-
             voltageMonitorScan = PASSIVE;//set back to passive scanning before ramping
-            pvPut(voltageMonitorScan);            
-            readbackPollScan = PASSIVE;
-            pvPut(readbackPollScan);
+            pvPut(voltageMonitorScan);          
         } state RampUp
 
         when ((delay(interval-SCAN_DELAY)) && (rampDirection == RAMP_DOWN)){// delays by rest of interval time
             voltageMonitorScan = PASSIVE;//set back to passive scanning before ramping
             pvPut(voltageMonitorScan);            
-            readbackPollScan = PASSIVE;
-            pvPut(readbackPollScan);
         } state RampDown
     }
 }
-
