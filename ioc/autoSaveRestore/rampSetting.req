@@ -1,3 +1,5 @@
-BENCH:HVPS:VRAMPstepSize
-BENCH:HVPS:VRAMPinterval
-BENCH:HVPS:desiredHV
+$(P)VRAMPstepSize
+$(P)VRAMPinterval
+$(P)desiredHV
+$(P)VRAMPmode
+$(P)VRAMPtimeSet
