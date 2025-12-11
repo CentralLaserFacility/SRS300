@@ -206,6 +206,7 @@ else:
       <name>Start ramp</name>
       <actions>
         <action type="write_pv">
+          <description>Start ramp</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
           <description>Start ramp</description>

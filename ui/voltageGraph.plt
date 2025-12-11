@@ -26,7 +26,7 @@
   <axes>
     <axis>
       <visible>true</visible>
-      <name>Value 1</name>
+      <name>Voltage</name>
       <use_axis_name>false</use_axis_name>
       <use_trace_names>true</use_trace_names>
       <right>false</right>
@@ -35,15 +35,15 @@
         <green>0</green>
         <blue>0</blue>
       </color>
-      <min>-31.05</min>
-      <max>630.05</max>
+      <min>-5.0</min>
+      <max>105.0</max>
       <grid>false</grid>
       <autoscale>true</autoscale>
       <log_scale>false</log_scale>
     </axis>
     <axis>
-      <visible>false</visible>
-      <name>Value 2</name>
+      <visible>true</visible>
+      <name>Current</name>
       <use_axis_name>false</use_axis_name>
       <use_trace_names>true</use_trace_names>
       <right>false</right>
@@ -52,8 +52,8 @@
         <green>0</green>
         <blue>0</blue>
       </color>
-      <min>-55.0</min>
-      <max>1155.0</max>
+      <min>-0.04</min>
+      <max>1.0</max>
       <grid>false</grid>
       <autoscale>false</autoscale>
       <log_scale>false</log_scale>
@@ -97,6 +97,46 @@
       <line_style>SOLID</line_style>
       <point_type>NONE</point_type>
       <point_size>1</point_size>
+      <waveform_index>0</waveform_index>
+      <period>0.0</period>
+      <ring_size>5000</ring_size>
+      <request>OPTIMIZED</request>
+    </pv>
+    <pv>
+      <display_name></display_name>
+      <visible>true</visible>
+      <name>BENCH:HVPS:C_IMAXmA</name>
+      <axis>1</axis>
+      <color>
+        <red>128</red>
+        <green>153</green>
+        <blue>255</blue>
+      </color>
+      <trace_type>AREA</trace_type>
+      <linewidth>1</linewidth>
+      <line_style>DOT</line_style>
+      <point_type>NONE</point_type>
+      <point_size>2</point_size>
+      <waveform_index>0</waveform_index>
+      <period>0.0</period>
+      <ring_size>5000</ring_size>
+      <request>OPTIMIZED</request>
+    </pv>
+    <pv>
+      <display_name>Current</display_name>
+      <visible>true</visible>
+      <name>BENCH:HVPS:OutputImA</name>
+      <axis>1</axis>
+      <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>255</blue>
+      </color>
+      <trace_type>AREA</trace_type>
+      <linewidth>2</linewidth>
+      <line_style>SOLID</line_style>
+      <point_type>NONE</point_type>
+      <point_size>2</point_size>
       <waveform_index>0</waveform_index>
       <period>0.0</period>
       <ring_size>5000</ring_size>

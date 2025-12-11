@@ -13,7 +13,7 @@ static long rampcalc(aSubRecord *precord){
     double startVoltage, targetVoltage, rampTime, voltageDiff, interval, minStepSize, stepSize, 
     minInterval, checkFactor;
     char *mode;
-    short miniHop, active;
+    short miniHop, active, HVon;
 
     startVoltage = *(double*)precord->a;
     targetVoltage = *(double*)precord->b;
@@ -23,9 +23,10 @@ static long rampcalc(aSubRecord *precord){
     interval = *(double*)precord->f;
     minStepSize = *(double*)precord->g;
     minInterval = *(double*)precord->h;
+    HVon = *(short*)precord->i;
     
-    //if voltage already reached do not continue
-    if(startVoltage == targetVoltage){
+    //if voltage already reached or HV off do not continue
+    if(startVoltage == targetVoltage || HVon == 0){
         return 1;
     }
 
