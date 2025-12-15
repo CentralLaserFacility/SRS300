@@ -1,1 +1,1 @@
-dbpf $PREFIX$SUFFIXpolarity 0
+dbpf $PREFIX$SUFFIXpolarity 1

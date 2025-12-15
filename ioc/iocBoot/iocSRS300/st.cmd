@@ -7,7 +7,8 @@
 
 # LANTRONIX RS232 adapter address
 #
-epicsEnvSet("MODEL","$(MODEL=375)")
+epicsEnvSet("MODEL","$(MODEL=370)")
+epicsEnvSet("POLARITY","$(POLARITY=1)")# 1=negative, 0=positive
 epicsEnvSet("ADDR","192.168.0.20:10002")
 epicsEnvSet("A","-1")
 epicsEnvSet("PORT","L0")
@@ -29,21 +30,10 @@ drvAsynIPPortConfigure("L0","$(ADDR)",0,0,0)
 
 ## Load record instances
 dbLoadRecords("$(ASYN)/db/asynRecord.db","P=$(PREFIX)$(SUFFIX),R=asyn,PORT=$(PORT),ADDR=0,OMAX=256,IMAX=256")
-dbLoadTemplate("db/devSRS_PS375.substitutions","PORT=$(PORT),R=$(SUFFIX),P=$(PREFIX),A=$(A)")
+dbLoadTemplate("db/devSRS_PS3xx.substitutions","PORT=$(PORT),R=$(SUFFIX),P=$(PREFIX),A=$(A), MODEL=$(MODEL), POLARITY=$(POLARITY)")
 dbLoadRecords("db/devSRS_PS300_common.db","P=$(PREFIX),R=$(SUFFIX),L=0,A=$(A)")
 
 #dbLoadRecords("$(TOP)/db/devSRS_PS375.db","P=$(PREFIX),R=$(SUFFIX),PORT=$(PORT),A=$(A)")
-
-#dbLoadRecords("db/devSRS_PS310_neg.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
-#dbLoadRecords("db/devSRS_PS310_pos.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
-#dbLoadRecords("db/devSRS_PS325_neg.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
-#dbLoadRecords("db/devSRS_PS325_pos.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
-#dbLoadRecords("db/devSRS_PS350_neg.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
-#dbLoadRecords("db/devSRS_PS350_pos.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
-#dbLoadRecords("db/devSRS_PS355.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
-#dbLoadRecords("db/devSRS_PS365.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
-#dbLoadRecords("db/devSRS_PS370.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
-#dbLoadRecords("db/devSRS_PS375.db","P=$(P),R=$(SUFFIX),L=0,A=$(A)")
 #dbLoadTemplate("db/devSRS_PSxxx.substitutions","PORT=$(PORT),A=$(A)")
 
 cd "${TOP}/iocBoot/${IOC}"

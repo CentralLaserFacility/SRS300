@@ -10,5 +10,5 @@
 #
 file devSRS_PS3xx.template
 {
-  { VMIN="0", VMAX="1250", IMIN="0", IMAX="21e-3" }
+  { VMIN="12", VMAX="1250", IMIN="0", IMAX="21e-3" }
 }

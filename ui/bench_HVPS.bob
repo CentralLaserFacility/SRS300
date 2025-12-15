@@ -873,19 +873,14 @@ else:
       <fallback_label></fallback_label>
     </widget>
   </widget>
-  <widget type="action_button" version="3.0.0">
-    <name>Action Button</name>
-    <actions>
-      <action type="write_pv">
-        <description>WritePV</description>
-        <pv_name>$(P)$(R)HVenable</pv_name>
-        <value>1</value>
-      </action>
-    </actions>
-    <text>HV On</text>
-    <x>328</x>
-    <y>60</y>
-    <width>85</width>
+  <widget type="group" version="3.0.0">
+    <name>device settings</name>
+    <x>513</x>
+    <y>83</y>
+    <width>219</width>
+    <height>175</height>
+    <style>3</style>
+    <transparent>true</transparent>
     <rules>
       <rule name="visible" prop_id="visible" out_exp="false">
         <exp bool_exp="pv0==1">
@@ -1161,19 +1156,14 @@ else:
       </widget>
     </widget>
   </widget>
-  <widget type="action_button" version="3.0.0">
-    <name>Action Button_1</name>
-    <actions>
-      <action type="write_pv">
-        <description>WritePV</description>
-        <pv_name>$(P)$(R)HVenable</pv_name>
-        <value>0</value>
-      </action>
-    </actions>
-    <text>HV Off</text>
-    <x>426</x>
-    <y>60</y>
-    <width>85</width>
+  <widget type="group" version="3.0.0">
+    <name>advanced settings</name>
+    <x>509</x>
+    <y>83</y>
+    <width>224</width>
+    <height>179</height>
+    <style>3</style>
+    <transparent>true</transparent>
     <rules>
       <rule name="popup" prop_id="visible" out_exp="false">
         <exp bool_exp="pv0==1">
@@ -1261,6 +1251,17 @@ else:
         <color red="179" green="230" blue="230">
         </color>
       </background_color>
+      <rules>
+        <rule name="visible on negative polarity" prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0==0">
+            <value>true</value>
+          </exp>
+          <exp bool_exp="pv0!=0">
+            <value>false</value>
+          </exp>
+          <pv_name>$(P)$(R)polarity</pv_name>
+        </rule>
+      </rules>
       <increment>100.0</increment>
     </widget>
     <widget type="spinner" version="2.0.0">
@@ -1438,5 +1439,72 @@ else:
         <border_alarm_sensitive>false</border_alarm_sensitive>
       </widget>
     </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner_9</name>
+      <pv_name>$(P)$(R)voltageLimitNegative</pv_name>
+      <x>122</x>
+      <y>61</y>
+      <width>95</width>
+      <show_units>true</show_units>
+      <background_color>
+        <color red="179" green="230" blue="230">
+        </color>
+      </background_color>
+      <rules>
+        <rule name="visible on negative polarity" prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0==1">
+            <value>true</value>
+          </exp>
+          <exp bool_exp="pv0!=1">
+            <value>false</value>
+          </exp>
+          <pv_name>$(P)$(R)polarity</pv_name>
+        </rule>
+      </rules>
+      <increment>100.0</increment>
+    </widget>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_2</name>
+    <actions>
+      <action type="write_pv">
+        <description>Write PV</description>
+        <pv_name>$(pv_name)</pv_name>
+        <value>1</value>
+      </action>
+    </actions>
+    <pv_name>$(P)$(R)IDN.PROC</pv_name>
+    <text>IDN proc</text>
+    <x>840</x>
+    <y>370</y>
+    <tooltip>$(actions)</tooltip>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update</name>
+    <pv_name>$(P)$(R)HVset.HOPR</pv_name>
+    <x>830</x>
+    <y>120</y>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <name>Boolean Button</name>
+    <pv_name>$(P)$(R)polarity</pv_name>
+    <x>830</x>
+    <y>440</y>
+    <off_label>Positive</off_label>
+    <off_color>
+      <color red="153" green="204" blue="153">
+      </color>
+    </off_color>
+    <on_label>Negative</on_label>
+    <on_color>
+      <color red="255" green="153" blue="153">
+      </color>
+    </on_color>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_2</name>
+    <pv_name>$(P)$(R)IDN</pv_name>
+    <x>840</x>
+    <y>500</y>
   </widget>
 </display>

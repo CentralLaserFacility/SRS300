@@ -27,7 +27,7 @@ DB += devSRS_PS300_common.db
 #DB += devSRS_PS350_neg.substitutions
 #DB += devSRS_PS355.substitutions
 #DB += devSRS_PS365.substitutions
-#DB += devSRS_PS370.substitutions
+DB += devSRS_PS3xx.substitutions
 DB += devSRS_PS375.substitutions
 
 DB += devSRS_PS3xx.template

@@ -5,7 +5,7 @@
 # in file LICENSE that is included with this distribution.
 ##########################################################################
 
-file devSRS_PS3xx.template
+file "$(TOP)/db/devSRS_PS3xx.template"
 {
-  { VMIN="-20000", VMAX="-100", IMIN="0", IMAX="525e-6" }
+  { VMIN="-20000", VMAX="-100", IMIN="0", IMAX="525e-6", POLARITY="0", TOLERANCE="10", PREC = "2" }
 }
