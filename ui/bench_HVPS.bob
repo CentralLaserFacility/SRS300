@@ -4,6 +4,7 @@
   <macros>
     <P>BENCH:</P>
     <R>HVPS:</R>
+    <CONFIG>ramp1</CONFIG>
   </macros>
   <width>1500</width>
   <height>1000</height>
@@ -160,8 +161,8 @@ else:
     <widget type="label" version="2.0.0">
       <name>VRAMP settings</name>
       <text>Voltage ramp settings</text>
-      <x>10</x>
-      <y>2</y>
+      <x>11</x>
+      <y>1</y>
       <width>160</width>
       <font>
         <font family="Liberation Sans" style="REGULAR" size="16.0">
@@ -250,7 +251,7 @@ else:
         </action>
       </actions>
       <pv_name>$(P)$(R)VRAMPactive</pv_name>
-      <text>Abort</text>
+      <text>Halt ramp</text>
       <x>162</x>
       <y>212</y>
       <foreground_color>
@@ -258,7 +259,7 @@ else:
         </color>
       </foreground_color>
       <background_color>
-        <color name="STOP" red="255" green="0" blue="0">
+        <color red="153" green="153" blue="153">
         </color>
       </background_color>
       <tooltip>$(actions)</tooltip>
@@ -266,8 +267,8 @@ else:
     <widget type="choice" version="2.0.0">
       <name>Auto or manual</name>
       <pv_name>$(P)$(R)VRAMPmode</pv_name>
-      <x>51</x>
-      <y>47</y>
+      <x>55</x>
+      <y>48</y>
       <width>190</width>
       <height>30</height>
       <selected_color>
@@ -593,7 +594,7 @@ else:
   </widget>
   <widget type="group" version="3.0.0">
     <name>Group</name>
-    <x>10</x>
+    <x>11</x>
     <y>10</y>
     <width>26</width>
     <height>6</height>
@@ -873,19 +874,14 @@ else:
       <fallback_label></fallback_label>
     </widget>
   </widget>
-  <widget type="action_button" version="3.0.0">
-    <name>Action Button</name>
-    <actions>
-      <action type="write_pv">
-        <description>WritePV</description>
-        <pv_name>$(P)$(R)HVenable</pv_name>
-        <value>1</value>
-      </action>
-    </actions>
-    <text>HV On</text>
-    <x>328</x>
-    <y>60</y>
-    <width>85</width>
+  <widget type="group" version="3.0.0">
+    <name>device settings</name>
+    <x>513</x>
+    <y>83</y>
+    <width>219</width>
+    <height>175</height>
+    <style>3</style>
+    <transparent>true</transparent>
     <rules>
       <rule name="visible" prop_id="visible" out_exp="false">
         <exp bool_exp="pv0==1">
@@ -1146,7 +1142,7 @@ else:
       </widget>
       <widget type="picture" version="2.0.0">
         <name>Picture_3</name>
-        <file>settings2.png</file>
+        <file>settings.png</file>
         <x>2</x>
         <y>2</y>
         <width>22</width>
@@ -1161,19 +1157,14 @@ else:
       </widget>
     </widget>
   </widget>
-  <widget type="action_button" version="3.0.0">
-    <name>Action Button_1</name>
-    <actions>
-      <action type="write_pv">
-        <description>WritePV</description>
-        <pv_name>$(P)$(R)HVenable</pv_name>
-        <value>0</value>
-      </action>
-    </actions>
-    <text>HV Off</text>
-    <x>426</x>
-    <y>60</y>
-    <width>85</width>
+  <widget type="group" version="3.0.0">
+    <name>advanced settings</name>
+    <x>509</x>
+    <y>83</y>
+    <width>224</width>
+    <height>179</height>
+    <style>3</style>
+    <transparent>true</transparent>
     <rules>
       <rule name="popup" prop_id="visible" out_exp="false">
         <exp bool_exp="pv0==1">
@@ -1437,6 +1428,454 @@ else:
         <tooltip>$(actions)</tooltip>
         <border_alarm_sensitive>false</border_alarm_sensitive>
       </widget>
+    </widget>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Settings button_1</name>
+    <x>200</x>
+    <y>53</y>
+    <width>107</width>
+    <height>25</height>
+    <style>3</style>
+    <background_color>
+      <color name="Button_Background" red="210" green="210" blue="210">
+      </color>
+    </background_color>
+    <transparent>true</transparent>
+    <widget type="rectangle" version="2.0.0">
+      <name>Rectangle_13</name>
+      <x>1</x>
+      <y>1</y>
+      <width>25</width>
+      <height>24</height>
+      <line_color>
+        <color name="Button_Background" red="210" green="210" blue="210">
+        </color>
+      </line_color>
+      <background_color>
+        <color name="Button_Background" red="210" green="210" blue="210">
+        </color>
+      </background_color>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_18</name>
+      <actions>
+        <action type="write_pv">
+          <description>Open Config Menu</description>
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+        </action>
+      </actions>
+      <pv_name>$(P)$(R)configMenuOpen</pv_name>
+      <text>   ConfigMenu </text>
+      <y>3</y>
+      <width>106</width>
+      <height>22</height>
+      <horizontal_alignment>2</horizontal_alignment>
+      <rules>
+        <rule name="disable while ramping" prop_id="enabled" out_exp="false">
+          <exp bool_exp="pv0!=0 || pv1 !=0">
+            <value>false</value>
+          </exp>
+          <pv_name>$(P)$(R)VRAMPactive</pv_name>
+          <pv_name>$(P)$(R)configMenuOpen</pv_name>
+        </rule>
+      </rules>
+      <tooltip>$(actions)</tooltip>
+    </widget>
+    <widget type="picture" version="2.0.0">
+      <name>Picture_4</name>
+      <file>settings.png</file>
+      <x>2</x>
+      <y>2</y>
+      <width>22</width>
+      <height>22</height>
+      <actions>
+        <action type="write_pv">
+          <description>open advanced settings</description>
+          <pv_name>$(P)$(R)limitMenuOpen</pv_name>
+          <value>1</value>
+        </action>
+      </actions>
+      <rules>
+        <rule name="disable while ramping" prop_id="opacity" out_exp="false">
+          <exp bool_exp="pv0!=0 || pv1 !=0">
+            <value>0.3</value>
+          </exp>
+          <pv_name>$(P)$(R)VRAMPactive</pv_name>
+          <pv_name>$(P)$(R)configMenuOpen</pv_name>
+        </rule>
+      </rules>
+    </widget>
+  </widget>
+  <widget type="embedded" version="2.0.0">
+    <name>large menu</name>
+    <file>configMenu_large.bob</file>
+    <x>13</x>
+    <y>85</y>
+    <width>298</width>
+    <height>691</height>
+    <visible>false</visible>
+    <resize>2</resize>
+    <transparent>true</transparent>
+    <rules>
+      <rule name="Config menu open" prop_id="visible" out_exp="false">
+        <exp bool_exp="pv0==2">
+          <value>true</value>
+        </exp>
+        <exp bool_exp="pv0 !=2">
+          <value>false</value>
+        </exp>
+        <pv_name>$(P)$(R)configMenuOpen</pv_name>
+      </rule>
+    </rules>
+  </widget>
+  <widget type="embedded" version="2.0.0">
+    <name>medium menu</name>
+    <file>configMenu_medium.bob</file>
+    <x>13</x>
+    <y>84</y>
+    <width>298</width>
+    <height>449</height>
+    <visible>false</visible>
+    <resize>2</resize>
+    <transparent>true</transparent>
+    <rules>
+      <rule name="Config menu open" prop_id="visible" out_exp="false">
+        <exp bool_exp="pv0==1">
+          <value>true</value>
+        </exp>
+        <exp bool_exp="pv0 !=1">
+          <value>false</value>
+        </exp>
+        <pv_name>$(P)$(R)configMenuOpen</pv_name>
+      </rule>
+    </rules>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_1</name>
+    <x>864</x>
+    <y>276</y>
+    <width>1</width>
+    <height>1</height>
+  </widget>
+  <widget type="rectangle" version="2.0.0">
+    <name>Rectangle_1</name>
+    <x>1050</x>
+    <y>1040</y>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Config settings</name>
+    <x>315</x>
+    <y>84</y>
+    <width>187</width>
+    <height>211</height>
+    <visible>false</visible>
+    <style>3</style>
+    <transparent>true</transparent>
+    <rules>
+      <rule name="Config menu open" prop_id="visible" out_exp="false">
+        <exp bool_exp="pv0==0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 !=0">
+          <value>true</value>
+        </exp>
+        <pv_name>$(P)$(R)configMenuOpen</pv_name>
+      </rule>
+    </rules>
+    <widget type="rectangle" version="2.0.0">
+      <name>Rectangle_28</name>
+      <y>11</y>
+      <width>176</width>
+      <height>197</height>
+      <line_width>1</line_width>
+      <line_color>
+        <color red="179" green="179" blue="179">
+        </color>
+      </line_color>
+      <background_color>
+        <color red="179" green="179" blue="179">
+        </color>
+      </background_color>
+    </widget>
+    <widget type="rectangle" version="2.0.0">
+      <name>Rectangle_29</name>
+      <x>7</x>
+      <width>180</width>
+      <height>200</height>
+      <line_width>1</line_width>
+      <line_color>
+        <color name="Header_Background" red="77" green="77" blue="77">
+        </color>
+      </line_color>
+      <background_color>
+        <color red="224" green="229" blue="232">
+        </color>
+      </background_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Desired Voltage_3</name>
+      <text>Desired Voltage:</text>
+      <x>15</x>
+      <y>35</y>
+      <width>65</width>
+      <height>36</height>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>interval_3</name>
+      <text>Ramp interval:</text>
+      <x>15</x>
+      <y>98</y>
+      <width>57</width>
+      <height>36</height>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>ramp time_3</name>
+      <text>Ramp time:</text>
+      <x>15</x>
+      <y>75</y>
+      <width>83</width>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>txtStepIncrement_3</name>
+      <text>Step size:</text>
+      <x>15</x>
+      <y>137</y>
+      <width>87</width>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_85</name>
+      <text>Config settings</text>
+      <x>16</x>
+      <y>7</y>
+      <width>114</width>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <background_color>
+        <color name="Button_Background" red="210" green="210" blue="210">
+        </color>
+      </background_color>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>X button_7</name>
+      <x>154</x>
+      <y>3</y>
+      <width>22</width>
+      <height>24</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="ellipse" version="2.0.0">
+        <name>Ellipse_16</name>
+        <x>2</x>
+        <y>3</y>
+        <width>19</width>
+        <height>19</height>
+        <line_width>1</line_width>
+        <line_color>
+          <color red="153" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="204" green="51" blue="51">
+          </color>
+        </background_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_86</name>
+        <text>X</text>
+        <x>6</x>
+        <y>4</y>
+        <width>16</width>
+        <font>
+          <font family="Liberation Sans" style="BOLD" size="14.0">
+          </font>
+        </font>
+        <foreground_color>
+          <color name="Header_ForeGround" red="255" green="255" blue="255">
+          </color>
+        </foreground_color>
+      </widget>
+      <widget type="action_button" version="3.0.0">
+        <name>Action Button_23</name>
+        <actions execute_as_one="true">
+          <action type="write_pv">
+            <description>close menu</description>
+            <pv_name>$(P)$(R)configMenuOpen</pv_name>
+            <value>0</value>
+          </action>
+        </actions>
+        <pv_name>$(P)$(R)configMenuOpen</pv_name>
+        <text></text>
+        <width>21</width>
+        <height>23</height>
+        <transparent>true</transparent>
+        <tooltip>$(actions)</tooltip>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+    </widget>
+    <widget type="rectangle" version="2.0.0">
+      <name>Rectangle_30</name>
+      <x>8</x>
+      <y>28</y>
+      <width>173</width>
+      <height>1</height>
+      <line_color>
+        <color red="0" green="0" blue="0">
+        </color>
+      </line_color>
+      <background_color>
+        <color red="0" green="0" blue="0">
+        </color>
+      </background_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update DV_1</name>
+      <pv_name>$(P)$(R)desiredHV</pv_name>
+      <x>95</x>
+      <y>42</y>
+      <width>83</width>
+      <precision>2</precision>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_RT_1</name>
+      <pv_name>$(P)$(R)VRAMPtimeSet</pv_name>
+      <x>95</x>
+      <y>73</y>
+      <width>83</width>
+      <height>18</height>
+      <precision>2</precision>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_Ri_1</name>
+      <pv_name>$(P)$(R)VRAMPinterval</pv_name>
+      <x>95</x>
+      <y>105</y>
+      <width>83</width>
+      <height>18</height>
+      <precision>2</precision>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_SS_1</name>
+      <pv_name>$(P)$(R)VRAMPstepSize</pv_name>
+      <x>95</x>
+      <y>136</y>
+      <width>83</width>
+      <height>18</height>
+      <precision>2</precision>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner DV_2</name>
+      <pv_name>$(P)$(R)desiredHV</pv_name>
+      <x>95</x>
+      <y>42</y>
+      <width>83</width>
+      <precision>2</precision>
+      <show_units>true</show_units>
+      <background_color>
+        <color red="179" green="230" blue="230">
+        </color>
+      </background_color>
+      <vertical_alignment>1</vertical_alignment>
+      <rules>
+        <rule name="New Rule" prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0==1">
+            <value>false</value>
+          </exp>
+          <pv_name>$(P)$(R)VRAMPactive</pv_name>
+        </rule>
+      </rules>
+      <increment>100.0</increment>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner_RT_2</name>
+      <pv_name>$(P)$(R)VRAMPtimeSet</pv_name>
+      <x>95</x>
+      <y>73</y>
+      <width>83</width>
+      <precision>2</precision>
+      <show_units>true</show_units>
+      <background_color>
+        <color red="179" green="230" blue="230">
+        </color>
+      </background_color>
+      <vertical_alignment>1</vertical_alignment>
+      <rules>
+        <rule name="Ramping visibility" prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0==1 || pv1==1">
+            <value>false</value>
+          </exp>
+          <pv_name>$(P)$(R)VRAMPactive</pv_name>
+          <pv_name>$(P)$(R)VRAMPmode</pv_name>
+        </rule>
+      </rules>
+      <maximum>1000000.0</maximum>
+      <increment>0.5</increment>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner_Ri_2</name>
+      <pv_name>$(P)$(R)VRAMPinterval</pv_name>
+      <x>95</x>
+      <y>105</y>
+      <width>83</width>
+      <precision>2</precision>
+      <show_units>true</show_units>
+      <background_color>
+        <color red="179" green="230" blue="230">
+        </color>
+      </background_color>
+      <vertical_alignment>1</vertical_alignment>
+      <rules>
+        <rule name="visibility " prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0==1 || pv1== 0">
+            <value>false</value>
+          </exp>
+          <pv_name>$(P)$(R)VRAMPactive</pv_name>
+          <pv_name>$(P)$(R)VRAMPmode</pv_name>
+        </rule>
+      </rules>
+      <maximum>1000000.0</maximum>
+      <increment>0.5</increment>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner_SS_2</name>
+      <pv_name>$(P)$(R)VRAMPstepSize</pv_name>
+      <x>95</x>
+      <y>136</y>
+      <width>83</width>
+      <show_units>true</show_units>
+      <background_color>
+        <color red="179" green="230" blue="230">
+        </color>
+      </background_color>
+      <vertical_alignment>1</vertical_alignment>
+      <rules>
+        <rule name="visibility " prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0==1 || pv1== 0">
+            <value>false</value>
+          </exp>
+          <pv_name>$(P)$(R)VRAMPactive</pv_name>
+          <pv_name>$(P)$(R)VRAMPmode</pv_name>
+        </rule>
+      </rules>
+    </widget>
+    <widget type="choice" version="2.0.0">
+      <name>Auto or manual_1</name>
+      <pv_name>$(P)$(R)VRAMPmode</pv_name>
+      <x>29</x>
+      <y>165</y>
+      <width>133</width>
+      <height>25</height>
+      <selected_color>
+        <color red="153" green="213" blue="153">
+        </color>
+      </selected_color>
+      <items>
+        <item>Automatic</item>
+        <item>Manual</item>
+      </items>
     </widget>
   </widget>
 </display>

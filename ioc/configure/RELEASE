@@ -24,6 +24,7 @@
 # Variables and paths to dependent modules:
 SUPPORT = /usr/local/epics/support
 ASYN = $(SUPPORT)/asyn/current
+BUSY = $(SUPPORT)/busy/current
 CALC = $(SUPPORT)/calc/current
 SSCAN = $(SUPPORT)/sscan/current
 STREAM = $(SUPPORT)/stream/current

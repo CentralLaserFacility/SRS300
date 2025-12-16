@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<display version="2.0.0">
+  <name>Display</name>
+  <width>276</width>
+  <height>41</height>
+  <background_color>
+    <color name="Button_Background" red="210" green="210" blue="210">
+    </color>
+  </background_color>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Entry_2</name>
+    <pv_name>$(P)$(R)$(CONFIG)Menu:desc$(configNo)</pv_name>
+    <y>22</y>
+    <width>276</width>
+    <height>19</height>
+    <background_color>
+      <color red="255" green="255" blue="255">
+      </color>
+    </background_color>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Entry_1</name>
+    <pv_name>$(P)$(R)$(CONFIG)Menu:name$(configNo)</pv_name>
+    <x>56</x>
+    <width>159</width>
+    <background_color>
+      <color red="179" green="230" blue="230">
+      </color>
+    </background_color>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_3</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(pv_name)</pv_name>
+        <value>1</value>
+        <description>Save</description>
+      </action>
+    </actions>
+    <pv_name>$(P)$(R)$(CONFIG)Menu:saveConfig$(configNo)</pv_name>
+    <text>Save</text>
+    <x>225</x>
+    <width>49</width>
+    <height>20</height>
+    <rules>
+      <rule name="Visibility" prop_id="visible" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>$(P)$(R)$(CONFIG)Menu:enableSave</pv_name>
+      </rule>
+    </rules>
+    <tooltip>$(actions)</tooltip>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_4</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(pv_name)</pv_name>
+        <value>1</value>
+        <description>Load</description>
+      </action>
+    </actions>
+    <pv_name>$(P)$(R)$(CONFIG)Menu:loadConfig$(configNo)</pv_name>
+    <text>Load</text>
+    <width>49</width>
+    <height>20</height>
+    <tooltip>$(actions)</tooltip>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+</display>

@@ -1,0 +1,2 @@
+file configMenu.req P=$(P), CONFIG=$(CONFIG)
+file rampSetting.req P=$(P), S=ramp1

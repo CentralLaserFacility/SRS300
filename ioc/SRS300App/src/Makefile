@@ -17,7 +17,7 @@ SRS300_DBD += base.dbd
 
 # Include dbd files from all support applications:
 SRS300_DBD += calc.dbd sscan.dbd
-SRS300_DBD += sscan.dbd
+SRS300_DBD += busySupport.dbd
 SRS300_DBD += utilities.dbd
 SRS300_DBD += asyn.dbd
 SRS300_DBD += stream.dbd
@@ -35,6 +35,7 @@ SRS300_LIBS += calc
 SRS300_LIBS += sscan 
 SRS300_LIBS += asyn
 SRS300_LIBS += stream
+SRS300_LIBS += busy
 SRS300_LIBS += autosave
 SRS300_LIBS += utilities
 SRS300_LIBS += seq pv

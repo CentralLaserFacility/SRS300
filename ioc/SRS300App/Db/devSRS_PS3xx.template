@@ -755,3 +755,14 @@ record(bi, "$(P)$(R)polarity")
     field(VAL, "$(POLARITY)") # Dependent on model
     field(PINI, "YES")
 }
+
+#__________________________________________
+#_______________Config Menu________________
+
+record(mbbi, "$(P)$(R)configMenuOpen"){
+    field(DESC, "Open ui config menu")
+    field(VAL, "0")
+    field(ZRST, "Closed")
+    field(ONST, "medium menu")
+    field(TWST, "large menu")
+}
