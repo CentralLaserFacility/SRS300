@@ -294,9 +294,9 @@
     <name>related display #31</name>
     <actions>
       <action type="write_pv">
+        <description>Open larger menu</description>
         <pv_name>$(pv_name)</pv_name>
         <value>2</value>
-        <description>Open larger menu</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)configMenuOpen</pv_name>
@@ -320,7 +320,7 @@
     <pv_name>$(P)$(R)$(CONFIG)Menu:busy</pv_name>
     <x>21</x>
     <y>409</y>
-    <height>15</height>
+    <height>28</height>
     <font>
       <font family="Liberation Sans" style="REGULAR" size="16.0">
       </font>
@@ -334,7 +334,7 @@
       </color>
     </background_color>
     <transparent>true</transparent>
-    <format>1</format>
+    <format>6</format>
     <show_units>false</show_units>
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
@@ -381,9 +381,9 @@
       <name>Action Button_17</name>
       <actions execute_as_one="true">
         <action type="write_pv">
+          <description>close menu</description>
           <pv_name>$(P)$(R)configMenuOpen</pv_name>
           <value>0</value>
-          <description>close menu</description>
         </action>
       </actions>
       <pv_name>$(P)$(R)configMenuOpen</pv_name>

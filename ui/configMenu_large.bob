@@ -115,6 +115,7 @@
     <pv_name>$(P)$(R)$(CONFIG)Menu:currDesc</pv_name>
     <x>161</x>
     <y>51</y>
+    <width>136</width>
     <font>
       <font family="Liberation Sans" style="REGULAR" size="12.0">
       </font>
@@ -307,9 +308,9 @@
     <name>related display #34</name>
     <actions>
       <action type="write_pv">
+        <description>open smaller menu</description>
         <pv_name>$(pv_name)</pv_name>
         <value>1</value>
-        <description>open smaller menu</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)configMenuOpen</pv_name>
@@ -318,10 +319,6 @@
     <y>652</y>
     <width>50</width>
     <height>20</height>
-    <foreground_color>
-      <color red="255" green="255" blue="255">
-      </color>
-    </foreground_color>
     <background_color>
       <color red="153" green="204" blue="153">
       </color>
@@ -332,8 +329,8 @@
     <name>text update #37</name>
     <pv_name>$(P)$(R)$(CONFIG)Menu:busy</pv_name>
     <x>14</x>
-    <y>657</y>
-    <height>15</height>
+    <y>655</y>
+    <height>23</height>
     <font>
       <font family="Liberation Sans" style="REGULAR" size="16.0">
       </font>
@@ -347,7 +344,7 @@
       </color>
     </background_color>
     <transparent>true</transparent>
-    <format>1</format>
+    <format>6</format>
     <show_units>false</show_units>
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
@@ -364,9 +361,9 @@
     <name>message button #44_1</name>
     <actions>
       <action type="write_pv">
+        <description>Write</description>
         <pv_name>$(P)$(R)$(CONFIG)Menu:menuName.PROC</pv_name>
         <value>1</value>
-        <description>Write</description>
       </action>
     </actions>
     <pv_name>$(P)$(R)$(CONFIG)Menu:menuName.PROC</pv_name>
@@ -397,6 +394,7 @@
       <color red="179" green="230" blue="230">
       </color>
     </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="group" version="3.0.0">
     <name>X button_2</name>
@@ -441,9 +439,9 @@
       <name>Action Button_17</name>
       <actions execute_as_one="true">
         <action type="write_pv">
+          <description>close menu</description>
           <pv_name>$(P)$(R)configMenuOpen</pv_name>
           <value>0</value>
-          <description>close menu</description>
         </action>
       </actions>
       <pv_name>$(P)$(R)configMenuOpen</pv_name>

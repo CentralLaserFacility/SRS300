@@ -763,7 +763,6 @@ record(mbbi, "$(P)$(R)configMenuOpen"){
     field(DESC, "Open ui config menu")
     field(VAL, "0")
     field(ZRST, "Closed")
-    field(ONST, "small menu")
-    field(TWST, "medium menu")
-    field(THST, "full menu")
+    field(ONST, "medium menu")
+    field(TWST, "large menu")
 }

@@ -14,9 +14,9 @@
   </background_color>
   <actions>
     <action type="write_pv">
+      <description>Write PV</description>
       <pv_name>$(P)$(R)VRAMPrun</pv_name>
       <value>0</value>
-      <description>Write PV</description>
     </action>
   </actions>
   <grid_visible>false</grid_visible>
@@ -84,9 +84,9 @@ else:
     <name>Action Button</name>
     <actions>
       <action type="write_pv">
+        <description>WritePV</description>
         <pv_name>$(P)$(R)HVenable</pv_name>
         <value>1</value>
-        <description>WritePV</description>
       </action>
     </actions>
     <text>HV On</text>
@@ -110,9 +110,9 @@ else:
     <name>Action Button_1</name>
     <actions>
       <action type="write_pv">
+        <description>WritePV</description>
         <pv_name>$(P)$(R)HVenable</pv_name>
         <value>0</value>
-        <description>WritePV</description>
       </action>
     </actions>
     <text>HV Off</text>
@@ -209,7 +209,6 @@ else:
           <description>Start ramp</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>Start ramp</description>
         </action>
       </actions>
       <pv_name>$(P)$(R)chargeStartHelper</pv_name>
@@ -246,9 +245,9 @@ else:
       <name>Abort</name>
       <actions>
         <action type="write_pv">
+          <description>Write PV</description>
           <pv_name>$(pv_name)</pv_name>
           <value>0</value>
-          <description>Write PV</description>
         </action>
       </actions>
       <pv_name>$(P)$(R)VRAMPactive</pv_name>
@@ -759,9 +758,9 @@ else:
       <name>Reset button</name>
       <actions>
         <action type="write_pv">
+          <description>Reset</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>Reset</description>
         </action>
       </actions>
       <pv_name>$(P)$(R)hardReset</pv_name>
@@ -806,9 +805,9 @@ else:
       <name>EDM activeMessageButtonClass_3</name>
       <actions>
         <action type="write_pv">
+          <description>Reset</description>
           <pv_name>$(pv_name)</pv_name>
           <value>0</value>
-          <description>Reset</description>
         </action>
       </actions>
       <pv_name>$(P)$(R)tripClearSeq</pv_name>
@@ -1126,9 +1125,9 @@ else:
         <name>Action Button_17</name>
         <actions>
           <action type="write_pv">
+            <description>open advanced settings</description>
             <pv_name>$(pv_name)</pv_name>
             <value>1</value>
-            <description>open advanced settings</description>
           </action>
         </actions>
         <pv_name>$(P)$(R)limitMenuOpen</pv_name>
@@ -1143,16 +1142,16 @@ else:
       </widget>
       <widget type="picture" version="2.0.0">
         <name>Picture_3</name>
-        <file>settings2.png</file>
+        <file>settings.png</file>
         <x>2</x>
         <y>2</y>
         <width>22</width>
         <height>22</height>
         <actions>
           <action type="write_pv">
+            <description>open advanced settings</description>
             <pv_name>$(P)$(R)limitMenuOpen</pv_name>
             <value>1</value>
-            <description>open advanced settings</description>
           </action>
         </actions>
       </widget>
@@ -1287,14 +1286,14 @@ else:
       <name>Action Button_10</name>
       <actions execute_as_one="true">
         <action type="write_pv">
+          <description>set limits</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>set limits</description>
         </action>
         <action type="write_pv">
+          <description>close ui</description>
           <pv_name>$(P)$(R)limitMenuOpen</pv_name>
           <value>0</value>
-          <description>close ui</description>
         </action>
       </actions>
       <pv_name>$(P)$(R)setNewLimits.PROC</pv_name>
@@ -1310,9 +1309,9 @@ else:
       <name>Action Button_11</name>
       <actions>
         <action type="write_pv">
+          <description>Write PV</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>Write PV</description>
         </action>
       </actions>
       <pv_name>$(P)$(R)resetLimits.PROC</pv_name>
@@ -1332,14 +1331,14 @@ else:
       <name>Action Button_12</name>
       <actions execute_as_one="true">
         <action type="write_pv">
+          <description>close seq</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>close seq</description>
         </action>
         <action type="write_pv">
+          <description>close ui</description>
           <pv_name>$(P)$(R)limitMenuOpen</pv_name>
           <value>0</value>
-          <description>close ui</description>
         </action>
       </actions>
       <pv_name>$(P)$(R)limitMenuClosed.PROC</pv_name>
@@ -1411,14 +1410,14 @@ else:
         <name>Action Button_13</name>
         <actions execute_as_one="true">
           <action type="write_pv">
+            <description>Close</description>
             <pv_name>$(pv_name)</pv_name>
             <value>1</value>
-            <description>Close</description>
           </action>
           <action type="write_pv">
+            <description>close ui</description>
             <pv_name>$(P)$(R)limitMenuOpen</pv_name>
             <value>0</value>
-            <description>close ui</description>
           </action>
         </actions>
         <pv_name>$(P)$(R)limitMenuClosed.PROC</pv_name>
@@ -1462,9 +1461,9 @@ else:
       <name>Action Button_18</name>
       <actions>
         <action type="write_pv">
+          <description>Open Config Menu</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>Open Config Menu</description>
         </action>
       </actions>
       <pv_name>$(P)$(R)configMenuOpen</pv_name>
@@ -1475,28 +1474,38 @@ else:
       <horizontal_alignment>2</horizontal_alignment>
       <rules>
         <rule name="disable while ramping" prop_id="enabled" out_exp="false">
-          <exp bool_exp="pv0!=0">
+          <exp bool_exp="pv0!=0 || pv1 !=0">
             <value>false</value>
           </exp>
           <pv_name>$(P)$(R)VRAMPactive</pv_name>
+          <pv_name>$(P)$(R)configMenuOpen</pv_name>
         </rule>
       </rules>
       <tooltip>$(actions)</tooltip>
     </widget>
     <widget type="picture" version="2.0.0">
       <name>Picture_4</name>
-      <file>settings2.png</file>
+      <file>settings.png</file>
       <x>2</x>
       <y>2</y>
       <width>22</width>
       <height>22</height>
       <actions>
         <action type="write_pv">
+          <description>open advanced settings</description>
           <pv_name>$(P)$(R)limitMenuOpen</pv_name>
           <value>1</value>
-          <description>open advanced settings</description>
         </action>
       </actions>
+      <rules>
+        <rule name="disable while ramping" prop_id="opacity" out_exp="false">
+          <exp bool_exp="pv0!=0 || pv1 !=0">
+            <value>0.3</value>
+          </exp>
+          <pv_name>$(P)$(R)VRAMPactive</pv_name>
+          <pv_name>$(P)$(R)configMenuOpen</pv_name>
+        </rule>
+      </rules>
     </widget>
   </widget>
   <widget type="embedded" version="2.0.0">
@@ -1543,12 +1552,24 @@ else:
       </rule>
     </rules>
   </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_1</name>
+    <x>864</x>
+    <y>276</y>
+    <width>1</width>
+    <height>1</height>
+  </widget>
+  <widget type="rectangle" version="2.0.0">
+    <name>Rectangle_1</name>
+    <x>1050</x>
+    <y>1040</y>
+  </widget>
   <widget type="group" version="3.0.0">
     <name>Config settings</name>
     <x>315</x>
     <y>84</y>
-    <width>181</width>
-    <height>189</height>
+    <width>187</width>
+    <height>211</height>
     <visible>false</visible>
     <style>3</style>
     <transparent>true</transparent>
@@ -1564,10 +1585,10 @@ else:
       </rule>
     </rules>
     <widget type="rectangle" version="2.0.0">
-      <name>Rectangle_26</name>
-      <y>15</y>
+      <name>Rectangle_28</name>
+      <y>11</y>
       <width>176</width>
-      <height>174</height>
+      <height>197</height>
       <line_width>1</line_width>
       <line_color>
         <color red="179" green="179" blue="179">
@@ -1579,11 +1600,10 @@ else:
       </background_color>
     </widget>
     <widget type="rectangle" version="2.0.0">
-      <name>Rectangle_25</name>
+      <name>Rectangle_29</name>
       <x>7</x>
-      <y>4</y>
-      <width>174</width>
-      <height>177</height>
+      <width>180</width>
+      <height>200</height>
       <line_width>1</line_width>
       <line_color>
         <color name="Header_Background" red="77" green="77" blue="77">
@@ -1595,100 +1615,40 @@ else:
       </background_color>
     </widget>
     <widget type="label" version="2.0.0">
-      <name>Desired Voltage_1</name>
+      <name>Desired Voltage_3</name>
       <text>Desired Voltage:</text>
       <x>15</x>
-      <y>39</y>
+      <y>35</y>
       <width>65</width>
       <height>36</height>
     </widget>
     <widget type="label" version="2.0.0">
-      <name>interval_1</name>
+      <name>interval_3</name>
       <text>Ramp interval:</text>
       <x>15</x>
-      <y>107</y>
+      <y>98</y>
       <width>57</width>
       <height>36</height>
     </widget>
     <widget type="label" version="2.0.0">
-      <name>ramp time_1</name>
+      <name>ramp time_3</name>
       <text>Ramp time:</text>
       <x>15</x>
-      <y>80</y>
+      <y>75</y>
       <width>83</width>
     </widget>
     <widget type="label" version="2.0.0">
-      <name>txtStepIncrement_1</name>
+      <name>txtStepIncrement_3</name>
       <text>Step size:</text>
       <x>15</x>
-      <y>153</y>
+      <y>137</y>
       <width>87</width>
     </widget>
-    <widget type="spinner" version="2.0.0">
-      <name>Spinner DV_1</name>
-      <pv_name>$(P)$(R)desiredHV</pv_name>
-      <x>95</x>
-      <y>46</y>
-      <width>80</width>
-      <precision>2</precision>
-      <show_units>true</show_units>
-      <background_color>
-        <color red="179" green="230" blue="230">
-        </color>
-      </background_color>
-      <vertical_alignment>1</vertical_alignment>
-      <increment>100.0</increment>
-    </widget>
-    <widget type="spinner" version="2.0.0">
-      <name>Spinner_RT_1</name>
-      <pv_name>$(P)$(R)VRAMPtimeSet</pv_name>
-      <x>93</x>
-      <y>82</y>
-      <width>80</width>
-      <precision>2</precision>
-      <show_units>true</show_units>
-      <background_color>
-        <color red="179" green="230" blue="230">
-        </color>
-      </background_color>
-      <vertical_alignment>1</vertical_alignment>
-      <maximum>1000000.0</maximum>
-      <increment>0.5</increment>
-    </widget>
-    <widget type="spinner" version="2.0.0">
-      <name>Spinner_Ri_1</name>
-      <pv_name>$(P)$(R)VRAMPinterval</pv_name>
-      <x>93</x>
-      <y>118</y>
-      <width>80</width>
-      <precision>2</precision>
-      <show_units>true</show_units>
-      <background_color>
-        <color red="179" green="230" blue="230">
-        </color>
-      </background_color>
-      <vertical_alignment>1</vertical_alignment>
-      <maximum>1000000.0</maximum>
-      <increment>0.5</increment>
-    </widget>
-    <widget type="spinner" version="2.0.0">
-      <name>Spinner_SS_1</name>
-      <pv_name>$(P)$(R)VRAMPstepSize</pv_name>
-      <x>94</x>
-      <y>154</y>
-      <width>80</width>
-      <show_units>true</show_units>
-      <background_color>
-        <color red="179" green="230" blue="230">
-        </color>
-      </background_color>
-      <vertical_alignment>1</vertical_alignment>
-    </widget>
     <widget type="label" version="2.0.0">
-      <name>Label_83</name>
+      <name>Label_85</name>
       <text>Config settings</text>
       <x>16</x>
-      <y>11</y>
+      <y>7</y>
       <width>114</width>
       <font>
         <font family="Liberation Sans" style="REGULAR" size="16.0">
@@ -1700,15 +1660,15 @@ else:
       </background_color>
     </widget>
     <widget type="group" version="3.0.0">
-      <name>X button_6</name>
+      <name>X button_7</name>
       <x>154</x>
-      <y>7</y>
+      <y>3</y>
       <width>22</width>
       <height>24</height>
       <style>3</style>
       <transparent>true</transparent>
       <widget type="ellipse" version="2.0.0">
-        <name>Ellipse_15</name>
+        <name>Ellipse_16</name>
         <x>2</x>
         <y>3</y>
         <width>19</width>
@@ -1724,7 +1684,7 @@ else:
         </background_color>
       </widget>
       <widget type="label" version="2.0.0">
-        <name>Label_84</name>
+        <name>Label_86</name>
         <text>X</text>
         <x>6</x>
         <y>4</y>
@@ -1739,12 +1699,12 @@ else:
         </foreground_color>
       </widget>
       <widget type="action_button" version="3.0.0">
-        <name>Action Button_22</name>
+        <name>Action Button_23</name>
         <actions execute_as_one="true">
           <action type="write_pv">
+            <description>close menu</description>
             <pv_name>$(P)$(R)configMenuOpen</pv_name>
             <value>0</value>
-            <description>close menu</description>
           </action>
         </actions>
         <pv_name>$(P)$(R)configMenuOpen</pv_name>
@@ -1757,9 +1717,9 @@ else:
       </widget>
     </widget>
     <widget type="rectangle" version="2.0.0">
-      <name>Rectangle_27</name>
+      <name>Rectangle_30</name>
       <x>8</x>
-      <y>32</y>
+      <y>28</y>
       <width>173</width>
       <height>1</height>
       <line_color>
@@ -1771,12 +1731,151 @@ else:
         </color>
       </background_color>
     </widget>
-  </widget>
-  <widget type="led" version="2.0.0">
-    <name>LED_1</name>
-    <x>864</x>
-    <y>276</y>
-    <width>0</width>
-    <height>0</height>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update DV_1</name>
+      <pv_name>$(P)$(R)desiredHV</pv_name>
+      <x>95</x>
+      <y>42</y>
+      <width>83</width>
+      <precision>2</precision>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_RT_1</name>
+      <pv_name>$(P)$(R)VRAMPtimeSet</pv_name>
+      <x>95</x>
+      <y>73</y>
+      <width>83</width>
+      <height>18</height>
+      <precision>2</precision>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_Ri_1</name>
+      <pv_name>$(P)$(R)VRAMPinterval</pv_name>
+      <x>95</x>
+      <y>105</y>
+      <width>83</width>
+      <height>18</height>
+      <precision>2</precision>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_SS_1</name>
+      <pv_name>$(P)$(R)VRAMPstepSize</pv_name>
+      <x>95</x>
+      <y>136</y>
+      <width>83</width>
+      <height>18</height>
+      <precision>2</precision>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner DV_2</name>
+      <pv_name>$(P)$(R)desiredHV</pv_name>
+      <x>95</x>
+      <y>42</y>
+      <width>83</width>
+      <precision>2</precision>
+      <show_units>true</show_units>
+      <background_color>
+        <color red="179" green="230" blue="230">
+        </color>
+      </background_color>
+      <vertical_alignment>1</vertical_alignment>
+      <rules>
+        <rule name="New Rule" prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0==1">
+            <value>false</value>
+          </exp>
+          <pv_name>$(P)$(R)VRAMPactive</pv_name>
+        </rule>
+      </rules>
+      <increment>100.0</increment>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner_RT_2</name>
+      <pv_name>$(P)$(R)VRAMPtimeSet</pv_name>
+      <x>95</x>
+      <y>73</y>
+      <width>83</width>
+      <precision>2</precision>
+      <show_units>true</show_units>
+      <background_color>
+        <color red="179" green="230" blue="230">
+        </color>
+      </background_color>
+      <vertical_alignment>1</vertical_alignment>
+      <rules>
+        <rule name="Ramping visibility" prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0==1 || pv1==1">
+            <value>false</value>
+          </exp>
+          <pv_name>$(P)$(R)VRAMPactive</pv_name>
+          <pv_name>$(P)$(R)VRAMPmode</pv_name>
+        </rule>
+      </rules>
+      <maximum>1000000.0</maximum>
+      <increment>0.5</increment>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner_Ri_2</name>
+      <pv_name>$(P)$(R)VRAMPinterval</pv_name>
+      <x>95</x>
+      <y>105</y>
+      <width>83</width>
+      <precision>2</precision>
+      <show_units>true</show_units>
+      <background_color>
+        <color red="179" green="230" blue="230">
+        </color>
+      </background_color>
+      <vertical_alignment>1</vertical_alignment>
+      <rules>
+        <rule name="visibility " prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0==1 || pv1== 0">
+            <value>false</value>
+          </exp>
+          <pv_name>$(P)$(R)VRAMPactive</pv_name>
+          <pv_name>$(P)$(R)VRAMPmode</pv_name>
+        </rule>
+      </rules>
+      <maximum>1000000.0</maximum>
+      <increment>0.5</increment>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner_SS_2</name>
+      <pv_name>$(P)$(R)VRAMPstepSize</pv_name>
+      <x>95</x>
+      <y>136</y>
+      <width>83</width>
+      <show_units>true</show_units>
+      <background_color>
+        <color red="179" green="230" blue="230">
+        </color>
+      </background_color>
+      <vertical_alignment>1</vertical_alignment>
+      <rules>
+        <rule name="visibility " prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0==1 || pv1== 0">
+            <value>false</value>
+          </exp>
+          <pv_name>$(P)$(R)VRAMPactive</pv_name>
+          <pv_name>$(P)$(R)VRAMPmode</pv_name>
+        </rule>
+      </rules>
+    </widget>
+    <widget type="choice" version="2.0.0">
+      <name>Auto or manual_1</name>
+      <pv_name>$(P)$(R)VRAMPmode</pv_name>
+      <x>29</x>
+      <y>165</y>
+      <width>133</width>
+      <height>25</height>
+      <selected_color>
+        <color red="153" green="213" blue="153">
+        </color>
+      </selected_color>
+      <items>
+        <item>Automatic</item>
+        <item>Manual</item>
+      </items>
+    </widget>
   </widget>
 </display>
