@@ -8,7 +8,6 @@
 # LANTRONIX RS232 adapter address
 #
 epicsEnvSet("MODEL","$(MODEL=370)")
-epicsEnvSet("POLARITY","$(POLARITY=1)")# 1=negative, 0=positive
 epicsEnvSet("ADDR","192.168.0.20:10002")
 epicsEnvSet("A","-1")
 epicsEnvSet("PORT","L0")
@@ -30,7 +29,7 @@ drvAsynIPPortConfigure("L0","$(ADDR)",0,0,0)
 
 ## Load record instances
 dbLoadRecords("$(ASYN)/db/asynRecord.db","P=$(PREFIX)$(SUFFIX),R=asyn,PORT=$(PORT),ADDR=0,OMAX=256,IMAX=256")
-dbLoadTemplate("db/devSRS_PS3xx.substitutions","PORT=$(PORT),R=$(SUFFIX),P=$(PREFIX),A=$(A), MODEL=$(MODEL), POLARITY=$(POLARITY)")
+dbLoadTemplate("db/devSRS_PS3xx.substitutions","PORT=$(PORT),R=$(SUFFIX),P=$(PREFIX),A=$(A), MODEL=$(MODEL)")
 dbLoadRecords("db/devSRS_PS300_common.db","P=$(PREFIX),R=$(SUFFIX),L=0,A=$(A)")
 
 #dbLoadRecords("$(TOP)/db/devSRS_PS375.db","P=$(PREFIX),R=$(SUFFIX),PORT=$(PORT),A=$(A)")

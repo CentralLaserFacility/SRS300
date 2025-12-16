@@ -145,7 +145,7 @@
     <pv>
       <display_name>Voltage</display_name>
       <visible>true</visible>
-      <name>BENCH:HVPS:OutputVget</name>
+      <name>BENCH:HVPS:absVoltage</name>
       <axis>0</axis>
       <color>
         <red>255</red>
