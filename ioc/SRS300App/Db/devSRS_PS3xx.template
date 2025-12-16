@@ -453,14 +453,6 @@ record(ai, "$(P)$(R)C_Precision"){
 
 record(ai, "$(P)$(R)voltageLimitSET"){
     field(DESC, "Maximum voltage for device")
-    field(PINI, "YES")
-#***
-    field(EGU, "V")
-}
-record(ai, "$(P)$(R)voltageLimitNegativeSET"){
-    field(DESC, "Maximum voltage (-ve polarity)")
-    field(PINI, "YES")
-#***
     field(EGU, "V")
 }
 
@@ -523,34 +515,54 @@ record(ai, "$(P)$(R)IMIN"){
 }
 
 #when changes are applied from the limit menu, set the device limits to the new values
-record(seq,"$(P)$(R)setNewLimits"){
+record(seq,"$(P)$(R)setNewLimitsPOS"){
     field(DESC, "sets limits from constants")
-    field(DOL1, "$(P)$(R)voltageLimit PP")
+    field(DOL1, "$(P)$(R)voltageLimitSET PP")
     field(LNK1, "$(P)$(R)VLIMset PP")
     field(DOL2, "$(P)$(R)currentLimitA PP")
     field(LNK2, "$(P)$(R)ILIMset PP")
     field(DOL3, "$(P)$(R)currentTripLimitA PP")
     field(LNK3, "$(P)$(R)ITRPset PP")
-    field(DOL4, "$(P)$(R)voltageLimit")
+    field(DOL4, "$(P)$(R)voltageLimitSET")
     field(LNK4, "$(P)$(R)VRAMPstepSize.HOPR PP")
-    field(DOL5, "$(P)$(R)voltageLimit")
+    field(DOL5, "$(P)$(R)voltageLimitSET")
     field(LNK5, "$(P)$(R)desiredHV.HOPR")
-    field(DOL6, "$(P)$(R)voltageLimit")
+    field(DOL6, "$(P)$(R)voltageLimitSET")
     field(LNK6, "$(P)$(R)HVset.HOPR")
-    field(DOL7, "$(P)$(R)voltageLimit")
+    field(DOL7, "$(P)$(R)voltageLimitSET")
     field(LNK7, "$(P)$(R)HVset.DRVH PP")
-    field(DOL8, "$(P)$(R)voltageLimit")
+    field(DOL8, "$(P)$(R)voltageLimitSET")
     field(LNK8, "$(P)$(R)OutputVget.HOPR PP")
-    field(DOL9, "$(P)$(R)voltageLimit")
+    field(DOL9, "$(P)$(R)voltageLimitSET")
     field(LNK9, "$(P)$(R)desiredHV.DRVH PP")
-
+}
+record(seq,"$(P)$(R)setNewLimitsNEG"){
+    field(DESC, "sets limits from constants")
+    field(DOL1, "$(P)$(R)voltageLimitSET PP")
+    field(LNK1, "$(P)$(R)VLIMset PP")
+    field(DOL2, "$(P)$(R)currentLimitA PP")
+    field(LNK2, "$(P)$(R)ILIMset PP")
+    field(DOL3, "$(P)$(R)currentTripLimitA PP")
+    field(LNK3, "$(P)$(R)ITRPset PP")
+    field(DOL4, "$(P)$(R)voltageLimitSET")
+    field(LNK4, "$(P)$(R)VRAMPstepSize.HOPR PP")
+    field(DOL5, "$(P)$(R)voltageLimitSET")
+    field(LNK5, "$(P)$(R)desiredHV.HOPR")
+    field(DOL6, "$(P)$(R)voltageLimitSET")
+    field(LNK6, "$(P)$(R)HVset.HOPR")
+    field(DOL7, "$(P)$(R)voltageLimitSET")
+    field(LNK7, "$(P)$(R)HVset.DRVH PP")
+    field(DOL8, "$(P)$(R)voltageLimitSET")
+    field(LNK8, "$(P)$(R)OutputVget.HOPR PP")
+    field(DOL9, "$(P)$(R)voltageLimitSET")
+    field(LNK9, "$(P)$(R)desiredHV.DRVH PP")
 }
 
 #If the menu is closed before changes are applied, limit values are changed back to what they were previously
 record(seq, "$(P)$(R)limitMenuClosed"){
     field(DESC, "Sequence to run when limit menu closed")
     field(DOL1, "$(P)$(R)VLIMget PP")
-    field(LNK1, "$(P)$(R)voltageLimit PP")
+    field(LNK1, "$(P)$(R)voltageLimitSET PP")
     field(DOL2, "$(P)$(R)ILIMmA")
     field(LNK2, "$(P)$(R)currentLimitmA PP")
     field(DOL3, "$(P)$(R)ITRPmA")
@@ -561,12 +573,12 @@ record(seq, "$(P)$(R)limitMenuClosed"){
 record(seq, "$(P)$(R)resetLimits"){
     field(DESC, "Reset limits to default from device")
     field(DOL1, "$(P)$(R)VMAX")
-    field(LNK1, "$(P)$(R)voltageLimit PP")
+    field(LNK1, "$(P)$(R)voltageLimitSET PP")
     field(DOL2, "$(P)$(R)C_IMAXmA")
     field(LNK2, "$(P)$(R)currentLimitmA PP")
     field(DOL3, "$(P)$(R)C_IMAXmA")
     field(LNK3, "$(P)$(R)currentTripLimitmA PP")
-}
+}#
 
 record(bi, "$(P)$(R)limitMenuOpen"){
     field(DESC, "Open/close limit menu (ui)")
@@ -962,6 +974,8 @@ record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions3"){
     field(DO8, "$(VMAX)")
     field(LNK8, "$(P)$(R)desiredHV.HOPR PP")
     field(LNK9, "$(P)$(R)DefaultSettings PP")
+    field(DOLA, "$(P)$(R)C_absVMAX")
+    field(LNKA, "$(P)$(R)voltageLimitSET PP")
     field(FLNK, "$(P)$(R)setOnStart")
 }
 
