@@ -32,6 +32,21 @@ dbLoadRecords("$(ASYN)/db/asynRecord.db","P=$(PREFIX)$(SUFFIX),R=asyn,PORT=$(POR
 dbLoadTemplate("db/devSRS_PS3xx.substitutions","PORT=$(PORT),R=$(SUFFIX),P=$(PREFIX),A=$(A), MODEL=$(MODEL)")
 dbLoadRecords("db/devSRS_PS300_common.db","P=$(PREFIX),R=$(SUFFIX),L=0,A=$(A)")
 
+# specify where save files should go
+set_savefile_path("$(TOP)/autoSaveRestore")
+
+## specify where request files can be found
+# current directory 
+set_requestfile_path("$(TOP)/autoSaveRestore")
+# specify where request files can be found
+set_requestfile_path("$(AUTOSAVE)/asApp/Db/")
+
+dbLoadRecords("$(AUTOSAVE)/db/configMenu.db","P=$(PREFIX)$(SUFFIX),CONFIG=ramp1")
+save_restoreSet_DatedBackupFiles(0)
+set_pass0_restoreFile("ramp1Menu.sav", "P=$(PREFIX)$(SUFFIX),CONFIG=ramp1,CONFIGMENU=1")
+set_pass1_restoreFile("ramp1Menu.sav", "P=$(PREFIX)$(SUFFIX),CONFIG=ramp1,CONFIGMENU=1")
+
+
 #dbLoadRecords("$(TOP)/db/devSRS_PS375.db","P=$(PREFIX),R=$(SUFFIX),PORT=$(PORT),A=$(A)")
 #dbLoadTemplate("db/devSRS_PSxxx.substitutions","PORT=$(PORT),A=$(A)")
 
@@ -39,6 +54,8 @@ cd "${TOP}/iocBoot/${IOC}"
 
 #Commence IOC running
 iocInit
+
+create_monitor_set("ramp1Menu.req", 5 , "P=$(PREFIX)$(SUFFIX), CONFIG=ramp1,CONFIGMENU=1")
 
 stringiftest("NEGPOLARITY", "$(MODEL=370)", 5, "YES")
 $(IFNEGPOLARITY) < setNegativePolarity.cmd

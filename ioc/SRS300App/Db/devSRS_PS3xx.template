@@ -1001,3 +1001,15 @@ record(seq,"$(P)$(R)setOnStart"){
     field(TPRO, "1")
 }
 
+
+
+#__________________________________________
+#_______________Config Menu________________
+
+record(mbbi, "$(P)$(R)configMenuOpen"){
+    field(DESC, "Open ui config menu")
+    field(VAL, "0")
+    field(ZRST, "Closed")
+    field(ONST, "medium menu")
+    field(TWST, "large menu")
+}
