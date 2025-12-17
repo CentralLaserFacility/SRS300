@@ -36,6 +36,7 @@ record(ao, "$(P)$(R)VLIMset")
     field(OUT,  "@ps300.proto setting(VLIM) $(PORT) $(A)")
     field(EGU,  "V")
     field(FLNK, "$(P)$(R)VLIMget")
+    field(TPRO, "1")
 }
 record(ai, "$(P)$(R)VLIMget")
 {
@@ -44,7 +45,7 @@ record(ai, "$(P)$(R)VLIMget")
     field(INP,  "@ps300.proto getF(VLIM) $(PORT) $(A)")
     field(EGU,  "V")
     field(PINI, "YES")
-    field(TPRO, "1")
+
 }
 record(ao, "$(P)$(R)ILIMset")
 {
@@ -393,7 +394,7 @@ record(calc, "$(P)$(R)C_minStepSize"){
     field(INPA, "$(P)$(R)C_absVMIN")
     field(CALC, "ABS(A)") #the minimum step size is the absolute value of the minimum voltage
     field(EGU, "V")
-    field(TPRO, "1")
+    
     field(FLNK, "$(P)$(R)C_maxStepSize")
 }
 record(calc, "$(P)$(R)C_maxStepSize"){
@@ -401,7 +402,7 @@ record(calc, "$(P)$(R)C_maxStepSize"){
     field(INPA, "$(P)$(R)C_absVMAX")
     field(CALC, "ABS(A)")
     field(EGU, "V")
-    field(TPRO, "1")
+    
 }
 
 record(calc, "$(P)$(R)C_absVMIN"){
@@ -412,7 +413,7 @@ record(calc, "$(P)$(R)C_absVMIN"){
     #*** hopr and lopr
     field(EGU, "V")
     field(FLNK, "$(P)$(R)C_absVMAX")
-    field(TPRO, "1")
+    
 }
 record(calc, "$(P)$(R)C_absVMAX"){
     field(DESC, "Minimum voltage (closest to 0)")
@@ -451,9 +452,11 @@ record(ai, "$(P)$(R)C_Precision"){
     field(VAL, "2") #dependent on model
 }
 
-record(ai, "$(P)$(R)voltageLimitSET"){
+record(ao, "$(P)$(R)voltageLimitSET"){
     field(DESC, "Maximum voltage for device")
     field(EGU, "V")
+    field(PINI, "YES")
+    field(TPRO, "1")
 }
 
 record(ai, "$(P)$(R)currentLimitmA"){
@@ -524,17 +527,15 @@ record(seq,"$(P)$(R)setNewLimitsPOS"){
     field(DOL3, "$(P)$(R)currentTripLimitA PP")
     field(LNK3, "$(P)$(R)ITRPset PP")
     field(DOL4, "$(P)$(R)voltageLimitSET")
-    field(LNK4, "$(P)$(R)VRAMPstepSize.HOPR PP")
+    field(LNK4, "$(P)$(R)desiredHV.HOPR")
     field(DOL5, "$(P)$(R)voltageLimitSET")
-    field(LNK5, "$(P)$(R)desiredHV.HOPR")
+    field(LNK5, "$(P)$(R)HVset.HOPR")
     field(DOL6, "$(P)$(R)voltageLimitSET")
-    field(LNK6, "$(P)$(R)HVset.HOPR")
+    field(LNK6, "$(P)$(R)HVset.DRVH PP")
     field(DOL7, "$(P)$(R)voltageLimitSET")
-    field(LNK7, "$(P)$(R)HVset.DRVH PP")
+    field(LNK7, "$(P)$(R)OutputVget.HOPR PP")
     field(DOL8, "$(P)$(R)voltageLimitSET")
-    field(LNK8, "$(P)$(R)OutputVget.HOPR PP")
-    field(DOL9, "$(P)$(R)voltageLimitSET")
-    field(LNK9, "$(P)$(R)desiredHV.DRVH PP")
+    field(LNK8, "$(P)$(R)desiredHV.DRVH PP")
 }
 record(seq,"$(P)$(R)setNewLimitsNEG"){
     field(DESC, "sets limits from constants")
@@ -545,17 +546,15 @@ record(seq,"$(P)$(R)setNewLimitsNEG"){
     field(DOL3, "$(P)$(R)currentTripLimitA PP")
     field(LNK3, "$(P)$(R)ITRPset PP")
     field(DOL4, "$(P)$(R)voltageLimitSET")
-    field(LNK4, "$(P)$(R)VRAMPstepSize.HOPR PP")
+    field(LNK4, "$(P)$(R)desiredHV.LOPR")
     field(DOL5, "$(P)$(R)voltageLimitSET")
-    field(LNK5, "$(P)$(R)desiredHV.HOPR")
+    field(LNK5, "$(P)$(R)HVset.LOPR")
     field(DOL6, "$(P)$(R)voltageLimitSET")
-    field(LNK6, "$(P)$(R)HVset.HOPR")
+    field(LNK6, "$(P)$(R)HVset.DRVL PP")
     field(DOL7, "$(P)$(R)voltageLimitSET")
-    field(LNK7, "$(P)$(R)HVset.DRVH PP")
+    field(LNK7, "$(P)$(R)OutputVget.LOPR PP")
     field(DOL8, "$(P)$(R)voltageLimitSET")
-    field(LNK8, "$(P)$(R)OutputVget.HOPR PP")
-    field(DOL9, "$(P)$(R)voltageLimitSET")
-    field(LNK9, "$(P)$(R)desiredHV.DRVH PP")
+    field(LNK8, "$(P)$(R)desiredHV.DRVL PP")
 }
 
 #If the menu is closed before changes are applied, limit values are changed back to what they were previously
@@ -572,13 +571,13 @@ record(seq, "$(P)$(R)limitMenuClosed"){
 #If limits are reset to default from the menu, set device limits to default values
 record(seq, "$(P)$(R)resetLimits"){
     field(DESC, "Reset limits to default from device")
-    field(DOL1, "$(P)$(R)VMAX")
+    field(DOL1, "$(P)$(R)C_absVMAX PP")
     field(LNK1, "$(P)$(R)voltageLimitSET PP")
     field(DOL2, "$(P)$(R)C_IMAXmA")
     field(LNK2, "$(P)$(R)currentLimitmA PP")
     field(DOL3, "$(P)$(R)C_IMAXmA")
     field(LNK3, "$(P)$(R)currentTripLimitmA PP")
-}#
+}
 
 record(bi, "$(P)$(R)limitMenuOpen"){
     field(DESC, "Open/close limit menu (ui)")
@@ -791,7 +790,7 @@ record(seq, "$(P)$(R)PONseq")
     field(DO3, "1")
     field(LNK3, "$(P)$(R)callSubstitutionsPOS.PROC")
     field(PINI, "YES")
-    field(TPRO, "1")
+    
 }
 
 record(bo, "$(P)$(R)setSAV")
@@ -801,7 +800,7 @@ record(bo, "$(P)$(R)setSAV")
     field(OUT,  "@ps300.proto cmd(*SAV 1) $(PORT) $(A)")
     field(ZNAM, "Set to save settings")
     field(ONAM, "Set to save settings")
-    field(TPRO, "1")
+    
 }
 record(bo, "$(P)$(R)RestoreSettings")
 {
@@ -810,7 +809,7 @@ record(bo, "$(P)$(R)RestoreSettings")
     field(OUT,  "@ps300.proto cmd(*RCL 1) $(PORT) $(A)")
     field(ZNAM, "Restore to saved settings")
     field(ONAM, "Restore saved settings1")
-    field(TPRO, "1")
+    
 }
 
 record(bo, "$(P)$(R)DefaultSettings")
@@ -821,14 +820,14 @@ record(bo, "$(P)$(R)DefaultSettings")
     field(ZNAM, "Reset to default settings")
     field(ONAM, "Reset to default settings")
     field(FLNK, "$(P)$(R)defaultLIM")
-    field(TPRO, "1")
+    
 }
 record(ai, "$(P)$(R)defaultLIM"){
     #stores default limit values for use in checking polarity
     field(DESC, "Store default limit values")
-    field(INP, "$(P)$(R)VLIMget PP")
+    field(INP, "$(P)$(R)VLIMget")
     field(FLNK, "$(P)$(R)checkPolarity")
-    field(TPRO, "1")
+    
 }
 
 record(calcout, "$(P)$(R)checkPolarity")
@@ -839,7 +838,7 @@ record(calcout, "$(P)$(R)checkPolarity")
     field(CALC, "A<0 ? 1 : 0") #if limit is negative, device is negative polarity
     field(OOPT, "On Change")
     field(OUT, "$(P)$(R)polarity PP")
-    field(TPRO, "1")
+    
 }
 
 record(bi, "$(P)$(R)polarity")
@@ -848,7 +847,7 @@ record(bi, "$(P)$(R)polarity")
     field(ZNAM, "+ve")
     field(ONAM, "-ve")
     #field(FLNK, "$(P)$(R)callSubstitutionsPOS")
-    field(TPRO, "1")
+    
 }
 
 #_______________________________________________________
@@ -879,11 +878,11 @@ record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions"){
     #to account for models with switchable polarity
     field(DESC, "Set substitutions based on polarity")
     field(DO0, "$(VMAX)")
-    field(LNK0, "$(P)$(R)VLIMset.HOPR PP")
+    field(LNK0, "$(P)$(R)VLIMset.HOPR")
     field(DO1, "$(VMAX)")
-    field(LNK0, "$(P)$(R)VLIMset.DRVH PP")
+    field(LNK0, "$(P)$(R)VLIMset.DRVH")
     field(DO2, "$(VMIN)")
-    field(LNK2, "$(P)$(R)VLIMset.LOPR PP")
+    field(LNK2, "$(P)$(R)VLIMset.LOPR")
     field(DO3, "$(VMIN)")
     field(LNK3, "$(P)$(R)VLIMset.DRVL PP")
     field(DO4, "$(VMAX)")
@@ -895,87 +894,96 @@ record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions"){
     field(DO7, "$(IMIN)")
     field(LNK7, "$(P)$(R)IMIN PP")
     field(DO8, "$(VMAX)")
-    field(LNK8, "$(P)$(R)VLIMget.HOPR PP")
+    field(LNK8, "$(P)$(R)VLIMget.HOPR")
     field(DO9, "$(VMAX)")
-    field(LNK9, "$(P)$(R)VLIMget.DRVH PP")
+    field(LNK9, "$(P)$(R)VLIMget.DRVH")
     field(DOA, "$(VMIN)")
-    field(LNKA, "$(P)$(R)VLIMget.LOPR PP")
+    field(LNKA, "$(P)$(R)VLIMget.LOPR")
     field(DOB, "$(VMIN)")
-    field(LNKB, "$(P)$(R)VLIMget.DRVL PP")
+    field(LNKB, "$(P)$(R)VLIMget.DRVL")
     field(DOC, "$(IMAX)")
-    field(LNKC, "$(P)$(R)ILIMget.HOPR PP")
+    field(LNKC, "$(P)$(R)ILIMget.HOPR")
     field(DOD, "$(IMAX)")
-    field(LNKD, "$(P)$(R)ILIMget.DRVH PP")
+    field(LNKD, "$(P)$(R)ILIMget.DRVH")
     field(DOE, "$(IMIN)")
-    field(LNKE, "$(P)$(R)ILIMget.LOPR PP")
+    field(LNKE, "$(P)$(R)ILIMget.LOPR")
     field(DOF, "$(IMIN)")
     field(LNKF, "$(P)$(R)ILIMget.DRVL PP")
     field(FLNK, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions2")
-    field(TPRO, "1")
+    
 }
 record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions2"){
     field(DESC, "Set substitutions based on polarity")
     field(DO0, "$(IMAX)")
-    field(LNK0, "$(P)$(R)ILIMset.HOPR PP")
+    field(LNK0, "$(P)$(R)ILIMset.HOPR")
     field(DO1, "$(IMAX)")
-    field(LNK1, "$(P)$(R)ILIMset.DRVH PP")
+    field(LNK1, "$(P)$(R)ILIMset.DRVH")
     field(DO2, "$(IMIN)")
-    field(LNK2, "$(P)$(R)ILIMset.LOPR PP")
+    field(LNK2, "$(P)$(R)ILIMset.LOPR")
     field(DO3, "$(IMIN)")
-    field(LNK3, "$(P)$(R)ILIMset.DRVL PP")
+    field(LNK3, "$(P)$(R)ILIMset.DRVL")
     field(DO4, "$(IMAX)")
-    field(LNK4, "$(P)$(R)ITRPset.HOPR PP")
+    field(LNK4, "$(P)$(R)ITRPset.HOPR")
     field(DO5, "$(IMAX)")
-    field(LNK5, "$(P)$(R)ITRPset.DRVH PP")
+    field(LNK5, "$(P)$(R)ITRPset.DRVH")
     field(DO6, "$(IMIN)")
-    field(LNK6, "$(P)$(R)ITRPset.LOPR PP")
+    field(LNK6, "$(P)$(R)ITRPset.LOPR")
     field(DO7, "$(IMIN)")
-    field(LNK7, "$(P)$(R)ITRPset.DRVL PP")
+    field(LNK7, "$(P)$(R)ITRPset.DRVL")
     field(DO8, "$(IMAX)")
-    field(LNK8, "$(P)$(R)ITRPget.HOPR PP")
+    field(LNK8, "$(P)$(R)ITRPget.HOPR")
     field(DO9, "$(IMIN)")
     field(LNK9, "$(P)$(R)ITRPget.LOPR PP")
     field(LNKA, "$(P)$(R)C_absVMIN PP")
     field(DOLB, "$(P)$(R)C_minStepSize")
-    field(LNKB, "$(P)$(R)VRAMPstepSize.LOPR PP")
+    field(LNKB, "$(P)$(R)VRAMPstepSize.LOPR")
     field(DOLC, "$(P)$(R)C_minStepSize")
-    field(LNKC, "$(P)$(R)VRAMPstepSize PP")
+    field(LNKC, "$(P)$(R)VRAMPstepSize")
     field(DOLD, "$(P)$(R)C_maxStepSize")
-    field(LNKD, "$(P)$(R)VRAMPstepSize.HOPR PP")
+    field(LNKD, "$(P)$(R)VRAMPstepSize.HOPR")
     field(DOLE, "$(P)$(R)C_maxStepSize")
-    field(LNKE, "$(P)$(R)VRAMPstepSize.DRVH PP")
+    field(LNKE, "$(P)$(R)VRAMPstepSize.DRVH")
     field(DOLF, "$(P)$(R)C_minStepSize")
     field(LNKF, "$(P)$(R)VRAMPstepSize.DRVL PP")
-    field(TPRO, "1")
+    
     field(FLNK, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions3")
 }
 record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions3"){
     field(DESC, "Set substitutions based on polarity")
     field(DO0, "$(VMIN)")
-    field(LNK0, "$(P)$(R)desiredHV.LOPR PP")
+    field(LNK0, "$(P)$(R)desiredHV.LOPR")
     field(DO1, "$(VMIN)")
-    field(LNK1, "$(P)$(R)desiredHV.DRVL PP")
+    field(LNK1, "$(P)$(R)desiredHV.DRVL")
     field(DO2, "$(VMAX)")
-    field(LNK2, "$(P)$(R)HVset.HOPR PP")
+    field(LNK2, "$(P)$(R)HVset.HOPR ")
     field(DO3, "$(VMIN)")
     field(LNK3, "$(P)$(R)HVset.LOPR PP")
     field(DO4, "$(VMAX)")
-    field(LNK4, "$(P)$(R)OutputVget.HOPR PP")
+    field(LNK4, "$(P)$(R)OutputVget.HOPR")
     field(DO5, "$(VMIN)")
     field(LNK5, "$(P)$(R)OutputVget.LOPR PP")
     field(DO6, "$(IMAX)")
     field(LNK6, "$(P)$(R)ILIMset PP")
     field(DO7, "$(IMAX)")
     field(LNK7, "$(P)$(R)ITRPset PP")
-    field(DO6, "$(VMAX)")
-    field(LNK6, "$(P)$(R)VLIMset PP")
+    #field(DO6, "$(VMAX)")
+    #field(LNK6, "$(P)$(R)VLIMset PP")
     field(DO7, "$(VMAX)")
-    field(LNK7, "$(P)$(R)desiredHV.DRVH PP")
+    field(LNK7, "$(P)$(R)desiredHV.DRVH")
     field(DO8, "$(VMAX)")
     field(LNK8, "$(P)$(R)desiredHV.HOPR PP")
     field(LNK9, "$(P)$(R)DefaultSettings PP")
-    field(DOLA, "$(P)$(R)C_absVMAX")
-    field(LNKA, "$(P)$(R)voltageLimitSET PP")
+    field(DOA, "$(VMAX)")
+    field(LNKA, "$(P)$(R)voltageLimitSET.HOPR")
+    field(DOB, "$(VMIN)")
+    field(LNKB, "$(P)$(R)voltageLimitSET.LOPR")
+    field(DLYC, "0.5")
+    field(DOLC, "$(P)$(R)VLIMget")
+    field(LNKC, "$(P)$(R)voltageLimitSET")
+    field(DOD, "$(VMAX)")
+    field(LNKD, "$(P)$(R)voltageLimitSET.DRVH")
+    field(DOE, "$(VMIN)")
+    field(LNKE, "$(P)$(R)voltageLimitSET.DRVL PP")
     field(FLNK, "$(P)$(R)setOnStart")
 }
 
@@ -983,13 +991,13 @@ record(seq,"$(P)$(R)setOnStart"){
     #Sets values on start, not from substitutions
     field(DESC, "sets values from constants")
     field(DOL1, "$(P)$(R)C_minInterval PP")
-    field(LNK1, "$(P)$(R)VRAMPtimeSet.LOPR PP")
+    field(LNK1, "$(P)$(R)VRAMPtimeSet.LOPR ")
     field(DOL2, "$(P)$(R)C_minInterval")
-    field(LNK2, "$(P)$(R)VRAMPinterval.LOPR PP")
+    field(LNK2, "$(P)$(R)VRAMPinterval.LOPR ")
     field(DOL3, "$(P)$(R)C_minInterval")
     field(LNK3, "$(P)$(R)VRAMPtimeSet PP")
     field(DOL4, "$(P)$(R)C_minInterval")
-    field(LNK4, "$(P)$(R)VRAMPinterval PP")
+    field(LNK4, "$(P)$(R)VRAMPinterval")
     field(DOL5, "$(P)$(R)C_IMAXmA PP")
     field(LNK5, "$(P)$(R)currentLimitmA.HOPR PP")
     field(DOL6, "$(P)$(R)C_IMAXmA")
@@ -998,10 +1006,8 @@ record(seq,"$(P)$(R)setOnStart"){
     field(DOL8, "$(P)$(R)C_minInterval")
     field(LNK8, "$(P)$(R)VRAMPinterval.DRVL PP")
     field(LNK9, "$(P)$(R)idleZoom PP")
-    field(TPRO, "1")
+    
 }
-
-
 
 #__________________________________________
 #_______________Config Menu________________
