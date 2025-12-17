@@ -24,7 +24,7 @@
     <name>EDM activeXTextClass</name>
     <text>Bench SR375 HVPS</text>
     <width>731</width>
-    <height>25</height>
+    <height>27</height>
     <font>
       <font family="Eras Demi ITC" style="BOLD" size="14.0">
       </font>
@@ -84,7 +84,7 @@ else:
     <name>Action Button</name>
     <actions>
       <action type="write_pv">
-        <description>WritePV</description>
+        <description>Enable high voltage</description>
         <pv_name>$(P)$(R)HVenable</pv_name>
         <value>1</value>
       </action>
@@ -110,7 +110,7 @@ else:
     <name>Action Button_1</name>
     <actions>
       <action type="write_pv">
-        <description>WritePV</description>
+        <description>Disable high voltage</description>
         <pv_name>$(P)$(R)HVenable</pv_name>
         <value>0</value>
       </action>
@@ -242,10 +242,10 @@ else:
       <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="action_button" version="3.0.0">
-      <name>Abort</name>
+      <name>Halt ramp</name>
       <actions>
         <action type="write_pv">
-          <description>Write PV</description>
+          <description>Halt ramp</description>
           <pv_name>$(pv_name)</pv_name>
           <value>0</value>
         </action>
@@ -593,56 +593,6 @@ else:
     <y>56</y>
   </widget>
   <widget type="group" version="3.0.0">
-    <name>Group</name>
-    <x>11</x>
-    <y>10</y>
-    <width>26</width>
-    <height>6</height>
-    <style>3</style>
-    <transparent>true</transparent>
-    <widget type="ellipse" version="2.0.0">
-      <name>Ellipse</name>
-      <width>6</width>
-      <height>6</height>
-      <line_color>
-        <color name="Header_ForeGround" red="255" green="255" blue="255">
-        </color>
-      </line_color>
-      <background_color>
-        <color name="Background" red="255" green="255" blue="255">
-        </color>
-      </background_color>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>Ellipse_1</name>
-      <x>10</x>
-      <width>6</width>
-      <height>6</height>
-      <line_color>
-        <color name="Header_ForeGround" red="255" green="255" blue="255">
-        </color>
-      </line_color>
-      <background_color>
-        <color name="Background" red="255" green="255" blue="255">
-        </color>
-      </background_color>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>Ellipse_2</name>
-      <x>20</x>
-      <width>6</width>
-      <height>6</height>
-      <line_color>
-        <color name="Header_ForeGround" red="255" green="255" blue="255">
-        </color>
-      </line_color>
-      <background_color>
-        <color name="Background" red="255" green="255" blue="255">
-        </color>
-      </background_color>
-    </widget>
-  </widget>
-  <widget type="group" version="3.0.0">
     <name>status</name>
     <x>322</x>
     <y>87</y>
@@ -805,7 +755,7 @@ else:
       <name>EDM activeMessageButtonClass_3</name>
       <actions>
         <action type="write_pv">
-          <description>Reset</description>
+          <description>Clear trip</description>
           <pv_name>$(pv_name)</pv_name>
           <value>0</value>
         </action>
@@ -1025,7 +975,7 @@ else:
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>voltage limit</name>
-      <pv_name>$(P)$(R)VMAX</pv_name>
+      <pv_name>$(P)$(R)desiredHV.HOPR</pv_name>
       <x>130</x>
       <y>149</y>
       <width>72</width>
@@ -1069,7 +1019,7 @@ else:
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_6</name>
-      <pv_name>$(P)$(R)VMIN</pv_name>
+      <pv_name>$(P)$(R)desiredHV.LOPR</pv_name>
       <x>129</x>
       <y>120</y>
       <width>72</width>
@@ -1294,7 +1244,7 @@ else:
       <increment>0.01</increment>
     </widget>
     <widget type="action_button" version="3.0.0">
-      <name>Action Button_10</name>
+      <name>Apply- positive</name>
       <actions execute_as_one="true">
         <action type="write_pv">
           <description>set limits</description>
@@ -1307,12 +1257,23 @@ else:
           <value>0</value>
         </action>
       </actions>
-      <pv_name>$(P)$(R)setNewLimits.PROC</pv_name>
+      <pv_name>$(P)$(R)setNewLimitsPOS.PROC</pv_name>
       <text>Apply</text>
       <x>29</x>
       <y>140</y>
       <width>70</width>
       <height>20</height>
+      <rules>
+        <rule name="visible when polarity negative" prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0==0">
+            <value>true</value>
+          </exp>
+          <exp bool_exp="pv0!=0">
+            <value>false</value>
+          </exp>
+          <pv_name>$(P)$(R)polarity</pv_name>
+        </rule>
+      </rules>
       <tooltip>$(actions)</tooltip>
       <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
@@ -1320,7 +1281,7 @@ else:
       <name>Action Button_11</name>
       <actions>
         <action type="write_pv">
-          <description>Write PV</description>
+          <description>reset limits</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
         </action>
@@ -1442,10 +1403,11 @@ else:
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_9</name>
-      <pv_name>$(P)$(R)VLIMset</pv_name>
+      <pv_name>$(P)$(R)voltageLimitSET</pv_name>
       <x>122</x>
       <y>61</y>
       <width>95</width>
+      <precision>2</precision>
       <show_units>true</show_units>
       <background_color>
         <color red="179" green="230" blue="230">
@@ -1462,44 +1424,42 @@ else:
           <pv_name>$(P)$(R)polarity</pv_name>
         </rule>
       </rules>
-      <increment>100.0</increment>
+      <increment>-100.0</increment>
     </widget>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <name>Text Update</name>
-    <pv_name>$(P)$(R)HVset.HOPR</pv_name>
-    <x>830</x>
-    <y>120</y>
-  </widget>
-  <widget type="bool_button" version="2.0.0">
-    <name>Boolean Button</name>
-    <pv_name>$(P)$(R)polarity</pv_name>
-    <x>830</x>
-    <y>440</y>
-    <off_label>Positive</off_label>
-    <off_color>
-      <color red="153" green="204" blue="153">
-      </color>
-    </off_color>
-    <on_label>Negative</on_label>
-    <on_color>
-      <color red="255" green="153" blue="153">
-      </color>
-    </on_color>
-  </widget>
-  <widget type="action_button" version="3.0.0">
-    <name>Action Button_4</name>
-    <actions>
-      <action type="write_pv">
-        <description>Write PV</description>
-        <pv_name>$(pv_name)</pv_name>
-        <value>1</value>
-      </action>
-    </actions>
-    <pv_name>$(P)$(R)PONseq.PROC</pv_name>
-    <x>830</x>
-    <y>530</y>
-    <tooltip>$(actions)</tooltip>
+    <widget type="action_button" version="3.0.0">
+      <name>Apply- negative</name>
+      <actions execute_as_one="true">
+        <action type="write_pv">
+          <description>set limits</description>
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+        </action>
+        <action type="write_pv">
+          <description>close ui</description>
+          <pv_name>$(P)$(R)limitMenuOpen</pv_name>
+          <value>0</value>
+        </action>
+      </actions>
+      <pv_name>$(P)$(R)setNewLimitsNEG.PROC</pv_name>
+      <text>Apply</text>
+      <x>29</x>
+      <y>140</y>
+      <width>70</width>
+      <height>20</height>
+      <rules>
+        <rule name="visible when polarity negative" prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0==1">
+            <value>true</value>
+          </exp>
+          <exp bool_exp="pv0!=1">
+            <value>false</value>
+          </exp>
+          <pv_name>$(P)$(R)polarity</pv_name>
+        </rule>
+      </rules>
+      <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
   </widget>
   <widget type="group" version="3.0.0">
     <name>Settings button_1</name>
@@ -1622,13 +1582,6 @@ else:
         <pv_name>$(P)$(R)configMenuOpen</pv_name>
       </rule>
     </rules>
-  </widget>
-  <widget type="led" version="2.0.0">
-    <name>LED_1</name>
-    <x>864</x>
-    <y>276</y>
-    <width>1</width>
-    <height>1</height>
   </widget>
   <widget type="rectangle" version="2.0.0">
     <name>Rectangle_1</name>
@@ -1947,6 +1900,42 @@ else:
         <item>Automatic</item>
         <item>Manual</item>
       </items>
+    </widget>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Refresh button</name>
+    <x>7</x>
+    <width>29</width>
+    <height>29</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_3</name>
+      <actions>
+        <action type="execute">
+          <description>Refresh display</description>
+          <script file="EmbeddedPy">
+            <text><![CDATA[# Embedded python script
+from org.csstudio.display.builder.runtime.script import PVUtil, ScriptUtil
+ScriptUtil.openDisplay(widget, "bench_HVPS.bob", "REPLACE", None)
+]]></text>
+          </script>
+        </action>
+      </actions>
+      <text></text>
+      <width>28</width>
+      <height>27</height>
+      <background_color>
+        <color red="26" green="26" blue="26">
+        </color>
+      </background_color>
+      <tooltip>$(actions)</tooltip>
+    </widget>
+    <widget type="picture" version="2.0.0">
+      <name>Picture_2</name>
+      <file>refreshButton.png</file>
+      <width>29</width>
+      <height>29</height>
     </widget>
   </widget>
 </display>
