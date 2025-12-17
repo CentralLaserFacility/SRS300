@@ -36,7 +36,6 @@ record(ao, "$(P)$(R)VLIMset")
     field(OUT,  "@ps300.proto setting(VLIM) $(PORT) $(A)")
     field(EGU,  "V")
     field(FLNK, "$(P)$(R)VLIMget")
-    field(TPRO, "1")
 }
 record(ai, "$(P)$(R)VLIMget")
 {
@@ -456,7 +455,6 @@ record(ao, "$(P)$(R)voltageLimitSET"){
     field(DESC, "Maximum voltage for device")
     field(EGU, "V")
     field(PINI, "YES")
-    field(TPRO, "1")
 }
 
 record(ai, "$(P)$(R)currentLimitmA"){

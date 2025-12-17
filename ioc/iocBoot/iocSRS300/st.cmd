@@ -47,8 +47,6 @@ set_pass0_restoreFile("ramp1Menu.sav", "P=$(PREFIX)$(SUFFIX),CONFIG=ramp1,CONFIG
 set_pass1_restoreFile("ramp1Menu.sav", "P=$(PREFIX)$(SUFFIX),CONFIG=ramp1,CONFIGMENU=1")
 
 
-#dbLoadRecords("$(TOP)/db/devSRS_PS375.db","P=$(PREFIX),R=$(SUFFIX),PORT=$(PORT),A=$(A)")
-#dbLoadTemplate("db/devSRS_PSxxx.substitutions","PORT=$(PORT),A=$(A)")
 
 cd "${TOP}/iocBoot/${IOC}"
 
@@ -57,8 +55,6 @@ iocInit
 
 create_monitor_set("ramp1Menu.req", 5 , "P=$(PREFIX)$(SUFFIX), CONFIG=ramp1,CONFIGMENU=1")
 
-stringiftest("NEGPOLARITY", "$(MODEL=370)", 5, "YES")
-$(IFNEGPOLARITY) < setNegativePolarity.cmd
 
 ## Start any sequence programs
 seq &rampLogic, "P=$(PREFIX),R=$(SUFFIX),L=0,A=$(A)"
