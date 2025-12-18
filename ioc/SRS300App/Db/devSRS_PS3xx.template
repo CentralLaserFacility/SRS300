@@ -18,6 +18,11 @@ record(waveform, "$(P)$(R)IDN")
     field(NELM, "80")
 }
 
+record(stringin, "$(P)$(R)SRSModel"){
+    field(DESC, "SRS Model Number")
+    field(VAL,  "SRS HVPS$(MODEL)")
+}
+
 record(bo, "$(P)$(R)TripClear")
 {
     field(DESC, "Clear a trip")
@@ -623,7 +628,7 @@ record(calc, "$(P)$(R)YaxisMax"){
     field(INPA, "$(P)$(R)desiredHV")
     field(INPB, "$(P)$(R)startVoltage")
     field(INPC, "$(P)$(R)C_minStepSize")
-    field(CALC, "MAX(A,B)+C")
+    field(CALC, "ABS(MAX(A,B))+C")
 
 }
 record(calc, "$(P)$(R)YaxisMin"){
@@ -631,7 +636,7 @@ record(calc, "$(P)$(R)YaxisMin"){
     field(INPA, "$(P)$(R)desiredHV")
     field(INPB, "$(P)$(R)startVoltage")
     field(INPC, "$(P)$(R)C_minStepSize")
-    field(CALC, "MIN(A,B)-C")
+    field(CALC, "ABS(MIN(A,B))-C")
 }
 
 #calculates y axis max and min for idle state
@@ -639,15 +644,15 @@ record(calc, "$(P)$(R)YaxisMin"){
 #for readability of graph when not ramping
 record(calc, "$(P)$(R)idleYaxisMax"){
     field(DESC, "Set Y axis max when not ramping")
-    field(INPA, "$(P)$(R)OutputVget")
+    field(INPA, "$(P)$(R)absVoltage")
     field(INPB, "$(P)$(R)C_minStepSize")
     field(CALC, "A + B")
 }
 
 record(calc, "$(P)$(R)idleYaxisMin"){
     field(DESC, "Set Y axis min when not ramping")
-    field(INPA, "$(P)$(R)OutputVget")
-    field(INPB, "$(P)$(R)C_minStepSize")#***
+    field(INPA, "$(P)$(R)absVoltage")
+    field(INPB, "$(P)$(R)C_minStepSize")
     field(INPC, "$(P)$(R)graphScale")
     field(CALC, "A>C ? A - C : 0")
     
@@ -695,17 +700,6 @@ record(bi, "$(P)$(R)toolbarShow"){
     field(PINI, "YES")
 }
 
-#*******
-record(ai, "$(P)$(R)currentYaxisMax"){
-    field(DESC, "Current y axis max for data browser")
-    field(PINI, "YES")
-    field(VAL, "$(IMAX)")#***
-}
-record(ai, "$(P)$(R)currentYaxisMin"){
-    field(DESC, "Current y axis min for data browser")
-    field(PINI, "YES")
-    field(VAL, "0")
-}
 
 #____________________________________________
 #___________End of ramp sequence_____________
@@ -761,7 +755,6 @@ record(mbbiDirect, "$(P)$(R)getESR")
     field(DESC, "get event status register")
     field(DTYP, "stream")
     field(INP, "@ps300.proto getD(*ESR) $(PORT) $(A)")
-    #field(PINI, "YES")
     field(SCAN, "2 second")
     field(FLNK, "$(P)$(R)getPON")
 }
@@ -844,7 +837,6 @@ record(bi, "$(P)$(R)polarity")
     field(DESC, "Device polarity")
     field(ZNAM, "+ve")
     field(ONAM, "-ve")
-    #field(FLNK, "$(P)$(R)callSubstitutionsPOS")
     
 }
 
@@ -878,7 +870,7 @@ record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions"){
     field(DO0, "$(VMAX)")
     field(LNK0, "$(P)$(R)VLIMset.HOPR")
     field(DO1, "$(VMAX)")
-    field(LNK0, "$(P)$(R)VLIMset.DRVH")
+    field(LNK1, "$(P)$(R)VLIMset.DRVH")
     field(DO2, "$(VMIN)")
     field(LNK2, "$(P)$(R)VLIMset.LOPR")
     field(DO3, "$(VMIN)")
@@ -964,24 +956,22 @@ record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions3"){
     field(LNK6, "$(P)$(R)ILIMset PP")
     field(DO7, "$(IMAX)")
     field(LNK7, "$(P)$(R)ITRPset PP")
-    #field(DO6, "$(VMAX)")
-    #field(LNK6, "$(P)$(R)VLIMset PP")
-    field(DO7, "$(VMAX)")
-    field(LNK7, "$(P)$(R)desiredHV.DRVH")
     field(DO8, "$(VMAX)")
-    field(LNK8, "$(P)$(R)desiredHV.HOPR PP")
-    field(LNK9, "$(P)$(R)DefaultSettings PP")
-    field(DOA, "$(VMAX)")
-    field(LNKA, "$(P)$(R)voltageLimitSET.HOPR")
-    field(DOB, "$(VMIN)")
-    field(LNKB, "$(P)$(R)voltageLimitSET.LOPR")
-    field(DLYC, "0.5")
-    field(DOLC, "$(P)$(R)VLIMget")
-    field(LNKC, "$(P)$(R)voltageLimitSET")
-    field(DOD, "$(VMAX)")
-    field(LNKD, "$(P)$(R)voltageLimitSET.DRVH")
-    field(DOE, "$(VMIN)")
-    field(LNKE, "$(P)$(R)voltageLimitSET.DRVL PP")
+    field(LNK8, "$(P)$(R)desiredHV.DRVH")
+    field(DO9, "$(VMAX)")
+    field(LNK9, "$(P)$(R)desiredHV.HOPR PP")
+    field(LNKA, "$(P)$(R)DefaultSettings PP")
+    field(DOB, "$(VMAX)")
+    field(LNKB, "$(P)$(R)voltageLimitSET.HOPR")
+    field(DOC, "$(VMIN)")
+    field(LNKC, "$(P)$(R)voltageLimitSET.LOPR")
+    field(DLYD, "0.5")
+    field(DOLD, "$(P)$(R)VLIMget")
+    field(LNKD, "$(P)$(R)voltageLimitSET")
+    field(DOE, "$(VMAX)")
+    field(LNKE, "$(P)$(R)voltageLimitSET.DRVH")
+    field(DOF, "$(VMIN)")
+    field(LNKF, "$(P)$(R)voltageLimitSET.DRVL PP")
     field(FLNK, "$(P)$(R)setOnStart")
 }
 
