@@ -5,7 +5,7 @@
 # in file LICENSE that is included with this distribution.
 ##########################################################################
 
-#____________Temp proto commands_____________
+#____________Proto commands_____________
 #----------------------------------------------
 
 record(waveform, "$(P)$(R)IDN")
@@ -71,7 +71,6 @@ record(ai, "$(P)$(R)ILIMget")
     field(FLNK, "$(P)$(R)ILIMmA")
 }
 
-
 record(ao, "$(P)$(R)ITRPset")
 {
     field(DESC, "Set output current trip limit")
@@ -92,6 +91,44 @@ record(ai, "$(P)$(R)ITRPget")
     field(FLNK, "$(P)$(R)ITRPmA")
 }
 
+record(bo, "$(P)$(R)setSAV")
+{
+    field(DESC, "Save current device settings")
+    field(DTYP, "stream")
+    field(OUT,  "@ps300.proto cmd(*SAV 1) $(PORT) $(A)")
+    field(ZNAM, "Set to save settings")
+    field(ONAM, "Set to save settings")
+    
+}
+record(bo, "$(P)$(R)RestoreSettings")
+{
+    field(DESC, "Restore saved settings")
+    field(DTYP, "stream")
+    field(OUT,  "@ps300.proto cmd(*RCL 1) $(PORT) $(A)")
+    field(ZNAM, "Restore to saved settings")
+    field(ONAM, "Restore saved settings1")
+    
+}
+
+record(bo, "$(P)$(R)DefaultSettings")
+{
+    field(DESC, "Reset settings to default")
+    field(DTYP, "stream")
+    field(OUT,  "@ps300.proto cmd(*RCL 0) $(PORT) $(A)")
+    field(ZNAM, "Reset to default settings")
+    field(ONAM, "Reset to default settings")
+    field(FLNK, "$(P)$(R)defaultLIM")
+    
+}
+record(mbbiDirect, "$(P)$(R)getESR")
+{
+    field(DESC, "get event status register")
+    field(DTYP, "stream")
+    field(INP, "@ps300.proto getD(*ESR) $(PORT) $(A)")
+    field(SCAN, "2 second")
+    field(FLNK, "$(P)$(R)getPON")
+}
+
 record(calc, "$(P)$(R)ILIMmA")
 {
     field(DESC, "Convert ILIM to mA for display")
@@ -110,11 +147,8 @@ record(calc, "$(P)$(R)ITRPmA")
     field(PREC, "2")
 }
 
-#__________________________________________________________
-#
-# Dummy record to trigger readbacks
-
-
+#______________________________________________
+#______________status readbacks_________________
 record(fanout, "$(P)$(R)ReadbackPoll_")
 {
     field(DESC, "Head of readback chain")
@@ -125,7 +159,6 @@ record(fanout, "$(P)$(R)ReadbackPoll_")
     field(LNK3, "$(P)$(R)ILIMstatus")
     field(LNK4, "$(P)$(R)ITRIPstatus")
     field(LNK5, "$(P)$(R)VTRIPstatus")
-
 }
 
 record(mbbiDirect, "$(P)$(R)getSTB")
@@ -143,6 +176,10 @@ record(bi, "$(P)$(R)HVONstatus")
     field(ZNAM, "Off")
     field(ONAM, "On")
 }
+
+#_______________________________________________
+#______________status LEDs______________________
+
 record(calcout, "$(P)$(R)ILIMstatus")
 {
     field(DESC, "Is current limited?")
@@ -199,6 +236,9 @@ record(calc, "$(P)$(R)StableMultiState")
     #while ramping states will begin at 0 to allow for 1 extra second of instability which is expected
 }
 
+#___________________________________________________
+#_______________get current_________________________
+
 record(ai, "$(P)$(R)OutputIget")
 {
     field(DESC, "Output current readback")
@@ -206,8 +246,6 @@ record(ai, "$(P)$(R)OutputIget")
     field(SCAN, ".1 second")
     field(INP,  "@ps300.proto getF(IOUT) $(PORT) $(A)")
     field(EGU,  "A")
-    field(LOPR, "0")
-    field(HOPR, "500.0e-6")
     field(PREC, "4")
     field(FLNK, "$(P)$(R)OutputImA")
 }
@@ -220,104 +258,6 @@ record(calc, "$(P)$(R)OutputImA")
     field(EGU, "mA")
     field(PREC, "2")
 }
-#________________________________________________________
-
-record(bo, "$(P)$(R)HVenable")
-{#Turn high voltage on/off
-    field(DESC, "Enable output")
-    field(DTYP, "stream")
-    field(VAL, "0")
-    field(OUT,  "@ps300.proto hvOffOn $(PORT) $(A)")
-    field(ZNAM, "Turn Off")
-    field(ONAM, "Turn On")
-    #field(PINI, "YES")
-    field(FLNK, "$(P)$(R)HVenableSeq")
-}
-
-record(seq, "$(P)$(R)HVenableSeq")
-{
-    field(DESC, "Sequence to dis/enable HV")
-    field(DOL1, "$(P)$(R)C_absVMIN PP")
-    field(LNK1, "$(P)$(R)HVset PP")
-    field(DO2, "0")
-    field(LNK2, "$(P)$(R)VRAMPactive PP")
-    field(LNK3, "$(P)$(R)getSTB.PROC PP")
-}
-
-#____________________________________________
-#_________Start ramping process______________
-
-record(bi, "$(P)$(R)chargeStartHelper")
-{
-    field(DESC, "Helper record to start HV charge")
-    field(FLNK, "$(P)$(R)StartCharge")
-}
-record(seq, "$(P)$(R)StartCharge")
-{
-    field(DESC, "Sequence to start HV charge")
-    #get/set values for graphing
-    field(DOL3, "$(P)$(R)OutputVget")
-    field(LNK3, "$(P)$(R)startVoltage PP")
-    field(DO4, "1")
-    field(LNK4, "$(P)$(R)YaxisMax.PROC PP")
-    field(DO5, "1")
-    field(LNK5, "$(P)$(R)YaxisMin.PROC PP")
-    field(DOL6, "$(P)$(R)YaxisMin")
-    field(LNK6, "$(P)$(R)autoscaleControlMin PP")
-    field(DOL7, "$(P)$(R)YaxisMax")
-    field(LNK7, "$(P)$(R)autoscaleControlMax PP")
-    #calculate ramp parameters
-    field(LNK8, "$(P)$(R)VRAMPcalc PP")
-}
-
-record(bi, "$(P)$(R)VRAMPactive")
-{#when set to 1 ("Ramping") the state machine will begin the ramping process
-    field(DESC, "Is charge active?")
-    field(ZNAM, "Idle")
-    field(ONAM, "Ramping")
-    field(PINI, "YES")
-}
-
-#_____________________________________________
-#______User set ramp parameters_______________
-
-record(ai, "$(P)$(R)VRAMPtimeSet"){
-    #LOPR and VAl passed in from setOnStart as cannot be set to a pv directly
-    field(DESC, "Set desired ramp time")
-    field(HOPR, "1000000")#HOPR must be set and setting to Inf is not supported by ui
-    field(EGU,  "seconds")
-    field(PINI, "YES")
-}
-record(ao, "$(P)$(R)VRAMPinterval") {
-    #^^above comments apply
-    field(DESC, "Set ramp up interval") 
-    field(HOPR, "1000000")
-    field(DRVH, "1000000")
-    field(EGU, "seconds")
-    field(PINI, "YES")
-}
-
-record(ao, "$(P)$(R)VRAMPstepSize"){
-    field(DESC, "Set voltage ramp step size")
-    field(EGU, "V")
-    field(PINI, "YES")
-}
-
-record(bi, "$(P)$(R)VRAMPmode"){
-    field(DESC, "Set ramp mode")
-    field(PINI, "YES")
-    field(VAL, "0") #Automatic mode by default
-    #automatic means calculation is performed, manual means user sets step size and interval
-    field(ZNAM, "Automatic")
-    field(ONAM, "Manual")
-}
-
-record(ao, "$(P)$(R)desiredHV")
-{
-    field(DESC, "Set target output voltage")
-    field(EGU,  "V")
-    field(PINI, "YES")
-}
 #__________________________________________
 #__________Voltage get and set_____________
 
@@ -328,7 +268,6 @@ record(ao, "$(P)$(R)HVset")
     field(OUT,  "@ps300.proto setting(VSET) $(PORT) $(A)")
     field(EGU,  "V")
 }
-
 record(seq, "$(P)$(R)voltageMonitor")
 {
     field(DESC, "Monitor voltage")
@@ -337,7 +276,6 @@ record(seq, "$(P)$(R)voltageMonitor")
     field(LNK1, "$(P)$(R)OutputVget.PROC")
     field(LNK2, "$(P)$(R)HVSTABLEstatus.PROC")
 }
-
 record(ai, "$(P)$(R)OutputVget")
 {
     field(DESC, "Output voltage readback")
@@ -353,8 +291,47 @@ record(calc, "$(P)$(R)absVoltage"){
     field(EGU, "V")
 }
 
-#_________________________________________
-#__________ramp calculation_______________
+#________________________________________________________
+#________________enable/disable HV output________________
+record(bo, "$(P)$(R)HVenable")
+{#Turn high voltage on/off
+    field(DESC, "Enable output")
+    field(DTYP, "stream")
+    field(VAL, "0")
+    field(OUT,  "@ps300.proto hvOffOn $(PORT) $(A)")
+    field(ZNAM, "Turn Off")
+    field(ONAM, "Turn On")
+    field(FLNK, "$(P)$(R)HVenableSeq")
+}
+record(seq, "$(P)$(R)HVenableSeq")
+{
+    field(DESC, "Sequence to dis/enable HV")
+    field(DOL1, "$(P)$(R)C_absVMIN PP")
+    field(LNK1, "$(P)$(R)HVset PP")
+    field(DO2, "0")
+    field(LNK2, "$(P)$(R)VRAMPactive PP")
+    field(LNK3, "$(P)$(R)getSTB.PROC PP")
+}
+#____________________________________________
+#_________Start ramping process______________
+
+record(ai, "$(P)$(R)startVoltage"){
+    field(DESC, "Voltage at start of ramp")
+    field(EGU, "V")
+    field(PINI, "YES")
+}
+
+#startCharge sequence sets up startVoltage, graphing pvs and processes calc record
+#see devSRS_PS3xx_sequences.template
+
+record(bi, "$(P)$(R)VRAMPactive")
+{#when set to 1 ("Ramping") the state machine will begin the ramping process
+    field(DESC, "Is charge active?")
+    field(ZNAM, "Idle")
+    field(ONAM, "Ramping")
+    field(PINI, "YES")
+}
+
 record(aSub, "$(P)$(R)VRAMPcalc"){
     field(DESC, "Calculate ramp step size")
     field(SNAM, "rampcalc")
@@ -390,15 +367,53 @@ record(aSub, "$(P)$(R)VRAMPcalc"){
     field(FTVE, "DOUBLE")
 
 }
+#________________________________________________
+#_________User set ramp parameters_______________
 
-#_______________________________________
-#_____________constants_________________
+record(ai, "$(P)$(R)VRAMPtimeSet"){
+    #LOPR and VAl passed in from setOnStart as cannot be set to a pv directly
+    field(DESC, "Set desired ramp time")
+    field(HOPR, "1000000")#HOPR must be set and setting to Inf is not supported by ui
+    field(EGU,  "seconds")
+    field(PINI, "YES")
+}
+record(ao, "$(P)$(R)VRAMPinterval") {
+    #^^above comments apply
+    field(DESC, "Set ramp up interval") 
+    field(HOPR, "1000000")#HOPR must be set and setting to Inf is not supported by ui
+    field(DRVH, "1000000")
+    field(EGU, "seconds")
+    field(PINI, "YES")
+}
+
+record(ao, "$(P)$(R)VRAMPstepSize"){
+    field(DESC, "Set voltage ramp step size")
+    field(EGU, "V")
+    field(PINI, "YES")
+}
+
+record(bi, "$(P)$(R)VRAMPmode"){
+    field(DESC, "Set ramp mode")
+    field(PINI, "YES")
+    field(VAL, "0") #Automatic mode by default
+    #automatic means calculation is performed, manual means user sets step size and interval
+    field(ZNAM, "Automatic")
+    field(ONAM, "Manual")
+}
+record(ao, "$(P)$(R)desiredHV")
+{
+    field(DESC, "Set target output voltage")
+    field(EGU,  "V")
+    field(PINI, "YES")
+}
+
+#____________________________________________
+#________________constants___________________
 record(calc, "$(P)$(R)C_minStepSize"){
     field(DESC, "Minimum step size for automatic ramping")
     field(INPA, "$(P)$(R)C_absVMIN")
     field(CALC, "ABS(A)") #the minimum step size is the absolute value of the minimum voltage
-    field(EGU, "V")
-    
+    field(EGU, "V") 
     field(FLNK, "$(P)$(R)C_maxStepSize")
 }
 record(calc, "$(P)$(R)C_maxStepSize"){
@@ -406,7 +421,6 @@ record(calc, "$(P)$(R)C_maxStepSize"){
     field(INPA, "$(P)$(R)C_absVMAX")
     field(CALC, "ABS(A)")
     field(EGU, "V")
-    
 }
 
 record(calc, "$(P)$(R)C_absVMIN"){
@@ -414,17 +428,14 @@ record(calc, "$(P)$(R)C_absVMIN"){
     field(INPA, "$(P)$(R)VMAX PP")
     field(INPB, "$(P)$(R)VMIN PP")
     field(CALC, "ABS(A)>ABS(B) ? B : A") #in negative versions vmin has larger abs value
-    #*** hopr and lopr
     field(EGU, "V")
     field(FLNK, "$(P)$(R)C_absVMAX")
-    
 }
 record(calc, "$(P)$(R)C_absVMAX"){
     field(DESC, "Minimum voltage (closest to 0)")
     field(INPA, "$(P)$(R)VMAX PP")
     field(INPB, "$(P)$(R)VMIN PP")
     field(CALC, "ABS(A)>ABS(B) ? A : B") #in negative versions vmin has larger abs value
-    #*** hopr and lopr
     field(EGU, "V")
     field(FLNK, "$(P)$(R)C_minStepSize")
 }
@@ -448,19 +459,12 @@ record(ai, "$(P)$(R)C_vgetDelay"){
 record(ai, "$(P)$(R)C_Tolerance"){
     field(DESC, "Tolerance for ramping")
     field(PINI, "YES")
-    field(VAL, "4") #dependent on model ***
-}
-record(ai, "$(P)$(R)C_Precision"){
-    field(DESC, "number of decimal places")
-    field(PINI, "YES")
-    field(VAL, "2") #dependent on model
+    #val set from substitutions on start
+    field(EGU, "V")
 }
 
-record(ao, "$(P)$(R)voltageLimitSET"){
-    field(DESC, "Maximum voltage for device")
-    field(EGU, "V")
-    field(PINI, "YES")
-}
+#_________________________________________________
+#_________user changeable limit settings_________
 
 record(ai, "$(P)$(R)currentLimitmA"){
     field(DESC, "Maximum current for device")
@@ -491,75 +495,11 @@ record(calc, "$(P)$(R)currentTripLimitA"){
     field(EGU, "A")
     field(PREC, "4")
 }
-record(calc, "$(P)$(R)C_IMAXmA"){
-    field(DESC, "Convert IMAX to mA for display")
-    field(INPA, "$(P)$(R)IMAX")
-    field(CALC, "A*1000")
-    field(EGU, "mA")
-    field(PREC, "2")
+record(ao, "$(P)$(R)voltageLimitSET"){
+    field(DESC, "Maximum voltage for device")
+    field(EGU, "V")
     field(PINI, "YES")
 }
-
-record(ai, "$(P)$(R)VMAX"){
-    field(DESC, "Maximum voltage for device")
-    field(EGU, "V")
-}
-record(ai, "$(P)$(R)VMIN"){
-    field(DESC, "Maximum voltage for device")
-    field(EGU, "V")
-}
-
-record(ai, "$(P)$(R)IMAX"){
-    field(DESC, "Maximum current for device")
-    field(EGU, "A")
-    field(PREC, "4")
-}
-record(ai, "$(P)$(R)IMIN"){
-    field(DESC, "Minimum current for device")
-    field(EGU, "A")
-    field(PREC, "4")
-}
-
-#when changes are applied from the limit menu, set the device limits to the new values
-record(seq,"$(P)$(R)setNewLimitsPOS"){
-    field(DESC, "sets limits from constants")
-    field(DOL1, "$(P)$(R)voltageLimitSET PP")
-    field(LNK1, "$(P)$(R)VLIMset PP")
-    field(DOL2, "$(P)$(R)currentLimitA PP")
-    field(LNK2, "$(P)$(R)ILIMset PP")
-    field(DOL3, "$(P)$(R)currentTripLimitA PP")
-    field(LNK3, "$(P)$(R)ITRPset PP")
-    field(DOL4, "$(P)$(R)voltageLimitSET")
-    field(LNK4, "$(P)$(R)desiredHV.HOPR")
-    field(DOL5, "$(P)$(R)voltageLimitSET")
-    field(LNK5, "$(P)$(R)HVset.HOPR")
-    field(DOL6, "$(P)$(R)voltageLimitSET")
-    field(LNK6, "$(P)$(R)HVset.DRVH PP")
-    field(DOL7, "$(P)$(R)voltageLimitSET")
-    field(LNK7, "$(P)$(R)OutputVget.HOPR PP")
-    field(DOL8, "$(P)$(R)voltageLimitSET")
-    field(LNK8, "$(P)$(R)desiredHV.DRVH PP")
-}
-record(seq,"$(P)$(R)setNewLimitsNEG"){
-    field(DESC, "sets limits from constants")
-    field(DOL1, "$(P)$(R)voltageLimitSET PP")
-    field(LNK1, "$(P)$(R)VLIMset PP")
-    field(DOL2, "$(P)$(R)currentLimitA PP")
-    field(LNK2, "$(P)$(R)ILIMset PP")
-    field(DOL3, "$(P)$(R)currentTripLimitA PP")
-    field(LNK3, "$(P)$(R)ITRPset PP")
-    field(DOL4, "$(P)$(R)voltageLimitSET")
-    field(LNK4, "$(P)$(R)desiredHV.LOPR")
-    field(DOL5, "$(P)$(R)voltageLimitSET")
-    field(LNK5, "$(P)$(R)HVset.LOPR")
-    field(DOL6, "$(P)$(R)voltageLimitSET")
-    field(LNK6, "$(P)$(R)HVset.DRVL PP")
-    field(DOL7, "$(P)$(R)voltageLimitSET")
-    field(LNK7, "$(P)$(R)OutputVget.LOPR PP")
-    field(DOL8, "$(P)$(R)voltageLimitSET")
-    field(LNK8, "$(P)$(R)desiredHV.DRVL PP")
-}
-
 #If the menu is closed before changes are applied, limit values are changed back to what they were previously
 record(seq, "$(P)$(R)limitMenuClosed"){
     field(DESC, "Sequence to run when limit menu closed")
@@ -582,13 +522,35 @@ record(seq, "$(P)$(R)resetLimits"){
     field(LNK3, "$(P)$(R)currentTripLimitmA PP")
 }
 
-record(bi, "$(P)$(R)limitMenuOpen"){
-    field(DESC, "Open/close limit menu (ui)")
-    field(ZNAM, "Closed")
-    field(ONAM, "Open")
+#___________________________________________
+#_______substitutions values set to pvs_____
+record(calc, "$(P)$(R)C_IMAXmA"){
+    field(DESC, "Convert IMAX to mA for display")
+    field(INPA, "$(P)$(R)IMAX")
+    field(CALC, "A*1000")
+    field(EGU, "mA")
+    field(PREC, "2")
     field(PINI, "YES")
 }
+record(ai, "$(P)$(R)VMAX"){
+    field(DESC, "Maximum voltage for device")
+    field(EGU, "V")
+}
+record(ai, "$(P)$(R)VMIN"){
+    field(DESC, "Maximum voltage for device")
+    field(EGU, "V")
+}
 
+record(ai, "$(P)$(R)IMAX"){
+    field(DESC, "Maximum current for device")
+    field(EGU, "A")
+    field(PREC, "4")
+}
+record(ai, "$(P)$(R)IMIN"){
+    field(DESC, "Minimum current for device")
+    field(EGU, "A")
+    field(PREC, "4")
+}
 
 #__________________________________________
 #_____________error messages_______________
@@ -608,102 +570,131 @@ record(mbbi, "$(P)$(R)errorMessage"){
     field(ONST, "Voltage change below min")
 }
 
-record(ai, "$(P)$(R)startVoltage"){
-    field(DESC, "Voltage at start of ramp")
-    field(EGU, "V")
-    field(PINI, "YES")
-}
-
 #______________________________________________
-#__________Autoscale for data browser__________
+#_______________Reset button__________________
 
-#data browser doesn't allow for changing the y axis limits using rules
-#so instead, autoscale is used and two pvs are plotted invisibly on the graph to control it
-#the autoscale pvs are calculated differently depending on whether it is ramping or idle
-
-#calculate y axis max and min for ramping
-#calculated such that y axis shows between starting voltage and target voltage plus a small margin
-record(calc, "$(P)$(R)YaxisMax"){
-    field(DESC, "calc Y axis maximum")
-    field(INPA, "$(P)$(R)desiredHV")
-    field(INPB, "$(P)$(R)startVoltage")
-    field(INPC, "$(P)$(R)C_minStepSize")
-    field(CALC, "ABS(MAX(A,B))+C")
-
-}
-record(calc, "$(P)$(R)YaxisMin"){
-    field(DESC, "calc Y axis minimum")
-    field(INPA, "$(P)$(R)desiredHV")
-    field(INPB, "$(P)$(R)startVoltage")
-    field(INPC, "$(P)$(R)C_minStepSize")
-    field(CALC, "ABS(MIN(A,B))-C")
+record(seq, "$(P)$(R)hardReset"){
+    field(DESC, "Hard reset sequence")
+    field(DO1, "0")
+    field(LNK1, "$(P)$(R)HVenable PP")
+    field(DO2, "1")
+    field(LNK2, "$(P)$(R)TripClearSeq.PROC")
+    field(LNK3, "$(P)$(R)ResetDevice.PROC PP")
 }
 
-#calculates y axis max and min for idle state
-#calculated to show maximum 5000V on Y axis when idle plus a small margin
-#for readability of graph when not ramping
-record(calc, "$(P)$(R)idleYaxisMax"){
-    field(DESC, "Set Y axis max when not ramping")
-    field(INPA, "$(P)$(R)absVoltage")
-    field(INPB, "$(P)$(R)C_minStepSize")
-    field(CALC, "A + B")
+record(bo, "$(P)$(R)ResetDevice")
+{
+    field(DESC, "Reset device")
+    field(DTYP, "stream")
+    field(OUT,  "@ps300.proto cmd(*RST) $(PORT) $(A)")
+    field(ZNAM, "Reset Device")
+    field(ONAM, "Reset Device")
 }
 
-record(calc, "$(P)$(R)idleYaxisMin"){
-    field(DESC, "Set Y axis min when not ramping")
-    field(INPA, "$(P)$(R)absVoltage")
-    field(INPB, "$(P)$(R)C_minStepSize")
-    field(INPC, "$(P)$(R)graphScale")
-    field(CALC, "A>C ? A - C : 0")
-    
+record(seq, "$(P)$(R)tripClearSeq"){
+    field(DESC, "Sequence to clear trip and reset device")
+    field(DO1, "0")
+    field(LNK1, "$(P)$(R)TripStatus PP")
+    field(DO2, "1")
+    field(LNK2, "$(P)$(R)TripClear.PROC PP")
+    field(LNK3, "$(P)$(R)ReadbackPoll_.PROC PP")
 }
 
-record(ai, "$(P)$(R)graphScale"){
-    field(DESC, "Margin for graph y axis when idle")
-    field(VAL, "5000") #5000V margin by default
-    field(EGU, "V")
-    field(PINI, "YES")
-}
+#_________________________________________________________
+#____________Polarity and substitutions___________________
 
-#pvs to be plotted invisibly on the graph to control the autoscale feature in data browser
-record(ai, "$(P)$(R)autoscaleControlMax"){
-    field(DESC, "Control autoscale maximum")
-}
+#when power on event detected, run sequence to check polarity and apply substitutions
 
-record(ai, "$(P)$(R)autoscaleControlMin"){
-    field(DESC, "Control autoscale minimum")
+record(calcout, "$(P)$(R)getPON")
+{
+    field(DESC, "get power on event")
+    field(INPA, "$(P)$(R)getESR.B7")
+    field(CALC, "A")
+    field(OCAL, "1")
+    field(OUT, "$(P)$(R)PONseq.PROC")
+    field(OOPT, "Transition To Non-zero")
 }
-
-#sequences to set autoscale pvs to the calculated values
-record(seq, "$(P)$(R)idleZoom"){
-    field(DESC, "Auto zoom data browser")
-    field(DOL1, "$(P)$(R)idleYaxisMax PP")
-    field(LNK1, "$(P)$(R)autoscaleControlMax PP")
-    field(DOL2, "$(P)$(R)idleYaxisMin PP")
-    field(LNK2, "$(P)$(R)autoscaleControlMin PP")
-    field(PINI, "YES")
-}
-record(seq, "$(P)$(R)rampZoom"){
-    field(DESC, "Auto zoom data browser")
-    field(DOL1, "$(P)$(R)YaxisMax")
-    field(LNK1, "$(P)$(R)autoscaleControlMax PP")
-    field(DOL2, "$(P)$(R)YaxisMin")
-    field(LNK2, "$(P)$(R)autoscaleControlMin PP")
-    
-}
-
-record(bi, "$(P)$(R)toolbarShow"){
-    field(DESC, "Show/hide toolbar in ui")
-    field(ZNAM, "Hide Toolbar")
-    field(ONAM, "Show Toolbar")
-    field(VAL, "0")
+record(seq, "$(P)$(R)PONseq")
+{
+    #save current settings
+    #reset to default settings
+    #check polarity of default settings
+    #restore saved settings
+    #if polarity has changed, apply new substitutions
+    field(DESC, "Power on event sequence")
+    field(DO0, "1")
+    field(LNK0, "$(P)$(R)setSAV.PROC")
+    field(DO1, "1")
+    field(LNK1, "$(P)$(R)DefaultSettings.PROC")
+    field(DO2, "1")
+    field(LNK2, "$(P)$(R)checkPolarity.PROC")
+    field(DO3, "1")
+    field(DLY3, "0.5")
+    field(LNK3, "$(P)$(R)RestoreSettings.PROC")
+    field(DO4, "1")
+    field(LNK4, "$(P)$(R)callSubstitutionsPOS.PROC")
+    #process sequence to apply substitutions based on model and polarity
+    #in devSRS_PS3xx_sequences.template
     field(PINI, "YES")
 }
 
 
-#____________________________________________
-#___________End of ramp sequence_____________
+record(ai, "$(P)$(R)defaultLIM"){
+    #stores default limit values for use in checking polarity
+    field(DESC, "Store default limit values")
+    field(INP, "$(P)$(R)VLIMget")
+    #field(FLNK, "$(P)$(R)checkPolarity")
+}
 
+record(calcout, "$(P)$(R)checkPolarity")
+{
+    field(DESC, "Check device polarity on startup")
+    field(VAL, "3") #dummy initial value to allow processing on startup
+    field(INPA, "$(P)$(R)defaultLIM")
+    field(CALC, "A<0 ? 1 : 0") #if limit is negative, device is negative polarity
+    field(OOPT, "On Change")
+    field(OUT, "$(P)$(R)polarity PP")
+}
+
+record(bi, "$(P)$(R)polarity")
+{
+    field(DESC, "Device polarity")
+    field(ZNAM, "+ve")
+    field(ONAM, "-ve")
+}
+
+#model number string for ui display
+record(stringin, "$(P)$(R)SRSModel"){
+    field(DESC, "SRS Model Number")
+    field(VAL,  "SRS HVPS$(MODEL)")
+}
+
+#_____________________________________________________
+#______________start charge sequence__________________
+record(bi, "$(P)$(R)chargeStartHelper")
+{
+    field(DESC, "Helper record to start HV charge")
+    field(FLNK, "$(P)$(R)StartCharge")
+}
+record(seq, "$(P)$(R)StartCharge")
+{
+    field(DESC, "Sequence to start HV charge")
+    #get/set values for graphing
+    field(DOL3, "$(P)$(R)OutputVget")
+    field(LNK3, "$(P)$(R)startVoltage PP")
+    field(DO4, "1")
+    field(LNK4, "$(P)$(R)YaxisMax.PROC PP")
+    field(DO5, "1")
+    field(LNK5, "$(P)$(R)YaxisMin.PROC PP")
+    field(DOL6, "$(P)$(R)YaxisMin")
+    field(LNK6, "$(P)$(R)autoscaleControlMin PP")
+    field(DOL7, "$(P)$(R)YaxisMax")
+    field(LNK7, "$(P)$(R)autoscaleControlMax PP")
+    #calculate ramp parameters
+    field(LNK8, "$(P)$(R)VRAMPcalc PP")
+}
+
+#_________________end charge sequence_________________
 record(seq, "$(P)$(R)endCharge")
 {
     field(DESC, "Sequence to end HV charge")
@@ -843,167 +834,173 @@ record(bi, "$(P)$(R)polarity")
 #_______________________________________________________
 #_________set substitutions based on polarity___________
 
-record(calcout, "$(P)$(R)callSubstitutionsPOS")
-{
-    field(DESC, "Set substitutions based on polarity")
-    field(INPA, "$(P)$(R)polarity")
-    field(CALC, "A")
-    field(OCAL, "1")
-    field(OOPT, "When Zero")
-    field(OUT, "$(P)$(R)SRS$(MODEL):0:setSubstitutions.PROC")
-    field(FLNK, "$(P)$(R)callSubstitutionsNEG")
-}
-record(calcout, "$(P)$(R)callSubstitutionsNEG")
-{
-    field(DESC, "Set substitutions based on polarity")
-    field(INPA, "$(P)$(R)polarity")
-    field(CALC, "A")
-    field(OCAL, "1")
-    field(OOPT, "When Non-zero")
-    field(OUT, "$(P)$(R)SRS$(MODEL):1:setSubstitutions.PROC")
-}
-record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions"){
-    #set substitutions based on polarity and model
-    #substitutions can't usually be changed dynamically so a sequence must be used
-    #to account for models with switchable polarity
-    field(DESC, "Set substitutions based on polarity")
-    field(DO0, "$(VMAX)")
-    field(LNK0, "$(P)$(R)VLIMset.HOPR")
-    field(DO1, "$(VMAX)")
-    field(LNK1, "$(P)$(R)VLIMset.DRVH")
-    field(DO2, "$(VMIN)")
-    field(LNK2, "$(P)$(R)VLIMset.LOPR")
-    field(DO3, "$(VMIN)")
-    field(LNK3, "$(P)$(R)VLIMset.DRVL PP")
-    field(DO4, "$(VMAX)")
-    field(LNK4, "$(P)$(R)VMAX PP")
-    field(DO5, "$(VMIN)")
-    field(LNK5, "$(P)$(R)VMIN PP")
-    field(DO6, "$(IMAX)")
-    field(LNK6, "$(P)$(R)IMAX PP")
-    field(DO7, "$(IMIN)")
-    field(LNK7, "$(P)$(R)IMIN PP")
-    field(DO8, "$(VMAX)")
-    field(LNK8, "$(P)$(R)VLIMget.HOPR")
-    field(DO9, "$(VMAX)")
-    field(LNK9, "$(P)$(R)VLIMget.DRVH")
-    field(DOA, "$(VMIN)")
-    field(LNKA, "$(P)$(R)VLIMget.LOPR")
-    field(DOB, "$(VMIN)")
-    field(LNKB, "$(P)$(R)VLIMget.DRVL")
-    field(DOC, "$(IMAX)")
-    field(LNKC, "$(P)$(R)ILIMget.HOPR")
-    field(DOD, "$(IMAX)")
-    field(LNKD, "$(P)$(R)ILIMget.DRVH")
-    field(DOE, "$(IMIN)")
-    field(LNKE, "$(P)$(R)ILIMget.LOPR")
-    field(DOF, "$(IMIN)")
-    field(LNKF, "$(P)$(R)ILIMget.DRVL PP")
-    field(FLNK, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions2")
-    
-}
-record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions2"){
-    field(DESC, "Set substitutions based on polarity")
-    field(DO0, "$(IMAX)")
-    field(LNK0, "$(P)$(R)ILIMset.HOPR")
-    field(DO1, "$(IMAX)")
-    field(LNK1, "$(P)$(R)ILIMset.DRVH")
-    field(DO2, "$(IMIN)")
-    field(LNK2, "$(P)$(R)ILIMset.LOPR")
-    field(DO3, "$(IMIN)")
-    field(LNK3, "$(P)$(R)ILIMset.DRVL")
-    field(DO4, "$(IMAX)")
-    field(LNK4, "$(P)$(R)ITRPset.HOPR")
-    field(DO5, "$(IMAX)")
-    field(LNK5, "$(P)$(R)ITRPset.DRVH")
-    field(DO6, "$(IMIN)")
-    field(LNK6, "$(P)$(R)ITRPset.LOPR")
-    field(DO7, "$(IMIN)")
-    field(LNK7, "$(P)$(R)ITRPset.DRVL")
-    field(DO8, "$(IMAX)")
-    field(LNK8, "$(P)$(R)ITRPget.HOPR")
-    field(DO9, "$(IMIN)")
-    field(LNK9, "$(P)$(R)ITRPget.LOPR PP")
-    field(LNKA, "$(P)$(R)C_absVMIN PP")
-    field(DOLB, "$(P)$(R)C_minStepSize")
-    field(LNKB, "$(P)$(R)VRAMPstepSize.LOPR")
-    field(DOLC, "$(P)$(R)C_minStepSize")
-    field(LNKC, "$(P)$(R)VRAMPstepSize")
-    field(DOLD, "$(P)$(R)C_maxStepSize")
-    field(LNKD, "$(P)$(R)VRAMPstepSize.HOPR")
-    field(DOLE, "$(P)$(R)C_maxStepSize")
-    field(LNKE, "$(P)$(R)VRAMPstepSize.DRVH")
-    field(DOLF, "$(P)$(R)C_minStepSize")
-    field(LNKF, "$(P)$(R)VRAMPstepSize.DRVL PP")
-    
-    field(FLNK, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions3")
-}
-record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions3"){
-    field(DESC, "Set substitutions based on polarity")
-    field(DO0, "$(VMIN)")
-    field(LNK0, "$(P)$(R)desiredHV.LOPR")
-    field(DO1, "$(VMIN)")
-    field(LNK1, "$(P)$(R)desiredHV.DRVL")
-    field(DO2, "$(VMAX)")
-    field(LNK2, "$(P)$(R)HVset.HOPR ")
-    field(DO3, "$(VMIN)")
-    field(LNK3, "$(P)$(R)HVset.LOPR PP")
-    field(DO4, "$(VMAX)")
-    field(LNK4, "$(P)$(R)OutputVget.HOPR")
-    field(DO5, "$(VMIN)")
-    field(LNK5, "$(P)$(R)OutputVget.LOPR PP")
-    field(DO6, "$(IMAX)")
-    field(LNK6, "$(P)$(R)ILIMset PP")
-    field(DO7, "$(IMAX)")
-    field(LNK7, "$(P)$(R)ITRPset PP")
-    field(DO8, "$(VMAX)")
-    field(LNK8, "$(P)$(R)desiredHV.DRVH")
-    field(DO9, "$(VMAX)")
-    field(LNK9, "$(P)$(R)desiredHV.HOPR PP")
-    field(LNKA, "$(P)$(R)DefaultSettings PP")
-    field(DOB, "$(VMAX)")
-    field(LNKB, "$(P)$(R)voltageLimitSET.HOPR")
-    field(DOC, "$(VMIN)")
-    field(LNKC, "$(P)$(R)voltageLimitSET.LOPR")
-    field(DLYD, "0.5")
-    field(DOLD, "$(P)$(R)VLIMget")
-    field(LNKD, "$(P)$(R)voltageLimitSET")
-    field(DOE, "$(VMAX)")
-    field(LNKE, "$(P)$(R)voltageLimitSET.DRVH")
-    field(DOF, "$(VMIN)")
-    field(LNKF, "$(P)$(R)voltageLimitSET.DRVL PP")
-    field(FLNK, "$(P)$(R)setOnStart")
-}
+#checks whether polarity is positive or negative and calls appropriate sequence
+# record(calcout, "$(P)$(R)callSubstitutionsPOS")
+# {
+#     field(DESC, "Set substitutions based on polarity")
+#     field(VAL, "3")#ensure initial value is non-zero so can be processed on transition to zero
+#     field(INPA, "$(P)$(R)polarity")
+#     field(CALC, "A")
+#     field(OCAL, "1")
+#     field(OOPT, "Transition To Zero")
+#     field(OUT, "$(P)$(R)SRS$(MODEL):0:setSubstitutions.PROC")
+#     field(FLNK, "$(P)$(R)callSubstitutionsNEG")
+# }
+# record(calcout, "$(P)$(R)callSubstitutionsNEG")
+# {
+#     field(DESC, "Set substitutions based on polarity")
+#     field(INPA, "$(P)$(R)polarity")
+#     field(CALC, "A")
+#     field(OCAL, "1")
+#     field(OOPT, "Transition To Non-zero")
+#     field(OUT, "$(P)$(R)SRS$(MODEL):1:setSubstitutions.PROC")
+# }
 
-record(seq,"$(P)$(R)setOnStart"){
-    #Sets values on start, not from substitutions
-    field(DESC, "sets values from constants")
-    field(DOL1, "$(P)$(R)C_minInterval PP")
-    field(LNK1, "$(P)$(R)VRAMPtimeSet.LOPR ")
-    field(DOL2, "$(P)$(R)C_minInterval")
-    field(LNK2, "$(P)$(R)VRAMPinterval.LOPR ")
-    field(DOL3, "$(P)$(R)C_minInterval")
-    field(LNK3, "$(P)$(R)VRAMPtimeSet PP")
-    field(DOL4, "$(P)$(R)C_minInterval")
-    field(LNK4, "$(P)$(R)VRAMPinterval")
-    field(DOL5, "$(P)$(R)C_IMAXmA PP")
-    field(LNK5, "$(P)$(R)currentLimitmA.HOPR PP")
-    field(DOL6, "$(P)$(R)C_IMAXmA")
-    field(LNK6, "$(P)$(R)currentTripLimitmA.HOPR PP")
-    field(LNK7, "$(P)$(R)resetLimits.PROC PP")
-    field(DOL8, "$(P)$(R)C_minInterval")
-    field(LNK8, "$(P)$(R)VRAMPinterval.DRVL PP")
-    field(LNK9, "$(P)$(R)idleZoom PP")
+
+# #substitutions can't usually be changed dynamically so a sequence must be used
+# #to account for models with switchable polarity
+# #H/LOPR and DRVH/L are not able to be set directly from another pv in the pv itself
+# #so a sequence is used to set the values 
+
+# #this sequence will only be called on initialisation and when polarity is changed
+# record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions"){
+#     field(DESC, "Set substitutions based on polarity")
+#     field(DO0, "$(VMAX)")
+#     field(LNK0, "$(P)$(R)VLIMset.HOPR")
+#     field(DO1, "$(VMAX)")
+#     field(LNK1, "$(P)$(R)VLIMset.DRVH")
+#     field(DO2, "$(VMIN)")
+#     field(LNK2, "$(P)$(R)VLIMset.LOPR")
+#     field(DO3, "$(VMIN)")
+#     field(LNK3, "$(P)$(R)VLIMset.DRVL PP")
+#     field(DO4, "$(VMAX)")
+#     field(LNK4, "$(P)$(R)VMAX PP")
+#     field(DO5, "$(VMIN)")
+#     field(LNK5, "$(P)$(R)VMIN PP")
+#     field(DO6, "$(IMAX)")
+#     field(LNK6, "$(P)$(R)IMAX PP")
+#     field(DO7, "$(IMIN)")
+#     field(LNK7, "$(P)$(R)IMIN PP")
+#     field(DO8, "$(VMAX)")
+#     field(LNK8, "$(P)$(R)VLIMget.HOPR")
+#     field(DO9, "$(VMAX)")
+#     field(LNK9, "$(P)$(R)VLIMget.DRVH")
+#     field(DOA, "$(VMIN)")
+#     field(LNKA, "$(P)$(R)VLIMget.LOPR")
+#     field(DOB, "$(VMIN)")
+#     field(LNKB, "$(P)$(R)VLIMget.DRVL")
+#     field(DOC, "$(IMAX)")
+#     field(LNKC, "$(P)$(R)ILIMget.HOPR")
+#     field(DOD, "$(IMAX)")
+#     field(LNKD, "$(P)$(R)ILIMget.DRVH")
+#     field(DOE, "$(IMIN)")
+#     field(LNKE, "$(P)$(R)ILIMget.LOPR")
+#     field(DOF, "$(IMIN)")
+#     field(LNKF, "$(P)$(R)ILIMget.DRVL PP")
+#     field(FLNK, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions2")
     
-}
+# }
+# record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions2"){
+#     field(DESC, "Set substitutions based on polarity")
+#     field(DO0, "$(IMAX)")
+#     field(LNK0, "$(P)$(R)ILIMset.HOPR")
+#     field(DO1, "$(IMAX)")
+#     field(LNK1, "$(P)$(R)ILIMset.DRVH")
+#     field(DO2, "$(IMIN)")
+#     field(LNK2, "$(P)$(R)ILIMset.LOPR")
+#     field(DO3, "$(IMIN)")
+#     field(LNK3, "$(P)$(R)ILIMset.DRVL")
+#     field(DO4, "$(IMAX)")
+#     field(LNK4, "$(P)$(R)ITRPset.HOPR")
+#     field(DO5, "$(IMAX)")
+#     field(LNK5, "$(P)$(R)ITRPset.DRVH")
+#     field(DO6, "$(IMIN)")
+#     field(LNK6, "$(P)$(R)ITRPset.LOPR")
+#     field(DO7, "$(IMIN)")
+#     field(LNK7, "$(P)$(R)ITRPset.DRVL")
+#     field(DO8, "$(IMAX)")
+#     field(LNK8, "$(P)$(R)ITRPget.HOPR")
+#     field(DO9, "$(IMIN)")
+#     field(LNK9, "$(P)$(R)ITRPget.LOPR PP")
+#     field(DOA, "$(IMAX)")
+#     field(LNKA, "$(P)$(R)ITRPset PP")
+#     field(DOB, "$(VMAX)")
+#     field(LNKB, "$(P)$(R)C_absVMIN.HOPR")
+#     field(DOC, "$(VMAX)")
+#     field(LNKC, "$(P)$(R)C_absVMAX.HOPR")
+#     field(DOD, "$(VMIN)")
+#     field(LNKD, "$(P)$(R)C_absVMIN.LOPR")
+#     field(DOE, "$(VMIN)")
+#     field(LNKE, "$(P)$(R)C_absVMAX.LOPR")
+#     field(DOF, "$(IMAX)")
+#     field(LNKF, "$(P)$(R)OutputIget.HOPR")
+#     field(FLNK, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions3")
+# }
+# record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions3"){
+#     field(DESC, "Set substitutions based on polarity")
+#     field(DO0, "$(VMIN)")
+#     field(LNK0, "$(P)$(R)desiredHV.LOPR")
+#     field(DO1, "$(VMIN)")
+#     field(LNK1, "$(P)$(R)desiredHV.DRVL")
+#     field(DO2, "$(VMAX)")
+#     field(LNK2, "$(P)$(R)HVset.HOPR ")
+#     field(DO3, "$(VMIN)")
+#     field(LNK3, "$(P)$(R)HVset.LOPR PP")
+#     field(DO4, "$(VMAX)")
+#     field(LNK4, "$(P)$(R)OutputVget.HOPR")
+#     field(DO5, "$(VMIN)")
+#     field(LNK5, "$(P)$(R)OutputVget.LOPR PP")
+#     field(DO6, "$(IMAX)")
+#     field(LNK6, "$(P)$(R)ILIMset PP")
+#     field(DO7, "$(IMAX)")
+#     field(LNK7, "$(P)$(R)ITRPset PP")
+#     field(DO8, "$(VMAX)")
+#     field(LNK8, "$(P)$(R)desiredHV.DRVH")
+#     field(DO9, "$(VMAX)")
+#     field(LNK9, "$(P)$(R)desiredHV.HOPR PP")
+#     field(LNKA, "$(P)$(R)DefaultSettings PP")
+#     field(DOB, "$(VMAX)")
+#     field(LNKB, "$(P)$(R)voltageLimitSET.HOPR")
+#     field(DOC, "$(VMIN)")
+#     field(LNKC, "$(P)$(R)voltageLimitSET.LOPR")
+#     field(DLYD, "0.5")
+#     field(DOLD, "$(P)$(R)VLIMget")
+#     field(LNKD, "$(P)$(R)voltageLimitSET")
+#     field(DOE, "$(VMAX)")
+#     field(LNKE, "$(P)$(R)voltageLimitSET.DRVH")
+#     field(DOF, "$(VMIN)")
+#     field(LNKF, "$(P)$(R)voltageLimitSET.DRVL PP")
+#     field(FLNK, "$(P)$(R)setOnStart")
+# }
 
-#__________________________________________
-#_______________Config Menu________________
-
-record(mbbi, "$(P)$(R)configMenuOpen"){
-    field(DESC, "Open ui config menu")
-    field(VAL, "0")
-    field(ZRST, "Closed")
-    field(ONST, "medium menu")
-    field(TWST, "large menu")
-}
+# #values to be set on start not based on substitutions
+# record(seq,"$(P)$(R)setOnStart"){
+#     field(DESC, "sets values from constants")
+#     field(LNK0, "$(P)$(R)C_absVMIN PP")
+#     field(DOL1, "$(P)$(R)C_minStepSize")
+#     field(LNK1, "$(P)$(R)VRAMPstepSize.LOPR")
+#     field(DOL2, "$(P)$(R)C_minStepSize")
+#     field(LNK2, "$(P)$(R)VRAMPstepSize")
+#     field(DOL3, "$(P)$(R)C_maxStepSize")
+#     field(LNK3, "$(P)$(R)VRAMPstepSize.HOPR")
+#     field(DOL4, "$(P)$(R)C_maxStepSize")
+#     field(LNK4, "$(P)$(R)VRAMPstepSize.DRVH")
+#     field(DOL5, "$(P)$(R)C_minStepSize")
+#     field(LNK5, "$(P)$(R)VRAMPstepSize.DRVL PP")
+#     field(DOL6, "$(P)$(R)C_minInterval PP")
+#     field(LNK6, "$(P)$(R)VRAMPtimeSet.LOPR ")
+#     field(DOL7, "$(P)$(R)C_minInterval")
+#     field(LNK7, "$(P)$(R)VRAMPinterval.LOPR ")
+#     field(DOL8, "$(P)$(R)C_minInterval")
+#     field(LNK8, "$(P)$(R)VRAMPtimeSet PP")
+#     field(DOL9, "$(P)$(R)C_minInterval")
+#     field(LNK9, "$(P)$(R)VRAMPinterval")
+#     field(DOLA, "$(P)$(R)C_IMAXmA PP")
+#     field(LNKA, "$(P)$(R)currentLimitmA.HOPR PP")
+#     field(DOLB, "$(P)$(R)C_IMAXmA")
+#     field(LNKB, "$(P)$(R)currentTripLimitmA.HOPR PP")
+#     field(LNKC, "$(P)$(R)resetLimits PP")
+#     field(DOLD, "$(P)$(R)C_minInterval")
+#     field(LNKD, "$(P)$(R)VRAMPinterval.DRVL PP")
+#     field(LNKE, "$(P)$(R)idleZoom PP")
+# }

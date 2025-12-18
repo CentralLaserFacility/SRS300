@@ -1,10 +1,12 @@
-file "$(TOP)/db/devSRS_PS3xx.template"
+file "$(TOP)/db/devSRS_PS3xx_sequences.template"
 {
   #VMIN = Minimum voltage and minimum step size, VMAX = maximum voltage
   #IMIN and IMAX = Minimum and maximum current, respectively
   #POLARITY = Polarity of the device (for now, 0=positive 1 = negative)
   #TOLERANCE = Voltage amount the device may be inaccurate by at higher voltage levels.
   #PREC = decimal point accuracy of values
+#all IMIN values are currently 0
+#it is possible some devices may have negative current limits so these may need to be updated
     pattern { MODELNO, VMIN, VMAX, IMIN, IMAX, POLARITY, TOLERANCE}
             {"375", "100", "20000", "0", "525e-6", "0", "4" }
             { "370", "-20000", "-100", "0", "525e-6", "1", "10"}

@@ -8,10 +8,12 @@ include $(TOP)/configure/CONFIG
 # Create and install (or just install) into <top>/db
 # databases, templates, substitutions like this
 DB += devSRS_PS300_common.db
+DB += devSRS_PS3xx.db
+DB += devSRS_PS3xx_ui.db
 
 DB += devSRS_PS3xx.substitutions
 
-DB += devSRS_PS3xx.template
+DB += devSRS_PS3xx_sequences.template
 
 DB_INSTALLS += $(ASYN)/db/asynRecord.db
 
