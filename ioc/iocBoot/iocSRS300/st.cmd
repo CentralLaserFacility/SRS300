@@ -32,6 +32,7 @@ dbLoadRecords("$(ASYN)/db/asynRecord.db","P=$(PREFIX)$(SUFFIX),R=asyn,PORT=$(POR
 dbLoadRecords("db/devSRS_PS3xx.db","PORT=$(PORT),R=$(SUFFIX),P=$(PREFIX),A=$(A), MODEL=$(MODEL)")
 dbLoadTemplate("db/devSRS_PS3xx.substitutions","PORT=$(PORT),R=$(SUFFIX),P=$(PREFIX),A=$(A), MODEL=$(MODEL)")
 dbLoadRecords("db/devSRS_PS3xx_ui.db","PORT=$(PORT),R=$(SUFFIX),P=$(PREFIX),A=$(A), MODEL=$(MODEL)")
+dbLoadRecords("db/customLimits.db","PORT=$(PORT),R=$(SUFFIX),P=$(PREFIX),A=$(A), MODEL=$(MODEL)")
 dbLoadRecords("db/devSRS_PS300_common.db","P=$(PREFIX),R=$(SUFFIX),L=0,A=$(A)")
 
 # specify where save files should go

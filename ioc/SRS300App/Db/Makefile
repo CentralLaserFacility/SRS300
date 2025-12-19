@@ -10,6 +10,7 @@ include $(TOP)/configure/CONFIG
 DB += devSRS_PS300_common.db
 DB += devSRS_PS3xx.db
 DB += devSRS_PS3xx_ui.db
+DB += customLimits.db
 
 DB += devSRS_PS3xx.substitutions
 
