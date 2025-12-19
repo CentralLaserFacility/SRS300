@@ -211,7 +211,7 @@ else:
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(P)$(R)chargeStartHelper</pv_name>
+      <pv_name>$(P)$(R)StartCharge.PROC</pv_name>
       <text>Start ramp</text>
       <x>29</x>
       <y>212</y>

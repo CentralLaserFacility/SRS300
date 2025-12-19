@@ -62,7 +62,6 @@ record(calc, "$(P)$(R)idleYaxisMin"){
     field(INPB, "$(P)$(R)C_minStepSize")
     field(INPC, "$(P)$(R)graphScale")
     field(CALC, "A>C ? A - C : 0")
-    
 }
 
 record(ai, "$(P)$(R)graphScale"){
@@ -96,7 +95,6 @@ record(seq, "$(P)$(R)rampZoom"){
     field(LNK1, "$(P)$(R)autoscaleControlMax PP")
     field(DOL2, "$(P)$(R)YaxisMin")
     field(LNK2, "$(P)$(R)autoscaleControlMin PP")
-    
 }
 
 record(bi, "$(P)$(R)toolbarShow"){

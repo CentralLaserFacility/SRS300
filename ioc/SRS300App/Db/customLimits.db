@@ -1,6 +1,85 @@
+#_________________________________________________________
+#_____________get and set limits to device______________
 
+record(ao, "$(P)$(R)VLIMset")
+{
+    field(DESC, "Set output voltage limit")
+    field(DTYP, "stream")
+    field(OUT,  "@ps300.proto setting(VLIM) $(PORT) $(A)")
+    field(EGU,  "V")
+    field(FLNK, "$(P)$(R)VLIMget")
+}
+record(ai, "$(P)$(R)VLIMget")
+{
+    field(DESC, "Get output voltage limit")
+    field(DTYP, "stream")
+    field(INP,  "@ps300.proto getF(VLIM) $(PORT) $(A)")
+    field(EGU,  "V")
+    field(PINI, "YES")
+
+}
+record(ao, "$(P)$(R)ILIMset")
+{
+    field(DESC, "Set output current limit")
+    field(DTYP, "stream")
+    field(OUT,  "@ps300.proto setting(ILIM) $(PORT) $(A)")
+    field(EGU,  "A")
+    field(PREC, "4")
+    field(FLNK, "$(P)$(R)ILIMget")
+}
+record(ai, "$(P)$(R)ILIMget")
+{
+    field(DESC, "Get output current limit")
+    field(DTYP, "stream")
+    field(INP,  "@ps300.proto getF(ILIM) $(PORT) $(A)")
+    field(EGU,  "A")
+    field(PREC, "4")
+    field(PINI, "YES")
+    field(FLNK, "$(P)$(R)ILIMmA")
+}
+
+record(ao, "$(P)$(R)ITRPset")
+{
+    field(DESC, "Set output current trip limit")
+    field(DTYP, "stream")
+    field(OUT,  "@ps300.proto setting(ITRP) $(PORT) $(A)")
+    field(EGU,  "A")
+    field(PREC, "4")
+    field(FLNK, "$(P)$(R)ITRPget")
+}
+record(ai, "$(P)$(R)ITRPget")
+{
+    field(DESC, "Get output current trip limit")
+    field(DTYP, "stream")
+    field(INP,  "@ps300.proto getF(ITRP) $(PORT) $(A)")
+    field(EGU,  "A")
+    field(PREC, "4")
+    field(PINI, "YES")
+    field(FLNK, "$(P)$(R)ITRPmA")
+}
+#_________________________________________________________
+#___________save/restore limit settings_____________
+
+record(bo, "$(P)$(R)setSAV")
+{
+    field(DESC, "Save current device settings")
+    field(DTYP, "stream")
+    field(OUT,  "@ps300.proto cmd(*SAV 1) $(PORT) $(A)")
+    field(ZNAM, "Set to save settings")
+    field(ONAM, "Set to save settings")
+    
+}
+record(bo, "$(P)$(R)RestoreSettings")
+{
+    field(DESC, "Restore saved settings")
+    field(DTYP, "stream")
+    field(OUT,  "@ps300.proto cmd(*RCL 1) $(PORT) $(A)")
+    field(ZNAM, "Restore to saved settings")
+    field(ONAM, "Restore saved settings1")
+}
 #_________________________________________________________
 #when changes are applied from the limit menu, set the device limits to the new values
+
 record(seq,"$(P)$(R)setNewLimitsPOS"){
     field(DESC, "sets limits from constants")
     field(DOL1, "$(P)$(R)voltageLimitSET PP")

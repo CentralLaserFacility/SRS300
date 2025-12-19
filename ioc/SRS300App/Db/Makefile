@@ -14,7 +14,7 @@ DB += customLimits.db
 
 DB += devSRS_PS3xx.substitutions
 
-DB += devSRS_PS3xx_sequences.template
+DB += deviceSettings.template
 
 DB_INSTALLS += $(ASYN)/db/asynRecord.db
 

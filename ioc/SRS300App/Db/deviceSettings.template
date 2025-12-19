@@ -28,6 +28,9 @@ record(ai, "$(P)$(R)IMIN"){
     field(EGU, "A")
     field(PREC, "4")
 }
+
+#the minimum and maximum based on absolute value of limits
+#(values still retain original sign pos/neg)
 record(calc, "$(P)$(R)C_absVMIN"){
     field(DESC, "Minimum voltage (closest to 0)")
     field(INPA, "$(P)$(R)VMAX PP")

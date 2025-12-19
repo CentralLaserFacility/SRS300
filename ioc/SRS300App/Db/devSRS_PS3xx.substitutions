@@ -1,4 +1,4 @@
-file "$(TOP)/db/devSRS_PS3xx_sequences.template"
+file "$(TOP)/db/deviceSettings.template"
 {
   #VMIN = Minimum voltage and minimum step size, VMAX = maximum voltage
   #IMIN and IMAX = Minimum and maximum current, respectively
