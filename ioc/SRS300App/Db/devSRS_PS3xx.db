@@ -200,9 +200,7 @@ record(seq, "$(P)$(R)StartCharge"){
     #get/set values for graphing
     field(DOL3, "$(P)$(R)OutputVget")
     field(LNK3, "$(P)$(R)startVoltage PP")
-    field(DO4, "1")
     field(LNK4, "$(P)$(R)YaxisMax.PROC PP")
-    field(DO5, "1")
     field(LNK5, "$(P)$(R)YaxisMin.PROC PP")
     field(DOL6, "$(P)$(R)YaxisMin")
     field(LNK6, "$(P)$(R)autoscaleControlMin PP")
@@ -345,9 +343,8 @@ record(seq, "$(P)$(R)hardReset"){
     field(DESC, "Hard reset sequence")
     field(DO1, "0")
     field(LNK1, "$(P)$(R)HVenable PP")
-    field(DO2, "1")
     field(LNK2, "$(P)$(R)TripClearSeq.PROC")
-    field(LNK3, "$(P)$(R)ResetDevice.PROC PP")
+    field(FLNK, "$(P)$(R)ResetDevice")
 }
 
 record(bo, "$(P)$(R)ResetDevice"){
@@ -362,9 +359,8 @@ record(seq, "$(P)$(R)tripClearSeq"){
     field(DESC, "Sequence to clear trip and reset device")
     field(DO1, "0")
     field(LNK1, "$(P)$(R)TripStatus PP")
-    field(DO2, "1")
     field(LNK2, "$(P)$(R)TripClear.PROC PP")
-    field(LNK3, "$(P)$(R)ReadbackPoll_.PROC PP")
+    field(FLNK, "$(P)$(R)ReadbackPoll_")
 }
 
 record(bo, "$(P)$(R)TripClear"){
@@ -397,14 +393,10 @@ record(seq, "$(P)$(R)PONseq"){
     #restore saved settings
     #if polarity has changed, apply new substitutions
     field(DESC, "Power on event sequence")
-    field(DO0, "1")
     field(LNK0, "$(P)$(R)setSAV.PROC")
-    field(DO1, "1")
     field(LNK1, "$(P)$(R)DefaultSettings.PROC")
-    field(DO2, "1")
     field(DLY2, "0.5")
     field(LNK2, "$(P)$(R)RestoreSettings.PROC")
-    field(DO3, "1")
     field(LNK3, "$(P)$(R)callSubstitutionsPOS.PROC")
     #process sequence to apply substitutions based on model and polarity
     #in devSRS_PS3xx_sequences.template
