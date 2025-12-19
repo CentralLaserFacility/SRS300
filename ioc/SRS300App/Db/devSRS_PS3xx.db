@@ -14,25 +14,6 @@ record(waveform, "$(P)$(R)IDN"){
     field(FTVL, "CHAR")
     field(NELM, "80")
 }
-
-record(mbbiDirect, "$(P)$(R)getESR"){
-    field(DESC, "get event status register")
-    field(DTYP, "stream")
-    field(INP, "@ps300.proto getD(*ESR) $(PORT) $(A)")
-    field(SCAN, "2 second")
-    field(FLNK, "$(P)$(R)getPON")
-}
-
-record(bo, "$(P)$(R)DefaultSettings"){
-    field(DESC, "Reset settings to default")
-    field(DTYP, "stream")
-    field(OUT,  "@ps300.proto cmd(*RCL 0) $(PORT) $(A)")
-    field(ZNAM, "Reset to default settings")
-    field(ONAM, "Reset to default settings")
-    field(FLNK, "$(P)$(R)defaultLIM")
-    
-}
-
 #______________________________________________
 #______________status readbacks_________________
 record(fanout, "$(P)$(R)ReadbackPoll_"){
@@ -176,6 +157,7 @@ record(bo, "$(P)$(R)HVenable")
     field(ZNAM, "Turn Off")
     field(ONAM, "Turn On")
     field(FLNK, "$(P)$(R)HVenableSeq")
+    field(PINI, "YES")
 }
 record(seq, "$(P)$(R)HVenableSeq"){
     field(DESC, "Sequence to dis/enable HV")
@@ -184,7 +166,15 @@ record(seq, "$(P)$(R)HVenableSeq"){
     field(DO2, "0")
     field(LNK2, "$(P)$(R)VRAMPactive PP")
     field(LNK3, "$(P)$(R)getSTB.PROC PP")
+    field(DLY4, "1") #wait 1 second after enabling/disabling HV before checking status
+    field(LNK4, "$(P)$(R)HVdisconnectError PP")
 }
+ record(calc, "$(P)$(R)HVdisconnectError"){
+     field(DESC, "Check if device disconnected")
+     field(INPA, "$(P)$(R)HVONstatus")
+     field(INPB, "$(P)$(R)HVenable")
+     field(CALC, "B == A ? 0 : 1") #1=disconnected/powered off, 0=normal
+ }
 
 #______________________________________________________
 #______________Start ramping process__________________
@@ -257,7 +247,7 @@ record(aSub, "$(P)$(R)VRAMPcalc"){
     field(FTVB, "DOUBLE")
     field(OUTC, "$(P)$(R)VRAMPactive PP")
     field(FTVC, "SHORT")
-    field(OUTD, "$(P)$(R)E_smallStep PP")
+    field(OUTD, "$(P)$(R)smallStepError PP")
     field(FTVD, "SHORT")
     field(OUTE, "$(P)$(R)VRAMPtimeSet PP")
     field(FTVE, "DOUBLE")
@@ -317,23 +307,18 @@ record(calc, "$(P)$(R)C_maxStepSize"){
     field(CALC, "ABS(A)")
     field(EGU, "V")
 }
-
 #__________________________________________
 #_____________error messages_______________
 
-record(bo,"$(P)$(R)E_smallStep"){
-    field(DESC, "Warning for step being too small")
-    field(ZNAM, "Safe")
-    field(ONAM, "Voltage change below min")
-    field(OUT, "$(P)$(R)errorMessage PP")
-    field(PINI, "YES")
-}
 #mbbi to hold error messages, to be updated with more error statuses if needed
-record(mbbi, "$(P)$(R)errorMessage"){
-    field(DESC, "Error message for ramping")
+record(calc, "$(P)$(R)smallStepError"){
+    field(DESC, "warning for step being too small")
+    field(INPA, "$(P)$(R)desiredHV PP")
+    field(INPB, "$(P)$(R)OutputVget")
+    field(INPC, "$(P)$(R)C_minStepSize")
+    field(CALC, "ABS(A-B) < C ? 1 : 0") #1=error, 0=no error
     field(PINI, "YES")
-    field(ZRST, "No Error")
-    field(ONST, "Voltage change below min")
+
 }
 
 #______________________________________________
@@ -374,9 +359,17 @@ record(bo, "$(P)$(R)TripClear"){
 }
 
 #_________________________________________________________
-#____________Polarity and substitutions___________________
+#____________Power on event___________________
 
 #when power on event detected, run sequence to check polarity and apply substitutions
+
+record(mbbiDirect, "$(P)$(R)getESR"){
+    field(DESC, "get event status register")
+    field(DTYP, "stream")
+    field(INP, "@ps300.proto getD(*ESR) $(PORT) $(A)")
+    field(SCAN, "2 second")
+    field(FLNK, "$(P)$(R)getPON")
+}
 
 record(calcout, "$(P)$(R)getPON"){
     field(DESC, "get power on event")
@@ -387,8 +380,7 @@ record(calcout, "$(P)$(R)getPON"){
     field(OOPT, "Transition To Non-zero")
 }
 record(seq, "$(P)$(R)PONseq"){
-    #save current settings
-    #reset to default settings
+    #save current settings then reset to default settings
     #check polarity of default settings
     #restore saved settings
     #if polarity has changed, apply new substitutions
@@ -400,37 +392,5 @@ record(seq, "$(P)$(R)PONseq"){
     field(LNK3, "$(P)$(R)callSubstitutionsPOS.PROC")
     #process sequence to apply substitutions based on model and polarity
     #in devSRS_PS3xx_sequences.template
-    field(TPRO, "1")
     field(PINI, "YES")
-}
-
-record(bo, "$(P)$(R)DefaultSettings"){
-    field(DESC, "Reset settings to default")
-    field(DTYP, "stream")
-    field(OUT,  "@ps300.proto cmd(*RCL 0) $(PORT) $(A)")
-    field(ZNAM, "Reset to default settings")
-    field(ONAM, "Reset to default settings")
-    field(FLNK, "$(P)$(R)defaultLIM")
-}
-
-record(ai, "$(P)$(R)defaultLIM"){
-    #stores default limit values for use in checking polarity
-    field(DESC, "Store default limit values")
-    field(INP, "$(P)$(R)VLIMget")
-    field(FLNK, "$(P)$(R)checkPolarity")
-}
-
-record(calcout, "$(P)$(R)checkPolarity"){
-    field(DESC, "Check device polarity on startup")
-    field(VAL, "3") #dummy initial value to allow processing on startup
-    field(INPA, "$(P)$(R)defaultLIM")
-    field(CALC, "A<0 ? 1 : 0") #if limit is negative, device is negative polarity
-    field(OOPT, "On Change")
-    field(OUT, "$(P)$(R)polarity PP")
-}
-
-record(bi, "$(P)$(R)polarity"){
-    field(DESC, "Device polarity")
-    field(ZNAM, "+ve")
-    field(ONAM, "-ve")
 }

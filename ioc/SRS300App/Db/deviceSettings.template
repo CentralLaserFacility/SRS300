@@ -71,6 +71,40 @@ record(ai, "$(P)$(R)C_Tolerance"){
     field(EGU, "V")
 }
 
+#________default settings______________
+#___________________________________
+record(bo, "$(P)$(R)DefaultSettings"){
+    field(DESC, "Reset settings to default")
+    field(DTYP, "stream")
+    field(OUT,  "@ps300.proto cmd(*RCL 0) $(PORT) $(A)")
+    field(ZNAM, "Reset to default settings")
+    field(ONAM, "Reset to default settings")
+    field(FLNK, "$(P)$(R)defaultLIM")
+}
+
+record(ai, "$(P)$(R)defaultLIM"){
+    #stores default limit values for use in checking polarity
+    field(DESC, "Store default limit values")
+    field(INP, "$(P)$(R)VLIMget")
+    field(FLNK, "$(P)$(R)checkPolarity")
+}
+
+#___device polarity check on startup____
+#______________________________________
+record(calcout, "$(P)$(R)checkPolarity"){
+    field(DESC, "Check device polarity on startup")
+    field(VAL, "3") #dummy initial value to allow processing on startup
+    field(INPA, "$(P)$(R)defaultLIM")
+    field(CALC, "A<0 ? 1 : 0") #if limit is negative, device is negative polarity
+    field(OOPT, "On Change")
+    field(OUT, "$(P)$(R)polarity PP")
+}
+
+record(bi, "$(P)$(R)polarity"){
+    field(DESC, "Device polarity")
+    field(ZNAM, "+ve")
+    field(ONAM, "-ve")
+}
 #_______________________________________________________
 #_________set substitutions based on polarity___________
 
@@ -83,7 +117,7 @@ record(calcout, "$(P)$(R)callSubstitutionsPOS")
     field(CALC, "A")
     field(OCAL, "1")
     field(OOPT, "Transition To Zero")
-    field(OUT, "$(P)$(R)SRS$(MODEL):0:setSubstitutions.PROC")
+    field(OUT, "$(P)$(R)SRS$(MODEL)+:setSubstitutions.PROC")
     field(FLNK, "$(P)$(R)callSubstitutionsNEG")
 }
 record(calcout, "$(P)$(R)callSubstitutionsNEG")
@@ -93,7 +127,7 @@ record(calcout, "$(P)$(R)callSubstitutionsNEG")
     field(CALC, "A")
     field(OCAL, "1")
     field(OOPT, "Transition To Non-zero")
-    field(OUT, "$(P)$(R)SRS$(MODEL):1:setSubstitutions.PROC")
+    field(OUT, "$(P)$(R)SRS$(MODEL)-:setSubstitutions.PROC")
 }
 
 
@@ -103,7 +137,7 @@ record(calcout, "$(P)$(R)callSubstitutionsNEG")
 #so a sequence is used to set the values 
 
 #this sequence will only be called on initialisation and when polarity is changed
-record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions"){
+record(seq, "$(P)$(R)SRS$(MODELNO)$(POLARITY):setSubstitutions"){
     field(DESC, "Set substitutions based on polarity")
     field(DO0, "$(VMAX)")
     field(LNK0, "$(P)$(R)VLIMset.HOPR")
@@ -137,10 +171,10 @@ record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions"){
     field(LNKE, "$(P)$(R)ILIMget.LOPR")
     field(DOF, "$(IMIN)")
     field(LNKF, "$(P)$(R)ILIMget.DRVL PP")
-    field(FLNK, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions2")
+    field(FLNK, "$(P)$(R)SRS$(MODELNO)$(POLARITY):setSubstitutions2")
     
 }
-record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions2"){
+record(seq, "$(P)$(R)SRS$(MODELNO)$(POLARITY):setSubstitutions2"){
     field(DESC, "Set substitutions based on polarity")
     field(DO0, "$(IMAX)")
     field(LNK0, "$(P)$(R)ILIMset.HOPR")
@@ -174,9 +208,9 @@ record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions2"){
     field(LNKE, "$(P)$(R)C_absVMAX.LOPR")
     field(DOF, "$(IMAX)")
     field(LNKF, "$(P)$(R)OutputIget.HOPR")
-    field(FLNK, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions3")
+    field(FLNK, "$(P)$(R)SRS$(MODELNO)$(POLARITY):setSubstitutions3")
 }
-record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions3"){
+record(seq, "$(P)$(R)SRS$(MODELNO)$(POLARITY):setSubstitutions3"){
     field(DESC, "Set substitutions based on polarity")
     field(DO0, "$(VMIN)")
     field(LNK0, "$(P)$(R)desiredHV.LOPR")
@@ -210,7 +244,6 @@ record(seq, "$(P)$(R)SRS$(MODELNO):$(POLARITY):setSubstitutions3"){
     field(DOF, "$(TOLERANCE)")
     field(LNKF, "$(P)$(R)C_Tolerance PP")
     field(FLNK, "$(P)$(R)setOnStart")
-    field(TPRO, "1")
 }
 
 #values to be set on start not based on substitutions

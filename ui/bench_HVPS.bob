@@ -543,28 +543,25 @@ else:
       <x>5</x>
       <y>2</y>
     </widget>
-    <widget type="textupdate" version="2.0.0">
-      <name>Text Update_1</name>
-      <pv_name>$(P)$(R)errorMessage</pv_name>
+    <widget type="label" version="2.0.0">
+      <name>Label_1</name>
+      <text>Voltage change below min</text>
       <x>84</x>
       <y>2</y>
       <width>166</width>
-      <background_color>
-        <color red="255" green="0" blue="0" alpha="0">
+      <visible>false</visible>
+      <foreground_color>
+        <color name="STOP" red="255" green="0" blue="0">
         </color>
-      </background_color>
+      </foreground_color>
       <rules>
-        <rule name="New Rule" prop_id="foreground_color" out_exp="false">
+        <rule name="New Rule" prop_id="visible" out_exp="false">
           <exp bool_exp="pv0 !=0">
-            <value>
-              <color name="STOP" red="255" green="0" blue="0">
-              </color>
-            </value>
+            <value>true</value>
           </exp>
-          <pv_name>$(P)$(R)E_smallStep</pv_name>
+          <pv_name>$(P)$(R)smallStepError</pv_name>
         </rule>
       </rules>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1927,5 +1924,60 @@ ScriptUtil.openDisplay(widget, "bench_HVPS.bob", "REPLACE", None)
     </background_color>
     <transparent>true</transparent>
     <horizontal_alignment>1</horizontal_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>disconnect error message</name>
+    <text>Cannot enable HV:      Device off/disconnected</text>
+    <x>563</x>
+    <y>269</y>
+    <width>166</width>
+    <height>35</height>
+    <visible>false</visible>
+    <foreground_color>
+      <color name="STOP" red="255" green="0" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color red="224" green="229" blue="232">
+      </color>
+    </background_color>
+    <transparent>false</transparent>
+    <rules>
+      <rule name="New Rule" prop_id="visible" out_exp="false">
+        <exp bool_exp="pv0 !=0">
+          <value>true</value>
+        </exp>
+        <pv_name>$(P)$(R)HVdisconnectError</pv_name>
+      </rule>
+    </rules>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_4</name>
+    <actions execute_as_one="true">
+      <action type="write_pv">
+        <description>Write PV</description>
+        <pv_name>$(P)$(R)smallStepError</pv_name>
+        <value>0</value>
+      </action>
+      <action type="write_pv">
+        <description>Write PV</description>
+        <pv_name>$(P)$(R)HVdisconnectError</pv_name>
+        <value>0</value>
+      </action>
+    </actions>
+    <text>Clear message</text>
+    <x>478</x>
+    <y>292</y>
+    <height>20</height>
+    <rules>
+      <rule name="New Rule" prop_id="visible" out_exp="false">
+        <exp bool_exp="pv0 == 0 &amp;&amp; pv1 == 0">
+          <value>false</value>
+        </exp>
+        <pv_name>$(P)$(R)smallStepError</pv_name>
+        <pv_name>$(P)$(R)HVdisconnectError</pv_name>
+      </rule>
+    </rules>
+    <tooltip>$(actions)</tooltip>
   </widget>
 </display>
