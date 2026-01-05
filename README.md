@@ -26,7 +26,7 @@ There are two 'popup' menus in the GUI, one for ramp configurations and the othe
 ## Hardware connections
 The SRS PS375 and PS370 communicate via a serial connection which is converted to ethernet however some models, such as the PS310, must instead use a GPIB to ethernet controller.
 
-### Documentation and manuals:
+## Documentation and manuals:
 Most information in either manual is applicable to both earlier and later models
 
 - Earlier models(31, 325, 350): https://thinksrs.com/downloads/pdfs/manuals/PS300m.pdf
