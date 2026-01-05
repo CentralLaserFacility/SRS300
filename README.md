@@ -14,8 +14,8 @@ By default the step size is the device's minimum voltage.
 
 For safe ramping:
 
--If the HVPSU is connected to a device, the ramp time should not be too fast and should be at minimum 15 seconds from 100V to 20kV to prevent a trip (exact values vary between devices and is at user's discretion).
--If a user is unsure as to appropriate values for ramping of a device, configMenu is used so that users can save and load in settings other users have used with titles and descriptions.
+- If the HVPSU is connected to a device, the ramp time should not be too fast and should be at minimum 15 seconds from 100V to 20kV to prevent a trip (exact values vary between devices and is at user's discretion).
+- If a user is unsure as to appropriate values for ramping of a device, configMenu is used so that users can save and load in settings other users have used with titles and descriptions.
 
 ## Substitutions, limits and inputs
 To allow for substitutions to change dynamically, sequence records are used to set limits on start and may be used to set new limits during run time if polarity is switched.
