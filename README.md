@@ -1,5 +1,4 @@
 # Stanford Research Systems HVPSU 300-series Controller
-SRS300 Series Controller &amp; GUI.
 EPICS IOC and GUI to control SRS 300-series High voltage power supplies.
 
 ## Overview
