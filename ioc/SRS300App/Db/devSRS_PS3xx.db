@@ -6,7 +6,7 @@
 ##########################################################################
 
 
-record(waveform, "$(P)$(R)IDN"){
+record(waveform, "$(P)$(R):IDN"){
     field(DESC, "SCPI identification string")
     field(DTYP, "stream")
     field(INP,  "@ps300.proto getIDN(79) $(PORT) $(A)")
@@ -16,27 +16,27 @@ record(waveform, "$(P)$(R)IDN"){
 }
 #______________________________________________
 #______________status readbacks_________________
-record(fanout, "$(P)$(R)ReadbackPoll_"){
+record(fanout, "$(P)$(R):ReadbackPoll_"){
     field(DESC, "Head of readback chain")
     field(PINI, "YES")
     field(SCAN, ".1 second")
-    field(LNK1, "$(P)$(R)getSTB")
-    field(LNK2, "$(P)$(R)HVONstatus")
-    field(LNK3, "$(P)$(R)ILIMstatus")
-    field(LNK4, "$(P)$(R)ITRIPstatus")
-    field(LNK5, "$(P)$(R)VTRIPstatus")
+    field(LNK1, "$(P)$(R):getSTB")
+    field(LNK2, "$(P)$(R):HVONstatus")
+    field(LNK3, "$(P)$(R):ILIMstatus")
+    field(LNK4, "$(P)$(R):ITRIPstatus")
+    field(LNK5, "$(P)$(R):VTRIPstatus")
 }
 
-record(mbbiDirect, "$(P)$(R)getSTB"){
+record(mbbiDirect, "$(P)$(R):getSTB"){
     field(DESC, "SCPI get status byte")
     field(DTYP, "stream")
     field(INP,  "@ps300.proto getD(*STB) $(PORT) $(A)")
-    field(SIML, "$(P)$(R)SIM")
-    field(SIOL, "$(P)$(R)SIM:STB")
+    field(SIML, "$(P)$(R):SIM")
+    field(SIOL, "$(P)$(R):SIM:STB")
 }
-record(bi, "$(P)$(R)HVONstatus"){
+record(bi, "$(P)$(R):HVONstatus"){
     field(DESC, "Is HV on?")
-    field(INP,  "$(P)$(R)getSTB.B7 NPP MS")
+    field(INP,  "$(P)$(R):getSTB.B7 NPP MS")
     field(ZNAM, "Off")
     field(ONAM, "On")
 }
@@ -44,29 +44,29 @@ record(bi, "$(P)$(R)HVONstatus"){
 #_______________________________________________
 #______________status LEDs______________________
 
-record(calcout, "$(P)$(R)ILIMstatus"){
+record(calcout, "$(P)$(R):ILIMstatus"){
     field(DESC, "Is current limited?")
-    field(INPA,  "$(P)$(R)getSTB.B3 NPP MS")
+    field(INPA,  "$(P)$(R):getSTB.B3 NPP MS")
     field(OOPT, "Transition To Non-zero")
     field(CALC, "A == 1 ? 3 : 0") #3 in mbbi record represents current limit
-    field(OUT, "$(P)$(R)TripStatus.B3")
+    field(OUT, "$(P)$(R):TripStatus.B3")
 }
-record(calcout, "$(P)$(R)ITRIPstatus"){
+record(calcout, "$(P)$(R):ITRIPstatus"){
     field(DESC, "Tripped on overcurrent?")
-    field(INPA,  "$(P)$(R)getSTB.B2 NPP MS")
+    field(INPA,  "$(P)$(R):getSTB.B2 NPP MS")
     field(OOPT, "Transition To Non-zero")
     field(CALC, "A") #2 in mbbi record represents current trip
-    field(OUT, "$(P)$(R)TripStatus.B2")
+    field(OUT, "$(P)$(R):TripStatus.B2")
 }
-record(calcout, "$(P)$(R)VTRIPstatus"){
+record(calcout, "$(P)$(R):VTRIPstatus"){
     field(DESC, "Tripped on overvoltage?")
-    field(INPA,  "$(P)$(R)getSTB.B1 NPP MS")
+    field(INPA,  "$(P)$(R):getSTB.B1 NPP MS")
     field(OOPT, "Transition To Non-zero")
     field(CALC, "A") #1 in mbbi record represents voltage trip
-    field(OUT, "$(P)$(R)TripStatus.B1")
+    field(OUT, "$(P)$(R):TripStatus.B1")
 }
 
-record(mbbiDirect, "$(P)$(R)TripStatus"){
+record(mbbiDirect, "$(P)$(R):TripStatus"){
     field(DESC, "Overall trip status")
     #B1 = overvoltage trip
     #B2 = overcurrent trip
@@ -74,20 +74,20 @@ record(mbbiDirect, "$(P)$(R)TripStatus"){
     field(PINI, "YES")
 }
 
-record(bi, "$(P)$(R)HVSTABLEstatus"){
+record(bi, "$(P)$(R):HVSTABLEstatus"){
     field(DESC, "HV stable?")
-    field(INP,  "$(P)$(R)getSTB.B0 NPP MS")
+    field(INP,  "$(P)$(R):getSTB.B0 NPP MS")
     field(ZNAM, "Unstable")
     field(ONAM, "Stable")
-    field(FLNK, "$(P)$(R)StableMultiState")
+    field(FLNK, "$(P)$(R):StableMultiState")
 }
 
-record(calc, "$(P)$(R)StableMultiState")
+record(calc, "$(P)$(R):StableMultiState")
 {#while ramping, stability briefly becomes unstable
 #to get more accurate LED it should check for if it's unstable twice in a row
-    field(INPA, "$(P)$(R)StableMultiState")
-    field(INPB, "$(P)$(R)HVSTABLEstatus")
-    field(INPC, "$(P)$(R)VRAMPactive")
+    field(INPA, "$(P)$(R):StableMultiState")
+    field(INPB, "$(P)$(R):HVSTABLEstatus")
+    field(INPC, "$(P)$(R):VRAMPactive")
     field(CALC, "B==0 ? MIN(A+1,3): 1-C") 
     # if unstable, val will be whichever is smallest, A+1 or 3 (meaning it can only increase to maximum 3)
     #if stable it is set back to 1 (or 0 if ramping)
@@ -98,19 +98,19 @@ record(calc, "$(P)$(R)StableMultiState")
 #___________________________________________________
 #_______________get current_________________________
 
-record(ai, "$(P)$(R)OutputIget"){
+record(ai, "$(P)$(R):OutputIget"){
     field(DESC, "Output current readback")
     field(DTYP, "stream")
     field(SCAN, ".1 second")
     field(INP,  "@ps300.proto getF(IOUT) $(PORT) $(A)")
     field(EGU,  "A")
     field(PREC, "4")
-    field(FLNK, "$(P)$(R)OutputImA")
+    field(FLNK, "$(P)$(R):OutputImA")
 }
 
-record(calc, "$(P)$(R)OutputImA"){
+record(calc, "$(P)$(R):OutputImA"){
     field(DESC, "Convert output current to mA for display")
-    field(INPA, "$(P)$(R)OutputIget")
+    field(INPA, "$(P)$(R):OutputIget")
     field(CALC, "A*1000")
     field(EGU, "mA")
     field(PREC, "2")
@@ -118,37 +118,37 @@ record(calc, "$(P)$(R)OutputImA"){
 #__________________________________________
 #__________Voltage get and set_____________
 
-record(ao, "$(P)$(R)HVset")
+record(ao, "$(P)$(R):HVset")
 {#sets the device's high voltage, should only be set through the state machine's ramping process
     field(DESC, "Set output voltage")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto setting(VSET) $(PORT) $(A)")
     field(EGU,  "V")
 }
-record(seq, "$(P)$(R)voltageMonitor"){
+record(seq, "$(P)$(R):voltageMonitor"){
     field(DESC, "Monitor voltage")
     field(PINI, "YES")
     field(SCAN, "1 second")
-    field(LNK1, "$(P)$(R)OutputVget.PROC")
-    field(LNK2, "$(P)$(R)HVSTABLEstatus.PROC")
+    field(LNK1, "$(P)$(R):OutputVget.PROC")
+    field(LNK2, "$(P)$(R):HVSTABLEstatus.PROC")
 }
-record(ai, "$(P)$(R)OutputVget"){
+record(ai, "$(P)$(R):OutputVget"){
     field(DESC, "Output voltage readback")
     field(DTYP, "stream")
     field(INP,  "@ps300.proto getF(VOUT) $(PORT) $(A)")
     field(EGU,  "V")
-    field(FLNK, "$(P)$(R)absVoltage")
+    field(FLNK, "$(P)$(R):absVoltage")
 }
-record(calc, "$(P)$(R)absVoltage"){
+record(calc, "$(P)$(R):absVoltage"){
     field(DESC, "Absolute value of output voltage")
-    field(INPA, "$(P)$(R)OutputVget")
+    field(INPA, "$(P)$(R):OutputVget")
     field(CALC, "ABS(A)")
     field(EGU, "V")
 }
 
 #________________________________________________________
 #________________enable/disable HV output________________
-record(bo, "$(P)$(R)HVenable")
+record(bo, "$(P)$(R):HVenable")
 {#Turn high voltage on/off
     field(DESC, "Enable output")
     field(DTYP, "stream")
@@ -156,38 +156,38 @@ record(bo, "$(P)$(R)HVenable")
     field(OUT,  "@ps300.proto hvOffOn $(PORT) $(A)")
     field(ZNAM, "Turn Off")
     field(ONAM, "Turn On")
-    field(FLNK, "$(P)$(R)HVenableSeq")
+    field(FLNK, "$(P)$(R):HVenableSeq")
     field(PINI, "YES")
 }
-record(seq, "$(P)$(R)HVenableSeq"){
+record(seq, "$(P)$(R):HVenableSeq"){
     field(DESC, "Sequence to dis/enable HV")
-    field(DOL1, "$(P)$(R)C_absVMIN PP")
-    field(LNK1, "$(P)$(R)HVset PP")
+    field(DOL1, "$(P)$(R):C_absVMIN PP")
+    field(LNK1, "$(P)$(R):HVset PP")
     field(DO2, "0")
-    field(LNK2, "$(P)$(R)VRAMPactive PP")
-    field(LNK3, "$(P)$(R)getSTB.PROC PP")
+    field(LNK2, "$(P)$(R):VRAMPactive PP")
+    field(LNK3, "$(P)$(R):getSTB.PROC PP")
     field(DLY4, "1") #wait 1 second after enabling/disabling HV before checking status
-    field(LNK4, "$(P)$(R)HVdisconnectError PP")
+    field(LNK4, "$(P)$(R):HVdisconnectError PP")
 }
- record(calc, "$(P)$(R)HVdisconnectError"){
+ record(calc, "$(P)$(R):HVdisconnectError"){
      field(DESC, "Check if device disconnected")
-     field(INPA, "$(P)$(R)HVONstatus")
-     field(INPB, "$(P)$(R)HVenable")
+     field(INPA, "$(P)$(R):HVONstatus")
+     field(INPB, "$(P)$(R):HVenable")
      field(CALC, "B == A ? 0 : 1") #1=disconnected/powered off, 0=normal
  }
 
 #______________________________________________
 #_______________Reset button__________________
 
-record(seq, "$(P)$(R)hardReset"){
+record(seq, "$(P)$(R):hardReset"){
     field(DESC, "Hard reset sequence")
     field(DO1, "0")
-    field(LNK1, "$(P)$(R)HVenable PP")
-    field(LNK2, "$(P)$(R)TripClearSeq.PROC")
-    field(FLNK, "$(P)$(R)ResetDevice")
+    field(LNK1, "$(P)$(R):HVenable PP")
+    field(LNK2, "$(P)$(R):TripClearSeq.PROC")
+    field(FLNK, "$(P)$(R):ResetDevice")
 }
 
-record(bo, "$(P)$(R)ResetDevice"){
+record(bo, "$(P)$(R):ResetDevice"){
     field(DESC, "Reset device")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto cmd(*RST) $(PORT) $(A)")
@@ -195,22 +195,22 @@ record(bo, "$(P)$(R)ResetDevice"){
     field(ONAM, "Reset Device")
 }
 
-record(seq, "$(P)$(R)tripClearSeq"){
+record(seq, "$(P)$(R):tripClearSeq"){
     field(DESC, "Sequence to clear trip and reset device")
     field(DO1, "0")
-    field(LNK1, "$(P)$(R)TripStatus PP")
-    field(LNK2, "$(P)$(R)TripClear.PROC PP")
-    field(FLNK, "$(P)$(R)ReadbackPoll_")
+    field(LNK1, "$(P)$(R):TripStatus PP")
+    field(LNK2, "$(P)$(R):TripClear.PROC PP")
+    field(FLNK, "$(P)$(R):ReadbackPoll_")
 }
 
-record(bo, "$(P)$(R)TripClear"){
+record(bo, "$(P)$(R):TripClear"){
     field(DESC, "Clear a trip")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto cmd(TCLR) $(PORT) $(A)")
     field(ZNAM, "Clear")
     field(ONAM, "Clear")
     field(HIGH, "1")
-    field(FLNK, "$(P)$(R)getSTB")
+    field(FLNK, "$(P)$(R):getSTB")
 }
 
 #_________________________________________________________
@@ -218,33 +218,33 @@ record(bo, "$(P)$(R)TripClear"){
 
 #when power on event detected, run sequence to check polarity and apply substitutions
 
-record(mbbiDirect, "$(P)$(R)getESR"){
+record(mbbiDirect, "$(P)$(R):getESR"){
     field(DESC, "get event status register")
     field(DTYP, "stream")
     field(INP, "@ps300.proto getD(*ESR) $(PORT) $(A)")
     field(SCAN, "2 second")
-    field(FLNK, "$(P)$(R)getPON")
+    field(FLNK, "$(P)$(R):getPON")
 }
 
-record(calcout, "$(P)$(R)getPON"){
+record(calcout, "$(P)$(R):getPON"){
     field(DESC, "get power on event")
-    field(INPA, "$(P)$(R)getESR.B7")#bit sever represents when device has been powered on
+    field(INPA, "$(P)$(R):getESR.B7")#bit sever represents when device has been powered on
     field(CALC, "A")
     field(OCAL, "1")
-    field(OUT, "$(P)$(R)PONseq.PROC")
+    field(OUT, "$(P)$(R):PONseq.PROC")
     field(OOPT, "Transition To Non-zero")
 }
-record(seq, "$(P)$(R)PONseq"){
+record(seq, "$(P)$(R):PONseq"){
     #save current settings then reset to default settings
     #check polarity of default settings
     #restore saved settings
     #if polarity has changed, apply new substitutions
     field(DESC, "Power on event sequence")
-    field(LNK0, "$(P)$(R)setSAV.PROC")
-    field(LNK1, "$(P)$(R)DefaultSettings.PROC")
+    field(LNK0, "$(P)$(R):setSAV.PROC")
+    field(LNK1, "$(P)$(R):DefaultSettings.PROC")
     field(DLY2, "0.5")
-    field(LNK2, "$(P)$(R)RestoreSettings.PROC")
-    field(LNK3, "$(P)$(R)callSubstitutionsPOS.PROC")
+    field(LNK2, "$(P)$(R):RestoreSettings.PROC")
+    field(LNK3, "$(P)$(R):callSubstitutionsPOS.PROC")
     #process sequence to apply substitutions based on model and polarity
     #in devSRS_PS3xx_sequences.template
     field(PINI, "YES")

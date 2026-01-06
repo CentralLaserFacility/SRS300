@@ -1,19 +1,19 @@
 #model number string for ui display
-record(stringin, "$(P)$(R)SRSModel"){
+record(stringin, "$(P)$(R):SRSModel"){
     field(DESC, "SRS Model Number")
     field(VAL,  "SRS HVPS$(MODEL)")
 }
 #______________________________________________
 #_____________open/close menus______________
 
-record(bi, "$(P)$(R)limitMenuOpen"){
+record(bi, "$(P)$(R):limitMenuOpen"){
     field(DESC, "Open/close limit menu (ui)")
     field(ZNAM, "Closed")
     field(ONAM, "Open")
     field(PINI, "YES")
 }
 
-record(mbbi, "$(P)$(R)configMenuOpen"){
+record(mbbi, "$(P)$(R):configMenuOpen"){
     field(DESC, "Open ui config menu")
     field(VAL, "0")
     field(ZRST, "Closed")
@@ -30,41 +30,41 @@ record(mbbi, "$(P)$(R)configMenuOpen"){
 
 #calculate y axis max and min for ramping
 #calculated such that y axis shows between starting voltage and target voltage plus a small margin
-record(calc, "$(P)$(R)YaxisMax"){
+record(calc, "$(P)$(R):YaxisMax"){
     field(DESC, "calc Y axis maximum")
-    field(INPA, "$(P)$(R)desiredHV")
-    field(INPB, "$(P)$(R)startVoltage")
-    field(INPC, "$(P)$(R)C_minStepSize")
+    field(INPA, "$(P)$(R):desiredHV")
+    field(INPB, "$(P)$(R):startVoltage")
+    field(INPC, "$(P)$(R):C_minStepSize")
     field(CALC, "MAX(ABS(A),ABS(B))+C")
 
 }
-record(calc, "$(P)$(R)YaxisMin"){
+record(calc, "$(P)$(R):YaxisMin"){
     field(DESC, "calc Y axis minimum")
-    field(INPA, "$(P)$(R)desiredHV")
-    field(INPB, "$(P)$(R)startVoltage")
-    field(INPC, "$(P)$(R)C_minStepSize")
+    field(INPA, "$(P)$(R):desiredHV")
+    field(INPB, "$(P)$(R):startVoltage")
+    field(INPC, "$(P)$(R):C_minStepSize")
     field(CALC, "MIN(ABS(A),ABS(B))-C")
 }
 
 #calculates y axis max and min for idle state
 #calculated to show maximum 5000V on Y axis when idle plus a small margin
 #for readability of graph when not ramping
-record(calc, "$(P)$(R)idleYaxisMax"){
+record(calc, "$(P)$(R):idleYaxisMax"){
     field(DESC, "Set Y axis max when not ramping")
-    field(INPA, "$(P)$(R)absVoltage")
-    field(INPB, "$(P)$(R)C_minStepSize")
+    field(INPA, "$(P)$(R):absVoltage")
+    field(INPB, "$(P)$(R):C_minStepSize")
     field(CALC, "A + B")
 }
 
-record(calc, "$(P)$(R)idleYaxisMin"){
+record(calc, "$(P)$(R):idleYaxisMin"){
     field(DESC, "Set Y axis min when not ramping")
-    field(INPA, "$(P)$(R)absVoltage")
-    field(INPB, "$(P)$(R)C_minStepSize")
-    field(INPC, "$(P)$(R)graphScale")
+    field(INPA, "$(P)$(R):absVoltage")
+    field(INPB, "$(P)$(R):C_minStepSize")
+    field(INPC, "$(P)$(R):graphScale")
     field(CALC, "A>C ? A - C : 0")
 }
 
-record(ai, "$(P)$(R)graphScale"){
+record(ai, "$(P)$(R):graphScale"){
     field(DESC, "Margin for graph y axis when idle")
     field(VAL, "5000") #5000V margin by default
     field(EGU, "V")
@@ -72,32 +72,32 @@ record(ai, "$(P)$(R)graphScale"){
 }
 
 #pvs to be plotted invisibly on the graph to control the autoscale feature in data browser
-record(ai, "$(P)$(R)autoscaleControlMax"){
+record(ai, "$(P)$(R):autoscaleControlMax"){
     field(DESC, "Control autoscale maximum")
 }
 
-record(ai, "$(P)$(R)autoscaleControlMin"){
+record(ai, "$(P)$(R):autoscaleControlMin"){
     field(DESC, "Control autoscale minimum")
 }
 
 #sequences to set autoscale pvs to the calculated values
-record(seq, "$(P)$(R)idleZoom"){
+record(seq, "$(P)$(R):idleZoom"){
     field(DESC, "Auto zoom data browser")
-    field(DOL1, "$(P)$(R)idleYaxisMax PP")
-    field(LNK1, "$(P)$(R)autoscaleControlMax PP")
-    field(DOL2, "$(P)$(R)idleYaxisMin PP")
-    field(LNK2, "$(P)$(R)autoscaleControlMin PP")
+    field(DOL1, "$(P)$(R):idleYaxisMax PP")
+    field(LNK1, "$(P)$(R):autoscaleControlMax PP")
+    field(DOL2, "$(P)$(R):idleYaxisMin PP")
+    field(LNK2, "$(P)$(R):autoscaleControlMin PP")
     field(PINI, "YES")
 }
-record(seq, "$(P)$(R)rampZoom"){
+record(seq, "$(P)$(R):rampZoom"){
     field(DESC, "Auto zoom data browser")
-    field(DOL1, "$(P)$(R)YaxisMax")
-    field(LNK1, "$(P)$(R)autoscaleControlMax PP")
-    field(DOL2, "$(P)$(R)YaxisMin")
-    field(LNK2, "$(P)$(R)autoscaleControlMin PP")
+    field(DOL1, "$(P)$(R):YaxisMax")
+    field(LNK1, "$(P)$(R):autoscaleControlMax PP")
+    field(DOL2, "$(P)$(R):YaxisMin")
+    field(LNK2, "$(P)$(R):autoscaleControlMin PP")
 }
 
-record(bi, "$(P)$(R)toolbarShow"){
+record(bi, "$(P)$(R):toolbarShow"){
     field(DESC, "Show/hide toolbar in ui")
     field(ZNAM, "Hide Toolbar")
     field(ONAM, "Show Toolbar")
