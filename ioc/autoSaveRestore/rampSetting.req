@@ -1,5 +1,5 @@
-$(P)VRAMPstepSize
-$(P)VRAMPinterval
-$(P)desiredHV
-$(P)VRAMPmode
-$(P)VRAMPtimeSet
+$(P):VRAMPstepSize
+$(P):VRAMPinterval
+$(P):desiredHV
+$(P):VRAMPmode
+$(P):VRAMPtimeSet

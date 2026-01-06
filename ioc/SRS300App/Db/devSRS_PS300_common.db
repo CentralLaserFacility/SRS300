@@ -21,7 +21,7 @@ alias("$(DEVICE):HV:SP","$(DEVICE):HV")
 
 alias("$(DEVICE):HVset","$(DEVICE):VOLTAGE:SP")
 alias("$(DEVICE):OutputVget","$(DEVICE):VOLTAGE")
-alias("$(DEVICE):VOLTAGE","$(DEVICE)::SP:RBV")
+alias("$(DEVICE):VOLTAGE","$(DEVICE):SP:RBV")
 
 alias("$(DEVICE):VLIMset","$(DEVICE):VOLTAGE:LIMIT:SP")
 alias("$(DEVICE):VLIMget","$(DEVICE):VOLTAGE:LIMIT")
