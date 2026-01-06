@@ -25,7 +25,7 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>text entry #9</name>
-    <pv_name>$(P)$(R):.TMOT</pv_name>
+    <pv_name>$(DEVICE):.TMOT</pv_name>
     <x>151</x>
     <y>43</y>
     <width>50</width>
@@ -43,7 +43,7 @@
   </widget>
   <widget type="combo" version="2.0.0">
     <name>menu #13</name>
-    <pv_name>$(P)$(R):.TMOD</pv_name>
+    <pv_name>$(DEVICE):.TMOD</pv_name>
     <x>320</x>
     <y>43</y>
     <width>110</width>
@@ -92,7 +92,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>text update #25</name>
-    <pv_name>$(P)$(R):.STAT</pv_name>
+    <pv_name>$(DEVICE):.STAT</pv_name>
     <x>122</x>
     <y>284</y>
     <width>85</width>
@@ -109,7 +109,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>text update #29</name>
-    <pv_name>$(P)$(R):.SEVR</pv_name>
+    <pv_name>$(DEVICE):.SEVR</pv_name>
     <x>349</x>
     <y>284</y>
     <width>85</width>
@@ -155,7 +155,7 @@
   </widget>
   <widget type="combo" version="2.0.0">
     <name>menu #39</name>
-    <pv_name>$(P)$(R):.SCAN</pv_name>
+    <pv_name>$(DEVICE):.SCAN</pv_name>
     <x>64</x>
     <y>310</y>
     <width>110</width>
@@ -170,12 +170,12 @@
     <name>message button #42</name>
     <actions>
       <action type="write_pv">
-        <pv_name>$(P)$(R):.PROC</pv_name>
+        <pv_name>$(DEVICE):.PROC</pv_name>
         <value>1</value>
         <description>Write</description>
       </action>
     </actions>
-    <pv_name>$(P)$(R):.PROC</pv_name>
+    <pv_name>$(DEVICE):.PROC</pv_name>
     <text>Process</text>
     <x>179</x>
     <y>310</y>
@@ -202,7 +202,7 @@
   </widget>
   <widget type="label" version="2.0.0">
     <name>text #48</name>
-    <text>$(P)$(R):</text>
+    <text>$(DEVICE):</text>
     <y>9</y>
     <width>510</width>
     <height>21</height>
@@ -274,7 +274,7 @@
   </widget>
   <widget type="combo" version="2.0.0">
     <name>menu #66</name>
-    <pv_name>$(P)$(R):.IFACE</pv_name>
+    <pv_name>$(DEVICE):.IFACE</pv_name>
     <x>5</x>
     <y>101</y>
     <width>130</width>
@@ -298,7 +298,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>text update #72</name>
-    <pv_name>$(P)$(R):.I32INP</pv_name>
+    <pv_name>$(DEVICE):.I32INP</pv_name>
     <x>147</x>
     <y>226</y>
     <font>
@@ -315,7 +315,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>text update #76</name>
-    <pv_name>$(P)$(R):.I32INP</pv_name>
+    <pv_name>$(DEVICE):.I32INP</pv_name>
     <x>147</x>
     <y>201</y>
     <font>
@@ -332,7 +332,7 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>text entry #80</name>
-    <pv_name>$(P)$(R):.I32OUT</pv_name>
+    <pv_name>$(DEVICE):.I32OUT</pv_name>
     <x>147</x>
     <y>176</y>
     <font>
@@ -349,7 +349,7 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>text entry #84</name>
-    <pv_name>$(P)$(R):.I32OUT</pv_name>
+    <pv_name>$(DEVICE):.I32OUT</pv_name>
     <x>147</x>
     <y>151</y>
     <font>
@@ -384,7 +384,7 @@
         <exp bool_exp="!(pv0==1)">
           <value>false</value>
         </exp>
-        <pv_name>$(P)$(R):.IFACE</pv_name>
+        <pv_name>$(DEVICE):.IFACE</pv_name>
       </rule>
     </rules>
   </widget>
@@ -408,7 +408,7 @@
         <exp bool_exp="!(!(pv0==1))">
           <value>false</value>
         </exp>
-        <pv_name>$(P)$(R):.IFACE</pv_name>
+        <pv_name>$(DEVICE):.IFACE</pv_name>
       </rule>
     </rules>
   </widget>
@@ -432,7 +432,7 @@
         <exp bool_exp="!(pv0!=0)">
           <value>false</value>
         </exp>
-        <pv_name>$(P)$(R):.I32IV</pv_name>
+        <pv_name>$(DEVICE):.I32IV</pv_name>
       </rule>
     </rules>
   </widget>
@@ -456,7 +456,7 @@
         <exp bool_exp="!(pv0==0)">
           <value>false</value>
         </exp>
-        <pv_name>$(P)$(R):.I32IV</pv_name>
+        <pv_name>$(DEVICE):.I32IV</pv_name>
       </rule>
     </rules>
   </widget>
@@ -474,7 +474,7 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>text entry #107</name>
-    <pv_name>$(P)$(R):.UI32MASK</pv_name>
+    <pv_name>$(DEVICE):.UI32MASK</pv_name>
     <x>272</x>
     <y>251</y>
     <font>
@@ -491,7 +491,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>text update #111</name>
-    <pv_name>$(P)$(R):.UI32INP</pv_name>
+    <pv_name>$(DEVICE):.UI32INP</pv_name>
     <x>272</x>
     <y>226</y>
     <font>
@@ -508,7 +508,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>text update #115</name>
-    <pv_name>$(P)$(R):.UI32INP</pv_name>
+    <pv_name>$(DEVICE):.UI32INP</pv_name>
     <x>272</x>
     <y>201</y>
     <font>
@@ -525,7 +525,7 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>text entry #119</name>
-    <pv_name>$(P)$(R):.UI32OUT</pv_name>
+    <pv_name>$(DEVICE):.UI32OUT</pv_name>
     <x>272</x>
     <y>176</y>
     <font>
@@ -542,7 +542,7 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>text entry #123</name>
-    <pv_name>$(P)$(R):.UI32OUT</pv_name>
+    <pv_name>$(DEVICE):.UI32OUT</pv_name>
     <x>272</x>
     <y>151</y>
     <font>
@@ -577,7 +577,7 @@
         <exp bool_exp="!(pv0==2)">
           <value>false</value>
         </exp>
-        <pv_name>$(P)$(R):.IFACE</pv_name>
+        <pv_name>$(DEVICE):.IFACE</pv_name>
       </rule>
     </rules>
   </widget>
@@ -601,7 +601,7 @@
         <exp bool_exp="!(!(pv0==2))">
           <value>false</value>
         </exp>
-        <pv_name>$(P)$(R):.IFACE</pv_name>
+        <pv_name>$(DEVICE):.IFACE</pv_name>
       </rule>
     </rules>
   </widget>
@@ -625,7 +625,7 @@
         <exp bool_exp="!(pv0==0)">
           <value>false</value>
         </exp>
-        <pv_name>$(P)$(R):.UI32IV</pv_name>
+        <pv_name>$(DEVICE):.UI32IV</pv_name>
       </rule>
     </rules>
   </widget>
@@ -649,7 +649,7 @@
         <exp bool_exp="!(pv0!=0)">
           <value>false</value>
         </exp>
-        <pv_name>$(P)$(R):.UI32IV</pv_name>
+        <pv_name>$(DEVICE):.UI32IV</pv_name>
       </rule>
     </rules>
   </widget>
@@ -667,7 +667,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>text update #146</name>
-    <pv_name>$(P)$(R):.F64INP</pv_name>
+    <pv_name>$(DEVICE):.F64INP</pv_name>
     <x>397</x>
     <y>201</y>
     <font>
@@ -684,7 +684,7 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>text entry #150</name>
-    <pv_name>$(P)$(R):.F64OUT</pv_name>
+    <pv_name>$(DEVICE):.F64OUT</pv_name>
     <x>397</x>
     <y>151</y>
     <font>
@@ -719,7 +719,7 @@
         <exp bool_exp="!(pv0==3)">
           <value>false</value>
         </exp>
-        <pv_name>$(P)$(R):.IFACE</pv_name>
+        <pv_name>$(DEVICE):.IFACE</pv_name>
       </rule>
     </rules>
   </widget>
@@ -743,7 +743,7 @@
         <exp bool_exp="!(!(pv0==3))">
           <value>false</value>
         </exp>
-        <pv_name>$(P)$(R):.IFACE</pv_name>
+        <pv_name>$(DEVICE):.IFACE</pv_name>
       </rule>
     </rules>
   </widget>
@@ -767,7 +767,7 @@
         <exp bool_exp="!(pv0==0)">
           <value>false</value>
         </exp>
-        <pv_name>$(P)$(R):.F64IV</pv_name>
+        <pv_name>$(DEVICE):.F64IV</pv_name>
       </rule>
     </rules>
   </widget>
@@ -791,7 +791,7 @@
         <exp bool_exp="!(pv0!=0)">
           <value>false</value>
         </exp>
-        <pv_name>$(P)$(R):.F64IV</pv_name>
+        <pv_name>$(DEVICE):.F64IV</pv_name>
       </rule>
     </rules>
   </widget>

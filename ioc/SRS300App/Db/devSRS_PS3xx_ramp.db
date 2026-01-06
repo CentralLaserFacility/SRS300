@@ -1,38 +1,38 @@
 #______________________________________________________
 #______________Start ramping process__________________
 
-record(ai, "$(P)$(R):startVoltage"){
+record(ai, "$(DEVICE):startVoltage"){
     field(DESC, "Voltage at start of ramp")
     field(EGU, "V")
     field(PINI, "YES")
 }
 
-record(seq, "$(P)$(R):StartCharge"){
+record(seq, "$(DEVICE):StartCharge"){
     field(DESC, "Sequence to start HV charge")
     #get/set values for graphing
-    field(DOL3, "$(P)$(R):OutputVget")
-    field(LNK3, "$(P)$(R):startVoltage PP")
-    field(LNK4, "$(P)$(R):YaxisMax.PROC PP")
-    field(LNK5, "$(P)$(R):YaxisMin.PROC PP")
-    field(DOL6, "$(P)$(R):YaxisMin")
-    field(LNK6, "$(P)$(R):autoscaleControlMin PP")
-    field(DOL7, "$(P)$(R):YaxisMax")
-    field(LNK7, "$(P)$(R):autoscaleControlMax PP")
+    field(DOL3, "$(DEVICE):OutputVget")
+    field(LNK3, "$(DEVICE):startVoltage PP")
+    field(LNK4, "$(DEVICE):YaxisMax.PROC PP")
+    field(LNK5, "$(DEVICE):YaxisMin.PROC PP")
+    field(DOL6, "$(DEVICE):YaxisMin")
+    field(LNK6, "$(DEVICE):autoscaleControlMin PP")
+    field(DOL7, "$(DEVICE):YaxisMax")
+    field(LNK7, "$(DEVICE):autoscaleControlMax PP")
     #calculate ramp parameters
-    field(LNK8, "$(P)$(R):VRAMPcalc PP")
+    field(LNK8, "$(DEVICE):VRAMPcalc PP")
 }
 
 #_________________end charge sequence_________________
-record(seq, "$(P)$(R):endCharge"){
+record(seq, "$(DEVICE):endCharge"){
     field(DESC, "Sequence to end HV charge")
     field(DO1, "0")
-    field(LNK1, "$(P)$(R):VRAMPactive PP")
+    field(LNK1, "$(DEVICE):VRAMPactive PP")
     field(DO2, "6")#DO field only takes double, 6 represents 1 second scan
-    field(LNK2, "$(P)$(R):voltageMonitor.SCAN")
-    field(LNK5, "$(P)$(R):idleZoom PP")
+    field(LNK2, "$(DEVICE):voltageMonitor.SCAN")
+    field(LNK5, "$(DEVICE):idleZoom PP")
 }
 
-record(bi, "$(P)$(R):VRAMPactive")
+record(bi, "$(DEVICE):VRAMPactive")
 {#when set to 1 ("Ramping") the state machine will begin the ramping process
     field(DESC, "Is charge active?")
     field(ZNAM, "Idle")
@@ -40,52 +40,52 @@ record(bi, "$(P)$(R):VRAMPactive")
     field(PINI, "YES")
 }
 
-record(aSub, "$(P)$(R):VRAMPcalc"){
+record(aSub, "$(DEVICE):VRAMPcalc"){
     field(DESC, "Calculate ramp step size")
     field(SNAM, "rampcalc")
     #inputs
-    field(INPA, "$(P)$(R):OutputVget")
+    field(INPA, "$(DEVICE):OutputVget")
     field(FTA, "DOUBLE")
-    field(INPB, "$(P)$(R):desiredHV")
+    field(INPB, "$(DEVICE):desiredHV")
     field(FTB, "DOUBLE")
-    field(INPC, "$(P)$(R):VRAMPtimeSet")
+    field(INPC, "$(DEVICE):VRAMPtimeSet")
     field(FTC, "DOUBLE")
-    field(INPD, "$(P)$(R):VRAMPstepSize")
+    field(INPD, "$(DEVICE):VRAMPstepSize")
     field(FTD, "DOUBLE")
-    field(INPE, "$(P)$(R):VRAMPmode")
+    field(INPE, "$(DEVICE):VRAMPmode")
     field(FTE, "STRING")
-    field(INPF, "$(P)$(R):VRAMPinterval")
+    field(INPF, "$(DEVICE):VRAMPinterval")
     field(FTF, "DOUBLE")
-    field(INPG, "$(P)$(R):C_minStepSize")
+    field(INPG, "$(DEVICE):C_minStepSize")
     field(FTG, "DOUBLE")
-    field(INPH, "$(P)$(R):C_minInterval")
+    field(INPH, "$(DEVICE):C_minInterval")
     field(FTH, "DOUBLE")
-    field(INPI, "$(P)$(R):HVONstatus")
+    field(INPI, "$(DEVICE):HVONstatus")
     field(FTI, "SHORT")
     #outputs
-    field(OUTA, "$(P)$(R):VRAMPstepSize PP")
+    field(OUTA, "$(DEVICE):VRAMPstepSize PP")
     field(FTVA, "DOUBLE")
-    field(OUTB, "$(P)$(R):VRAMPinterval PP")
+    field(OUTB, "$(DEVICE):VRAMPinterval PP")
     field(FTVB, "DOUBLE")
-    field(OUTC, "$(P)$(R):VRAMPactive PP")
+    field(OUTC, "$(DEVICE):VRAMPactive PP")
     field(FTVC, "SHORT")
-    field(OUTD, "$(P)$(R):smallStepError PP")
+    field(OUTD, "$(DEVICE):smallStepError PP")
     field(FTVD, "SHORT")
-    field(OUTE, "$(P)$(R):VRAMPtimeSet PP")
+    field(OUTE, "$(DEVICE):VRAMPtimeSet PP")
     field(FTVE, "DOUBLE")
 
 }
 #________________________________________________
 #_________User set ramp parameters_______________
 
-record(ai, "$(P)$(R):VRAMPtimeSet"){
+record(ai, "$(DEVICE):VRAMPtimeSet"){
     #LOPR and VAl passed in from setOnStart as cannot be set to a pv directly
     field(DESC, "Set desired ramp time")
     field(HOPR, "1000000")#HOPR must be set and setting to Inf is not supported by ui
     field(EGU,  "seconds")
     field(PINI, "YES")
 }
-record(ao, "$(P)$(R):VRAMPinterval") {
+record(ao, "$(DEVICE):VRAMPinterval") {
     #^^above comments apply
     field(DESC, "Set ramp up interval") 
     field(HOPR, "1000000")#HOPR must be set and setting to Inf is not supported by ui
@@ -94,13 +94,13 @@ record(ao, "$(P)$(R):VRAMPinterval") {
     field(PINI, "YES")
 }
 
-record(ao, "$(P)$(R):VRAMPstepSize"){
+record(ao, "$(DEVICE):VRAMPstepSize"){
     field(DESC, "Set voltage ramp step size")
     field(EGU, "V")
     field(PINI, "YES")
 }
 
-record(bi, "$(P)$(R):VRAMPmode"){
+record(bi, "$(DEVICE):VRAMPmode"){
     field(DESC, "Set ramp mode")
     field(PINI, "YES")
     field(VAL, "0") #Automatic mode by default
@@ -108,7 +108,7 @@ record(bi, "$(P)$(R):VRAMPmode"){
     field(ZNAM, "Automatic")
     field(ONAM, "Manual")
 }
-record(ao, "$(P)$(R):desiredHV"){
+record(ao, "$(DEVICE):desiredHV"){
     field(DESC, "Set target output voltage")
     field(EGU,  "V")
     field(PINI, "YES")
@@ -116,16 +116,16 @@ record(ao, "$(P)$(R):desiredHV"){
 
 #____________________________________________
 #________________constants___________________
-record(calc, "$(P)$(R):C_minStepSize"){
+record(calc, "$(DEVICE):C_minStepSize"){
     field(DESC, "Minimum step size for automatic ramping")
-    field(INPA, "$(P)$(R):C_absVMIN")
+    field(INPA, "$(DEVICE):C_absVMIN")
     field(CALC, "ABS(A)") #the minimum step size is the absolute value of the minimum voltage
     field(EGU, "V") 
-    field(FLNK, "$(P)$(R):C_maxStepSize")
+    field(FLNK, "$(DEVICE):C_maxStepSize")
 }
-record(calc, "$(P)$(R):C_maxStepSize"){
+record(calc, "$(DEVICE):C_maxStepSize"){
     field(DESC, "Maximum step size for automatic ramping")
-    field(INPA, "$(P)$(R):C_absVMAX")
+    field(INPA, "$(DEVICE):C_absVMAX")
     field(CALC, "ABS(A)")
     field(EGU, "V")
 }
@@ -133,11 +133,11 @@ record(calc, "$(P)$(R):C_maxStepSize"){
 #_____________error messages_______________
 
 #mbbi to hold error messages, to be updated with more error statuses if needed
-record(calc, "$(P)$(R):smallStepError"){
+record(calc, "$(DEVICE):smallStepError"){
     field(DESC, "warning for step being too small")
-    field(INPA, "$(P)$(R):desiredHV PP")
-    field(INPB, "$(P)$(R):OutputVget")
-    field(INPC, "$(P)$(R):C_minStepSize")
+    field(INPA, "$(DEVICE):desiredHV PP")
+    field(INPB, "$(DEVICE):OutputVget")
+    field(INPC, "$(DEVICE):C_minStepSize")
     field(CALC, "ABS(A-B) < C ? 1 : 0") #1=error, 0=no error
     field(PINI, "YES")
 }

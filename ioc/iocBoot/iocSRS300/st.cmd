@@ -16,8 +16,7 @@ epicsEnvSet("STREAM_PROTOCOL_PATH", "${TOP}/proto")
 
 # PV name prefix
 #
-epicsEnvSet("PREFIX","VUL-TEST-")
-epicsEnvSet("SUFFIX","PS300-1")
+epicsEnvSet("DEVICE","VUL-TEST-PS300-1")
 
 cd "${TOP}"
 
@@ -29,12 +28,12 @@ drvAsynIPPortConfigure("L0","$(ADDR)",0,0,0)
 
 ## Load record instances
 dbLoadRecords("$(ASYN)/db/asynRecord.db","P=$(PREFIX)$(SUFFIX),R=asyn,PORT=$(PORT),ADDR=0,OMAX=256,IMAX=256")
-dbLoadRecords("db/devSRS_PS3xx.db","PORT=$(PORT),R=$(SUFFIX),P=$(PREFIX),A=$(A), MODEL=$(MODEL)")
-dbLoadTemplate("db/devSRS_PS3xx.substitutions","PORT=$(PORT),R=$(SUFFIX),P=$(PREFIX),A=$(A), MODEL=$(MODEL)")
-dbLoadRecords("db/devSRS_PS3xx_ui.db","PORT=$(PORT),R=$(SUFFIX),P=$(PREFIX),A=$(A), MODEL=$(MODEL)")
-dbLoadRecords("db/devSRS_PS3xx_ramp.db","PORT=$(PORT),R=$(SUFFIX),P=$(PREFIX),A=$(A), MODEL=$(MODEL)")
-dbLoadRecords("db/customLimits.db","PORT=$(PORT),R=$(SUFFIX),P=$(PREFIX),A=$(A), MODEL=$(MODEL)")
-dbLoadRecords("db/devSRS_PS300_common.db","P=$(PREFIX),R=$(SUFFIX),L=0,A=$(A)")
+dbLoadRecords("db/devSRS_PS3xx.db","PORT=$(PORT),DEVICE=$(DEVICE)A=$(A), MODEL=$(MODEL)")
+dbLoadTemplate("db/devSRS_PS3xx.substitutions","PORT=$(PORT),DEVICE=$(DEVICE)A=$(A), MODEL=$(MODEL)")
+dbLoadRecords("db/devSRS_PS3xx_ui.db","PORT=$(PORT),DEVICE=$(DEVICE)A=$(A), MODEL=$(MODEL)")
+dbLoadRecords("db/devSRS_PS3xx_ramp.db","PORT=$(PORT),DEVICE=$(DEVICE)A=$(A), MODEL=$(MODEL)")
+dbLoadRecords("db/customLimits.db","PORT=$(PORT),DEVICE=$(DEVICE)A=$(A), MODEL=$(MODEL)")
+dbLoadRecords("db/devSRS_PS300_common.db","DEVICE=$(DEVICE),L=0,A=$(A)")
 
 # specify where save files should go
 set_savefile_path("$(TOP)/autoSaveRestore")
@@ -45,10 +44,10 @@ set_requestfile_path("$(TOP)/autoSaveRestore")
 # specify where request files can be found
 set_requestfile_path("$(AUTOSAVE)/asApp/Db/")
 
-dbLoadRecords("$(AUTOSAVE)/db/configMenu.db","P=$(PREFIX)$(SUFFIX),CONFIG=ramp1")
+dbLoadRecords("$(AUTOSAVE)/db/configMenu.db","P=$(DEVICE),CONFIG=ramp1")
 save_restoreSet_DatedBackupFiles(0)
-set_pass0_restoreFile("ramp1Menu.sav", "P=$(PREFIX)$(SUFFIX),CONFIG=ramp1,CONFIGMENU=1")
-set_pass1_restoreFile("ramp1Menu.sav", "P=$(PREFIX)$(SUFFIX),CONFIG=ramp1,CONFIGMENU=1")
+set_pass0_restoreFile("ramp1Menu.sav", "P=$(DEVICE),CONFIG=ramp1,CONFIGMENU=1")
+set_pass1_restoreFile("ramp1Menu.sav", "P=$(DEVICE),CONFIG=ramp1,CONFIGMENU=1")
 
 
 

@@ -64,7 +64,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_7</name>
-    <pv_name>$(P)$(R):$(CONFIG)Menu:status</pv_name>
+    <pv_name>$(DEVICE):$(CONFIG)Menu:status</pv_name>
     <x>162</x>
     <y>76</y>
     <font>
@@ -94,7 +94,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_8</name>
-    <pv_name>$(P)$(R):$(CONFIG)Menu:currName</pv_name>
+    <pv_name>$(DEVICE):$(CONFIG)Menu:currName</pv_name>
     <x>162</x>
     <y>37</y>
     <font>
@@ -109,7 +109,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>Text Update_9</name>
-    <pv_name>$(P)$(R):$(CONFIG)Menu:currDesc</pv_name>
+    <pv_name>$(DEVICE):$(CONFIG)Menu:currDesc</pv_name>
     <x>162</x>
     <y>57</y>
     <font>
@@ -299,7 +299,7 @@
         <value>2</value>
       </action>
     </actions>
-    <pv_name>$(P)$(R):configMenuOpen</pv_name>
+    <pv_name>$(DEVICE):configMenuOpen</pv_name>
     <text>More</text>
     <x>240</x>
     <y>407</y>
@@ -317,7 +317,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>text update #37</name>
-    <pv_name>$(P)$(R):$(CONFIG)Menu:busy</pv_name>
+    <pv_name>$(DEVICE):$(CONFIG)Menu:busy</pv_name>
     <x>21</x>
     <y>409</y>
     <height>28</height>
@@ -382,11 +382,11 @@
       <actions execute_as_one="true">
         <action type="write_pv">
           <description>close menu</description>
-          <pv_name>$(P)$(R):configMenuOpen</pv_name>
+          <pv_name>$(DEVICE):configMenuOpen</pv_name>
           <value>0</value>
         </action>
       </actions>
-      <pv_name>$(P)$(R):configMenuOpen</pv_name>
+      <pv_name>$(DEVICE):configMenuOpen</pv_name>
       <text></text>
       <width>21</width>
       <height>23</height>

@@ -27,7 +27,7 @@
   </widget>
   <widget type="label" version="2.0.0">
     <name>text #9</name>
-    <text>$(P)$(R):</text>
+    <text>$(DEVICE):</text>
     <y>12</y>
     <width>375</width>
     <height>25</height>
@@ -51,7 +51,7 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>text entry #15</name>
-    <pv_name>$(P)$(R):.ADDR</pv_name>
+    <pv_name>$(DEVICE):.ADDR</pv_name>
     <x>139</x>
     <y>68</y>
     <width>75</width>
@@ -81,7 +81,7 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>text update #22</name>
-    <pv_name>$(P)$(R):.SPR</pv_name>
+    <pv_name>$(DEVICE):.SPR</pv_name>
     <x>224</x>
     <y>97</y>
     <width>56</width>
@@ -111,7 +111,7 @@
   </widget>
   <widget type="combo" version="2.0.0">
     <name>menu #29</name>
-    <pv_name>$(P)$(R):.UCMD</pv_name>
+    <pv_name>$(DEVICE):.UCMD</pv_name>
     <x>179</x>
     <y>126</y>
     <width>180</width>
@@ -136,7 +136,7 @@
   </widget>
   <widget type="combo" version="2.0.0">
     <name>menu #35</name>
-    <pv_name>$(P)$(R):.ACMD</pv_name>
+    <pv_name>$(DEVICE):.ACMD</pv_name>
     <x>179</x>
     <y>151</y>
     <width>180</width>
@@ -167,7 +167,7 @@
         <exp bool_exp="!(pv0!=0)">
           <value>false</value>
         </exp>
-        <pv_name>$(P)$(R):.GPIBIV</pv_name>
+        <pv_name>$(DEVICE):.GPIBIV</pv_name>
       </rule>
     </rules>
   </widget>
@@ -191,7 +191,7 @@
         <exp bool_exp="!(pv0==0)">
           <value>false</value>
         </exp>
-        <pv_name>$(P)$(R):.GPIBIV</pv_name>
+        <pv_name>$(DEVICE):.GPIBIV</pv_name>
       </rule>
     </rules>
   </widget>
