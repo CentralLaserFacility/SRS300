@@ -43,7 +43,7 @@ static long rampcalc(aSubRecord *precord){
     }
 
 
-    miniHop = 0; //*** Magic numbers
+    miniHop = 0; //flag for small voltage increase
     active = 1;
     //if target voltage requires step below minimum step size, output error message
     if(voltageDiff<minStepSize){
@@ -94,7 +94,7 @@ static long rampcalc(aSubRecord *precord){
    *(double*)precord->vala = stepSize;
    *(double*)precord->valb = interval;
    *(short*)precord->valc = active; //event to process ramp
-   *(short*)precord->vald = miniHop;//is the increase too small?
+   *(short*)precord->vald = miniHop;//flag for if the increase is too small
    *(double*)precord->vale = rampTime;
     return 0;
 }
