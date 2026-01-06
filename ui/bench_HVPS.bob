@@ -2,8 +2,8 @@
 <display version="2.0.0">
   <name>Stanford SRS375 control screen</name>
   <macros>
-    <P>BENCH:</P>
-    <R>HVPS:</R>
+    <P>VUL-TEST-</P>
+    <R>PS300-1:</R>
     <CONFIG>ramp1</CONFIG>
   </macros>
   <width>1500</width>
@@ -43,7 +43,7 @@
   </widget>
   <widget type="led" version="2.0.0">
     <name>LED</name>
-    <pv_name>BENCH:HVPS:asyn.STAT</pv_name>
+    <pv_name>VUL-TEST-PS300-1asyn.STAT</pv_name>
     <x>707</x>
     <y>2</y>
     <font>
@@ -75,8 +75,8 @@ else:
 
 
 ]]></text>
-        <pv_name trigger="false">BENCH:HVPS:asyn.ERRS</pv_name>
-        <pv_name>BENCH:HVPS:asyn.STAT</pv_name>
+        <pv_name trigger="false">VUL-TEST-PS300-1asyn.ERRS</pv_name>
+        <pv_name>VUL-TEST-PS300-1asyn.STAT</pv_name>
       </script>
     </scripts>
   </widget>

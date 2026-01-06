@@ -16,8 +16,8 @@ epicsEnvSet("STREAM_PROTOCOL_PATH", "${TOP}/proto")
 
 # PV name prefix
 #
-epicsEnvSet("PREFIX","BENCH:")
-epicsEnvSet("SUFFIX","HVPS:")
+epicsEnvSet("PREFIX","VUL-TEST-")
+epicsEnvSet("SUFFIX","PS300-1")
 
 cd "${TOP}"
 

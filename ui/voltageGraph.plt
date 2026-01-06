@@ -65,7 +65,7 @@
     <pv>
       <display_name></display_name>
       <visible>true</visible>
-      <name>BENCH:HVPS:autoscaleControlMin</name>
+      <name>VUL-TEST-PS300-1autoscaleControlMin</name>
       <axis>0</axis>
       <color>
         <red>255</red>
@@ -85,7 +85,7 @@
     <pv>
       <display_name></display_name>
       <visible>true</visible>
-      <name>BENCH:HVPS:autoscaleControlMax</name>
+      <name>VUL-TEST-PS300-1autoscaleControlMax</name>
       <axis>0</axis>
       <color>
         <red>255</red>
@@ -105,7 +105,7 @@
     <pv>
       <display_name></display_name>
       <visible>true</visible>
-      <name>BENCH:HVPS:C_IMAXmA</name>
+      <name>VUL-TEST-PS300-1C_IMAXmA</name>
       <axis>1</axis>
       <color>
         <red>128</red>
@@ -125,7 +125,7 @@
     <pv>
       <display_name>Current</display_name>
       <visible>true</visible>
-      <name>BENCH:HVPS:OutputImA</name>
+      <name>VUL-TEST-PS300-1OutputImA</name>
       <axis>1</axis>
       <color>
         <red>0</red>
@@ -145,7 +145,7 @@
     <pv>
       <display_name>Voltage</display_name>
       <visible>true</visible>
-      <name>BENCH:HVPS:absVoltage</name>
+      <name>VUL-TEST-PS300-1absVoltage</name>
       <axis>0</axis>
       <color>
         <red>255</red>
