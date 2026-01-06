@@ -44,7 +44,7 @@ set_requestfile_path("$(TOP)/autoSaveRestore")
 # specify where request files can be found
 set_requestfile_path("$(AUTOSAVE)/asApp/Db/")
 
-dbLoadRecords("$(AUTOSAVE)/db/configMenu.db","P=$(DEVICE),CONFIG=ramp1")
+dbLoadRecords("$(AUTOSAVE)/db/configMenu.db","P=$(DEVICE):,CONFIG=ramp1")
 save_restoreSet_DatedBackupFiles(0)
 set_pass0_restoreFile("ramp1Menu.sav", "P=$(DEVICE):,CONFIG=ramp1,CONFIGMENU=1")
 set_pass1_restoreFile("ramp1Menu.sav", "P=$(DEVICE):,CONFIG=ramp1,CONFIGMENU=1")
@@ -56,7 +56,7 @@ cd "${TOP}/iocBoot/${IOC}"
 #Commence IOC running
 iocInit
 
-create_monitor_set("ramp1Menu.req", 5 , "P=$(DEVICE), CONFIG=ramp1,CONFIGMENU=1")
+create_monitor_set("ramp1Menu.req", 5 , "P=$(DEVICE):, CONFIG=ramp1,CONFIGMENU=1")
 
 
 ## Start any sequence programs
