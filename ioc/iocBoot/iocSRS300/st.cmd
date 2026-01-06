@@ -27,13 +27,13 @@ SRS300_registerRecordDeviceDriver pdbbase
 drvAsynIPPortConfigure("L0","$(ADDR)",0,0,0)
 
 ## Load record instances
-dbLoadRecords("$(ASYN)/db/asynRecord.db","P=$(DEVICE),R=asyn,PORT=$(PORT),ADDR=0,OMAX=256,IMAX=256")
-dbLoadRecords("db/devSRS_PS3xx.db","PORT=$(PORT),DEVICE=$(DEVICE)A=$(A), MODEL=$(MODEL)")
-dbLoadTemplate("db/devSRS_PS3xx.substitutions","PORT=$(PORT),DEVICE=$(DEVICE)A=$(A), MODEL=$(MODEL)")
-dbLoadRecords("db/devSRS_PS3xx_ui.db","PORT=$(PORT),DEVICE=$(DEVICE)A=$(A), MODEL=$(MODEL)")
-dbLoadRecords("db/devSRS_PS3xx_ramp.db","PORT=$(PORT),DEVICE=$(DEVICE)A=$(A), MODEL=$(MODEL)")
-dbLoadRecords("db/customLimits.db","PORT=$(PORT),DEVICE=$(DEVICE)A=$(A), MODEL=$(MODEL)")
-dbLoadRecords("db/devSRS_PS300_common.db","DEVICE=$(DEVICE),L=0,A=$(A)")
+dbLoadRecords("$(ASYN)/db/asynRecord.db","P=$(DEVICE), R=asyn,PORT=$(PORT),ADDR=0,OMAX=256,IMAX=256")
+dbLoadRecords("db/devSRS_PS3xx.db","PORT=$(PORT),DEVICE=$(DEVICE), A=$(A), MODEL=$(MODEL)")
+dbLoadTemplate("db/devSRS_PS3xx.substitutions","PORT=$(PORT),DEVICE=$(DEVICE), A=$(A), MODEL=$(MODEL)")
+dbLoadRecords("db/devSRS_PS3xx_ui.db","PORT=$(PORT),DEVICE=$(DEVICE), A=$(A), MODEL=$(MODEL)")
+dbLoadRecords("db/devSRS_PS3xx_ramp.db","PORT=$(PORT),DEVICE=$(DEVICE), A=$(A), MODEL=$(MODEL)")
+dbLoadRecords("db/customLimits.db","PORT=$(PORT),DEVICE=$(DEVICE), A=$(A), MODEL=$(MODEL)")
+dbLoadRecords("db/devSRS_PS300_common.db","DEVICE=$(DEVICE), L=0,A=$(A)")
 
 # specify where save files should go
 set_savefile_path("$(TOP)/autoSaveRestore")
