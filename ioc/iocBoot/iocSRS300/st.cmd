@@ -27,7 +27,7 @@ SRS300_registerRecordDeviceDriver pdbbase
 drvAsynIPPortConfigure("L0","$(ADDR)",0,0,0)
 
 ## Load record instances
-dbLoadRecords("$(ASYN)/db/asynRecord.db","P=$(PREFIX)$(SUFFIX),R=asyn,PORT=$(PORT),ADDR=0,OMAX=256,IMAX=256")
+dbLoadRecords("$(ASYN)/db/asynRecord.db","P=$(DEVICE),R=asyn,PORT=$(PORT),ADDR=0,OMAX=256,IMAX=256")
 dbLoadRecords("db/devSRS_PS3xx.db","PORT=$(PORT),DEVICE=$(DEVICE)A=$(A), MODEL=$(MODEL)")
 dbLoadTemplate("db/devSRS_PS3xx.substitutions","PORT=$(PORT),DEVICE=$(DEVICE)A=$(A), MODEL=$(MODEL)")
 dbLoadRecords("db/devSRS_PS3xx_ui.db","PORT=$(PORT),DEVICE=$(DEVICE)A=$(A), MODEL=$(MODEL)")
@@ -56,9 +56,9 @@ cd "${TOP}/iocBoot/${IOC}"
 #Commence IOC running
 iocInit
 
-create_monitor_set("ramp1Menu.req", 5 , "P=$(PREFIX)$(SUFFIX), CONFIG=ramp1,CONFIGMENU=1")
+create_monitor_set("ramp1Menu.req", 5 , "P=$(DEVICE), CONFIG=ramp1,CONFIGMENU=1")
 
 
 ## Start any sequence programs
-seq &rampLogic, "P=$(PREFIX),R=$(SUFFIX),L=0,A=$(A)"
+seq &rampLogic, "DEVICE=$(DEVICE),L=0,A=$(A)"
 
