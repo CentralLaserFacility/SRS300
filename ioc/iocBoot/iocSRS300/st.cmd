@@ -46,8 +46,8 @@ set_requestfile_path("$(AUTOSAVE)/asApp/Db/")
 
 dbLoadRecords("$(AUTOSAVE)/db/configMenu.db","P=$(DEVICE),CONFIG=ramp1")
 save_restoreSet_DatedBackupFiles(0)
-set_pass0_restoreFile("ramp1Menu.sav", "P=$(DEVICE),CONFIG=ramp1,CONFIGMENU=1")
-set_pass1_restoreFile("ramp1Menu.sav", "P=$(DEVICE),CONFIG=ramp1,CONFIGMENU=1")
+set_pass0_restoreFile("ramp1Menu.sav", "P=$(DEVICE):,CONFIG=ramp1,CONFIGMENU=1")
+set_pass1_restoreFile("ramp1Menu.sav", "P=$(DEVICE):,CONFIG=ramp1,CONFIGMENU=1")
 
 
 
