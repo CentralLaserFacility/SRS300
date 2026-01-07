@@ -65,7 +65,7 @@
     <pv>
       <display_name></display_name>
       <visible>true</visible>
-      <name>VUL-TEST-PS300-1:autoscaleControlMin</name>
+      <name>$(DEVICE):autoscaleControlMin</name>
       <axis>0</axis>
       <color>
         <red>255</red>
@@ -85,7 +85,7 @@
     <pv>
       <display_name></display_name>
       <visible>true</visible>
-      <name>VUL-TEST-PS300-1:autoscaleControlMax</name>
+      <name>$(DEVICE):autoscaleControlMax</name>
       <axis>0</axis>
       <color>
         <red>255</red>
@@ -105,7 +105,7 @@
     <pv>
       <display_name></display_name>
       <visible>true</visible>
-      <name>VUL-TEST-PS300-1:C_IMAXmA</name>
+      <name>$(DEVICE):C_IMAXmA</name>
       <axis>1</axis>
       <color>
         <red>128</red>
@@ -125,7 +125,7 @@
     <pv>
       <display_name>Current</display_name>
       <visible>true</visible>
-      <name>VUL-TEST-PS300-1:OutputImA</name>
+      <name>$(DEVICE):OutputImA</name>
       <axis>1</axis>
       <color>
         <red>0</red>
@@ -145,7 +145,7 @@
     <pv>
       <display_name>Voltage</display_name>
       <visible>true</visible>
-      <name>VUL-TEST-PS300-1:absVoltage</name>
+      <name>$(DEVICE):absVoltage</name>
       <axis>0</axis>
       <color>
         <red>255</red>
