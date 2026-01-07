@@ -1548,11 +1548,6 @@ else:
       </rule>
     </rules>
   </widget>
-  <widget type="rectangle" version="2.0.0">
-    <name>Rectangle_1</name>
-    <x>1050</x>
-    <y>1040</y>
-  </widget>
   <widget type="group" version="3.0.0">
     <name>Config settings</name>
     <x>315</x>
@@ -1927,9 +1922,9 @@ ScriptUtil.openDisplay(widget, "bench_HVPS.bob", "REPLACE", None)
   <widget type="label" version="2.0.0">
     <name>disconnect error message</name>
     <text>Cannot enable HV:      Device off/disconnected</text>
-    <x>563</x>
+    <x>580</x>
     <y>269</y>
-    <width>166</width>
+    <width>150</width>
     <height>35</height>
     <visible>false</visible>
     <foreground_color>
