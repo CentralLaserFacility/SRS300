@@ -5,17 +5,17 @@
     <DEVICE>VUL-TEST-PS300-1</DEVICE>
     <CONFIG>ramp1</CONFIG>
   </macros>
-  <width>1500</width>
-  <height>1000</height>
+  <width>744</width>
+  <height>790</height>
   <background_color>
     <color name="Button_Background" red="210" green="210" blue="210">
     </color>
   </background_color>
   <actions>
     <action type="write_pv">
+      <description>Write PV</description>
       <pv_name>$(DEVICE):VRAMPrun</pv_name>
       <value>0</value>
-      <description>Write PV</description>
     </action>
   </actions>
   <grid_visible>false</grid_visible>
@@ -44,9 +44,9 @@
     <name>Action Button</name>
     <actions>
       <action type="write_pv">
+        <description>Enable high voltage</description>
         <pv_name>$(DEVICE):HVenable</pv_name>
         <value>1</value>
-        <description>Enable high voltage</description>
       </action>
     </actions>
     <text>HV On</text>
@@ -70,9 +70,9 @@
     <name>Action Button_1</name>
     <actions>
       <action type="write_pv">
+        <description>Disable high voltage</description>
         <pv_name>$(DEVICE):HVenable</pv_name>
         <value>0</value>
-        <description>Disable high voltage</description>
       </action>
     </actions>
     <text>HV Off</text>
@@ -166,9 +166,9 @@
       <name>Start ramp</name>
       <actions>
         <action type="write_pv">
+          <description>Start ramp</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>Start ramp</description>
         </action>
       </actions>
       <pv_name>$(DEVICE):StartCharge.PROC</pv_name>
@@ -205,9 +205,9 @@
       <name>Halt ramp</name>
       <actions>
         <action type="write_pv">
+          <description>Halt ramp</description>
           <pv_name>$(pv_name)</pv_name>
           <value>0</value>
-          <description>Halt ramp</description>
         </action>
       </actions>
       <pv_name>$(DEVICE):VRAMPactive</pv_name>
@@ -669,9 +669,9 @@
       <name>Reset button</name>
       <actions>
         <action type="write_pv">
+          <description>Reset</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>Reset</description>
         </action>
       </actions>
       <pv_name>$(DEVICE):hardReset</pv_name>
@@ -716,9 +716,9 @@
       <name>EDM activeMessageButtonClass_3</name>
       <actions>
         <action type="write_pv">
+          <description>Clear trip</description>
           <pv_name>$(pv_name)</pv_name>
           <value>0</value>
-          <description>Clear trip</description>
         </action>
       </actions>
       <pv_name>$(DEVICE):tripClearSeq</pv_name>
@@ -1036,9 +1036,9 @@
         <name>Action Button_17</name>
         <actions>
           <action type="write_pv">
+            <description>open advanced settings</description>
             <pv_name>$(pv_name)</pv_name>
             <value>1</value>
-            <description>open advanced settings</description>
           </action>
         </actions>
         <pv_name>$(DEVICE):limitMenuOpen</pv_name>
@@ -1060,9 +1060,9 @@
         <height>22</height>
         <actions>
           <action type="write_pv">
+            <description>open advanced settings</description>
             <pv_name>$(DEVICE):limitMenuOpen</pv_name>
             <value>1</value>
-            <description>open advanced settings</description>
           </action>
         </actions>
       </widget>
@@ -1184,14 +1184,14 @@
       <name>Apply- positive</name>
       <actions execute_as_one="true">
         <action type="write_pv">
+          <description>set limits</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>set limits</description>
         </action>
         <action type="write_pv">
+          <description>close ui</description>
           <pv_name>$(DEVICE):limitMenuOpen</pv_name>
           <value>0</value>
-          <description>close ui</description>
         </action>
       </actions>
       <pv_name>$(DEVICE):setNewLimitsPOS.PROC</pv_name>
@@ -1218,9 +1218,9 @@
       <name>Action Button_11</name>
       <actions>
         <action type="write_pv">
+          <description>reset limits</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>reset limits</description>
         </action>
       </actions>
       <pv_name>$(DEVICE):resetLimits.PROC</pv_name>
@@ -1240,14 +1240,14 @@
       <name>Action Button_12</name>
       <actions execute_as_one="true">
         <action type="write_pv">
+          <description>close seq</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>close seq</description>
         </action>
         <action type="write_pv">
+          <description>close ui</description>
           <pv_name>$(DEVICE):limitMenuOpen</pv_name>
           <value>0</value>
-          <description>close ui</description>
         </action>
       </actions>
       <pv_name>$(DEVICE):limitMenuClosed.PROC</pv_name>
@@ -1319,14 +1319,14 @@
         <name>Action Button_13</name>
         <actions execute_as_one="true">
           <action type="write_pv">
+            <description>Close</description>
             <pv_name>$(pv_name)</pv_name>
             <value>1</value>
-            <description>Close</description>
           </action>
           <action type="write_pv">
+            <description>close ui</description>
             <pv_name>$(DEVICE):limitMenuOpen</pv_name>
             <value>0</value>
-            <description>close ui</description>
           </action>
         </actions>
         <pv_name>$(DEVICE):limitMenuClosed.PROC</pv_name>
@@ -1342,14 +1342,14 @@
       <name>Apply- negative</name>
       <actions execute_as_one="true">
         <action type="write_pv">
+          <description>set limits</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>set limits</description>
         </action>
         <action type="write_pv">
+          <description>close ui</description>
           <pv_name>$(DEVICE):limitMenuOpen</pv_name>
           <value>0</value>
-          <description>close ui</description>
         </action>
       </actions>
       <pv_name>$(DEVICE):setNewLimitsNEG.PROC</pv_name>
@@ -1418,9 +1418,9 @@
       <name>Action Button_18</name>
       <actions>
         <action type="write_pv">
+          <description>Open Config Menu</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>Open Config Menu</description>
         </action>
       </actions>
       <pv_name>$(DEVICE):configMenuOpen</pv_name>
@@ -1449,9 +1449,9 @@
       <height>22</height>
       <actions>
         <action type="write_pv">
+          <description>open advanced settings</description>
           <pv_name>$(DEVICE):limitMenuOpen</pv_name>
           <value>1</value>
-          <description>open advanced settings</description>
         </action>
       </actions>
       <rules>
@@ -1647,9 +1647,9 @@
         <name>Action Button_23</name>
         <actions execute_as_one="true">
           <action type="write_pv">
+            <description>close menu</description>
             <pv_name>$(DEVICE):configMenuOpen</pv_name>
             <value>0</value>
-            <description>close menu</description>
           </action>
         </actions>
         <pv_name>$(DEVICE):configMenuOpen</pv_name>
@@ -1834,13 +1834,13 @@
       <name>Action Button_3</name>
       <actions>
         <action type="execute">
+          <description>Refresh display</description>
           <script file="EmbeddedPy">
             <text><![CDATA[# Embedded python script
 from org.csstudio.display.builder.runtime.script import PVUtil, ScriptUtil
 ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
 ]]></text>
           </script>
-          <description>Refresh display</description>
         </action>
       </actions>
       <text></text>
@@ -1862,9 +1862,9 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
   <widget type="textupdate" version="2.0.0">
     <name>Text Update</name>
     <pv_name>$(DEVICE):SRSModel</pv_name>
-    <x>287</x>
+    <x>309</x>
     <y>5</y>
-    <width>136</width>
+    <width>131</width>
     <font>
       <font family="Eras Demi ITC" style="BOLD" size="14.0">
       </font>
@@ -1910,14 +1910,14 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
     <name>Action Button_4</name>
     <actions execute_as_one="true">
       <action type="write_pv">
+        <description>Write PV</description>
         <pv_name>$(DEVICE):smallStepError</pv_name>
         <value>0</value>
-        <description>Write PV</description>
       </action>
       <action type="write_pv">
+        <description>Write PV</description>
         <pv_name>$(DEVICE):HVdisconnectError</pv_name>
         <value>0</value>
-        <description>Write PV</description>
       </action>
     </actions>
     <text>Clear message</text>
@@ -1942,12 +1942,20 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
     <y>5</y>
     <width>157</width>
     <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      <font family="Eras Demi ITC" style="REGULAR" size="14.0">
       </font>
     </font>
     <foreground_color>
       <color name="ActiveText" red="255" green="255" blue="0">
       </color>
     </foreground_color>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_15</name>
+    <pv_name>$(DEVICE):HVONstatus</pv_name>
+    <x>705</x>
+    <y>5</y>
+    <width>19</width>
+    <height>19</height>
   </widget>
 </display>
