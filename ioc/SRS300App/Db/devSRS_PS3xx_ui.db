@@ -107,6 +107,8 @@ record(bi, "$(DEVICE):toolbarShow"){
 
 record(ai, "$(DEVICE):currentGraphMin"){
     field(DESC, "Minimum current for graph y axis")
+    #Minimum is slightly below zero so that when current and voltage are zero, they are both still visible on the graph
+    #If both scales have a minimum of 0 the lines will overlap
     field(VAL, "-0.002")
     field(EGU, "mA")
     field(PINI, "YES")
