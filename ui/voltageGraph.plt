@@ -35,8 +35,8 @@
         <green>0</green>
         <blue>0</blue>
       </color>
-      <min>-5.0</min>
-      <max>105.0</max>
+      <min>-1.1</min>
+      <max>1.1</max>
       <grid>false</grid>
       <autoscale>true</autoscale>
       <log_scale>false</log_scale>
@@ -52,10 +52,10 @@
         <green>0</green>
         <blue>0</blue>
       </color>
-      <min>-0.04</min>
-      <max>1.0</max>
+      <min>-1.1</min>
+      <max>1.1</max>
       <grid>false</grid>
-      <autoscale>false</autoscale>
+      <autoscale>true</autoscale>
       <log_scale>false</log_scale>
     </axis>
   </axes>
@@ -73,7 +73,7 @@
         <blue>255</blue>
       </color>
       <trace_type>AREA</trace_type>
-      <linewidth>1</linewidth>
+      <linewidth>0</linewidth>
       <line_style>SOLID</line_style>
       <point_type>NONE</point_type>
       <point_size>1</point_size>
@@ -108,15 +108,35 @@
       <name>$(DEVICE):C_IMAXmA</name>
       <axis>1</axis>
       <color>
-        <red>128</red>
-        <green>153</green>
+        <red>255</red>
+        <green>255</green>
         <blue>255</blue>
       </color>
       <trace_type>AREA</trace_type>
       <linewidth>1</linewidth>
       <line_style>DOT</line_style>
       <point_type>NONE</point_type>
-      <point_size>2</point_size>
+      <point_size>1</point_size>
+      <waveform_index>0</waveform_index>
+      <period>0.0</period>
+      <ring_size>5000</ring_size>
+      <request>OPTIMIZED</request>
+    </pv>
+    <pv>
+      <display_name></display_name>
+      <visible>true</visible>
+      <name>$(DEVICE):currentGraphMin</name>
+      <axis>1</axis>
+      <color>
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+      </color>
+      <trace_type>AREA</trace_type>
+      <linewidth>0</linewidth>
+      <line_style>SOLID</line_style>
+      <point_type>NONE</point_type>
+      <point_size>1</point_size>
       <waveform_index>0</waveform_index>
       <period>0.0</period>
       <ring_size>5000</ring_size>

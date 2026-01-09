@@ -104,3 +104,10 @@ record(bi, "$(DEVICE):toolbarShow"){
     field(VAL, "0")
     field(PINI, "YES")
 }
+
+record(ai, "$(DEVICE):currentGraphMin"){
+    field(DESC, "Minimum current for graph y axis")
+    field(VAL, "-0.002")
+    field(EGU, "mA")
+    field(PINI, "YES")
+}
