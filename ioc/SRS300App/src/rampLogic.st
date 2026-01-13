@@ -59,8 +59,10 @@ ss RampState{
             //if HV is off, do not ramp
             startCharge = IDLE;
             endCharge = END;
+            voltageMonitorScan = REGULAR_SCAN;
             pvPut(startCharge);
             pvPut(endCharge);
+            pvPut(voltageMonitorScan);
         } state initial
         when (startCharge == RAMPING && presentVoltage<targetVoltage && HVonStatus == ENABLED){
             //status scanning must be paused while voltage is being set
@@ -89,8 +91,10 @@ ss RampState{
         when (presentVoltage >= (targetVoltage-Tolerance) || startCharge == IDLE || HVonStatus == DISABLED){ //stops ramping and returns to initial
             startCharge = IDLE;
             endCharge = END;
+            voltageMonitorScan = REGULAR_SCAN;
             pvPut(startCharge);
             pvPut(endCharge);
+            pvPut(voltageMonitorScan);
         } state initial
     }
 
@@ -109,8 +113,10 @@ ss RampState{
         when (presentVoltage<=(targetVoltage+Tolerance) || startCharge == IDLE || HVonStatus == DISABLED){ //stops ramping and returns to initial
             startCharge = IDLE;
             endCharge = END;
+            voltageMonitorScan = REGULAR_SCAN;
             pvPut(startCharge);
             pvPut(endCharge);
+            pvPut(voltageMonitorScan);
         } state initial
     }
 

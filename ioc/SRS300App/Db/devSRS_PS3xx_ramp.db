@@ -10,16 +10,16 @@ record(ai, "$(DEVICE):startVoltage"){
 record(seq, "$(DEVICE):StartCharge"){
     field(DESC, "Sequence to start HV charge")
     #get/set values for graphing
-    field(DOL3, "$(DEVICE):OutputVget")
-    field(LNK3, "$(DEVICE):startVoltage PP")
-    field(LNK4, "$(DEVICE):YaxisMax.PROC PP")
-    field(LNK5, "$(DEVICE):YaxisMin.PROC PP")
-    field(DOL6, "$(DEVICE):YaxisMin")
-    field(LNK6, "$(DEVICE):autoscaleControlMin PP")
-    field(DOL7, "$(DEVICE):YaxisMax")
-    field(LNK7, "$(DEVICE):autoscaleControlMax PP")
+    field(DOL1, "$(DEVICE):OutputVget")
+    field(LNK1, "$(DEVICE):startVoltage PP")
+    field(LNK2, "$(DEVICE):YaxisMax.PROC PP")
+    field(LNK3, "$(DEVICE):YaxisMin.PROC PP")
+    field(DOL4, "$(DEVICE):YaxisMin")
+    field(LNK4, "$(DEVICE):autoscaleControlMin PP")
+    field(DOL5, "$(DEVICE):YaxisMax")
+    field(LNK5, "$(DEVICE):autoscaleControlMax PP")
     #calculate ramp parameters
-    field(LNK8, "$(DEVICE):VRAMPcalc PP")
+    field(LNK6, "$(DEVICE):VRAMPcalc PP")
 }
 
 #_________________end charge sequence_________________
@@ -27,13 +27,11 @@ record(seq, "$(DEVICE):endCharge"){
     field(DESC, "Sequence to end HV charge")
     field(DO1, "0")
     field(LNK1, "$(DEVICE):VRAMPactive PP")
-    field(DO2, "6")#DO field only takes double, 6 represents 1 second scan
-    field(LNK2, "$(DEVICE):voltageMonitor.SCAN")
-    field(LNK5, "$(DEVICE):idleZoom PP")
+    field(LNK2, "$(DEVICE):idleZoom PP")
 }
 
-record(bi, "$(DEVICE):VRAMPactive")
-{#when set to 1 ("Ramping") the state machine will begin the ramping process
+record(bi, "$(DEVICE):VRAMPactive"){
+#when set to 1 ("Ramping") the state machine will begin the ramping process
     field(DESC, "Is charge active?")
     field(ZNAM, "Idle")
     field(ONAM, "Ramping")
@@ -132,7 +130,6 @@ record(calc, "$(DEVICE):C_maxStepSize"){
 #__________________________________________
 #_____________error messages_______________
 
-#mbbi to hold error messages, to be updated with more error statuses if needed
 record(calc, "$(DEVICE):smallStepError"){
     field(DESC, "warning for step being too small")
     field(INPA, "$(DEVICE):desiredHV PP")
