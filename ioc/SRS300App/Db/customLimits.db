@@ -65,17 +65,12 @@ record(bo, "$(DEVICE):setSAV")
     field(DESC, "Save current device settings")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto cmd(*SAV 1) $(PORT) $(A)")
-    field(ZNAM, "Set to save settings")
-    field(ONAM, "Set to save settings")
-    
 }
 record(bo, "$(DEVICE):RestoreSettings")
 {
     field(DESC, "Restore saved settings")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto cmd(*RCL 1) $(PORT) $(A)")
-    field(ZNAM, "Restore to saved settings")
-    field(ONAM, "Restore saved settings1")
 }
 #_________________________________________________________
 #when changes are applied from the limit menu, set the device limits to the new values

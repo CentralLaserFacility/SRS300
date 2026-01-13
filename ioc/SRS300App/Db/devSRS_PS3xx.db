@@ -195,8 +195,6 @@ record(bo, "$(DEVICE):ResetDevice"){
     field(DESC, "Reset device")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto cmd(*RST) $(PORT) $(A)")
-    field(ZNAM, "Reset Device")
-    field(ONAM, "Reset Device")
 }
 
 record(seq, "$(DEVICE):tripClearSeq"){
@@ -211,8 +209,6 @@ record(bo, "$(DEVICE):TripClear"){
     field(DESC, "Clear a trip")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto cmd(TCLR) $(PORT) $(A)")
-    field(ZNAM, "Clear")
-    field(ONAM, "Clear")
     field(HIGH, "1")
     field(FLNK, "$(DEVICE):getSTB")
 }
