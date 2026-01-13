@@ -27,7 +27,7 @@ short monitorPROC;
 short HVonStatus; // 1 = HV on, 0 = HV off
 
 
-assign presentVoltage to "{DEVICE}:OutputVget"; //change $(DEVICE): syntax
+assign presentVoltage to "{DEVICE}:OutputVget";
 assign targetVoltage to "{DEVICE}:desiredHV";
 assign stepSize to "{DEVICE}:VRAMPstepSize";
 assign interval to "{DEVICE}:VRAMPinterval";
