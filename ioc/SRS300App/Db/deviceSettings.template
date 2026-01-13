@@ -14,14 +14,13 @@ record(ai, "$(DEVICE):VMAX"){
     field(EGU, "V")
 }
 record(ai, "$(DEVICE):VMIN"){
-    field(DESC, "Maximum voltage for device")
+    field(DESC, "Minimum voltage for device")
     field(EGU, "V")
 }
 
 record(ai, "$(DEVICE):IMAX"){
     field(DESC, "Maximum current for device")
     field(EGU, "A")
-    field(ASLO, "1000")
     field(PREC, "4")
 }
 record(ai, "$(DEVICE):IMIN"){
@@ -41,7 +40,7 @@ record(calc, "$(DEVICE):C_absVMIN"){
     field(FLNK, "$(DEVICE):C_absVMAX")
 }
 record(calc, "$(DEVICE):C_absVMAX"){
-    field(DESC, "Minimum voltage (closest to 0)")
+    field(DESC, "Maximum voltage (closest to 0)")
     field(INPA, "$(DEVICE):VMAX PP")
     field(INPB, "$(DEVICE):VMIN PP")
     field(CALC, "ABS(A)>ABS(B) ? A : B") #in negative versions vmin has larger abs value
