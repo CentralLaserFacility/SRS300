@@ -171,7 +171,7 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):StartCharge.PROC</pv_name>
+      <pv_name>$(DEVICE):startCharge.PROC</pv_name>
       <text>Start ramp</text>
       <x>29</x>
       <y>212</y>
@@ -1374,7 +1374,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_9</name>
-      <pv_name>$(DEVICE):voltageLimitSET</pv_name>
+      <pv_name>$(DEVICE):voltageLimitSet</pv_name>
       <x>122</x>
       <y>61</y>
       <width>95</width>

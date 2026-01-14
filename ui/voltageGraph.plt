@@ -93,7 +93,7 @@
         <blue>255</blue>
       </color>
       <trace_type>AREA</trace_type>
-      <linewidth>1</linewidth>
+      <linewidth>0</linewidth>
       <line_style>SOLID</line_style>
       <point_type>NONE</point_type>
       <point_size>1</point_size>
@@ -113,8 +113,8 @@
         <blue>255</blue>
       </color>
       <trace_type>AREA</trace_type>
-      <linewidth>1</linewidth>
-      <line_style>DOT</line_style>
+      <linewidth>0</linewidth>
+      <line_style>SOLID</line_style>
       <point_type>NONE</point_type>
       <point_size>1</point_size>
       <waveform_index>0</waveform_index>

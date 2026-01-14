@@ -79,10 +79,10 @@ record(bo, "$(DEVICE):defaultSettings"){
     field(OUT,  "@ps300.proto cmd(*RCL 0) $(PORT) $(A)")
     field(ZNAM, "Reset to default settings")
     field(ONAM, "Reset to default settings")
-    field(FLNK, "$(DEVICE):defaultLIM")
+    field(FLNK, "$(DEVICE):defaultLimit")
 }
 
-record(ai, "$(DEVICE):defaultLIM"){
+record(ai, "$(DEVICE):defaultLimit"){
     #stores default limit values for use in checking polarity
     field(DESC, "Store default limit values")
     field(INP, "$(DEVICE):VLIMget")
@@ -94,7 +94,7 @@ record(ai, "$(DEVICE):defaultLIM"){
 record(calcout, "$(DEVICE):checkPolarity"){
     field(DESC, "Check device polarity on startup")
     field(VAL, "3") #dummy initial value to allow processing on startup
-    field(INPA, "$(DEVICE):defaultLIM")
+    field(INPA, "$(DEVICE):defaultLimit")
     field(CALC, "A<0 ? 1 : 0") #if limit is negative, device is negative polarity
     field(OOPT, "On Change")
     field(OUT, "$(DEVICE):polarity PP")

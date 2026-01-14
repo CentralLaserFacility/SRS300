@@ -7,7 +7,7 @@ record(ai, "$(DEVICE):startVoltage"){
     field(PINI, "YES")
 }
 
-record(seq, "$(DEVICE):StartCharge"){
+record(seq, "$(DEVICE):startCharge"){
     field(DESC, "Sequence to start HV charge")
     #get/set values for graphing
     field(DOL1, "$(DEVICE):outputVoltageGet")
