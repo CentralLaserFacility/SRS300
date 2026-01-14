@@ -16,7 +16,7 @@ record(waveform, "$(DEVICE):IDN"){
 }
 #______________________________________________
 #______________status readbacks_________________
-record(fanout, "$(DEVICE):ReadbackPoll_"){
+record(fanout, "$(DEVICE):ReadbackPoll"){
     field(DESC, "Head of readback chain")
     field(PINI, "YES")
     field(SCAN, ".1 second")
@@ -199,10 +199,12 @@ record(bo, "$(DEVICE):ResetDevice"){
 
 record(seq, "$(DEVICE):tripClearSeq"){
     field(DESC, "Sequence to clear trip and reset device")
+    #TripStatus is not set to 0 by device as the bit resets on read so is unreliable
+    #TripClear command must be sent for TripStatus to be set to 0
     field(DO1, "0")
     field(LNK1, "$(DEVICE):TripStatus PP")
     field(LNK2, "$(DEVICE):TripClear.PROC PP")
-    field(FLNK, "$(DEVICE):ReadbackPoll_")
+    field(FLNK, "$(DEVICE):ReadbackPoll")
 }
 
 record(bo, "$(DEVICE):TripClear"){
