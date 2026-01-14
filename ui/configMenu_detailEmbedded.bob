@@ -5,7 +5,7 @@
   <height>20</height>
   <widget type="textentry" version="3.0.0">
     <name>Text Entry</name>
-    <pv_name>$(P)$(R)$(CONFIG)Menu:name$(configNo)</pv_name>
+    <pv_name>$(DEVICE):$(CONFIG)Menu:name$(configNo)</pv_name>
     <x>56</x>
     <width>159</width>
     <background_color>
@@ -22,7 +22,7 @@
         <description>Save</description>
       </action>
     </actions>
-    <pv_name>$(P)$(R)$(CONFIG)Menu:saveConfig$(configNo)</pv_name>
+    <pv_name>$(DEVICE):$(CONFIG)Menu:saveConfig$(configNo)</pv_name>
     <text>Save</text>
     <x>225</x>
     <width>49</width>
@@ -35,7 +35,7 @@
         <exp bool_exp="pv0 == 1">
           <value>true</value>
         </exp>
-        <pv_name>$(P)$(R)$(CONFIG)Menu:enableSave</pv_name>
+        <pv_name>$(DEVICE):$(CONFIG)Menu:enableSave</pv_name>
       </rule>
     </rules>
     <tooltip>$(actions)</tooltip>
@@ -50,7 +50,7 @@
         <description>Load</description>
       </action>
     </actions>
-    <pv_name>$(P)$(R)$(CONFIG)Menu:loadConfig$(configNo)</pv_name>
+    <pv_name>$(DEVICE):$(CONFIG)Menu:loadConfig$(configNo)</pv_name>
     <text>Load</text>
     <width>49</width>
     <height>20</height>

@@ -1,0 +1,115 @@
+#model number string for ui display
+record(stringin, "$(DEVICE):SRSModel"){
+    field(DESC, "SRS Model Number")
+    field(VAL,  "SRS HVPS$(MODEL)")
+}
+#______________________________________________
+#_____________open/close menus______________
+
+record(bi, "$(DEVICE):limitMenuOpen"){
+    field(DESC, "Open/close limit menu (ui)")
+    field(ZNAM, "Closed")
+    field(ONAM, "Open")
+    field(PINI, "YES")
+}
+
+record(mbbi, "$(DEVICE):configMenuOpen"){
+    field(DESC, "Open ui config menu")
+    field(VAL, "0")
+    field(ZRST, "Closed")
+    field(ONST, "medium menu")
+    field(TWST, "large menu")
+}
+
+#______________________________________________
+#__________Autoscale for data browser__________
+
+#data browser doesn't allow for changing the y axis limits using rules
+#so instead, autoscale is used and two pvs are plotted invisibly on the graph to control it
+#the autoscale pvs are calculated differently depending on whether it is ramping or idle
+
+#calculate y axis max and min for ramping
+#calculated such that y axis shows between starting voltage and target voltage plus a small margin
+record(calc, "$(DEVICE):YaxisMax"){
+    field(DESC, "calc Y axis maximum")
+    field(INPA, "$(DEVICE):desiredHV")
+    field(INPB, "$(DEVICE):startVoltage")
+    field(INPC, "$(DEVICE):C_minStepSize")
+    field(CALC, "MAX(ABS(A),ABS(B))+C")
+
+}
+record(calc, "$(DEVICE):YaxisMin"){
+    field(DESC, "calc Y axis minimum")
+    field(INPA, "$(DEVICE):desiredHV")
+    field(INPB, "$(DEVICE):startVoltage")
+    field(INPC, "$(DEVICE):C_minStepSize")
+    field(CALC, "MIN(ABS(A),ABS(B))-C")
+}
+
+#calculates y axis max and min for idle state
+#calculated to show maximum 5000V on Y axis when idle plus a small margin
+#for readability of graph when not ramping
+record(calc, "$(DEVICE):idleYaxisMax"){
+    field(DESC, "Set Y axis max when not ramping")
+    field(INPA, "$(DEVICE):absVoltage")
+    field(INPB, "$(DEVICE):C_minStepSize")
+    field(CALC, "A + B")
+}
+
+record(calc, "$(DEVICE):idleYaxisMin"){
+    field(DESC, "Set Y axis min when not ramping")
+    field(INPA, "$(DEVICE):absVoltage")
+    field(INPB, "$(DEVICE):C_minStepSize")
+    field(INPC, "$(DEVICE):graphScale")
+    field(CALC, "A>C ? A - C : 0")
+}
+
+record(ai, "$(DEVICE):graphScale"){
+    field(DESC, "Margin for graph y axis when idle")
+    field(VAL, "5000") #5000V margin by default
+    field(EGU, "V")
+    field(PINI, "YES")
+}
+
+#pvs to be plotted invisibly on the graph to control the autoscale feature in data browser
+record(ai, "$(DEVICE):autoscaleControlMax"){
+    field(DESC, "Control autoscale maximum")
+}
+
+record(ai, "$(DEVICE):autoscaleControlMin"){
+    field(DESC, "Control autoscale minimum")
+}
+
+#sequences to set autoscale pvs to the calculated values
+record(seq, "$(DEVICE):idleZoom"){
+    field(DESC, "Auto zoom data browser")
+    field(DOL1, "$(DEVICE):idleYaxisMax PP")
+    field(LNK1, "$(DEVICE):autoscaleControlMax PP")
+    field(DOL2, "$(DEVICE):idleYaxisMin PP")
+    field(LNK2, "$(DEVICE):autoscaleControlMin PP")
+    field(PINI, "YES")
+}
+record(seq, "$(DEVICE):rampZoom"){
+    field(DESC, "Auto zoom data browser")
+    field(DOL1, "$(DEVICE):YaxisMax")
+    field(LNK1, "$(DEVICE):autoscaleControlMax PP")
+    field(DOL2, "$(DEVICE):YaxisMin")
+    field(LNK2, "$(DEVICE):autoscaleControlMin PP")
+}
+
+record(bi, "$(DEVICE):toolbarShow"){
+    field(DESC, "Show/hide toolbar in ui")
+    field(ZNAM, "Hide Toolbar")
+    field(ONAM, "Show Toolbar")
+    field(VAL, "0")
+    field(PINI, "YES")
+}
+
+record(ai, "$(DEVICE):currentGraphMin"){
+    field(DESC, "Minimum current for graph y axis")
+    #Minimum is slightly below zero so that when current and voltage are zero, they are both still visible on the graph
+    #If both scales have a minimum of 0 the lines will overlap
+    field(VAL, "-0.002")
+    field(EGU, "mA")
+    field(PINI, "YES")
+}

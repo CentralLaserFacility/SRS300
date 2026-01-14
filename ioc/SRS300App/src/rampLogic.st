@@ -27,18 +27,18 @@ short monitorPROC;
 short HVonStatus; // 1 = HV on, 0 = HV off
 
 
-assign presentVoltage to "{P}{R}OutputVget"; //change $(P)$(R) syntax
-assign targetVoltage to "{P}{R}desiredHV";
-assign stepSize to "{P}{R}VRAMPstepSize";
-assign interval to "{P}{R}VRAMPinterval";
-assign startCharge to "{P}{R}VRAMPactive";
-assign HVset to "{P}{R}HVset";
-assign voltageMonitorScan to "{P}{R}voltageMonitor.SCAN";
-assign monitorPROC to "{P}{R}voltageMonitor.PROC";
-assign minStepSize to "{P}{R}C_minStepSize"; 
-assign Tolerance to "{P}{R}C_Tolerance";
-assign endCharge to "{P}{R}endCharge";
-assign HVonStatus to "{P}{R}HVONstatus";
+assign presentVoltage to "{DEVICE}:OutputVget";
+assign targetVoltage to "{DEVICE}:desiredHV";
+assign stepSize to "{DEVICE}:VRAMPstepSize";
+assign interval to "{DEVICE}:VRAMPinterval";
+assign startCharge to "{DEVICE}:VRAMPactive";
+assign HVset to "{DEVICE}:HVset";
+assign voltageMonitorScan to "{DEVICE}:voltageMonitor.SCAN";
+assign monitorPROC to "{DEVICE}:voltageMonitor.PROC";
+assign minStepSize to "{DEVICE}:C_minStepSize"; 
+assign Tolerance to "{DEVICE}:C_Tolerance";
+assign endCharge to "{DEVICE}:endCharge";
+assign HVonStatus to "{DEVICE}:HVONstatus";
 
 monitor presentVoltage;
 monitor targetVoltage;
@@ -59,8 +59,10 @@ ss RampState{
             //if HV is off, do not ramp
             startCharge = IDLE;
             endCharge = END;
+            voltageMonitorScan = REGULAR_SCAN;
             pvPut(startCharge);
             pvPut(endCharge);
+            pvPut(voltageMonitorScan);
         } state initial
         when (startCharge == RAMPING && presentVoltage<targetVoltage && HVonStatus == ENABLED){
             //status scanning must be paused while voltage is being set
@@ -89,8 +91,10 @@ ss RampState{
         when (presentVoltage >= (targetVoltage-Tolerance) || startCharge == IDLE || HVonStatus == DISABLED){ //stops ramping and returns to initial
             startCharge = IDLE;
             endCharge = END;
+            voltageMonitorScan = REGULAR_SCAN;
             pvPut(startCharge);
             pvPut(endCharge);
+            pvPut(voltageMonitorScan);
         } state initial
     }
 
@@ -109,8 +113,10 @@ ss RampState{
         when (presentVoltage<=(targetVoltage+Tolerance) || startCharge == IDLE || HVonStatus == DISABLED){ //stops ramping and returns to initial
             startCharge = IDLE;
             endCharge = END;
+            voltageMonitorScan = REGULAR_SCAN;
             pvPut(startCharge);
             pvPut(endCharge);
+            pvPut(voltageMonitorScan);
         } state initial
     }
 

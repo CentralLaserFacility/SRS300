@@ -27,7 +27,7 @@
   </widget>
   <widget type="label" version="2.0.0">
     <name>text #9</name>
-    <text>$(P)$(R)</text>
+    <text>$(DEVICE):</text>
     <y>2</y>
     <width>260</width>
     <height>16</height>
@@ -57,7 +57,7 @@
         <exp bool_exp="!(pv0!=0)">
           <value>false</value>
         </exp>
-        <pv_name>$(P)$(R).OPTIONIV</pv_name>
+        <pv_name>$(DEVICE):.OPTIONIV</pv_name>
       </rule>
     </rules>
   </widget>
@@ -81,7 +81,7 @@
         <exp bool_exp="!(pv0==0)">
           <value>false</value>
         </exp>
-        <pv_name>$(P)$(R).OPTIONIV</pv_name>
+        <pv_name>$(DEVICE):.OPTIONIV</pv_name>
       </rule>
     </rules>
   </widget>
@@ -134,7 +134,7 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>text entry #32</name>
-    <pv_name>$(P)$(R).HOSTINFO</pv_name>
+    <pv_name>$(DEVICE):.HOSTINFO</pv_name>
     <x>150</x>
     <y>101</y>
     <width>102</width>
@@ -153,7 +153,7 @@
   </widget>
   <widget type="combo" version="2.0.0">
     <name>menu #36</name>
-    <pv_name>$(P)$(R).DRTO</pv_name>
+    <pv_name>$(DEVICE):.DRTO</pv_name>
     <x>150</x>
     <y>76</y>
     <width>102</width>
@@ -212,7 +212,7 @@
   </widget>
   <widget type="combo" version="2.0.0">
     <name>menu #51</name>
-    <pv_name>$(P)$(R).DBIT</pv_name>
+    <pv_name>$(DEVICE):.DBIT</pv_name>
     <x>150</x>
     <y>206</y>
     <width>102</width>
@@ -225,7 +225,7 @@
   </widget>
   <widget type="combo" version="2.0.0">
     <name>menu #54</name>
-    <pv_name>$(P)$(R).SBIT</pv_name>
+    <pv_name>$(DEVICE):.SBIT</pv_name>
     <x>150</x>
     <y>231</y>
     <width>102</width>
@@ -238,7 +238,7 @@
   </widget>
   <widget type="combo" version="2.0.0">
     <name>menu #57</name>
-    <pv_name>$(P)$(R).PRTY</pv_name>
+    <pv_name>$(DEVICE):.PRTY</pv_name>
     <x>150</x>
     <y>256</y>
     <width>102</width>
@@ -251,7 +251,7 @@
   </widget>
   <widget type="combo" version="2.0.0">
     <name>menu #60</name>
-    <pv_name>$(P)$(R).MCTL</pv_name>
+    <pv_name>$(DEVICE):.MCTL</pv_name>
     <x>150</x>
     <y>281</y>
     <width>102</width>
@@ -276,7 +276,7 @@
   </widget>
   <widget type="combo" version="2.0.0">
     <name>menu #66</name>
-    <pv_name>$(P)$(R).FCTL</pv_name>
+    <pv_name>$(DEVICE):.FCTL</pv_name>
     <x>150</x>
     <y>306</y>
     <width>102</width>
@@ -301,7 +301,7 @@
   </widget>
   <widget type="combo" version="2.0.0">
     <name>menu #72</name>
-    <pv_name>$(P)$(R).IXON</pv_name>
+    <pv_name>$(DEVICE):.IXON</pv_name>
     <x>150</x>
     <y>331</y>
     <width>102</width>
@@ -326,7 +326,7 @@
   </widget>
   <widget type="combo" version="2.0.0">
     <name>menu #78</name>
-    <pv_name>$(P)$(R).IXOFF</pv_name>
+    <pv_name>$(DEVICE):.IXOFF</pv_name>
     <x>150</x>
     <y>356</y>
     <width>102</width>
@@ -351,7 +351,7 @@
   </widget>
   <widget type="combo" version="2.0.0">
     <name>menu #84</name>
-    <pv_name>$(P)$(R).IXANY</pv_name>
+    <pv_name>$(DEVICE):.IXANY</pv_name>
     <x>150</x>
     <y>381</y>
     <width>102</width>
@@ -375,7 +375,7 @@
   </widget>
   <widget type="textentry" version="3.0.0">
     <name>text entry #90</name>
-    <pv_name>$(P)$(R).LBAUD</pv_name>
+    <pv_name>$(DEVICE):.LBAUD</pv_name>
     <x>150</x>
     <y>181</y>
     <width>102</width>

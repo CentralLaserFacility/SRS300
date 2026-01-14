@@ -32,6 +32,7 @@ getD {
     in "%d";
     ExtraInput = Ignore;
 }
+
 getF {
     out "\$1?";
     in "%f";

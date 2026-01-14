@@ -1,4 +1,4 @@
-record(bo, "$(P)$(R)DISABLE")
+record(bo, "$(DEVICE):DISABLE")
 {
     field(DESC, "Disable comms")
     field(PINI, "YES")
@@ -11,40 +11,40 @@ record(bo, "$(P)$(R)DISABLE")
 #
 # Aliases
 #
-alias("$(P)$(R)getESR","$(P)$(R)ESR")
+alias("$(DEVICE):getESR","$(DEVICE):ESR")
 
-alias("$(P)$(R)TripClear","$(P)$(R)CLEAR:SP")
-alias("$(P)$(R)CLEAR:SP","$(P)$(R)CLEAR")
+alias("$(DEVICE):TripClear","$(DEVICE):CLEAR:SP")
+alias("$(DEVICE):CLEAR:SP","$(DEVICE):CLEAR")
 
-alias("$(P)$(R)HVenable","$(P)$(R)HV:SP")
-alias("$(P)$(R)HV:SP","$(P)$(R)HV")
+alias("$(DEVICE):HVenable","$(DEVICE):HV:SP")
+alias("$(DEVICE):HV:SP","$(DEVICE):HV")
 
-alias("$(P)$(R)HVset","$(P)$(R)VOLTAGE:SP")
-alias("$(P)$(R)OutputVget","$(P)$(R)VOLTAGE")
-alias("$(P)$(R)VOLTAGE","$(P)$(R):SP:RBV")
+alias("$(DEVICE):HVset","$(DEVICE):VOLTAGE:SP")
+alias("$(DEVICE):OutputVget","$(DEVICE):VOLTAGE")
+alias("$(DEVICE):VOLTAGE","$(DEVICE):SP:RBV")
 
-alias("$(P)$(R)VLIMset","$(P)$(R)VOLTAGE:LIMIT:SP")
-alias("$(P)$(R)VLIMget","$(P)$(R)VOLTAGE:LIMIT")
-alias("$(P)$(R)VOLTAGE:LIMIT","$(P)$(R)VOLTAGE:LIMIT:SP:RBV")
+alias("$(DEVICE):VLIMset","$(DEVICE):VOLTAGE:LIMIT:SP")
+alias("$(DEVICE):VLIMget","$(DEVICE):VOLTAGE:LIMIT")
+alias("$(DEVICE):VOLTAGE:LIMIT","$(DEVICE):VOLTAGE:LIMIT:SP:RBV")
 
-alias("$(P)$(R)ILIMset","$(P)$(R)CURRENT:LIMIT:SP")
-alias("$(P)$(R)ILIMget","$(P)$(R)CURRENT:LIMIT")
-alias("$(P)$(R)CURRENT:LIMIT","$(P)$(R)CURRENT:LIMIT:SP:RBV")
+alias("$(DEVICE):ILIMset","$(DEVICE):CURRENT:LIMIT:SP")
+alias("$(DEVICE):ILIMget","$(DEVICE):CURRENT:LIMIT")
+alias("$(DEVICE):CURRENT:LIMIT","$(DEVICE):CURRENT:LIMIT:SP:RBV")
 
-alias("$(P)$(R)ITRPset","$(P)$(R)CURRENT:TRIP:LIMIT:SP")
-alias("$(P)$(R)ITRPget","$(P)$(R)CURRENT:TRIP:LIMIT")
-alias("$(P)$(R)CURRENT:TRIP:LIMIT","$(P)$(R)CURRENT:TRIP:LIMIT:SP:RBV")
+alias("$(DEVICE):ITRPset","$(DEVICE):CURRENT:TRIP:LIMIT:SP")
+alias("$(DEVICE):ITRPget","$(DEVICE):CURRENT:TRIP:LIMIT")
+alias("$(DEVICE):CURRENT:TRIP:LIMIT","$(DEVICE):CURRENT:TRIP:LIMIT:SP:RBV")
 
-alias("$(P)$(R)getSTB","$(P)$(R)STATUS")
+alias("$(DEVICE):getSTB","$(DEVICE):STATUS")
 
-alias("$(P)$(R)HVONstatus","$(P)$(R)HV:STATUS")
+alias("$(DEVICE):HVONstatus","$(DEVICE):HV:STATUS")
 
-alias("$(P)$(R)ILIMstatus","$(P)$(R)CURRENT:LIMIT:STATUS")
+alias("$(DEVICE):ILIMstatus","$(DEVICE):CURRENT:LIMIT:STATUS")
 
-alias("$(P)$(R)ITRIPstatus","$(P)$(R)CURRENT:TRIP:STATUS")
+alias("$(DEVICE):ITRIPstatus","$(DEVICE):CURRENT:TRIP:STATUS")
 
-alias("$(P)$(R)VTRIPstatus","$(P)$(R)VOLTAGE:TRIP:STATUS")
+alias("$(DEVICE):VTRIPstatus","$(DEVICE):VOLTAGE:TRIP:STATUS")
 
-alias("$(P)$(R)HVSTABLEstatus","$(P)$(R)HV:STABLE:STATUS")
+alias("$(DEVICE):HVSTABLEstatus","$(DEVICE):HV:STABLE:STATUS")
 
-alias("$(P)$(R)OutputIget","$(P)$(R)CURRENT")
+alias("$(DEVICE):OutputIget","$(DEVICE):CURRENT")
