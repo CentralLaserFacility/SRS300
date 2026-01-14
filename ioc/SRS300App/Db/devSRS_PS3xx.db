@@ -16,7 +16,7 @@ record(waveform, "$(DEVICE):IDN"){
 }
 #______________________________________________
 #______________status readbacks_________________
-record(fanout, "$(DEVICE):ReadbackPoll"){
+record(fanout, "$(DEVICE):readbackPoll"){
     field(DESC, "Head of readback chain")
     field(PINI, "YES")
     field(SCAN, ".1 second")
@@ -49,28 +49,28 @@ record(calcout, "$(DEVICE):ILIMstatus"){
     field(INPA,  "$(DEVICE):getSTB.B3 NPP MS")
     field(OOPT, "Transition To Non-zero")
     field(CALC, "A == 1 ? 3 : 0") #3 in mbbi record represents current limit
-    field(OUT, "$(DEVICE):TripStatus.B3")
+    field(OUT, "$(DEVICE):tripStatus.B3")
 }
 record(calcout, "$(DEVICE):ITRIPstatus"){
     field(DESC, "Tripped on overcurrent?")
     field(INPA,  "$(DEVICE):getSTB.B2 NPP MS")
     field(OOPT, "Transition To Non-zero")
     field(CALC, "A") #2 in mbbi record represents current trip
-    field(OUT, "$(DEVICE):TripStatus.B2")
+    field(OUT, "$(DEVICE):tripStatus.B2")
 }
 record(calcout, "$(DEVICE):VTRIPstatus"){
     field(DESC, "Tripped on overvoltage?")
     field(INPA,  "$(DEVICE):getSTB.B1 NPP MS")
     field(OOPT, "Transition To Non-zero")
     field(CALC, "A") #1 in mbbi record represents voltage trip
-    field(OUT, "$(DEVICE):TripStatus.B1")
+    field(OUT, "$(DEVICE):tripStatus.B1")
 }
 
 #When tripped, the device sets the corresponding bit to 1
 #however it resets it to 0 next time it is read even when still tripped
 #therefore we use a mbbiDirect record to store the trip status bits which is only called on the bit's transition to 1
 #this way the trip will be shown until it is cleared
-record(mbbiDirect, "$(DEVICE):TripStatus"){
+record(mbbiDirect, "$(DEVICE):tripStatus"){
     field(DESC, "Overall trip status")
     #B1 = overvoltage trip
     #B2 = overcurrent trip
@@ -78,20 +78,20 @@ record(mbbiDirect, "$(DEVICE):TripStatus"){
     field(PINI, "YES")
 }
 
-record(bi, "$(DEVICE):HVSTABLEstatus"){
+record(bi, "$(DEVICE):voltageStable"){
     field(DESC, "HV stable?")
     field(INP,  "$(DEVICE):getSTB.B0 NPP MS")
     field(ZNAM, "Unstable")
     field(ONAM, "Stable")
-    field(FLNK, "$(DEVICE):StableMultiState")
+    field(FLNK, "$(DEVICE):stableMultiState")
 }
 
-record(calc, "$(DEVICE):StableMultiState"){
+record(calc, "$(DEVICE):stableMultiState"){
 #while ramping, stability briefly becomes unstable
 #to get more accurate LED it should check for if it's unstable twice in a row
-    field(INPA, "$(DEVICE):StableMultiState")
-    field(INPB, "$(DEVICE):HVSTABLEstatus")
-    field(INPC, "$(DEVICE):VRAMPactive")
+    field(INPA, "$(DEVICE):stableMultiState")
+    field(INPB, "$(DEVICE):voltageStable")
+    field(INPC, "$(DEVICE):rampActive")
     field(CALC, "B==0 ? MIN(A+1,3): 1-C") 
     # if unstable, val will be whichever is smallest, A+1 or 3 (meaning it can only increase to maximum 3)
     #if stable it is set back to 1 (or 0 if ramping)
@@ -102,19 +102,19 @@ record(calc, "$(DEVICE):StableMultiState"){
 #___________________________________________________
 #_______________get current_________________________
 
-record(ai, "$(DEVICE):OutputIget"){
+record(ai, "$(DEVICE):outputCurrentGet"){
     field(DESC, "Output current readback")
     field(DTYP, "stream")
     field(SCAN, ".1 second")
     field(INP,  "@ps300.proto getF(IOUT) $(PORT) $(A)")
     field(EGU,  "A")
     field(PREC, "4")
-    field(FLNK, "$(DEVICE):OutputImA")
+    field(FLNK, "$(DEVICE):outputCurrentmA")
 }
 
-record(calc, "$(DEVICE):OutputImA"){
+record(calc, "$(DEVICE):outputCurrentmA"){
     field(DESC, "Convert output current to mA for display")
-    field(INPA, "$(DEVICE):OutputIget")
+    field(INPA, "$(DEVICE):outputCurrentGet")
     field(CALC, "A*1000")
     field(EGU, "mA")
     field(PREC, "2")
@@ -122,7 +122,7 @@ record(calc, "$(DEVICE):OutputImA"){
 #__________________________________________
 #__________Voltage get and set_____________
 
-record(ao, "$(DEVICE):HVset"){
+record(ao, "$(DEVICE):voltageSet"){
 #sets the device's high voltage, should only be set through the state machine's ramping process
     field(DESC, "Set output voltage")
     field(DTYP, "stream")
@@ -133,10 +133,10 @@ record(seq, "$(DEVICE):voltageMonitor"){
     field(DESC, "Monitor voltage")
     field(PINI, "YES")
     field(SCAN, "1 second")
-    field(LNK1, "$(DEVICE):OutputVget.PROC")
-    field(LNK2, "$(DEVICE):HVSTABLEstatus.PROC")
+    field(LNK1, "$(DEVICE):outputVoltageGet.PROC")
+    field(LNK2, "$(DEVICE):voltageStable.PROC")
 }
-record(ai, "$(DEVICE):OutputVget"){
+record(ai, "$(DEVICE):outputVoltageGet"){
     field(DESC, "Output voltage readback")
     field(DTYP, "stream")
     field(INP,  "@ps300.proto getF(VOUT) $(PORT) $(A)")
@@ -145,14 +145,14 @@ record(ai, "$(DEVICE):OutputVget"){
 }
 record(calc, "$(DEVICE):absVoltage"){
     field(DESC, "Absolute value of output voltage")
-    field(INPA, "$(DEVICE):OutputVget")
+    field(INPA, "$(DEVICE):outputVoltageGet")
     field(CALC, "ABS(A)")
     field(EGU, "V")
 }
 
 #________________________________________________________
 #________________enable/disable HV output________________
-record(bo, "$(DEVICE):HVenable"){
+record(bo, "$(DEVICE):enableHV"){
     #Turn high voltage on/off
     field(DESC, "Enable output")
     field(DTYP, "stream")
@@ -160,15 +160,15 @@ record(bo, "$(DEVICE):HVenable"){
     field(OUT,  "@ps300.proto hvOffOn $(PORT) $(A)")
     field(ZNAM, "Turn Off")
     field(ONAM, "Turn On")
-    field(FLNK, "$(DEVICE):HVenableSeq")
+    field(FLNK, "$(DEVICE):enableHVSeq")
     field(PINI, "YES")
 }
-record(seq, "$(DEVICE):HVenableSeq"){
+record(seq, "$(DEVICE):enableHVSeq"){
     field(DESC, "Sequence to dis/enable HV")
-    field(DOL1, "$(DEVICE):C_absVMIN PP")
-    field(LNK1, "$(DEVICE):HVset PP")
+    field(DOL1, "$(DEVICE):absVMIN PP")
+    field(LNK1, "$(DEVICE):voltageSet PP")
     field(DO2, "0")
-    field(LNK2, "$(DEVICE):VRAMPactive PP")
+    field(LNK2, "$(DEVICE):rampActive PP")
     field(LNK3, "$(DEVICE):getSTB.PROC PP")
     field(DLY4, "1") #wait 1 second after enabling/disabling HV before checking status
     field(LNK4, "$(DEVICE):HVdisconnectError PP")
@@ -176,7 +176,7 @@ record(seq, "$(DEVICE):HVenableSeq"){
  record(calc, "$(DEVICE):HVdisconnectError"){
      field(DESC, "Check if device disconnected")
      field(INPA, "$(DEVICE):HVONstatus")
-     field(INPB, "$(DEVICE):HVenable")
+     field(INPB, "$(DEVICE):enableHV")
      field(CALC, "B == A ? 0 : 1") #1=disconnected/powered off, 0=normal
  }
 
@@ -186,12 +186,12 @@ record(seq, "$(DEVICE):HVenableSeq"){
 record(seq, "$(DEVICE):hardReset"){
     field(DESC, "Hard reset sequence")
     field(DO1, "0")
-    field(LNK1, "$(DEVICE):HVenable PP")
-    field(LNK2, "$(DEVICE):TripClearSeq.PROC")
-    field(FLNK, "$(DEVICE):ResetDevice")
+    field(LNK1, "$(DEVICE):enableHV PP")
+    field(LNK2, "$(DEVICE):tripClearSeq.PROC")
+    field(FLNK, "$(DEVICE):resetDevice")
 }
 
-record(bo, "$(DEVICE):ResetDevice"){
+record(bo, "$(DEVICE):resetDevice"){
     field(DESC, "Reset device")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto cmd(*RST) $(PORT) $(A)")
@@ -199,15 +199,15 @@ record(bo, "$(DEVICE):ResetDevice"){
 
 record(seq, "$(DEVICE):tripClearSeq"){
     field(DESC, "Sequence to clear trip and reset device")
-    #TripStatus is not set to 0 by device as the bit resets on read so is unreliable
-    #TripClear command must be sent for TripStatus to be set to 0
+    #tripStatus is not set to 0 by device as the bit resets on read so is unreliable
+    #tripClear command must be sent for tripStatus to be set to 0
     field(DO1, "0")
-    field(LNK1, "$(DEVICE):TripStatus PP")
-    field(LNK2, "$(DEVICE):TripClear.PROC PP")
-    field(FLNK, "$(DEVICE):ReadbackPoll")
+    field(LNK1, "$(DEVICE):tripStatus PP")
+    field(LNK2, "$(DEVICE):tripClear.PROC PP")
+    field(FLNK, "$(DEVICE):readbackPoll")
 }
 
-record(bo, "$(DEVICE):TripClear"){
+record(bo, "$(DEVICE):tripClear"){
     field(DESC, "Clear a trip")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto cmd(TCLR) $(PORT) $(A)")
@@ -243,9 +243,9 @@ record(seq, "$(DEVICE):PONseq"){
     #if polarity has changed, apply new substitutions
     field(DESC, "Power on event sequence")
     field(LNK0, "$(DEVICE):setSAV.PROC")
-    field(LNK1, "$(DEVICE):DefaultSettings.PROC")
+    field(LNK1, "$(DEVICE):defaultSettings.PROC")
     field(DLY2, "0.5")
-    field(LNK2, "$(DEVICE):RestoreSettings.PROC")
+    field(LNK2, "$(DEVICE):restoreSettings.PROC")
     field(LNK3, "$(DEVICE):callSubstitutionsPOS.PROC")
     #process sequence to apply substitutions based on model and polarity
     #in devSRS_PS3xx_sequences.template

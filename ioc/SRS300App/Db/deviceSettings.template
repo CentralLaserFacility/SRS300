@@ -1,7 +1,7 @@
 
 #___________________________________________
 #_______substitutions values set to pvs_____
-record(calc, "$(DEVICE):C_IMAXmA"){
+record(calc, "$(DEVICE):IMAXmA"){
     field(DESC, "Convert IMAX to mA for display")
     field(INPA, "$(DEVICE):IMAX")
     field(CALC, "A*1000")
@@ -31,40 +31,40 @@ record(ai, "$(DEVICE):IMIN"){
 
 #the minimum and maximum based on absolute value of limits
 #(values still retain original sign pos/neg)
-record(calc, "$(DEVICE):C_absVMIN"){
+record(calc, "$(DEVICE):absVMIN"){
     field(DESC, "Minimum voltage (closest to 0)")
     field(INPA, "$(DEVICE):VMAX PP")
     field(INPB, "$(DEVICE):VMIN PP")
     field(CALC, "ABS(A)>ABS(B) ? B : A") #in negative versions vmin has larger abs value
     field(EGU, "V")
-    field(FLNK, "$(DEVICE):C_absVMAX")
+    field(FLNK, "$(DEVICE):absVMAX")
 }
-record(calc, "$(DEVICE):C_absVMAX"){
+record(calc, "$(DEVICE):absVMAX"){
     field(DESC, "Maximum voltage (closest to 0)")
     field(INPA, "$(DEVICE):VMAX PP")
     field(INPB, "$(DEVICE):VMIN PP")
     field(CALC, "ABS(A)>ABS(B) ? A : B") #in negative versions vmin has larger abs value
     field(EGU, "V")
-    field(FLNK, "$(DEVICE):C_minStepSize")
+    field(FLNK, "$(DEVICE):minStepSize")
 }
 
 #the device needs approximately 1.45 seconds to stabilize voltage after setting before reading it again
 #so the minimum interval between steps is set to 1.5 seconds to allow for this
 #and the delay after setting voltage before reading back is set to 1.45 seconds
 #so that it reads just after it has stabilised but before the next step is set
-record(ai, "$(DEVICE):C_minInterval"){
+record(ai, "$(DEVICE):minInterval"){
     field(DESC, "Minimum interval between steps")
     field(VAL, "1.5") #1.5 second minimum to allow for voltage stabilizing and reading before setting new val
     field(EGU, "seconds")
     field(PINI, "YES")
 }
-record(ai, "$(DEVICE):C_vgetDelay"){
+record(ai, "$(DEVICE):vgetDelay"){
     field(DESC, "Delay before reading voltage")
     field(VAL, "1.45") #1.45 second minimum to allow for voltage stabilizing before reading
     field(EGU, "seconds")
     field(PINI, "YES")
 }
-record(ai, "$(DEVICE):C_Tolerance"){
+record(ai, "$(DEVICE):tolerance"){
     field(DESC, "Tolerance for ramping")
     field(PINI, "YES")
     #val set from substitutions on start
@@ -73,7 +73,7 @@ record(ai, "$(DEVICE):C_Tolerance"){
 
 #________default settings______________
 #___________________________________
-record(bo, "$(DEVICE):DefaultSettings"){
+record(bo, "$(DEVICE):defaultSettings"){
     field(DESC, "Reset settings to default")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto cmd(*RCL 0) $(PORT) $(A)")
@@ -199,15 +199,15 @@ record(seq, "$(DEVICE):SRS$(MODELNO)$(POLARITY):setSubstitutions2"){
     field(DOA, "$(IMAX)")
     field(LNKA, "$(DEVICE):ITRPset PP")
     field(DOB, "$(VMAX)")
-    field(LNKB, "$(DEVICE):C_absVMIN.HOPR")
+    field(LNKB, "$(DEVICE):absVMIN.HOPR")
     field(DOC, "$(VMAX)")
-    field(LNKC, "$(DEVICE):C_absVMAX.HOPR")
+    field(LNKC, "$(DEVICE):absVMAX.HOPR")
     field(DOD, "$(VMIN)")
-    field(LNKD, "$(DEVICE):C_absVMIN.LOPR")
+    field(LNKD, "$(DEVICE):absVMIN.LOPR")
     field(DOE, "$(VMIN)")
-    field(LNKE, "$(DEVICE):C_absVMAX.LOPR")
+    field(LNKE, "$(DEVICE):absVMAX.LOPR")
     field(DOF, "$(IMAX)")
-    field(LNKF, "$(DEVICE):OutputIget.HOPR")
+    field(LNKF, "$(DEVICE):outputCurrentGet.HOPR")
     field(FLNK, "$(DEVICE):SRS$(MODELNO)$(POLARITY):setSubstitutions3")
 }
 record(seq, "$(DEVICE):SRS$(MODELNO)$(POLARITY):setSubstitutions3"){
@@ -217,67 +217,67 @@ record(seq, "$(DEVICE):SRS$(MODELNO)$(POLARITY):setSubstitutions3"){
     field(DO1, "$(VMIN)")
     field(LNK1, "$(DEVICE):desiredHV.DRVL")
     field(DO2, "$(VMAX)")
-    field(LNK2, "$(DEVICE):HVset.HOPR ")
+    field(LNK2, "$(DEVICE):voltageSet.HOPR ")
     field(DO3, "$(VMIN)")
-    field(LNK3, "$(DEVICE):HVset.LOPR PP")
+    field(LNK3, "$(DEVICE):voltageSet.LOPR PP")
     field(DO4, "$(VMAX)")
-    field(LNK4, "$(DEVICE):OutputVget.HOPR")
+    field(LNK4, "$(DEVICE):outputVoltageGet.HOPR")
     field(DO5, "$(VMIN)")
-    field(LNK5, "$(DEVICE):OutputVget.LOPR PP")
+    field(LNK5, "$(DEVICE):outputVoltageGet.LOPR PP")
     field(DO6, "$(IMAX)")
     field(LNK6, "$(DEVICE):ILIMset PP")
     field(DO7, "$(VMAX)")
     field(LNK7, "$(DEVICE):desiredHV.DRVH")
     field(DO8, "$(VMAX)")
     field(LNK8, "$(DEVICE):desiredHV.HOPR PP")
-    field(LNK9, "$(DEVICE):DefaultSettings PP")
+    field(LNK9, "$(DEVICE):defaultSettings PP")
     field(DOA, "$(VMAX)")
-    field(LNKA, "$(DEVICE):voltageLimitSET.HOPR")
+    field(LNKA, "$(DEVICE):voltageLimitSet.HOPR")
     field(DOB, "$(VMIN)")
-    field(LNKB, "$(DEVICE):voltageLimitSET.LOPR")
+    field(LNKB, "$(DEVICE):voltageLimitSet.LOPR")
     field(DOLC, "$(DEVICE):VLIMget")
-    field(LNKC, "$(DEVICE):voltageLimitSET")
+    field(LNKC, "$(DEVICE):voltageLimitSet")
     field(DOD, "$(VMAX)")
-    field(LNKD, "$(DEVICE):voltageLimitSET.DRVH")
+    field(LNKD, "$(DEVICE):voltageLimitSet.DRVH")
     field(DOE, "$(VMIN)")
-    field(LNKE, "$(DEVICE):voltageLimitSET.DRVL PP")
+    field(LNKE, "$(DEVICE):voltageLimitSet.DRVL PP")
     field(DOF, "$(TOLERANCE)")
-    field(LNKF, "$(DEVICE):C_Tolerance PP")
+    field(LNKF, "$(DEVICE):tolerance PP")
     field(FLNK, "$(DEVICE):setOnStart")
 }
 
 #values to be set on start not based on substitutions
 record(seq,"$(DEVICE):setOnStart"){
     field(DESC, "sets values from constants")
-    field(LNK0, "$(DEVICE):C_absVMIN PP")
-    field(DOL1, "$(DEVICE):C_minStepSize")
-    field(LNK1, "$(DEVICE):VRAMPstepSize.LOPR")
-    field(DOL2, "$(DEVICE):C_minStepSize")
-    field(LNK2, "$(DEVICE):VRAMPstepSize")
-    field(DOL3, "$(DEVICE):C_maxStepSize")
-    field(LNK3, "$(DEVICE):VRAMPstepSize.HOPR")
-    field(DOL4, "$(DEVICE):C_maxStepSize")
-    field(LNK4, "$(DEVICE):VRAMPstepSize.DRVH")
-    field(DOL5, "$(DEVICE):C_minStepSize")
-    field(LNK5, "$(DEVICE):VRAMPstepSize.DRVL PP")
-    field(DOL6, "$(DEVICE):C_minInterval PP")
-    field(LNK6, "$(DEVICE):VRAMPtimeSet.LOPR ")
-    field(DOL7, "$(DEVICE):C_minInterval")
-    field(LNK7, "$(DEVICE):VRAMPinterval.LOPR ")
-    field(DOL8, "$(DEVICE):C_minInterval")
-    field(LNK8, "$(DEVICE):VRAMPtimeSet PP")
-    field(DOL9, "$(DEVICE):C_minInterval")
-    field(LNK9, "$(DEVICE):VRAMPinterval")
-    field(DOLA, "$(DEVICE):C_IMAXmA PP")
+    field(LNK0, "$(DEVICE):absVMIN PP")
+    field(DOL1, "$(DEVICE):minStepSize")
+    field(LNK1, "$(DEVICE):rampStepSize.LOPR")
+    field(DOL2, "$(DEVICE):minStepSize")
+    field(LNK2, "$(DEVICE):rampStepSize")
+    field(DOL3, "$(DEVICE):maxStepSize")
+    field(LNK3, "$(DEVICE):rampStepSize.HOPR")
+    field(DOL4, "$(DEVICE):maxStepSize")
+    field(LNK4, "$(DEVICE):rampStepSize.DRVH")
+    field(DOL5, "$(DEVICE):minStepSize")
+    field(LNK5, "$(DEVICE):rampStepSize.DRVL PP")
+    field(DOL6, "$(DEVICE):minInterval PP")
+    field(LNK6, "$(DEVICE):rampDuration.LOPR ")
+    field(DOL7, "$(DEVICE):minInterval")
+    field(LNK7, "$(DEVICE):rampInterval.LOPR ")
+    field(DOL8, "$(DEVICE):minInterval")
+    field(LNK8, "$(DEVICE):rampDuration PP")
+    field(DOL9, "$(DEVICE):minInterval")
+    field(LNK9, "$(DEVICE):rampInterval")
+    field(DOLA, "$(DEVICE):IMAXmA PP")
     field(LNKA, "$(DEVICE):currentLimitmA.HOPR PP")
-    field(DOLB, "$(DEVICE):C_IMAXmA")
+    field(DOLB, "$(DEVICE):IMAXmA")
     field(LNKB, "$(DEVICE):currentTripLimitmA.HOPR PP")
     field(LNKC, "$(DEVICE):resetLimits PP")
-    field(DOLD, "$(DEVICE):C_minInterval")
-    field(LNKD, "$(DEVICE):VRAMPinterval.DRVL PP")
-    field(DOLE, "$(DEVICE):C_IMAXmA PP")
+    field(DOLD, "$(DEVICE):minInterval")
+    field(LNKD, "$(DEVICE):rampInterval.DRVL PP")
+    field(DOLE, "$(DEVICE):IMAXmA PP")
     field(LNKE, "$(DEVICE):currentLimitmA.DRVH PP")
-    field(DOLF, "$(DEVICE):C_IMAXmA")
+    field(DOLF, "$(DEVICE):IMAXmA")
     field(LNKF, "$(DEVICE):currentTripLimitmA.DRVH PP")
     field(FLNK, "$(DEVICE):idleZoom")
 }

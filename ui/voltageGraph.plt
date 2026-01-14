@@ -105,7 +105,7 @@
     <pv>
       <display_name></display_name>
       <visible>true</visible>
-      <name>$(DEVICE):C_IMAXmA</name>
+      <name>$(DEVICE):IMAXmA</name>
       <axis>1</axis>
       <color>
         <red>255</red>
@@ -145,7 +145,7 @@
     <pv>
       <display_name>Current</display_name>
       <visible>true</visible>
-      <name>$(DEVICE):OutputImA</name>
+      <name>$(DEVICE):outputCurrentmA</name>
       <axis>1</axis>
       <color>
         <red>0</red>

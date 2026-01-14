@@ -66,7 +66,7 @@ record(bo, "$(DEVICE):setSAV")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto cmd(*SAV 1) $(PORT) $(A)")
 }
-record(bo, "$(DEVICE):RestoreSettings")
+record(bo, "$(DEVICE):restoreSettings")
 {
     field(DESC, "Restore saved settings")
     field(DTYP, "stream")
@@ -77,40 +77,40 @@ record(bo, "$(DEVICE):RestoreSettings")
 
 record(seq,"$(DEVICE):setNewLimitsPOS"){
     field(DESC, "sets limits from constants")
-    field(DOL1, "$(DEVICE):voltageLimitSET PP")
+    field(DOL1, "$(DEVICE):voltageLimitSet PP")
     field(LNK1, "$(DEVICE):VLIMset PP")
     field(DOL2, "$(DEVICE):currentLimitA PP")
     field(LNK2, "$(DEVICE):ILIMset PP")
     field(DOL3, "$(DEVICE):currentTripLimitA PP")
     field(LNK3, "$(DEVICE):ITRPset PP")
-    field(DOL4, "$(DEVICE):voltageLimitSET")
+    field(DOL4, "$(DEVICE):voltageLimitSet")
     field(LNK4, "$(DEVICE):desiredHV.HOPR")
-    field(DOL5, "$(DEVICE):voltageLimitSET")
-    field(LNK5, "$(DEVICE):HVset.HOPR")
-    field(DOL6, "$(DEVICE):voltageLimitSET")
-    field(LNK6, "$(DEVICE):HVset.DRVH PP")
-    field(DOL7, "$(DEVICE):voltageLimitSET")
-    field(LNK7, "$(DEVICE):OutputVget.HOPR PP")
-    field(DOL8, "$(DEVICE):voltageLimitSET")
+    field(DOL5, "$(DEVICE):voltageLimitSet")
+    field(LNK5, "$(DEVICE):voltageSet.HOPR")
+    field(DOL6, "$(DEVICE):voltageLimitSet")
+    field(LNK6, "$(DEVICE):voltageSet.DRVH PP")
+    field(DOL7, "$(DEVICE):voltageLimitSet")
+    field(LNK7, "$(DEVICE):outputVoltageGet.HOPR PP")
+    field(DOL8, "$(DEVICE):voltageLimitSet")
     field(LNK8, "$(DEVICE):desiredHV.DRVH PP")
 }
 record(seq,"$(DEVICE):setNewLimitsNEG"){
     field(DESC, "sets limits from constants")
-    field(DOL1, "$(DEVICE):voltageLimitSET PP")
+    field(DOL1, "$(DEVICE):voltageLimitSet PP")
     field(LNK1, "$(DEVICE):VLIMset PP")
     field(DOL2, "$(DEVICE):currentLimitA PP")
     field(LNK2, "$(DEVICE):ILIMset PP")
     field(DOL3, "$(DEVICE):currentTripLimitA PP")
     field(LNK3, "$(DEVICE):ITRPset PP")
-    field(DOL4, "$(DEVICE):voltageLimitSET")
+    field(DOL4, "$(DEVICE):voltageLimitSet")
     field(LNK4, "$(DEVICE):desiredHV.LOPR")
-    field(DOL5, "$(DEVICE):voltageLimitSET")
-    field(LNK5, "$(DEVICE):HVset.LOPR")
-    field(DOL6, "$(DEVICE):voltageLimitSET")
-    field(LNK6, "$(DEVICE):HVset.DRVL PP")
-    field(DOL7, "$(DEVICE):voltageLimitSET")
-    field(LNK7, "$(DEVICE):OutputVget.LOPR PP")
-    field(DOL8, "$(DEVICE):voltageLimitSET")
+    field(DOL5, "$(DEVICE):voltageLimitSet")
+    field(LNK5, "$(DEVICE):voltageSet.LOPR")
+    field(DOL6, "$(DEVICE):voltageLimitSet")
+    field(LNK6, "$(DEVICE):voltageSet.DRVL PP")
+    field(DOL7, "$(DEVICE):voltageLimitSet")
+    field(LNK7, "$(DEVICE):outputVoltageGet.LOPR PP")
+    field(DOL8, "$(DEVICE):voltageLimitSet")
     field(LNK8, "$(DEVICE):desiredHV.DRVL PP")
 }
 #_________________________________________________
@@ -119,7 +119,7 @@ record(seq,"$(DEVICE):setNewLimitsNEG"){
 record(ao, "$(DEVICE):currentLimitmA"){
     field(DESC, "Maximum current for device")
     field(PINI, "YES")
-    #val and HOPR passed in from C_IMAXmA on start
+    #val and HOPR passed in from IMAXmA on start
     field(EGU, "mA")
     field(FLNK, "$(DEVICE):currentLimitA")
 }
@@ -134,7 +134,7 @@ record(calc, "$(DEVICE):currentLimitA"){
 record(ao, "$(DEVICE):currentTripLimitmA"){
     #settable by user from ui
     field(DESC, "Maximum current trip limit for device")
-    #val and HOPR passed in from C_IMAXmA on start
+    #val and HOPR passed in from IMAXmA on start
     field(EGU, "mA")
     field(PREC, "2")
     field(FLNK, "$(DEVICE):currentTripLimitA")
@@ -163,7 +163,7 @@ record(calc, "$(DEVICE):currentTripLimitA"){
     field(EGU, "A")
     field(PREC, "4")
 }
-record(ao, "$(DEVICE):voltageLimitSET"){
+record(ao, "$(DEVICE):voltageLimitSet"){
     field(DESC, "Maximum voltage for device")
     field(EGU, "V")
     field(PINI, "YES")
@@ -172,7 +172,7 @@ record(ao, "$(DEVICE):voltageLimitSET"){
 record(seq, "$(DEVICE):limitMenuClosed"){
     field(DESC, "Sequence to run when limit menu closed")
     field(DOL1, "$(DEVICE):VLIMget PP")
-    field(LNK1, "$(DEVICE):voltageLimitSET PP")
+    field(LNK1, "$(DEVICE):voltageLimitSet PP")
     field(DOL2, "$(DEVICE):ILIMmA")
     field(LNK2, "$(DEVICE):currentLimitmA PP")
     field(DOL3, "$(DEVICE):ITRPmA")
@@ -182,10 +182,10 @@ record(seq, "$(DEVICE):limitMenuClosed"){
 #If limits are reset to default from the menu, set device limits to default values
 record(seq, "$(DEVICE):resetLimits"){
     field(DESC, "Reset limits to default from device")
-    field(DOL1, "$(DEVICE):C_absVMAX PP")
-    field(LNK1, "$(DEVICE):voltageLimitSET PP")
-    field(DOL2, "$(DEVICE):C_IMAXmA")
+    field(DOL1, "$(DEVICE):absVMAX PP")
+    field(LNK1, "$(DEVICE):voltageLimitSet PP")
+    field(DOL2, "$(DEVICE):IMAXmA")
     field(LNK2, "$(DEVICE):currentLimitmA PP")
-    field(DOL3, "$(DEVICE):C_IMAXmA")
+    field(DOL3, "$(DEVICE):IMAXmA")
     field(LNK3, "$(DEVICE):currentTripLimitmA PP")
 }

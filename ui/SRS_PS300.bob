@@ -45,7 +45,7 @@
     <actions>
       <action type="write_pv">
         <description>Enable high voltage</description>
-        <pv_name>$(DEVICE):HVenable</pv_name>
+        <pv_name>$(DEVICE):enableHV</pv_name>
         <value>1</value>
       </action>
     </actions>
@@ -71,7 +71,7 @@
     <actions>
       <action type="write_pv">
         <description>Disable high voltage</description>
-        <pv_name>$(DEVICE):HVenable</pv_name>
+        <pv_name>$(DEVICE):enableHV</pv_name>
         <value>0</value>
       </action>
     </actions>
@@ -184,7 +184,7 @@
           <exp bool_exp="pv0==1 || pv1 == 0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
+          <pv_name>$(DEVICE):rampActive</pv_name>
           <pv_name>$(DEVICE):HVONstatus</pv_name>
         </rule>
         <rule name="button text" prop_id="text" out_exp="false">
@@ -194,7 +194,7 @@
           <exp bool_exp="pv1 == 0">
             <value>HV disabled</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
+          <pv_name>$(DEVICE):rampActive</pv_name>
           <pv_name>$(DEVICE):HVONstatus</pv_name>
         </rule>
       </rules>
@@ -210,7 +210,7 @@
           <value>0</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):VRAMPactive</pv_name>
+      <pv_name>$(DEVICE):rampActive</pv_name>
       <text>Halt ramp</text>
       <x>162</x>
       <y>212</y>
@@ -223,14 +223,14 @@
           <exp bool_exp="pv0==0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
+          <pv_name>$(DEVICE):rampActive</pv_name>
         </rule>
       </rules>
       <tooltip>$(actions)</tooltip>
     </widget>
     <widget type="choice" version="2.0.0">
       <name>Auto or manual</name>
-      <pv_name>$(DEVICE):VRAMPmode</pv_name>
+      <pv_name>$(DEVICE):rampMode</pv_name>
       <x>55</x>
       <y>48</y>
       <width>190</width>
@@ -255,7 +255,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_RT</name>
-      <pv_name>$(DEVICE):VRAMPtimeSet</pv_name>
+      <pv_name>$(DEVICE):rampDuration</pv_name>
       <x>158</x>
       <y>113</y>
       <width>95</width>
@@ -264,7 +264,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_Ri</name>
-      <pv_name>$(DEVICE):VRAMPinterval</pv_name>
+      <pv_name>$(DEVICE):rampInterval</pv_name>
       <x>158</x>
       <y>141</y>
       <width>95</width>
@@ -273,7 +273,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_SS</name>
-      <pv_name>$(DEVICE):VRAMPstepSize</pv_name>
+      <pv_name>$(DEVICE):rampStepSize</pv_name>
       <x>158</x>
       <y>169</y>
       <width>95</width>
@@ -297,14 +297,14 @@
           <exp bool_exp="pv0==1">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
+          <pv_name>$(DEVICE):rampActive</pv_name>
         </rule>
       </rules>
       <increment>100.0</increment>
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_RT</name>
-      <pv_name>$(DEVICE):VRAMPtimeSet</pv_name>
+      <pv_name>$(DEVICE):rampDuration</pv_name>
       <x>158</x>
       <y>113</y>
       <precision>2</precision>
@@ -319,8 +319,8 @@
           <exp bool_exp="pv0==1 || pv1==1">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
-          <pv_name>$(DEVICE):VRAMPmode</pv_name>
+          <pv_name>$(DEVICE):rampActive</pv_name>
+          <pv_name>$(DEVICE):rampMode</pv_name>
         </rule>
       </rules>
       <maximum>1000000.0</maximum>
@@ -328,7 +328,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_Ri</name>
-      <pv_name>$(DEVICE):VRAMPinterval</pv_name>
+      <pv_name>$(DEVICE):rampInterval</pv_name>
       <x>158</x>
       <y>141</y>
       <precision>2</precision>
@@ -343,8 +343,8 @@
           <exp bool_exp="pv0==1 || pv1== 0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
-          <pv_name>$(DEVICE):VRAMPmode</pv_name>
+          <pv_name>$(DEVICE):rampActive</pv_name>
+          <pv_name>$(DEVICE):rampMode</pv_name>
         </rule>
       </rules>
       <maximum>1000000.0</maximum>
@@ -352,7 +352,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_SS</name>
-      <pv_name>$(DEVICE):VRAMPstepSize</pv_name>
+      <pv_name>$(DEVICE):rampStepSize</pv_name>
       <x>158</x>
       <y>169</y>
       <show_units>true</show_units>
@@ -366,8 +366,8 @@
           <exp bool_exp="pv0==1 || pv1== 0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
-          <pv_name>$(DEVICE):VRAMPmode</pv_name>
+          <pv_name>$(DEVICE):rampActive</pv_name>
+          <pv_name>$(DEVICE):rampMode</pv_name>
         </rule>
       </rules>
     </widget>
@@ -419,7 +419,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>txtVoltsNow_1</name>
-      <pv_name>$(DEVICE):OutputVget</pv_name>
+      <pv_name>$(DEVICE):outputVoltageGet</pv_name>
       <x>266</x>
       <y>29</y>
       <width>84</width>
@@ -434,7 +434,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>txtCurrentNow_1</name>
-      <pv_name>$(DEVICE):OutputImA</pv_name>
+      <pv_name>$(DEVICE):outputCurrentmA</pv_name>
       <x>471</x>
       <y>29</y>
       <width>93</width>
@@ -606,7 +606,7 @@
     </widget>
     <widget type="led" version="2.0.0">
       <name>LED_5</name>
-      <pv_name>$(DEVICE):TripStatus.B1</pv_name>
+      <pv_name>$(DEVICE):tripStatus.B1</pv_name>
       <x>126</x>
       <y>117</y>
       <width>18</width>
@@ -628,7 +628,7 @@
     </widget>
     <widget type="led" version="2.0.0">
       <name>LED_6</name>
-      <pv_name>$(DEVICE):TripStatus.B2</pv_name>
+      <pv_name>$(DEVICE):tripStatus.B2</pv_name>
       <x>126</x>
       <y>144</y>
       <width>18</width>
@@ -651,7 +651,7 @@
     </widget>
     <widget type="led" version="2.0.0">
       <name>LED_7</name>
-      <pv_name>$(DEVICE):TripStatus.B3</pv_name>
+      <pv_name>$(DEVICE):tripStatus.B3</pv_name>
       <x>126</x>
       <y>88</y>
       <width>18</width>
@@ -702,7 +702,7 @@
     </widget>
     <widget type="led" version="2.0.0">
       <name>LED_9</name>
-      <pv_name>$(DEVICE):VRAMPactive</pv_name>
+      <pv_name>$(DEVICE):rampActive</pv_name>
       <x>126</x>
       <y>34</y>
       <width>18</width>
@@ -743,7 +743,7 @@
     </widget>
     <widget type="multi_state_led" version="2.0.0">
       <name>LED (Multi State)_2</name>
-      <pv_name>$(DEVICE):StableMultiState</pv_name>
+      <pv_name>$(DEVICE):stableMultiState</pv_name>
       <x>126</x>
       <y>61</y>
       <width>18</width>
@@ -1434,7 +1434,7 @@
           <exp bool_exp="pv0!=0 || pv1 !=0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
+          <pv_name>$(DEVICE):rampActive</pv_name>
           <pv_name>$(DEVICE):configMenuOpen</pv_name>
         </rule>
       </rules>
@@ -1459,7 +1459,7 @@
           <exp bool_exp="pv0!=0 || pv1 !=0">
             <value>0.3</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
+          <pv_name>$(DEVICE):rampActive</pv_name>
           <pv_name>$(DEVICE):configMenuOpen</pv_name>
         </rule>
       </rules>
@@ -1686,7 +1686,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_RT_1</name>
-      <pv_name>$(DEVICE):VRAMPtimeSet</pv_name>
+      <pv_name>$(DEVICE):rampDuration</pv_name>
       <x>95</x>
       <y>73</y>
       <width>83</width>
@@ -1695,7 +1695,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_Ri_1</name>
-      <pv_name>$(DEVICE):VRAMPinterval</pv_name>
+      <pv_name>$(DEVICE):rampInterval</pv_name>
       <x>95</x>
       <y>105</y>
       <width>83</width>
@@ -1704,7 +1704,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_SS_1</name>
-      <pv_name>$(DEVICE):VRAMPstepSize</pv_name>
+      <pv_name>$(DEVICE):rampStepSize</pv_name>
       <x>95</x>
       <y>136</y>
       <width>83</width>
@@ -1729,14 +1729,14 @@
           <exp bool_exp="pv0==1">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
+          <pv_name>$(DEVICE):rampActive</pv_name>
         </rule>
       </rules>
       <increment>100.0</increment>
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_RT_2</name>
-      <pv_name>$(DEVICE):VRAMPtimeSet</pv_name>
+      <pv_name>$(DEVICE):rampDuration</pv_name>
       <x>95</x>
       <y>73</y>
       <width>83</width>
@@ -1752,8 +1752,8 @@
           <exp bool_exp="pv0==1 || pv1==1">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
-          <pv_name>$(DEVICE):VRAMPmode</pv_name>
+          <pv_name>$(DEVICE):rampActive</pv_name>
+          <pv_name>$(DEVICE):rampMode</pv_name>
         </rule>
       </rules>
       <maximum>1000000.0</maximum>
@@ -1761,7 +1761,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_Ri_2</name>
-      <pv_name>$(DEVICE):VRAMPinterval</pv_name>
+      <pv_name>$(DEVICE):rampInterval</pv_name>
       <x>95</x>
       <y>105</y>
       <width>83</width>
@@ -1777,8 +1777,8 @@
           <exp bool_exp="pv0==1 || pv1== 0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
-          <pv_name>$(DEVICE):VRAMPmode</pv_name>
+          <pv_name>$(DEVICE):rampActive</pv_name>
+          <pv_name>$(DEVICE):rampMode</pv_name>
         </rule>
       </rules>
       <maximum>1000000.0</maximum>
@@ -1786,7 +1786,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_SS_2</name>
-      <pv_name>$(DEVICE):VRAMPstepSize</pv_name>
+      <pv_name>$(DEVICE):rampStepSize</pv_name>
       <x>95</x>
       <y>136</y>
       <width>83</width>
@@ -1801,14 +1801,14 @@
           <exp bool_exp="pv0==1 || pv1== 0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
-          <pv_name>$(DEVICE):VRAMPmode</pv_name>
+          <pv_name>$(DEVICE):rampActive</pv_name>
+          <pv_name>$(DEVICE):rampMode</pv_name>
         </rule>
       </rules>
     </widget>
     <widget type="choice" version="2.0.0">
       <name>Auto or manual_1</name>
-      <pv_name>$(DEVICE):VRAMPmode</pv_name>
+      <pv_name>$(DEVICE):rampMode</pv_name>
       <x>29</x>
       <y>165</y>
       <width>133</width>

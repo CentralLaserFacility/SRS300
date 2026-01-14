@@ -33,4 +33,3 @@ Most information in either manual is applicable to both earlier and later models
 
 - Earlier models(310, 325, 350): https://thinksrs.com/downloads/pdfs/manuals/PS300m.pdf
 - Later models (365, 370, 375): https://thinksrs.com/downloads/pdfs/manuals/PS365m.pdf
-

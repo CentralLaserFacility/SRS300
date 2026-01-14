@@ -16,7 +16,7 @@ double targetVoltage;
 double stepSize;
 double interval;
 short startCharge;// 1 = ramping, 0 = Idle
-double HVset;
+double voltageSet;
 short voltageMonitorScan; 
 double minStepSize;
 short Tolerance; //Tolerance for stopping ramping
@@ -27,16 +27,16 @@ short monitorPROC;
 short HVonStatus; // 1 = HV on, 0 = HV off
 
 
-assign presentVoltage to "{DEVICE}:OutputVget";
+assign presentVoltage to "{DEVICE}:outputVoltageGet";
 assign targetVoltage to "{DEVICE}:desiredHV";
-assign stepSize to "{DEVICE}:VRAMPstepSize";
-assign interval to "{DEVICE}:VRAMPinterval";
-assign startCharge to "{DEVICE}:VRAMPactive";
-assign HVset to "{DEVICE}:HVset";
+assign stepSize to "{DEVICE}:rampStepSize";
+assign interval to "{DEVICE}:rampInterval";
+assign startCharge to "{DEVICE}:rampActive";
+assign voltageSet to "{DEVICE}:voltageSet";
 assign voltageMonitorScan to "{DEVICE}:voltageMonitor.SCAN";
 assign monitorPROC to "{DEVICE}:voltageMonitor.PROC";
-assign minStepSize to "{DEVICE}:C_minStepSize"; 
-assign Tolerance to "{DEVICE}:C_Tolerance";
+assign minStepSize to "{DEVICE}:minStepSize"; 
+assign Tolerance to "{DEVICE}:tolerance";
 assign endCharge to "{DEVICE}:endCharge";
 assign HVonStatus to "{DEVICE}:HVONstatus";
 
@@ -84,8 +84,8 @@ ss RampState{
                 //if the next step is smaller than minStepSize, set straight to target instead
                 newVoltage = targetVoltage;
             }
-            HVset = newVoltage;
-            pvPut(HVset);
+            voltageSet = newVoltage;
+            pvPut(voltageSet);
         } state StableDelay 
 
         when (presentVoltage >= (targetVoltage-Tolerance) || startCharge == IDLE || HVonStatus == DISABLED){ //stops ramping and returns to initial
@@ -105,8 +105,8 @@ ss RampState{
                 //if the next step is smaller than minStepSize, set straight to target instead
                 newVoltage = targetVoltage;
             }
-            HVset = newVoltage;
-            pvPut(HVset);
+            voltageSet = newVoltage;
+            pvPut(voltageSet);
             
         } state StableDelay 
 

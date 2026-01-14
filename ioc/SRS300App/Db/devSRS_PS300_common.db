@@ -13,14 +13,14 @@ record(bo, "$(DEVICE):DISABLE")
 #
 alias("$(DEVICE):getESR","$(DEVICE):ESR")
 
-alias("$(DEVICE):TripClear","$(DEVICE):CLEAR:SP")
+alias("$(DEVICE):tripClear","$(DEVICE):CLEAR:SP")
 alias("$(DEVICE):CLEAR:SP","$(DEVICE):CLEAR")
 
-alias("$(DEVICE):HVenable","$(DEVICE):HV:SP")
+alias("$(DEVICE):enableHV","$(DEVICE):HV:SP")
 alias("$(DEVICE):HV:SP","$(DEVICE):HV")
 
-alias("$(DEVICE):HVset","$(DEVICE):VOLTAGE:SP")
-alias("$(DEVICE):OutputVget","$(DEVICE):VOLTAGE")
+alias("$(DEVICE):voltageSet","$(DEVICE):VOLTAGE:SP")
+alias("$(DEVICE):outputVoltageGet","$(DEVICE):VOLTAGE")
 alias("$(DEVICE):VOLTAGE","$(DEVICE):SP:RBV")
 
 alias("$(DEVICE):VLIMset","$(DEVICE):VOLTAGE:LIMIT:SP")
@@ -45,6 +45,6 @@ alias("$(DEVICE):ITRIPstatus","$(DEVICE):CURRENT:TRIP:STATUS")
 
 alias("$(DEVICE):VTRIPstatus","$(DEVICE):VOLTAGE:TRIP:STATUS")
 
-alias("$(DEVICE):HVSTABLEstatus","$(DEVICE):HV:STABLE:STATUS")
+alias("$(DEVICE):voltageStable","$(DEVICE):HV:STABLE:STATUS")
 
-alias("$(DEVICE):OutputIget","$(DEVICE):CURRENT")
+alias("$(DEVICE):outputCurrentGet","$(DEVICE):CURRENT")
