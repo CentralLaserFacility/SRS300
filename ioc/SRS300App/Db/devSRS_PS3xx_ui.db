@@ -15,17 +15,17 @@ record(stringin, "$(DEVICE):SRSModel"){
 #calculated such that y axis shows between starting voltage and target voltage plus a small margin
 record(calc, "$(DEVICE):YaxisMax"){
     field(DESC, "calc Y axis maximum")
-    field(INPA, "$(DEVICE):desiredHV")
-    field(INPB, "$(DEVICE):startVoltage")
-    field(INPC, "$(DEVICE):minStepSize")
+    field(INPA, "$(DEVICE):TargetHV")
+    field(INPB, "$(DEVICE):StartVoltage")
+    field(INPC, "$(DEVICE):MinStepSize")
     field(CALC, "MAX(ABS(A),ABS(B))+C")
 
 }
 record(calc, "$(DEVICE):YaxisMin"){
     field(DESC, "calc Y axis minimum")
-    field(INPA, "$(DEVICE):desiredHV")
-    field(INPB, "$(DEVICE):startVoltage")
-    field(INPC, "$(DEVICE):minStepSize")
+    field(INPA, "$(DEVICE):TargetHV")
+    field(INPB, "$(DEVICE):StartVoltage")
+    field(INPC, "$(DEVICE):MinStepSize")
     field(CALC, "MIN(ABS(A),ABS(B))-C")
 }
 
@@ -35,14 +35,14 @@ record(calc, "$(DEVICE):YaxisMin"){
 record(calc, "$(DEVICE):idleYaxisMax"){
     field(DESC, "Set Y axis max when not ramping")
     field(INPA, "$(DEVICE):absVoltage")
-    field(INPB, "$(DEVICE):minStepSize")
+    field(INPB, "$(DEVICE):MinStepSize")
     field(CALC, "A + B")
 }
 
 record(calc, "$(DEVICE):idleYaxisMin"){
     field(DESC, "Set Y axis min when not ramping")
     field(INPA, "$(DEVICE):absVoltage")
-    field(INPB, "$(DEVICE):minStepSize")
+    field(INPB, "$(DEVICE):MinStepSize")
     field(INPC, "$(DEVICE):graphScale")
     field(CALC, "A>C ? A - C : 0")
 }
@@ -55,11 +55,11 @@ record(ai, "$(DEVICE):graphScale"){
 }
 
 #pvs to be plotted invisibly on the graph to control the autoscale feature in data browser
-record(ai, "$(DEVICE):autoscaleControlMax"){
+record(ai, "$(DEVICE):AutoscaleControlMax"){
     field(DESC, "Control autoscale maximum")
 }
 
-record(ai, "$(DEVICE):autoscaleControlMin"){
+record(ai, "$(DEVICE):AutoscaleControlMin"){
     field(DESC, "Control autoscale minimum")
 }
 
@@ -67,17 +67,17 @@ record(ai, "$(DEVICE):autoscaleControlMin"){
 record(seq, "$(DEVICE):idleZoom"){
     field(DESC, "Auto zoom data browser")
     field(DOL1, "$(DEVICE):idleYaxisMax PP")
-    field(LNK1, "$(DEVICE):autoscaleControlMax PP")
+    field(LNK1, "$(DEVICE):AutoscaleControlMax PP")
     field(DOL2, "$(DEVICE):idleYaxisMin PP")
-    field(LNK2, "$(DEVICE):autoscaleControlMin PP")
+    field(LNK2, "$(DEVICE):AutoscaleControlMin PP")
     field(PINI, "YES")
 }
 record(seq, "$(DEVICE):rampZoom"){
     field(DESC, "Auto zoom data browser")
     field(DOL1, "$(DEVICE):YaxisMax")
-    field(LNK1, "$(DEVICE):autoscaleControlMax PP")
+    field(LNK1, "$(DEVICE):AutoscaleControlMax PP")
     field(DOL2, "$(DEVICE):YaxisMin")
-    field(LNK2, "$(DEVICE):autoscaleControlMin PP")
+    field(LNK2, "$(DEVICE):AutoscaleControlMin PP")
 }
 
 record(ai, "$(DEVICE):currentGraphMin"){

@@ -65,7 +65,7 @@
     <pv>
       <display_name></display_name>
       <visible>true</visible>
-      <name>$(DEVICE):autoscaleControlMin</name>
+      <name>$(DEVICE):AutoscaleControlMin</name>
       <axis>0</axis>
       <color>
         <red>255</red>
@@ -85,7 +85,7 @@
     <pv>
       <display_name></display_name>
       <visible>true</visible>
-      <name>$(DEVICE):autoscaleControlMax</name>
+      <name>$(DEVICE):AutoscaleControlMax</name>
       <axis>0</axis>
       <color>
         <red>255</red>

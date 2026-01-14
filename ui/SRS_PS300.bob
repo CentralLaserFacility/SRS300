@@ -171,7 +171,7 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):startCharge.PROC</pv_name>
+      <pv_name>$(DEVICE):StartCharge.PROC</pv_name>
       <text>Start ramp</text>
       <x>29</x>
       <y>212</y>
@@ -246,7 +246,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update DV</name>
-      <pv_name>$(DEVICE):desiredHV</pv_name>
+      <pv_name>$(DEVICE):TargetHV</pv_name>
       <x>158</x>
       <y>86</y>
       <width>95</width>
@@ -255,7 +255,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_RT</name>
-      <pv_name>$(DEVICE):rampDuration</pv_name>
+      <pv_name>$(DEVICE):RampDuration</pv_name>
       <x>158</x>
       <y>113</y>
       <width>95</width>
@@ -264,7 +264,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_Ri</name>
-      <pv_name>$(DEVICE):rampInterval</pv_name>
+      <pv_name>$(DEVICE):RampInterval</pv_name>
       <x>158</x>
       <y>141</y>
       <width>95</width>
@@ -273,7 +273,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_SS</name>
-      <pv_name>$(DEVICE):rampStepSize</pv_name>
+      <pv_name>$(DEVICE):RampStepSize</pv_name>
       <x>158</x>
       <y>169</y>
       <width>95</width>
@@ -282,7 +282,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner DV</name>
-      <pv_name>$(DEVICE):desiredHV</pv_name>
+      <pv_name>$(DEVICE):TargetHV</pv_name>
       <x>158</x>
       <y>86</y>
       <precision>2</precision>
@@ -304,7 +304,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_RT</name>
-      <pv_name>$(DEVICE):rampDuration</pv_name>
+      <pv_name>$(DEVICE):RampDuration</pv_name>
       <x>158</x>
       <y>113</y>
       <precision>2</precision>
@@ -328,7 +328,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_Ri</name>
-      <pv_name>$(DEVICE):rampInterval</pv_name>
+      <pv_name>$(DEVICE):RampInterval</pv_name>
       <x>158</x>
       <y>141</y>
       <precision>2</precision>
@@ -352,7 +352,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_SS</name>
-      <pv_name>$(DEVICE):rampStepSize</pv_name>
+      <pv_name>$(DEVICE):RampStepSize</pv_name>
       <x>158</x>
       <y>169</y>
       <show_units>true</show_units>
@@ -419,7 +419,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>txtVoltsNow_1</name>
-      <pv_name>$(DEVICE):outputVoltageGet</pv_name>
+      <pv_name>$(DEVICE):OutputVget</pv_name>
       <x>266</x>
       <y>29</y>
       <width>84</width>
@@ -832,7 +832,7 @@
           <exp bool_exp="pv0==1">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):polarity</pv_name>
+          <pv_name>$(DEVICE):Polarity</pv_name>
         </rule>
       </rules>
       <widget type="ellipse" version="2.0.0">
@@ -885,7 +885,7 @@
           <exp bool_exp="pv0==1">
             <value>true</value>
           </exp>
-          <pv_name>$(DEVICE):polarity</pv_name>
+          <pv_name>$(DEVICE):Polarity</pv_name>
         </rule>
       </rules>
       <widget type="ellipse" version="2.0.0">
@@ -922,7 +922,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>txt_1</name>
-      <pv_name>$(DEVICE):polarity</pv_name>
+      <pv_name>$(DEVICE):Polarity</pv_name>
       <x>128</x>
       <y>39</y>
       <width>44</width>
@@ -936,7 +936,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>voltage limit</name>
-      <pv_name>$(DEVICE):desiredHV.HOPR</pv_name>
+      <pv_name>$(DEVICE):TargetHV.HOPR</pv_name>
       <x>130</x>
       <y>149</y>
       <width>72</width>
@@ -980,7 +980,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_6</name>
-      <pv_name>$(DEVICE):desiredHV.LOPR</pv_name>
+      <pv_name>$(DEVICE):TargetHV.LOPR</pv_name>
       <x>129</x>
       <y>120</y>
       <width>72</width>
@@ -1155,7 +1155,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_7</name>
-      <pv_name>$(DEVICE):currentLimitmA</pv_name>
+      <pv_name>$(DEVICE):CurrentLimitmA</pv_name>
       <x>122</x>
       <y>85</y>
       <width>95</width>
@@ -1169,7 +1169,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_8</name>
-      <pv_name>$(DEVICE):currentTripLimitmA</pv_name>
+      <pv_name>$(DEVICE):CurrentTripLimitmA</pv_name>
       <x>122</x>
       <y>109</y>
       <width>95</width>
@@ -1195,7 +1195,7 @@
           <value>0</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):setNewLimitsPOS.PROC</pv_name>
+      <pv_name>$(DEVICE):SetNewLimitsPOS.PROC</pv_name>
       <text>Apply</text>
       <x>29</x>
       <y>140</y>
@@ -1209,7 +1209,7 @@
           <exp bool_exp="pv0!=0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):polarity</pv_name>
+          <pv_name>$(DEVICE):Polarity</pv_name>
         </rule>
       </rules>
       <tooltip>$(actions)</tooltip>
@@ -1224,7 +1224,7 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):resetLimits.PROC</pv_name>
+      <pv_name>$(DEVICE):ResetLimits.PROC</pv_name>
       <text>reset to default</text>
       <x>14</x>
       <y>34</y>
@@ -1251,7 +1251,7 @@
           <value>0</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):limitMenuClosed.PROC</pv_name>
+      <pv_name>$(DEVICE):LimitMenuClosed.PROC</pv_name>
       <text>Close</text>
       <x>134</x>
       <y>140</y>
@@ -1330,7 +1330,7 @@
             <value>0</value>
           </action>
         </actions>
-        <pv_name>$(DEVICE):limitMenuClosed.PROC</pv_name>
+        <pv_name>$(DEVICE):LimitMenuClosed.PROC</pv_name>
         <text></text>
         <width>21</width>
         <height>23</height>
@@ -1353,7 +1353,7 @@
           <value>0</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):setNewLimitsNEG.PROC</pv_name>
+      <pv_name>$(DEVICE):SetNewLimitsNEG.PROC</pv_name>
       <text>Apply</text>
       <x>29</x>
       <y>140</y>
@@ -1367,7 +1367,7 @@
           <exp bool_exp="pv0!=1">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):polarity</pv_name>
+          <pv_name>$(DEVICE):Polarity</pv_name>
         </rule>
       </rules>
       <tooltip>$(actions)</tooltip>
@@ -1375,7 +1375,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_9</name>
-      <pv_name>$(DEVICE):voltageLimitSet</pv_name>
+      <pv_name>$(DEVICE):VoltageLimitSet</pv_name>
       <x>122</x>
       <y>61</y>
       <width>95</width>
@@ -1680,7 +1680,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update DV_1</name>
-      <pv_name>$(DEVICE):desiredHV</pv_name>
+      <pv_name>$(DEVICE):TargetHV</pv_name>
       <x>95</x>
       <y>42</y>
       <width>83</width>
@@ -1688,7 +1688,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_RT_1</name>
-      <pv_name>$(DEVICE):rampDuration</pv_name>
+      <pv_name>$(DEVICE):RampDuration</pv_name>
       <x>95</x>
       <y>73</y>
       <width>83</width>
@@ -1697,7 +1697,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_Ri_1</name>
-      <pv_name>$(DEVICE):rampInterval</pv_name>
+      <pv_name>$(DEVICE):RampInterval</pv_name>
       <x>95</x>
       <y>105</y>
       <width>83</width>
@@ -1706,7 +1706,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_SS_1</name>
-      <pv_name>$(DEVICE):rampStepSize</pv_name>
+      <pv_name>$(DEVICE):RampStepSize</pv_name>
       <x>95</x>
       <y>136</y>
       <width>83</width>
@@ -1715,7 +1715,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner DV_2</name>
-      <pv_name>$(DEVICE):desiredHV</pv_name>
+      <pv_name>$(DEVICE):TargetHV</pv_name>
       <x>95</x>
       <y>42</y>
       <width>83</width>
@@ -1738,7 +1738,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_RT_2</name>
-      <pv_name>$(DEVICE):rampDuration</pv_name>
+      <pv_name>$(DEVICE):RampDuration</pv_name>
       <x>95</x>
       <y>73</y>
       <width>83</width>
@@ -1763,7 +1763,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_Ri_2</name>
-      <pv_name>$(DEVICE):rampInterval</pv_name>
+      <pv_name>$(DEVICE):RampInterval</pv_name>
       <x>95</x>
       <y>105</y>
       <width>83</width>
@@ -1788,7 +1788,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_SS_2</name>
-      <pv_name>$(DEVICE):rampStepSize</pv_name>
+      <pv_name>$(DEVICE):RampStepSize</pv_name>
       <x>95</x>
       <y>136</y>
       <width>83</width>

@@ -31,76 +31,76 @@ record(ai, "$(DEVICE):IMIN"){
 
 #the minimum and maximum based on absolute value of limits
 #(values still retain original sign pos/neg)
-record(calc, "$(DEVICE):absVMIN"){
+record(calc, "$(DEVICE):VMINabs"){
     field(DESC, "Minimum voltage (closest to 0)")
     field(INPA, "$(DEVICE):VMAX PP")
     field(INPB, "$(DEVICE):VMIN PP")
     field(CALC, "ABS(A)>ABS(B) ? B : A") #in negative versions vmin has larger abs value
     field(EGU, "V")
-    field(FLNK, "$(DEVICE):absVMAX")
+    field(FLNK, "$(DEVICE):VMAXabs")
 }
-record(calc, "$(DEVICE):absVMAX"){
+record(calc, "$(DEVICE):VMAXabs"){
     field(DESC, "Maximum voltage (closest to 0)")
     field(INPA, "$(DEVICE):VMAX PP")
     field(INPB, "$(DEVICE):VMIN PP")
     field(CALC, "ABS(A)>ABS(B) ? A : B") #in negative versions vmin has larger abs value
     field(EGU, "V")
-    field(FLNK, "$(DEVICE):minStepSize")
+    field(FLNK, "$(DEVICE):MinStepSize")
 }
 
 #the device needs approximately 1.45 seconds to stabilize voltage after setting before reading it again
 #so the minimum interval between steps is set to 1.5 seconds to allow for this
 #and the delay after setting voltage before reading back is set to 1.45 seconds
 #so that it reads just after it has stabilised but before the next step is set
-record(ai, "$(DEVICE):minInterval"){
+record(ai, "$(DEVICE):MinInterval"){
     field(DESC, "Minimum interval between steps")
     field(VAL, "1.5") #1.5 second minimum to allow for voltage stabilizing and reading before setting new val
     field(EGU, "seconds")
     field(PINI, "YES")
 }
-record(ai, "$(DEVICE):vgetDelay"){
+record(ai, "$(DEVICE):VgetDelay"){
     field(DESC, "Delay before reading voltage")
     field(VAL, "1.45") #1.45 second minimum to allow for voltage stabilizing before reading
     field(EGU, "seconds")
     field(PINI, "YES")
 }
-record(ai, "$(DEVICE):tolerance"){
+record(ai, "$(DEVICE):Tolerance"){
     field(DESC, "Tolerance for ramping")
     field(PINI, "YES")
     #val set from substitutions on start
     field(EGU, "V")
 }
 
-#________default settings______________
+#________Default settings______________
 #___________________________________
-record(bo, "$(DEVICE):defaultSettings"){
+record(bo, "$(DEVICE):DefaultSettings"){
     field(DESC, "Reset settings to default")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto cmd(*RCL 0) $(PORT) $(A)")
     field(ZNAM, "Reset to default settings")
     field(ONAM, "Reset to default settings")
-    field(FLNK, "$(DEVICE):defaultLimit")
+    field(FLNK, "$(DEVICE):DefaultVLIM")
 }
 
-record(ai, "$(DEVICE):defaultLimit"){
+record(ai, "$(DEVICE):DefaultVLIM"){
     #stores default limit values for use in checking polarity
     field(DESC, "Store default limit values")
     field(INP, "$(DEVICE):VLIMget")
-    field(FLNK, "$(DEVICE):checkPolarity")
+    field(FLNK, "$(DEVICE):CheckPolarity")
 }
 
-#___device polarity check on startup____
+#___Device polarity check on startup____
 #______________________________________
-record(calcout, "$(DEVICE):checkPolarity"){
+record(calcout, "$(DEVICE):CheckPolarity"){
     field(DESC, "Check device polarity on startup")
     field(VAL, "3") #dummy initial value to allow processing on startup
-    field(INPA, "$(DEVICE):defaultLimit")
+    field(INPA, "$(DEVICE):DefaultVLIM")
     field(CALC, "A<0 ? 1 : 0") #if limit is negative, device is negative polarity
     field(OOPT, "On Change")
-    field(OUT, "$(DEVICE):polarity PP")
+    field(OUT, "$(DEVICE):Polarity PP")
 }
 
-record(bi, "$(DEVICE):polarity"){
+record(bi, "$(DEVICE):Polarity"){
     field(DESC, "Device polarity")
     field(ZNAM, "+ve")
     field(ONAM, "-ve")
@@ -109,25 +109,25 @@ record(bi, "$(DEVICE):polarity"){
 #_________set substitutions based on polarity___________
 
 #checks whether polarity is positive or negative and calls appropriate sequence
-record(calcout, "$(DEVICE):callSubstitutionsPOS")
+record(calcout, "$(DEVICE):CallSubstitutionsPOS")
 {
     field(DESC, "Set substitutions based on polarity")
     field(VAL, "3")#ensure initial value is non-zero so can be processed on transition to zero
-    field(INPA, "$(DEVICE):polarity")
+    field(INPA, "$(DEVICE):Polarity")
     field(CALC, "A")
     field(OCAL, "1")
     field(OOPT, "Transition To Zero")
-    field(OUT, "$(DEVICE):SRS$(MODEL)+:setSubstitutions.PROC")
-    field(FLNK, "$(DEVICE):callSubstitutionsNEG")
+    field(OUT, "$(DEVICE):SRS$(MODEL)+:SetSubstitutions.PROC")
+    field(FLNK, "$(DEVICE):CallSubstitutionsNEG")
 }
-record(calcout, "$(DEVICE):callSubstitutionsNEG")
+record(calcout, "$(DEVICE):CallSubstitutionsNEG")
 {
     field(DESC, "Set substitutions based on polarity")
-    field(INPA, "$(DEVICE):polarity")
+    field(INPA, "$(DEVICE):Polarity")
     field(CALC, "A")
     field(OCAL, "1")
     field(OOPT, "Transition To Non-zero")
-    field(OUT, "$(DEVICE):SRS$(MODEL)-:setSubstitutions.PROC")
+    field(OUT, "$(DEVICE):SRS$(MODEL)-:SetSubstitutions.PROC")
 }
 
 
@@ -137,7 +137,7 @@ record(calcout, "$(DEVICE):callSubstitutionsNEG")
 #so a sequence is used to set the values 
 
 #this sequence will only be called on initialisation and when polarity is changed
-record(seq, "$(DEVICE):SRS$(MODELNO)$(POLARITY):setSubstitutions"){
+record(seq, "$(DEVICE):SRS$(MODELNO)$(POLARITY):SetSubstitutions"){
     field(DESC, "Set substitutions based on polarity")
     field(DO0, "$(VMAX)")
     field(LNK0, "$(DEVICE):VLIMset.HOPR")
@@ -171,10 +171,10 @@ record(seq, "$(DEVICE):SRS$(MODELNO)$(POLARITY):setSubstitutions"){
     field(LNKE, "$(DEVICE):ILIMget.LOPR")
     field(DOF, "$(IMIN)")
     field(LNKF, "$(DEVICE):ILIMget.DRVL PP")
-    field(FLNK, "$(DEVICE):SRS$(MODELNO)$(POLARITY):setSubstitutions2")
+    field(FLNK, "$(DEVICE):SRS$(MODELNO)$(POLARITY):SetSubstitutions2")
     
 }
-record(seq, "$(DEVICE):SRS$(MODELNO)$(POLARITY):setSubstitutions2"){
+record(seq, "$(DEVICE):SRS$(MODELNO)$(POLARITY):SetSubstitutions2"){
     field(DESC, "Set substitutions based on polarity")
     field(DO0, "$(IMAX)")
     field(LNK0, "$(DEVICE):ILIMset.HOPR")
@@ -199,86 +199,86 @@ record(seq, "$(DEVICE):SRS$(MODELNO)$(POLARITY):setSubstitutions2"){
     field(DOA, "$(IMAX)")
     field(LNKA, "$(DEVICE):ITRPset PP")
     field(DOB, "$(VMAX)")
-    field(LNKB, "$(DEVICE):absVMIN.HOPR")
+    field(LNKB, "$(DEVICE):VMINabs.HOPR")
     field(DOC, "$(VMAX)")
-    field(LNKC, "$(DEVICE):absVMAX.HOPR")
+    field(LNKC, "$(DEVICE):VMAXabs.HOPR")
     field(DOD, "$(VMIN)")
-    field(LNKD, "$(DEVICE):absVMIN.LOPR")
+    field(LNKD, "$(DEVICE):VMINabs.LOPR")
     field(DOE, "$(VMIN)")
-    field(LNKE, "$(DEVICE):absVMAX.LOPR")
+    field(LNKE, "$(DEVICE):VMAXabs.LOPR")
     field(DOF, "$(IMAX)")
-    field(LNKF, "$(DEVICE):outputCurrentGet.HOPR")
-    field(FLNK, "$(DEVICE):SRS$(MODELNO)$(POLARITY):setSubstitutions3")
+    field(LNKF, "$(DEVICE):OutputIget.HOPR")
+    field(FLNK, "$(DEVICE):SRS$(MODELNO)$(POLARITY):SetSubstitutions3")
 }
-record(seq, "$(DEVICE):SRS$(MODELNO)$(POLARITY):setSubstitutions3"){
+record(seq, "$(DEVICE):SRS$(MODELNO)$(POLARITY):SetSubstitutions3"){
     field(DESC, "Set substitutions based on polarity")
     field(DO0, "$(VMIN)")
-    field(LNK0, "$(DEVICE):desiredHV.LOPR")
+    field(LNK0, "$(DEVICE):TargetHV.LOPR")
     field(DO1, "$(VMIN)")
-    field(LNK1, "$(DEVICE):desiredHV.DRVL")
+    field(LNK1, "$(DEVICE):TargetHV.DRVL")
     field(DO2, "$(VMAX)")
-    field(LNK2, "$(DEVICE):voltageSet.HOPR ")
+    field(LNK2, "$(DEVICE):HVset.HOPR ")
     field(DO3, "$(VMIN)")
-    field(LNK3, "$(DEVICE):voltageSet.LOPR PP")
+    field(LNK3, "$(DEVICE):HVset.LOPR PP")
     field(DO4, "$(VMAX)")
-    field(LNK4, "$(DEVICE):outputVoltageGet.HOPR")
+    field(LNK4, "$(DEVICE):OutputVget.HOPR")
     field(DO5, "$(VMIN)")
-    field(LNK5, "$(DEVICE):outputVoltageGet.LOPR PP")
+    field(LNK5, "$(DEVICE):OutputVget.LOPR PP")
     field(DO6, "$(IMAX)")
     field(LNK6, "$(DEVICE):ILIMset PP")
     field(DO7, "$(VMAX)")
-    field(LNK7, "$(DEVICE):desiredHV.DRVH")
+    field(LNK7, "$(DEVICE):TargetHV.DRVH")
     field(DO8, "$(VMAX)")
-    field(LNK8, "$(DEVICE):desiredHV.HOPR PP")
-    field(LNK9, "$(DEVICE):defaultSettings PP")
+    field(LNK8, "$(DEVICE):TargetHV.HOPR PP")
+    field(LNK9, "$(DEVICE):DefaultSettings PP")
     field(DOA, "$(VMAX)")
-    field(LNKA, "$(DEVICE):voltageLimitSet.HOPR")
+    field(LNKA, "$(DEVICE):VoltageLimitSet.HOPR")
     field(DOB, "$(VMIN)")
-    field(LNKB, "$(DEVICE):voltageLimitSet.LOPR")
+    field(LNKB, "$(DEVICE):VoltageLimitSet.LOPR")
     field(DOLC, "$(DEVICE):VLIMget")
-    field(LNKC, "$(DEVICE):voltageLimitSet")
+    field(LNKC, "$(DEVICE):VoltageLimitSet")
     field(DOD, "$(VMAX)")
-    field(LNKD, "$(DEVICE):voltageLimitSet.DRVH")
+    field(LNKD, "$(DEVICE):VoltageLimitSet.DRVH")
     field(DOE, "$(VMIN)")
-    field(LNKE, "$(DEVICE):voltageLimitSet.DRVL PP")
+    field(LNKE, "$(DEVICE):VoltageLimitSet.DRVL PP")
     field(DOF, "$(TOLERANCE)")
-    field(LNKF, "$(DEVICE):tolerance PP")
-    field(FLNK, "$(DEVICE):setOnStart")
+    field(LNKF, "$(DEVICE):Tolerance PP")
+    field(FLNK, "$(DEVICE):SetOnStart")
 }
 
 #values to be set on start not based on substitutions
-record(seq,"$(DEVICE):setOnStart"){
+record(seq,"$(DEVICE):SetOnStart"){
     field(DESC, "sets values from constants")
-    field(LNK0, "$(DEVICE):absVMIN PP")
-    field(DOL1, "$(DEVICE):minStepSize")
-    field(LNK1, "$(DEVICE):rampStepSize.LOPR")
-    field(DOL2, "$(DEVICE):minStepSize")
-    field(LNK2, "$(DEVICE):rampStepSize")
-    field(DOL3, "$(DEVICE):maxStepSize")
-    field(LNK3, "$(DEVICE):rampStepSize.HOPR")
-    field(DOL4, "$(DEVICE):maxStepSize")
-    field(LNK4, "$(DEVICE):rampStepSize.DRVH")
-    field(DOL5, "$(DEVICE):minStepSize")
-    field(LNK5, "$(DEVICE):rampStepSize.DRVL PP")
-    field(DOL6, "$(DEVICE):minInterval PP")
-    field(LNK6, "$(DEVICE):rampDuration.LOPR ")
-    field(DOL7, "$(DEVICE):minInterval")
-    field(LNK7, "$(DEVICE):rampInterval.LOPR ")
-    field(DOL8, "$(DEVICE):minInterval")
-    field(LNK8, "$(DEVICE):rampDuration PP")
-    field(DOL9, "$(DEVICE):minInterval")
-    field(LNK9, "$(DEVICE):rampInterval")
+    field(LNK0, "$(DEVICE):VMINabs PP")
+    field(DOL1, "$(DEVICE):MinStepSize")
+    field(LNK1, "$(DEVICE):RampStepSize.LOPR")
+    field(DOL2, "$(DEVICE):MinStepSize")
+    field(LNK2, "$(DEVICE):RampStepSize")
+    field(DOL3, "$(DEVICE):MaxStepSize")
+    field(LNK3, "$(DEVICE):RampStepSize.HOPR")
+    field(DOL4, "$(DEVICE):MaxStepSize")
+    field(LNK4, "$(DEVICE):RampStepSize.DRVH")
+    field(DOL5, "$(DEVICE):MinStepSize")
+    field(LNK5, "$(DEVICE):RampStepSize.DRVL PP")
+    field(DOL6, "$(DEVICE):MinInterval PP")
+    field(LNK6, "$(DEVICE):RampDuration.LOPR ")
+    field(DOL7, "$(DEVICE):MinInterval")
+    field(LNK7, "$(DEVICE):RampInterval.LOPR ")
+    field(DOL8, "$(DEVICE):MinInterval")
+    field(LNK8, "$(DEVICE):RampDuration PP")
+    field(DOL9, "$(DEVICE):MinInterval")
+    field(LNK9, "$(DEVICE):RampInterval")
     field(DOLA, "$(DEVICE):IMAXmA PP")
-    field(LNKA, "$(DEVICE):currentLimitmA.HOPR PP")
+    field(LNKA, "$(DEVICE):CurrentLimitmA.HOPR PP")
     field(DOLB, "$(DEVICE):IMAXmA")
-    field(LNKB, "$(DEVICE):currentTripLimitmA.HOPR PP")
-    field(LNKC, "$(DEVICE):resetLimits PP")
-    field(DOLD, "$(DEVICE):minInterval")
-    field(LNKD, "$(DEVICE):rampInterval.DRVL PP")
+    field(LNKB, "$(DEVICE):CurrentTripLimitmA.HOPR PP")
+    field(LNKC, "$(DEVICE):ResetLimits PP")
+    field(DOLD, "$(DEVICE):MinInterval")
+    field(LNKD, "$(DEVICE):RampInterval.DRVL PP")
     field(DOLE, "$(DEVICE):IMAXmA PP")
-    field(LNKE, "$(DEVICE):currentLimitmA.DRVH PP")
+    field(LNKE, "$(DEVICE):CurrentLimitmA.DRVH PP")
     field(DOLF, "$(DEVICE):IMAXmA")
-    field(LNKF, "$(DEVICE):currentTripLimitmA.DRVH PP")
+    field(LNKF, "$(DEVICE):CurrentTripLimitmA.DRVH PP")
     field(FLNK, "$(DEVICE):idleZoom")
 }
 

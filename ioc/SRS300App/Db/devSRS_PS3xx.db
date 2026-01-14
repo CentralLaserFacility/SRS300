@@ -102,7 +102,7 @@ record(calc, "$(DEVICE):stableMultiState"){
 #___________________________________________________
 #_______________get current_________________________
 
-record(ai, "$(DEVICE):outputCurrentGet"){
+record(ai, "$(DEVICE):OutputIget"){
     field(DESC, "Output current readback")
     field(DTYP, "stream")
     field(SCAN, ".1 second")
@@ -114,7 +114,7 @@ record(ai, "$(DEVICE):outputCurrentGet"){
 
 record(calc, "$(DEVICE):outputCurrentmA"){
     field(DESC, "Convert output current to mA for display")
-    field(INPA, "$(DEVICE):outputCurrentGet")
+    field(INPA, "$(DEVICE):OutputIget")
     field(CALC, "A*1000")
     field(EGU, "mA")
     field(PREC, "2")
@@ -122,7 +122,7 @@ record(calc, "$(DEVICE):outputCurrentmA"){
 #__________________________________________
 #__________Voltage get and set_____________
 
-record(ao, "$(DEVICE):voltageSet"){
+record(ao, "$(DEVICE):HVset"){
 #sets the device's high voltage, should only be set through the state machine's ramping process
     field(DESC, "Set output voltage")
     field(DTYP, "stream")
@@ -133,10 +133,10 @@ record(seq, "$(DEVICE):voltageMonitor"){
     field(DESC, "Monitor voltage")
     field(PINI, "YES")
     field(SCAN, "1 second")
-    field(LNK1, "$(DEVICE):outputVoltageGet.PROC")
+    field(LNK1, "$(DEVICE):OutputVget.PROC")
     field(LNK2, "$(DEVICE):voltageStable.PROC")
 }
-record(ai, "$(DEVICE):outputVoltageGet"){
+record(ai, "$(DEVICE):OutputVget"){
     field(DESC, "Output voltage readback")
     field(DTYP, "stream")
     field(INP,  "@ps300.proto getF(VOUT) $(PORT) $(A)")
@@ -145,7 +145,7 @@ record(ai, "$(DEVICE):outputVoltageGet"){
 }
 record(calc, "$(DEVICE):absVoltage"){
     field(DESC, "Absolute value of output voltage")
-    field(INPA, "$(DEVICE):outputVoltageGet")
+    field(INPA, "$(DEVICE):OutputVget")
     field(CALC, "ABS(A)")
     field(EGU, "V")
 }
@@ -165,8 +165,8 @@ record(bo, "$(DEVICE):enableHV"){
 }
 record(seq, "$(DEVICE):enableHVSeq"){
     field(DESC, "Sequence to dis/enable HV")
-    field(DOL1, "$(DEVICE):absVMIN PP")
-    field(LNK1, "$(DEVICE):voltageSet PP")
+    field(DOL1, "$(DEVICE):VMINabs PP")
+    field(LNK1, "$(DEVICE):HVset PP")
     field(DO2, "0")
     field(LNK2, "$(DEVICE):rampActive PP")
     field(LNK3, "$(DEVICE):getSTB.PROC PP")
@@ -242,11 +242,11 @@ record(seq, "$(DEVICE):PONseq"){
     #restore saved settings
     #if polarity has changed, apply new substitutions
     field(DESC, "Power on event sequence")
-    field(LNK0, "$(DEVICE):setSAV.PROC")
-    field(LNK1, "$(DEVICE):defaultSettings.PROC")
+    field(LNK0, "$(DEVICE):SetSAV.PROC")
+    field(LNK1, "$(DEVICE):DefaultSettings.PROC")
     field(DLY2, "0.5")
-    field(LNK2, "$(DEVICE):restoreSettings.PROC")
-    field(LNK3, "$(DEVICE):callSubstitutionsPOS.PROC")
+    field(LNK2, "$(DEVICE):RestoreSettings.PROC")
+    field(LNK3, "$(DEVICE):CallSubstitutionsPOS.PROC")
     #process sequence to apply substitutions based on model and polarity
     #in devSRS_PS3xx_sequences.template
     field(PINI, "YES")

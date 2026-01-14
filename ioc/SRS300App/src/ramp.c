@@ -10,33 +10,33 @@
 //step size is recalculated based on the new interval
 
 static long rampcalc(aSubRecord *precord){
-    double startVoltage, targetVoltage, rampTime, voltageDiff, interval, minStepSize, stepSize, 
-    minInterval, checkFactor;
+    double StartVoltage, targetVoltage, rampTime, voltageDiff, interval, MinStepSize, stepSize, 
+    MinInterval, checkFactor;
     char *mode;
     short miniHop, active, HVon;
 
-    startVoltage = *(double*)precord->a;
+    StartVoltage = *(double*)precord->a;
     targetVoltage = *(double*)precord->b;
     rampTime = *(double*)precord->c;
     stepSize = *(double*)precord->d;
     mode = (char*)precord->e;
     interval = *(double*)precord->f;
-    minStepSize = *(double*)precord->g;
-    minInterval = *(double*)precord->h;
+    MinStepSize = *(double*)precord->g;
+    MinInterval = *(double*)precord->h;
     HVon = *(short*)precord->i;
     
     //if voltage already reached or HV off do not continue
-    if(startVoltage == targetVoltage || HVon == 0){
+    if(StartVoltage == targetVoltage || HVon == 0){
         return 1;
     }
 
     //this just makes voltage difference positive for calculation
     //could use abs() but don't want to add another library for just this
-    if(targetVoltage> startVoltage){
-        voltageDiff = targetVoltage - startVoltage;
+    if(targetVoltage> StartVoltage){
+        voltageDiff = targetVoltage - StartVoltage;
     }
     else{
-        voltageDiff = startVoltage - targetVoltage;
+        voltageDiff = StartVoltage - targetVoltage;
     }
     if(voltageDiff == 0){
         return 1; //if present voltage is the same as target send error and do not output
@@ -46,27 +46,27 @@ static long rampcalc(aSubRecord *precord){
     miniHop = 0; //flag for small voltage increase
     active = 1;
     //if target voltage requires step below minimum step size, output error message
-    if(voltageDiff<minStepSize){
+    if(voltageDiff<MinStepSize){
         active = 0;
         miniHop = 1;
     }
 
     else if (strcmp(mode, "Automatic") == 0) {//if mode = automatic
         //check for possible divide by 0 errors
-        if (minStepSize == 0){
-            minStepSize = 1; //ensure step size cannot be 0
+        if (MinStepSize == 0){
+            MinStepSize = 1; //ensure step size cannot be 0
         }
 
-        stepSize = minStepSize;
+        stepSize = MinStepSize;
         //calc interval using minimum voltage as a min step size
         interval = rampTime/((short)(voltageDiff / stepSize));
 
-        if (interval < minInterval){
+        if (interval < MinInterval){
             //calculation to find new interval based on minimum interval
             //this works by checking if the minimum interval is a factor of the ramp time
             //if not, it rounds down to the nearest whole number factor and divides ramp time by that
             //this finds the lowest number it can use that is above the minimum interval
-            interval = minInterval;
+            interval = MinInterval;
             checkFactor = rampTime/interval; //is interval a factor of ramp time?
             if ((short)checkFactor < checkFactor){//if not a whole number
                 if ((short)(rampTime/2) < rampTime/2){//if ramp time is not even
