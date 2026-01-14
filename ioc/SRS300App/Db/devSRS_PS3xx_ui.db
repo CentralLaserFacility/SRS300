@@ -3,23 +3,6 @@ record(stringin, "$(DEVICE):SRSModel"){
     field(DESC, "SRS Model Number")
     field(VAL,  "SRS HVPS$(MODEL)")
 }
-#______________________________________________
-#_____________open/close menus______________
-
-record(bi, "$(DEVICE):limitMenuOpen"){
-    field(DESC, "Open/close limit menu (ui)")
-    field(ZNAM, "Closed")
-    field(ONAM, "Open")
-    field(PINI, "YES")
-}
-
-record(mbbi, "$(DEVICE):configMenuOpen"){
-    field(DESC, "Open ui config menu")
-    field(VAL, "0")
-    field(ZRST, "Closed")
-    field(ONST, "medium menu")
-    field(TWST, "large menu")
-}
 
 #______________________________________________
 #__________Autoscale for data browser__________
@@ -95,14 +78,6 @@ record(seq, "$(DEVICE):rampZoom"){
     field(LNK1, "$(DEVICE):autoscaleControlMax PP")
     field(DOL2, "$(DEVICE):YaxisMin")
     field(LNK2, "$(DEVICE):autoscaleControlMin PP")
-}
-
-record(bi, "$(DEVICE):toolbarShow"){
-    field(DESC, "Show/hide toolbar in ui")
-    field(ZNAM, "Hide Toolbar")
-    field(ONAM, "Show Toolbar")
-    field(VAL, "0")
-    field(PINI, "YES")
 }
 
 record(ai, "$(DEVICE):currentGraphMin"){

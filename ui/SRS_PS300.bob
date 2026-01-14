@@ -395,13 +395,13 @@
           <exp bool_exp="True">
             <expression>pvInt0</expression>
           </exp>
-          <pv_name>$(DEVICE):toolbarShow</pv_name>
+          <pv_name>loc://toolbarShow</pv_name>
         </rule>
       </rules>
     </widget>
     <widget type="bool_button" version="2.0.0">
       <name>toolbar</name>
-      <pv_name>$(DEVICE):toolbarShow</pv_name>
+      <pv_name>loc://toolbarShow</pv_name>
       <x>3</x>
       <y>441</y>
       <off_label>Show toolbar</off_label>
@@ -798,7 +798,7 @@
         <exp bool_exp="pv0==1">
           <value>false</value>
         </exp>
-        <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+        <pv_name>loc://limitMenuOpen</pv_name>
       </rule>
     </rules>
     <widget type="rectangle" version="2.0.0">
@@ -1041,7 +1041,7 @@
             <value>1</value>
           </action>
         </actions>
-        <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+        <pv_name>loc://limitMenuOpen</pv_name>
         <text></text>
         <width>26</width>
         <height>26</height>
@@ -1050,6 +1050,7 @@
           </color>
         </background_color>
         <tooltip>$(actions)</tooltip>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
       </widget>
       <widget type="picture" version="2.0.0">
         <name>Picture_3</name>
@@ -1061,7 +1062,7 @@
         <actions>
           <action type="write_pv">
             <description>open advanced settings</description>
-            <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+            <pv_name>loc://limitMenuOpen</pv_name>
             <value>1</value>
           </action>
         </actions>
@@ -1084,7 +1085,7 @@
         <exp bool_exp="pv0==0">
           <value>false</value>
         </exp>
-        <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+        <pv_name>loc://limitMenuOpen</pv_name>
       </rule>
     </rules>
     <widget type="rectangle" version="2.0.0">
@@ -1190,7 +1191,7 @@
         </action>
         <action type="write_pv">
           <description>close ui</description>
-          <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+          <pv_name>loc://limitMenuOpen</pv_name>
           <value>0</value>
         </action>
       </actions>
@@ -1246,7 +1247,7 @@
         </action>
         <action type="write_pv">
           <description>close ui</description>
-          <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+          <pv_name>loc://limitMenuOpen</pv_name>
           <value>0</value>
         </action>
       </actions>
@@ -1325,7 +1326,7 @@
           </action>
           <action type="write_pv">
             <description>close ui</description>
-            <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+            <pv_name>loc://limitMenuOpen</pv_name>
             <value>0</value>
           </action>
         </actions>
@@ -1348,7 +1349,7 @@
         </action>
         <action type="write_pv">
           <description>close ui</description>
-          <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+          <pv_name>loc://limitMenuOpen</pv_name>
           <value>0</value>
         </action>
       </actions>
@@ -1423,7 +1424,7 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):configMenuOpen</pv_name>
+      <pv_name>loc://configMenuOpen</pv_name>
       <text>   ConfigMenu </text>
       <y>3</y>
       <width>106</width>
@@ -1435,10 +1436,11 @@
             <value>false</value>
           </exp>
           <pv_name>$(DEVICE):rampActive</pv_name>
-          <pv_name>$(DEVICE):configMenuOpen</pv_name>
+          <pv_name>loc://configMenuOpen</pv_name>
         </rule>
       </rules>
       <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="picture" version="2.0.0">
       <name>Picture_4</name>
@@ -1450,7 +1452,7 @@
       <actions>
         <action type="write_pv">
           <description>open advanced settings</description>
-          <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+          <pv_name>loc://limitMenuOpen</pv_name>
           <value>1</value>
         </action>
       </actions>
@@ -1460,7 +1462,7 @@
             <value>0.3</value>
           </exp>
           <pv_name>$(DEVICE):rampActive</pv_name>
-          <pv_name>$(DEVICE):configMenuOpen</pv_name>
+          <pv_name>loc://configMenuOpen</pv_name>
         </rule>
       </rules>
     </widget>
@@ -1483,7 +1485,7 @@
         <exp bool_exp="pv0 !=2">
           <value>false</value>
         </exp>
-        <pv_name>$(DEVICE):configMenuOpen</pv_name>
+        <pv_name>loc://configMenuOpen</pv_name>
       </rule>
     </rules>
   </widget>
@@ -1505,7 +1507,7 @@
         <exp bool_exp="pv0 !=1">
           <value>false</value>
         </exp>
-        <pv_name>$(DEVICE):configMenuOpen</pv_name>
+        <pv_name>loc://configMenuOpen</pv_name>
       </rule>
     </rules>
   </widget>
@@ -1526,7 +1528,7 @@
         <exp bool_exp="pv0 !=0">
           <value>true</value>
         </exp>
-        <pv_name>$(DEVICE):configMenuOpen</pv_name>
+        <pv_name>loc://configMenuOpen</pv_name>
       </rule>
     </rules>
     <widget type="rectangle" version="2.0.0">
@@ -1648,11 +1650,11 @@
         <actions execute_as_one="true">
           <action type="write_pv">
             <description>close menu</description>
-            <pv_name>$(DEVICE):configMenuOpen</pv_name>
+            <pv_name>loc://configMenuOpen</pv_name>
             <value>0</value>
           </action>
         </actions>
-        <pv_name>$(DEVICE):configMenuOpen</pv_name>
+        <pv_name>loc://configMenuOpen</pv_name>
         <text></text>
         <width>21</width>
         <height>23</height>

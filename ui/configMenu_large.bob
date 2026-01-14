@@ -313,7 +313,7 @@
         <value>1</value>
       </action>
     </actions>
-    <pv_name>$(DEVICE):configMenuOpen</pv_name>
+    <pv_name>loc://configMenuOpen</pv_name>
     <text>Less</text>
     <x>239</x>
     <y>652</y>
@@ -440,11 +440,11 @@
       <actions execute_as_one="true">
         <action type="write_pv">
           <description>close menu</description>
-          <pv_name>$(DEVICE):configMenuOpen</pv_name>
+          <pv_name>loc://configMenuOpen</pv_name>
           <value>0</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):configMenuOpen</pv_name>
+      <pv_name>loc://configMenuOpen</pv_name>
       <text></text>
       <width>21</width>
       <height>23</height>
