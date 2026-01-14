@@ -11,12 +11,12 @@ record(bo, "$(DEVICE):DISABLE")
 #
 # Aliases
 #
-alias("$(DEVICE):getESR","$(DEVICE):ESR")
+alias("$(DEVICE):ESRget","$(DEVICE):ESR")
 
-alias("$(DEVICE):tripClear","$(DEVICE):CLEAR:SP")
+alias("$(DEVICE):TripClear","$(DEVICE):CLEAR:SP")
 alias("$(DEVICE):CLEAR:SP","$(DEVICE):CLEAR")
 
-alias("$(DEVICE):enableHV","$(DEVICE):HV:SP")
+alias("$(DEVICE):HVenable","$(DEVICE):HV:SP")
 alias("$(DEVICE):HV:SP","$(DEVICE):HV")
 
 alias("$(DEVICE):HVset","$(DEVICE):VOLTAGE:SP")
@@ -35,7 +35,7 @@ alias("$(DEVICE):ITRPset","$(DEVICE):CURRENT:TRIP:LIMIT:SP")
 alias("$(DEVICE):ITRPget","$(DEVICE):CURRENT:TRIP:LIMIT")
 alias("$(DEVICE):CURRENT:TRIP:LIMIT","$(DEVICE):CURRENT:TRIP:LIMIT:SP:RBV")
 
-alias("$(DEVICE):getSTB","$(DEVICE):STATUS")
+alias("$(DEVICE):STBget","$(DEVICE):STATUS")
 
 alias("$(DEVICE):HVONstatus","$(DEVICE):HV:STATUS")
 
@@ -45,6 +45,6 @@ alias("$(DEVICE):ITRIPstatus","$(DEVICE):CURRENT:TRIP:STATUS")
 
 alias("$(DEVICE):VTRIPstatus","$(DEVICE):VOLTAGE:TRIP:STATUS")
 
-alias("$(DEVICE):voltageStable","$(DEVICE):HV:STABLE:STATUS")
+alias("$(DEVICE):HVstable","$(DEVICE):HV:STABLE:STATUS")
 
 alias("$(DEVICE):OutputIget","$(DEVICE):CURRENT")

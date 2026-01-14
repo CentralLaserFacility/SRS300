@@ -19,18 +19,18 @@ record(seq, "$(DEVICE):StartCharge"){
     field(DOL5, "$(DEVICE):YaxisMax")
     field(LNK5, "$(DEVICE):AutoscaleControlMax PP")
     #calculate ramp parameters
-    field(LNK6, "$(DEVICE):rampCalc PP")
+    field(LNK6, "$(DEVICE):RampCalc PP")
 }
 
 #_________________end charge sequence_________________
-record(seq, "$(DEVICE):endCharge"){
+record(seq, "$(DEVICE):EndCharge"){
     field(DESC, "Sequence to end HV charge")
     field(DO1, "0")
-    field(LNK1, "$(DEVICE):rampActive PP")
-    field(LNK2, "$(DEVICE):idleZoom PP")
+    field(LNK1, "$(DEVICE):RampActive PP")
+    field(LNK2, "$(DEVICE):IdleZoom PP")
 }
 
-record(bi, "$(DEVICE):rampActive"){
+record(bi, "$(DEVICE):RampActive"){
 #when set to 1 ("Ramping") the state machine will begin the ramping process
     field(DESC, "Is charge active?")
     field(ZNAM, "Idle")
@@ -38,7 +38,7 @@ record(bi, "$(DEVICE):rampActive"){
     field(PINI, "YES")
 }
 
-record(aSub, "$(DEVICE):rampCalc"){
+record(aSub, "$(DEVICE):RampCalc"){
     field(DESC, "Calculate ramp step size")
     field(SNAM, "rampcalc")
     #inputs
@@ -50,7 +50,7 @@ record(aSub, "$(DEVICE):rampCalc"){
     field(FTC, "DOUBLE")
     field(INPD, "$(DEVICE):RampStepSize")
     field(FTD, "DOUBLE")
-    field(INPE, "$(DEVICE):rampMode")
+    field(INPE, "$(DEVICE):RampMode")
     field(FTE, "STRING")
     field(INPF, "$(DEVICE):RampInterval")
     field(FTF, "DOUBLE")
@@ -65,9 +65,9 @@ record(aSub, "$(DEVICE):rampCalc"){
     field(FTVA, "DOUBLE")
     field(OUTB, "$(DEVICE):RampInterval PP")
     field(FTVB, "DOUBLE")
-    field(OUTC, "$(DEVICE):rampActive PP")
+    field(OUTC, "$(DEVICE):RampActive PP")
     field(FTVC, "SHORT")
-    field(OUTD, "$(DEVICE):smallStepError PP")
+    field(OUTD, "$(DEVICE):SmallStepError PP")
     field(FTVD, "SHORT")
     field(OUTE, "$(DEVICE):RampDuration PP")
     field(FTVE, "DOUBLE")
@@ -98,7 +98,7 @@ record(ao, "$(DEVICE):RampStepSize"){
     field(PINI, "YES")
 }
 
-record(bi, "$(DEVICE):rampMode"){
+record(bi, "$(DEVICE):RampMode"){
     field(DESC, "Set ramp mode")
     field(PINI, "YES")
     field(VAL, "0") #Automatic mode by default
@@ -116,22 +116,22 @@ record(ao, "$(DEVICE):TargetHV"){
 #________________constants___________________
 record(calc, "$(DEVICE):MinStepSize"){
     field(DESC, "Minimum step size for automatic ramping")
-    field(INPA, "$(DEVICE):VMINabs")
+    field(INPA, "$(DEVICE):AbsVMIN")
     field(CALC, "ABS(A)") #the minimum step size is the absolute value of the minimum voltage
     field(EGU, "V") 
     field(FLNK, "$(DEVICE):MaxStepSize")
 }
 record(calc, "$(DEVICE):MaxStepSize"){
     field(DESC, "Maximum step size for automatic ramping")
-    field(INPA, "$(DEVICE):VMAXabs")
+    field(INPA, "$(DEVICE):AbsVMAX")
     field(CALC, "ABS(A)")
     field(EGU, "V")
 }
 #__________________________________________
 #_____________error messages_______________
 
-record(calc, "$(DEVICE):smallStepError"){
-    field(DESC, "warning for step being too small")
+record(calc, "$(DEVICE):SmallStepError"){
+    field(DESC, "Warning for step being too small")
     field(INPA, "$(DEVICE):TargetHV PP")
     field(INPB, "$(DEVICE):OutputVget")
     field(INPC, "$(DEVICE):MinStepSize")

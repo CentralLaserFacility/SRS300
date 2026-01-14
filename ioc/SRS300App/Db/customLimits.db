@@ -182,7 +182,7 @@ record(seq, "$(DEVICE):LimitMenuClosed"){
 #If limits are reset to default from the menu, set device limits to default values
 record(seq, "$(DEVICE):ResetLimits"){
     field(DESC, "Reset limits to default from device")
-    field(DOL1, "$(DEVICE):VMAXabs PP")
+    field(DOL1, "$(DEVICE):AbsVMAX PP")
     field(LNK1, "$(DEVICE):VoltageLimitSet PP")
     field(DOL2, "$(DEVICE):IMAXmA")
     field(LNK2, "$(DEVICE):CurrentLimitmA PP")

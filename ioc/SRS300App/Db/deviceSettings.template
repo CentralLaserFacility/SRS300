@@ -31,15 +31,15 @@ record(ai, "$(DEVICE):IMIN"){
 
 #the minimum and maximum based on absolute value of limits
 #(values still retain original sign pos/neg)
-record(calc, "$(DEVICE):VMINabs"){
+record(calc, "$(DEVICE):AbsVMIN"){
     field(DESC, "Minimum voltage (closest to 0)")
     field(INPA, "$(DEVICE):VMAX PP")
     field(INPB, "$(DEVICE):VMIN PP")
     field(CALC, "ABS(A)>ABS(B) ? B : A") #in negative versions vmin has larger abs value
     field(EGU, "V")
-    field(FLNK, "$(DEVICE):VMAXabs")
+    field(FLNK, "$(DEVICE):AbsVMAX")
 }
-record(calc, "$(DEVICE):VMAXabs"){
+record(calc, "$(DEVICE):AbsVMAX"){
     field(DESC, "Maximum voltage (closest to 0)")
     field(INPA, "$(DEVICE):VMAX PP")
     field(INPB, "$(DEVICE):VMIN PP")
@@ -199,13 +199,13 @@ record(seq, "$(DEVICE):SRS$(MODELNO)$(POLARITY):SetSubstitutions2"){
     field(DOA, "$(IMAX)")
     field(LNKA, "$(DEVICE):ITRPset PP")
     field(DOB, "$(VMAX)")
-    field(LNKB, "$(DEVICE):VMINabs.HOPR")
+    field(LNKB, "$(DEVICE):AbsVMIN.HOPR")
     field(DOC, "$(VMAX)")
-    field(LNKC, "$(DEVICE):VMAXabs.HOPR")
+    field(LNKC, "$(DEVICE):AbsVMAX.HOPR")
     field(DOD, "$(VMIN)")
-    field(LNKD, "$(DEVICE):VMINabs.LOPR")
+    field(LNKD, "$(DEVICE):AbsVMIN.LOPR")
     field(DOE, "$(VMIN)")
-    field(LNKE, "$(DEVICE):VMAXabs.LOPR")
+    field(LNKE, "$(DEVICE):AbsVMAX.LOPR")
     field(DOF, "$(IMAX)")
     field(LNKF, "$(DEVICE):OutputIget.HOPR")
     field(FLNK, "$(DEVICE):SRS$(MODELNO)$(POLARITY):SetSubstitutions3")
@@ -249,7 +249,7 @@ record(seq, "$(DEVICE):SRS$(MODELNO)$(POLARITY):SetSubstitutions3"){
 #values to be set on start not based on substitutions
 record(seq,"$(DEVICE):SetOnStart"){
     field(DESC, "sets values from constants")
-    field(LNK0, "$(DEVICE):VMINabs PP")
+    field(LNK0, "$(DEVICE):AbsVMIN PP")
     field(DOL1, "$(DEVICE):MinStepSize")
     field(LNK1, "$(DEVICE):RampStepSize.LOPR")
     field(DOL2, "$(DEVICE):MinStepSize")
@@ -279,7 +279,7 @@ record(seq,"$(DEVICE):SetOnStart"){
     field(LNKE, "$(DEVICE):CurrentLimitmA.DRVH PP")
     field(DOLF, "$(DEVICE):IMAXmA")
     field(LNKF, "$(DEVICE):CurrentTripLimitmA.DRVH PP")
-    field(FLNK, "$(DEVICE):idleZoom")
+    field(FLNK, "$(DEVICE):IdleZoom")
 }
 
 

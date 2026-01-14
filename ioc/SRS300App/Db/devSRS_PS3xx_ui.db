@@ -32,22 +32,22 @@ record(calc, "$(DEVICE):YaxisMin"){
 #calculates y axis max and min for idle state
 #calculated to show maximum 5000V on Y axis when idle plus a small margin
 #for readability of graph when not ramping
-record(calc, "$(DEVICE):idleYaxisMax"){
+record(calc, "$(DEVICE):IdleYaxisMax"){
     field(DESC, "Set Y axis max when not ramping")
-    field(INPA, "$(DEVICE):absVoltage")
+    field(INPA, "$(DEVICE):AbsVoltage")
     field(INPB, "$(DEVICE):MinStepSize")
     field(CALC, "A + B")
 }
 
-record(calc, "$(DEVICE):idleYaxisMin"){
+record(calc, "$(DEVICE):IdleYaxisMin"){
     field(DESC, "Set Y axis min when not ramping")
-    field(INPA, "$(DEVICE):absVoltage")
+    field(INPA, "$(DEVICE):AbsVoltage")
     field(INPB, "$(DEVICE):MinStepSize")
-    field(INPC, "$(DEVICE):graphScale")
+    field(INPC, "$(DEVICE):GraphScale")
     field(CALC, "A>C ? A - C : 0")
 }
 
-record(ai, "$(DEVICE):graphScale"){
+record(ai, "$(DEVICE):GraphScale"){
     field(DESC, "Margin for graph y axis when idle")
     field(VAL, "5000") #5000V margin by default
     field(EGU, "V")
@@ -64,15 +64,15 @@ record(ai, "$(DEVICE):AutoscaleControlMin"){
 }
 
 #sequences to set autoscale pvs to the calculated values
-record(seq, "$(DEVICE):idleZoom"){
+record(seq, "$(DEVICE):IdleZoom"){
     field(DESC, "Auto zoom data browser")
-    field(DOL1, "$(DEVICE):idleYaxisMax PP")
+    field(DOL1, "$(DEVICE):IdleYaxisMax PP")
     field(LNK1, "$(DEVICE):AutoscaleControlMax PP")
-    field(DOL2, "$(DEVICE):idleYaxisMin PP")
+    field(DOL2, "$(DEVICE):IdleYaxisMin PP")
     field(LNK2, "$(DEVICE):AutoscaleControlMin PP")
     field(PINI, "YES")
 }
-record(seq, "$(DEVICE):rampZoom"){
+record(seq, "$(DEVICE):RampZoom"){
     field(DESC, "Auto zoom data browser")
     field(DOL1, "$(DEVICE):YaxisMax")
     field(LNK1, "$(DEVICE):AutoscaleControlMax PP")
@@ -80,7 +80,7 @@ record(seq, "$(DEVICE):rampZoom"){
     field(LNK2, "$(DEVICE):AutoscaleControlMin PP")
 }
 
-record(ai, "$(DEVICE):currentGraphMin"){
+record(ai, "$(DEVICE):CurrentGraphMin"){
     field(DESC, "Minimum current for graph y axis")
     #Minimum is slightly below zero so that when current and voltage are zero, they are both still visible on the graph
     #If both scales have a minimum of 0 the lines will overlap

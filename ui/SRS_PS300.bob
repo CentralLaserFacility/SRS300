@@ -45,7 +45,7 @@
     <actions>
       <action type="write_pv">
         <description>Enable high voltage</description>
-        <pv_name>$(DEVICE):enableHV</pv_name>
+        <pv_name>$(DEVICE):HVenable</pv_name>
         <value>1</value>
       </action>
     </actions>
@@ -71,7 +71,7 @@
     <actions>
       <action type="write_pv">
         <description>Disable high voltage</description>
-        <pv_name>$(DEVICE):enableHV</pv_name>
+        <pv_name>$(DEVICE):HVenable</pv_name>
         <value>0</value>
       </action>
     </actions>
@@ -184,7 +184,7 @@
           <exp bool_exp="pv0==1 || pv1 == 0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):rampActive</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
           <pv_name>$(DEVICE):HVONstatus</pv_name>
         </rule>
         <rule name="button text" prop_id="text" out_exp="false">
@@ -194,7 +194,7 @@
           <exp bool_exp="pv1 == 0">
             <value>HV disabled</value>
           </exp>
-          <pv_name>$(DEVICE):rampActive</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
           <pv_name>$(DEVICE):HVONstatus</pv_name>
         </rule>
       </rules>
@@ -210,7 +210,7 @@
           <value>0</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):rampActive</pv_name>
+      <pv_name>$(DEVICE):RampActive</pv_name>
       <text>Halt ramp</text>
       <x>162</x>
       <y>212</y>
@@ -223,14 +223,14 @@
           <exp bool_exp="pv0==0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):rampActive</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
         </rule>
       </rules>
       <tooltip>$(actions)</tooltip>
     </widget>
     <widget type="choice" version="2.0.0">
       <name>Auto or manual</name>
-      <pv_name>$(DEVICE):rampMode</pv_name>
+      <pv_name>$(DEVICE):RampMode</pv_name>
       <x>55</x>
       <y>48</y>
       <width>190</width>
@@ -297,7 +297,7 @@
           <exp bool_exp="pv0==1">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):rampActive</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
         </rule>
       </rules>
       <increment>100.0</increment>
@@ -319,8 +319,8 @@
           <exp bool_exp="pv0==1 || pv1==1">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):rampActive</pv_name>
-          <pv_name>$(DEVICE):rampMode</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
+          <pv_name>$(DEVICE):RampMode</pv_name>
         </rule>
       </rules>
       <maximum>1000000.0</maximum>
@@ -343,8 +343,8 @@
           <exp bool_exp="pv0==1 || pv1== 0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):rampActive</pv_name>
-          <pv_name>$(DEVICE):rampMode</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
+          <pv_name>$(DEVICE):RampMode</pv_name>
         </rule>
       </rules>
       <maximum>1000000.0</maximum>
@@ -366,8 +366,8 @@
           <exp bool_exp="pv0==1 || pv1== 0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):rampActive</pv_name>
-          <pv_name>$(DEVICE):rampMode</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
+          <pv_name>$(DEVICE):RampMode</pv_name>
         </rule>
       </rules>
     </widget>
@@ -434,7 +434,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>txtCurrentNow_1</name>
-      <pv_name>$(DEVICE):outputCurrentmA</pv_name>
+      <pv_name>$(DEVICE):OutputCurrentmA</pv_name>
       <x>471</x>
       <y>29</y>
       <width>93</width>
@@ -519,7 +519,7 @@
           <exp bool_exp="pv0 !=0">
             <value>true</value>
           </exp>
-          <pv_name>$(DEVICE):smallStepError</pv_name>
+          <pv_name>$(DEVICE):SmallStepError</pv_name>
         </rule>
       </rules>
     </widget>
@@ -606,7 +606,7 @@
     </widget>
     <widget type="led" version="2.0.0">
       <name>LED_5</name>
-      <pv_name>$(DEVICE):tripStatus.B1</pv_name>
+      <pv_name>$(DEVICE):TripStatus.B1</pv_name>
       <x>126</x>
       <y>117</y>
       <width>18</width>
@@ -628,7 +628,7 @@
     </widget>
     <widget type="led" version="2.0.0">
       <name>LED_6</name>
-      <pv_name>$(DEVICE):tripStatus.B2</pv_name>
+      <pv_name>$(DEVICE):TripStatus.B2</pv_name>
       <x>126</x>
       <y>144</y>
       <width>18</width>
@@ -651,7 +651,7 @@
     </widget>
     <widget type="led" version="2.0.0">
       <name>LED_7</name>
-      <pv_name>$(DEVICE):tripStatus.B3</pv_name>
+      <pv_name>$(DEVICE):TripStatus.B3</pv_name>
       <x>126</x>
       <y>88</y>
       <width>18</width>
@@ -674,7 +674,7 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):hardReset</pv_name>
+      <pv_name>$(DEVICE):ResetSeq</pv_name>
       <text>Reset</text>
       <x>2</x>
       <y>178</y>
@@ -702,7 +702,7 @@
     </widget>
     <widget type="led" version="2.0.0">
       <name>LED_9</name>
-      <pv_name>$(DEVICE):rampActive</pv_name>
+      <pv_name>$(DEVICE):RampActive</pv_name>
       <x>126</x>
       <y>34</y>
       <width>18</width>
@@ -721,7 +721,7 @@
           <value>0</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):tripClearSeq</pv_name>
+      <pv_name>$(DEVICE):TripClearSeq</pv_name>
       <text>Clear trip</text>
       <x>75</x>
       <y>178</y>
@@ -798,7 +798,7 @@
         <exp bool_exp="pv0==1">
           <value>false</value>
         </exp>
-        <pv_name>loc://limitMenuOpen</pv_name>
+        <pv_name>loc://LimitMenuOpen</pv_name>
       </rule>
     </rules>
     <widget type="rectangle" version="2.0.0">
@@ -1041,7 +1041,7 @@
             <value>1</value>
           </action>
         </actions>
-        <pv_name>loc://limitMenuOpen</pv_name>
+        <pv_name>loc://LimitMenuOpen</pv_name>
         <text></text>
         <width>26</width>
         <height>26</height>
@@ -1062,7 +1062,7 @@
         <actions>
           <action type="write_pv">
             <description>open advanced settings</description>
-            <pv_name>loc://limitMenuOpen</pv_name>
+            <pv_name>loc://LimitMenuOpen</pv_name>
             <value>1</value>
           </action>
         </actions>
@@ -1085,7 +1085,7 @@
         <exp bool_exp="pv0==0">
           <value>false</value>
         </exp>
-        <pv_name>loc://limitMenuOpen</pv_name>
+        <pv_name>loc://LimitMenuOpen</pv_name>
       </rule>
     </rules>
     <widget type="rectangle" version="2.0.0">
@@ -1191,7 +1191,7 @@
         </action>
         <action type="write_pv">
           <description>close ui</description>
-          <pv_name>loc://limitMenuOpen</pv_name>
+          <pv_name>loc://LimitMenuOpen</pv_name>
           <value>0</value>
         </action>
       </actions>
@@ -1247,7 +1247,7 @@
         </action>
         <action type="write_pv">
           <description>close ui</description>
-          <pv_name>loc://limitMenuOpen</pv_name>
+          <pv_name>loc://LimitMenuOpen</pv_name>
           <value>0</value>
         </action>
       </actions>
@@ -1326,7 +1326,7 @@
           </action>
           <action type="write_pv">
             <description>close ui</description>
-            <pv_name>loc://limitMenuOpen</pv_name>
+            <pv_name>loc://LimitMenuOpen</pv_name>
             <value>0</value>
           </action>
         </actions>
@@ -1349,7 +1349,7 @@
         </action>
         <action type="write_pv">
           <description>close ui</description>
-          <pv_name>loc://limitMenuOpen</pv_name>
+          <pv_name>loc://LimitMenuOpen</pv_name>
           <value>0</value>
         </action>
       </actions>
@@ -1424,7 +1424,7 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>loc://configMenuOpen</pv_name>
+      <pv_name>loc://ConfigMenuOpen</pv_name>
       <text>   ConfigMenu </text>
       <y>3</y>
       <width>106</width>
@@ -1435,8 +1435,8 @@
           <exp bool_exp="pv0!=0 || pv1 !=0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):rampActive</pv_name>
-          <pv_name>loc://configMenuOpen</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
+          <pv_name>loc://ConfigMenuOpen</pv_name>
         </rule>
       </rules>
       <tooltip>$(actions)</tooltip>
@@ -1452,7 +1452,7 @@
       <actions>
         <action type="write_pv">
           <description>open advanced settings</description>
-          <pv_name>loc://limitMenuOpen</pv_name>
+          <pv_name>loc://LimitMenuOpen</pv_name>
           <value>1</value>
         </action>
       </actions>
@@ -1461,8 +1461,8 @@
           <exp bool_exp="pv0!=0 || pv1 !=0">
             <value>0.3</value>
           </exp>
-          <pv_name>$(DEVICE):rampActive</pv_name>
-          <pv_name>loc://configMenuOpen</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
+          <pv_name>loc://ConfigMenuOpen</pv_name>
         </rule>
       </rules>
     </widget>
@@ -1485,7 +1485,7 @@
         <exp bool_exp="pv0 !=2">
           <value>false</value>
         </exp>
-        <pv_name>loc://configMenuOpen</pv_name>
+        <pv_name>loc://ConfigMenuOpen</pv_name>
       </rule>
     </rules>
   </widget>
@@ -1507,7 +1507,7 @@
         <exp bool_exp="pv0 !=1">
           <value>false</value>
         </exp>
-        <pv_name>loc://configMenuOpen</pv_name>
+        <pv_name>loc://ConfigMenuOpen</pv_name>
       </rule>
     </rules>
   </widget>
@@ -1528,7 +1528,7 @@
         <exp bool_exp="pv0 !=0">
           <value>true</value>
         </exp>
-        <pv_name>loc://configMenuOpen</pv_name>
+        <pv_name>loc://ConfigMenuOpen</pv_name>
       </rule>
     </rules>
     <widget type="rectangle" version="2.0.0">
@@ -1650,11 +1650,11 @@
         <actions execute_as_one="true">
           <action type="write_pv">
             <description>close menu</description>
-            <pv_name>loc://configMenuOpen</pv_name>
+            <pv_name>loc://ConfigMenuOpen</pv_name>
             <value>0</value>
           </action>
         </actions>
-        <pv_name>loc://configMenuOpen</pv_name>
+        <pv_name>loc://ConfigMenuOpen</pv_name>
         <text></text>
         <width>21</width>
         <height>23</height>
@@ -1731,7 +1731,7 @@
           <exp bool_exp="pv0==1">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):rampActive</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
         </rule>
       </rules>
       <increment>100.0</increment>
@@ -1754,8 +1754,8 @@
           <exp bool_exp="pv0==1 || pv1==1">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):rampActive</pv_name>
-          <pv_name>$(DEVICE):rampMode</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
+          <pv_name>$(DEVICE):RampMode</pv_name>
         </rule>
       </rules>
       <maximum>1000000.0</maximum>
@@ -1779,8 +1779,8 @@
           <exp bool_exp="pv0==1 || pv1== 0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):rampActive</pv_name>
-          <pv_name>$(DEVICE):rampMode</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
+          <pv_name>$(DEVICE):RampMode</pv_name>
         </rule>
       </rules>
       <maximum>1000000.0</maximum>
@@ -1803,14 +1803,14 @@
           <exp bool_exp="pv0==1 || pv1== 0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):rampActive</pv_name>
-          <pv_name>$(DEVICE):rampMode</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
+          <pv_name>$(DEVICE):RampMode</pv_name>
         </rule>
       </rules>
     </widget>
     <widget type="choice" version="2.0.0">
       <name>Auto or manual_1</name>
-      <pv_name>$(DEVICE):rampMode</pv_name>
+      <pv_name>$(DEVICE):RampMode</pv_name>
       <x>29</x>
       <y>165</y>
       <width>133</width>
@@ -1913,7 +1913,7 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
     <actions execute_as_one="true">
       <action type="write_pv">
         <description>Write PV</description>
-        <pv_name>$(DEVICE):smallStepError</pv_name>
+        <pv_name>$(DEVICE):SmallStepError</pv_name>
         <value>0</value>
       </action>
       <action type="write_pv">
@@ -1931,7 +1931,7 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
         <exp bool_exp="pv0 == 0 &amp;&amp; pv1 == 0">
           <value>false</value>
         </exp>
-        <pv_name>$(DEVICE):smallStepError</pv_name>
+        <pv_name>$(DEVICE):SmallStepError</pv_name>
         <pv_name>$(DEVICE):HVdisconnectError</pv_name>
       </rule>
     </rules>

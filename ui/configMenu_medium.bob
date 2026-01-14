@@ -299,7 +299,7 @@
         <value>2</value>
       </action>
     </actions>
-    <pv_name>loc://configMenuOpen</pv_name>
+    <pv_name>loc://ConfigMenuOpen</pv_name>
     <text>More</text>
     <x>240</x>
     <y>407</y>
@@ -382,11 +382,11 @@
       <actions execute_as_one="true">
         <action type="write_pv">
           <description>close menu</description>
-          <pv_name>loc://configMenuOpen</pv_name>
+          <pv_name>loc://ConfigMenuOpen</pv_name>
           <value>0</value>
         </action>
       </actions>
-      <pv_name>loc://configMenuOpen</pv_name>
+      <pv_name>loc://ConfigMenuOpen</pv_name>
       <text></text>
       <width>21</width>
       <height>23</height>

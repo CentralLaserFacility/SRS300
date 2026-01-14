@@ -1,5 +1,5 @@
 $(P)RampStepSize
 $(P)RampInterval
 $(P)TargetHV
-$(P)rampMode
+$(P)RampMode
 $(P)RampDuration

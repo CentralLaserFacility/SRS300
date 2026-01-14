@@ -125,7 +125,7 @@
     <pv>
       <display_name></display_name>
       <visible>true</visible>
-      <name>$(DEVICE):currentGraphMin</name>
+      <name>$(DEVICE):CurrentGraphMin</name>
       <axis>1</axis>
       <color>
         <red>255</red>
@@ -145,7 +145,7 @@
     <pv>
       <display_name>Current</display_name>
       <visible>true</visible>
-      <name>$(DEVICE):outputCurrentmA</name>
+      <name>$(DEVICE):OutputCurrentmA</name>
       <axis>1</axis>
       <color>
         <red>0</red>
@@ -165,7 +165,7 @@
     <pv>
       <display_name>Voltage</display_name>
       <visible>true</visible>
-      <name>$(DEVICE):absVoltage</name>
+      <name>$(DEVICE):AbsVoltage</name>
       <axis>0</axis>
       <color>
         <red>255</red>
