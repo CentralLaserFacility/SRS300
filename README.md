@@ -17,9 +17,11 @@ For safe ramping:
 - If a user is unsure as to appropriate values for ramping of a device, configMenu is used so that users can save and load in settings other users have used with titles and descriptions.
 
 ## Substitutions, limits and inputs
+If the IOC is restarted but the GUI isn't, there is sometimes an issue with the input boxes. This is fixed by refreshing the GUI, there is a refresh button in the top left corner for this purpose.
+
 To allow for substitutions to change dynamically, sequence records are used to set limits on start and may be used to set new limits during run time if polarity is switched.
 
-If the device's polarity is negative, inputs regarding voltage must include the negative sign. Occasionally on startup the input boxes on the GUI don't respond well to this, if an issue ocurs there is a refresh button on the top left corner of the screen which fixes it.
+If the device's polarity is negative, inputs regarding voltage must include the negative sign.
 
 There are two 'popup' menus in the GUI, one for ramp configurations and the other for device limits (voltage maximum, current maximum and current trip limit) both can be accessed via buttons with the gear icon.
 
@@ -29,6 +31,6 @@ The SRS PS375 and PS370 communicate via a serial connection which is converted t
 ## Documentation and manuals:
 Most information in either manual is applicable to both earlier and later models
 
-- Earlier models(31, 325, 350): https://thinksrs.com/downloads/pdfs/manuals/PS300m.pdf
+- Earlier models(310, 325, 350): https://thinksrs.com/downloads/pdfs/manuals/PS300m.pdf
 - Later models (365, 370, 375): https://thinksrs.com/downloads/pdfs/manuals/PS365m.pdf
 
