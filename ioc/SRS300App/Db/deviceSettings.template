@@ -1,6 +1,7 @@
 
-#___________________________________________
-#_______substitutions values set to pvs_____
+#__________________________________________________________________
+#________________substitutions values set to pvs___________________
+
 record(calc, "$(DEVICE):IMAXmA"){
     field(DESC, "Convert IMAX to mA for display")
     field(INPA, "$(DEVICE):IMAX")
@@ -70,9 +71,9 @@ record(ai, "$(DEVICE):Tolerance"){
     #val set from substitutions on start
     field(EGU, "V")
 }
+#__________________________________________________________________
+#_____________________Default settings_____________________________
 
-#________Default settings______________
-#___________________________________
 record(bo, "$(DEVICE):DefaultSettings"){
     field(DESC, "Reset settings to default")
     field(DTYP, "stream")
@@ -88,9 +89,9 @@ record(ai, "$(DEVICE):DefaultVLIM"){
     field(INP, "$(DEVICE):VLIMget")
     field(FLNK, "$(DEVICE):CheckPolarity")
 }
+#__________________________________________________________________
+#_______________Device polarity check on startup___________________
 
-#___Device polarity check on startup____
-#______________________________________
 record(calcout, "$(DEVICE):CheckPolarity"){
     field(DESC, "Check device polarity on startup")
     field(VAL, "3") #dummy initial value to allow processing on startup
@@ -105,8 +106,8 @@ record(bi, "$(DEVICE):Polarity"){
     field(ZNAM, "+ve")
     field(ONAM, "-ve")
 }
-#_______________________________________________________
-#_________set substitutions based on polarity___________
+#__________________________________________________________________
+#_______________Set substitutions based on polarity________________
 
 #checks whether polarity is positive or negative and calls appropriate sequence
 record(calcout, "$(DEVICE):CallSubstitutionsPOS")
@@ -129,7 +130,6 @@ record(calcout, "$(DEVICE):CallSubstitutionsNEG")
     field(OOPT, "Transition To Non-zero")
     field(OUT, "$(DEVICE):SRS$(MODEL)-:SetSubstitutions.PROC")
 }
-
 
 #substitutions can't usually be changed dynamically so a sequence must be used
 #to account for models with switchable polarity

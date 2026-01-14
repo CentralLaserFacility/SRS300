@@ -4,8 +4,8 @@ record(stringin, "$(DEVICE):SRSModel"){
     field(VAL,  "SRS HVPS$(MODEL)")
 }
 
-#______________________________________________
-#__________Autoscale for data browser__________
+#__________________________________________________________________
+#__________________Autoscale for data browser______________________
 
 #data browser doesn't allow for changing the y axis limits using rules
 #so instead, autoscale is used and two pvs are plotted invisibly on the graph to control it
@@ -19,7 +19,6 @@ record(calc, "$(DEVICE):YaxisMax"){
     field(INPB, "$(DEVICE):StartVoltage")
     field(INPC, "$(DEVICE):MinStepSize")
     field(CALC, "MAX(ABS(A),ABS(B))+C")
-
 }
 record(calc, "$(DEVICE):YaxisMin"){
     field(DESC, "calc Y axis minimum")
@@ -27,6 +26,14 @@ record(calc, "$(DEVICE):YaxisMin"){
     field(INPB, "$(DEVICE):StartVoltage")
     field(INPC, "$(DEVICE):MinStepSize")
     field(CALC, "MIN(ABS(A),ABS(B))-C")
+}
+#Set autoscale pvs to the calculated values
+record(seq, "$(DEVICE):RampZoom"){
+    field(DESC, "Auto zoom data browser")
+    field(DOL1, "$(DEVICE):YaxisMax")
+    field(LNK1, "$(DEVICE):AutoscaleControlMax PP")
+    field(DOL2, "$(DEVICE):YaxisMin")
+    field(LNK2, "$(DEVICE):AutoscaleControlMin PP")
 }
 
 #calculates y axis max and min for idle state
@@ -38,7 +45,6 @@ record(calc, "$(DEVICE):IdleYaxisMax"){
     field(INPB, "$(DEVICE):MinStepSize")
     field(CALC, "A + B")
 }
-
 record(calc, "$(DEVICE):IdleYaxisMin"){
     field(DESC, "Set Y axis min when not ramping")
     field(INPA, "$(DEVICE):AbsVoltage")
@@ -46,24 +52,13 @@ record(calc, "$(DEVICE):IdleYaxisMin"){
     field(INPC, "$(DEVICE):GraphScale")
     field(CALC, "A>C ? A - C : 0")
 }
-
 record(ai, "$(DEVICE):GraphScale"){
-    field(DESC, "Margin for graph y axis when idle")
+    field(DESC, "Margin for graph Y axis when idle")
     field(VAL, "5000") #5000V margin by default
     field(EGU, "V")
     field(PINI, "YES")
 }
-
-#pvs to be plotted invisibly on the graph to control the autoscale feature in data browser
-record(ai, "$(DEVICE):AutoscaleControlMax"){
-    field(DESC, "Control autoscale maximum")
-}
-
-record(ai, "$(DEVICE):AutoscaleControlMin"){
-    field(DESC, "Control autoscale minimum")
-}
-
-#sequences to set autoscale pvs to the calculated values
+#Set autoscale pvs to the calculated values
 record(seq, "$(DEVICE):IdleZoom"){
     field(DESC, "Auto zoom data browser")
     field(DOL1, "$(DEVICE):IdleYaxisMax PP")
@@ -72,16 +67,17 @@ record(seq, "$(DEVICE):IdleZoom"){
     field(LNK2, "$(DEVICE):AutoscaleControlMin PP")
     field(PINI, "YES")
 }
-record(seq, "$(DEVICE):RampZoom"){
-    field(DESC, "Auto zoom data browser")
-    field(DOL1, "$(DEVICE):YaxisMax")
-    field(LNK1, "$(DEVICE):AutoscaleControlMax PP")
-    field(DOL2, "$(DEVICE):YaxisMin")
-    field(LNK2, "$(DEVICE):AutoscaleControlMin PP")
+
+#pvs to be plotted invisibly on the graph to control the autoscale feature in data browser
+record(ai, "$(DEVICE):AutoscaleControlMax"){
+    field(DESC, "Control autoscale maximum")
+}
+record(ai, "$(DEVICE):AutoscaleControlMin"){
+    field(DESC, "Control autoscale minimum")
 }
 
 record(ai, "$(DEVICE):CurrentGraphMin"){
-    field(DESC, "Minimum current for graph y axis")
+    field(DESC, "Minimum current for graph Y axis")
     #Minimum is slightly below zero so that when current and voltage are zero, they are both still visible on the graph
     #If both scales have a minimum of 0 the lines will overlap
     field(VAL, "-0.002")

@@ -1,5 +1,5 @@
-#_________________________________________________________
-#_____________get and set limits to device______________
+#_______________________________________________________________
+#_________________Get and set limits to device__________________
 
 record(ao, "$(DEVICE):VLIMset")
 {
@@ -57,8 +57,8 @@ record(ai, "$(DEVICE):ITRPget")
     field(PINI, "YES")
     field(FLNK, "$(DEVICE):ITRPmA")
 }
-#_________________________________________________________
-#___________save/restore limit settings_____________
+#__________________________________________________________________
+#___________________Save/restore limit settings____________________
 
 record(bo, "$(DEVICE):SetSAV")
 {
@@ -72,9 +72,10 @@ record(bo, "$(DEVICE):RestoreSettings")
     field(DTYP, "stream")
     field(OUT,  "@ps300.proto cmd(*RCL 1) $(PORT) $(A)")
 }
-#_________________________________________________________
-#when changes are applied from the limit menu, set the device limits to the new values
+#__________________________________________________________________
+#_____________________Set new custom limits________________________
 
+#when changes are applied from the limit menu, set the device limits to the new values
 record(seq,"$(DEVICE):SetNewLimitsPOS"){
     field(DESC, "Sets limits from constants")
     field(DOL1, "$(DEVICE):VoltageLimitSet PP")
@@ -113,8 +114,8 @@ record(seq,"$(DEVICE):SetNewLimitsNEG"){
     field(DOL8, "$(DEVICE):VoltageLimitSet")
     field(LNK8, "$(DEVICE):TargetHV.DRVL PP")
 }
-#_________________________________________________
-#_________user changeable limit settings_________
+#__________________________________________________________________
+#__________________User changeable limit settings__________________
 
 record(ao, "$(DEVICE):CurrentLimitmA"){
     field(DESC, "Maximum current for device")

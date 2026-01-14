@@ -14,8 +14,8 @@ record(waveform, "$(DEVICE):IDN"){
     field(FTVL, "CHAR")
     field(NELM, "80")
 }
-#______________________________________________
-#______________status readbacks_________________
+#__________________________________________________________________
+#______________________Status readbacks____________________________
 record(fanout, "$(DEVICE):ReadbackPoll"){
     field(DESC, "Head of readback chain")
     field(PINI, "YES")
@@ -41,8 +41,8 @@ record(bi, "$(DEVICE):HVONstatus"){
     field(ONAM, "On")
 }
 
-#_______________________________________________
-#______________status LEDs______________________
+#__________________________________________________________________
+#_______________________Status LEDs________________________________
 
 record(calcout, "$(DEVICE):ILIMstatus"){
     field(DESC, "Is current limited?")
@@ -85,7 +85,6 @@ record(bi, "$(DEVICE):HVstable"){
     field(ONAM, "Stable")
     field(FLNK, "$(DEVICE):stableMultiState")
 }
-
 record(calc, "$(DEVICE):stableMultiState"){
 #while ramping, stability briefly becomes unstable
 #to get more accurate LED it should check for if it's unstable twice in a row
@@ -99,8 +98,8 @@ record(calc, "$(DEVICE):stableMultiState"){
     #while ramping states will begin at 0 to allow for 1 extra second of instability which is expected
 }
 
-#___________________________________________________
-#_______________get current_________________________
+#__________________________________________________________________
+#__________________________Get current_____________________________
 
 record(ai, "$(DEVICE):OutputIget"){
     field(DESC, "Output current readback")
@@ -119,8 +118,8 @@ record(calc, "$(DEVICE):OutputCurrentmA"){
     field(EGU, "mA")
     field(PREC, "2")
 }
-#__________________________________________
-#__________Voltage get and set_____________
+#__________________________________________________________________
+#______________________Voltage get and set_________________________
 
 record(ao, "$(DEVICE):HVset"){
 #sets the device's high voltage, should only be set through the state machine's ramping process
@@ -150,8 +149,9 @@ record(calc, "$(DEVICE):AbsVoltage"){
     field(EGU, "V")
 }
 
-#________________________________________________________
-#________________enable/disable HV output________________
+#__________________________________________________________________
+#____________________Enable/disable HV output______________________
+
 record(bo, "$(DEVICE):HVenable"){
     #Turn high voltage on/off
     field(DESC, "Enable output")
@@ -180,8 +180,8 @@ record(seq, "$(DEVICE):HVenableSeq"){
      field(CALC, "B == A ? 0 : 1") #1=disconnected/powered off, 0=normal
  }
 
-#______________________________________________
-#_______________Reset button__________________
+#__________________________________________________________________
+#_________________________Reset button_____________________________
 
 record(seq, "$(DEVICE):ResetSeq"){
     field(DESC, "Hard reset sequence")
@@ -190,7 +190,6 @@ record(seq, "$(DEVICE):ResetSeq"){
     field(LNK2, "$(DEVICE):TripClearSeq.PROC")
     field(FLNK, "$(DEVICE):ResetDevice")
 }
-
 record(bo, "$(DEVICE):ResetDevice"){
     field(DESC, "Reset device")
     field(DTYP, "stream")
@@ -206,7 +205,6 @@ record(seq, "$(DEVICE):TripClearSeq"){
     field(LNK2, "$(DEVICE):TripClear.PROC PP")
     field(FLNK, "$(DEVICE):ReadbackPoll")
 }
-
 record(bo, "$(DEVICE):TripClear"){
     field(DESC, "Clear a trip")
     field(DTYP, "stream")
@@ -215,8 +213,8 @@ record(bo, "$(DEVICE):TripClear"){
     field(FLNK, "$(DEVICE):STBget")
 }
 
-#_________________________________________________________
-#____________Power on event___________________
+#__________________________________________________________________
+#_______________Check polarity on power on event___________________
 
 #when power on event detected, run sequence to check polarity and apply substitutions
 

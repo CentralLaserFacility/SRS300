@@ -1,5 +1,5 @@
-#______________________________________________________
-#______________Start ramping process__________________
+#__________________________________________________________________
+#__________________Start/end ramping process_______________________
 
 record(ai, "$(DEVICE):StartVoltage"){
     field(DESC, "Voltage at start of ramp")
@@ -20,14 +20,6 @@ record(seq, "$(DEVICE):StartCharge"){
     field(LNK5, "$(DEVICE):AutoscaleControlMax PP")
     #calculate ramp parameters
     field(LNK6, "$(DEVICE):RampCalc PP")
-}
-
-#_________________end charge sequence_________________
-record(seq, "$(DEVICE):EndCharge"){
-    field(DESC, "Sequence to end HV charge")
-    field(DO1, "0")
-    field(LNK1, "$(DEVICE):RampActive PP")
-    field(LNK2, "$(DEVICE):IdleZoom PP")
 }
 
 record(bi, "$(DEVICE):RampActive"){
@@ -71,10 +63,24 @@ record(aSub, "$(DEVICE):RampCalc"){
     field(FTVD, "SHORT")
     field(OUTE, "$(DEVICE):RampDuration PP")
     field(FTVE, "DOUBLE")
-
 }
-#________________________________________________
-#_________User set ramp parameters_______________
+
+record(seq, "$(DEVICE):EndCharge"){
+    field(DESC, "Sequence to end HV charge")
+    field(DO1, "0")
+    field(LNK1, "$(DEVICE):RampActive PP")
+    field(LNK2, "$(DEVICE):IdleZoom PP")
+}
+record(calc, "$(DEVICE):SmallStepError"){
+    field(DESC, "Warning for step being too small")
+    field(INPA, "$(DEVICE):TargetHV PP")
+    field(INPB, "$(DEVICE):OutputVget")
+    field(INPC, "$(DEVICE):MinStepSize")
+    field(CALC, "ABS(A-B) < C ? 1 : 0") #1=error, 0=no error
+    field(PINI, "YES")
+}
+#__________________________________________________________________
+#___________________User set ramp parameters_______________________
 
 record(ai, "$(DEVICE):RampDuration"){
     #LOPR and VAl passed in from SetOnStart as cannot be set to a pv directly
@@ -91,13 +97,11 @@ record(ao, "$(DEVICE):RampInterval") {
     field(EGU, "seconds")
     field(PINI, "YES")
 }
-
 record(ao, "$(DEVICE):RampStepSize"){
     field(DESC, "Set voltage ramp step size")
     field(EGU, "V")
     field(PINI, "YES")
 }
-
 record(bi, "$(DEVICE):RampMode"){
     field(DESC, "Set ramp mode")
     field(PINI, "YES")
@@ -112,8 +116,8 @@ record(ao, "$(DEVICE):TargetHV"){
     field(PINI, "YES")
 }
 
-#____________________________________________
-#________________constants___________________
+#__________________________________________________________________
+#___________________constants from device__________________________
 record(calc, "$(DEVICE):MinStepSize"){
     field(DESC, "Minimum step size for automatic ramping")
     field(INPA, "$(DEVICE):AbsVMIN")
@@ -126,15 +130,4 @@ record(calc, "$(DEVICE):MaxStepSize"){
     field(INPA, "$(DEVICE):AbsVMAX")
     field(CALC, "ABS(A)")
     field(EGU, "V")
-}
-#__________________________________________
-#_____________error messages_______________
-
-record(calc, "$(DEVICE):SmallStepError"){
-    field(DESC, "Warning for step being too small")
-    field(INPA, "$(DEVICE):TargetHV PP")
-    field(INPB, "$(DEVICE):OutputVget")
-    field(INPC, "$(DEVICE):MinStepSize")
-    field(CALC, "ABS(A-B) < C ? 1 : 0") #1=error, 0=no error
-    field(PINI, "YES")
 }
