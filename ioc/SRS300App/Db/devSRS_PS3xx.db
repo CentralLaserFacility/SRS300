@@ -134,6 +134,7 @@ record(seq, "$(DEVICE):VoltageMonitor"){
     field(SCAN, "0.1 second")
     field(LNK1, "$(DEVICE):OutputVget.PROC")
     field(LNK2, "$(DEVICE):HVstable.PROC")
+    field(LNK3, "$(DEVICE):TargetVreached.PROC")
 }
 record(ai, "$(DEVICE):OutputVget"){
     field(DESC, "Output voltage readback")
@@ -148,7 +149,13 @@ record(calc, "$(DEVICE):AbsVoltage"){
     field(CALC, "ABS(A)")
     field(EGU, "V")
 }
-
+record(calc, "$(DEVICE):TargetVreached"){
+    field(DESC, "Is Output voltage at target?")
+    field(INPA, "$(DEVICE):TargetHV")
+    field(INPB, "$(DEVICE):OutputVget")
+    field(INPC, "$(DEVICE):Tolerance")
+    field(CALC, "ABS(A - B) < C ? 1 : 0") #1=reached, 0=not reached
+}
 #__________________________________________________________________
 #____________________Enable/disable HV output______________________
 

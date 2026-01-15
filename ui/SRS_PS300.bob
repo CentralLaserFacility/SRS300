@@ -482,48 +482,6 @@
       </font>
     </widget>
   </widget>
-  <widget type="group" version="3.0.0">
-    <name>error status</name>
-    <x>478</x>
-    <y>266</y>
-    <width>254</width>
-    <height>23</height>
-    <style>2</style>
-    <line_color>
-      <color red="153" green="153" blue="153">
-      </color>
-    </line_color>
-    <background_color>
-      <color red="240" green="249" blue="255" alpha="125">
-      </color>
-    </background_color>
-    <widget type="label" version="2.0.0">
-      <name>Label_24</name>
-      <text>Error status:</text>
-      <x>5</x>
-      <y>2</y>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_1</name>
-      <text>Voltage change below min</text>
-      <x>84</x>
-      <y>2</y>
-      <width>166</width>
-      <visible>false</visible>
-      <foreground_color>
-        <color name="STOP" red="255" green="0" blue="0">
-        </color>
-      </foreground_color>
-      <rules>
-        <rule name="New Rule" prop_id="visible" out_exp="false">
-          <exp bool_exp="pv0 !=0">
-            <value>true</value>
-          </exp>
-          <pv_name>$(DEVICE):SmallStepError</pv_name>
-        </rule>
-      </rules>
-    </widget>
-  </widget>
   <widget type="label" version="2.0.0">
     <name>Label_40</name>
     <text>High Voltage Enabled</text>
@@ -1827,7 +1785,7 @@
   </widget>
   <widget type="group" version="3.0.0">
     <name>Refresh button</name>
-    <x>7</x>
+    <x>703</x>
     <width>29</width>
     <height>29</height>
     <style>3</style>
@@ -1883,65 +1841,10 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
   <widget type="label" version="2.0.0">
-    <name>disconnect error message</name>
-    <text>Cannot enable HV:      Device off/disconnected</text>
-    <x>580</x>
-    <y>269</y>
-    <width>150</width>
-    <height>35</height>
-    <visible>false</visible>
-    <foreground_color>
-      <color name="STOP" red="255" green="0" blue="0">
-      </color>
-    </foreground_color>
-    <background_color>
-      <color red="224" green="229" blue="232">
-      </color>
-    </background_color>
-    <transparent>false</transparent>
-    <rules>
-      <rule name="New Rule" prop_id="visible" out_exp="false">
-        <exp bool_exp="pv0 !=0">
-          <value>true</value>
-        </exp>
-        <pv_name>$(DEVICE):HVdisconnectError</pv_name>
-      </rule>
-    </rules>
-  </widget>
-  <widget type="action_button" version="3.0.0">
-    <name>Action Button_4</name>
-    <actions execute_as_one="true">
-      <action type="write_pv">
-        <description>Write PV</description>
-        <pv_name>$(DEVICE):SmallStepError</pv_name>
-        <value>0</value>
-      </action>
-      <action type="write_pv">
-        <description>Write PV</description>
-        <pv_name>$(DEVICE):HVdisconnectError</pv_name>
-        <value>0</value>
-      </action>
-    </actions>
-    <text>Clear message</text>
-    <x>478</x>
-    <y>292</y>
-    <height>20</height>
-    <rules>
-      <rule name="New Rule" prop_id="visible" out_exp="false">
-        <exp bool_exp="pv0 == 0 &amp;&amp; pv1 == 0">
-          <value>false</value>
-        </exp>
-        <pv_name>$(DEVICE):SmallStepError</pv_name>
-        <pv_name>$(DEVICE):HVdisconnectError</pv_name>
-      </rule>
-    </rules>
-    <tooltip>$(actions)</tooltip>
-  </widget>
-  <widget type="label" version="2.0.0">
     <name>Label_3</name>
     <text>$(DEVICE)</text>
-    <x>53</x>
-    <y>5</y>
+    <x>760</x>
+    <y>144</y>
     <width>157</width>
     <font>
       <font family="Eras Demi ITC" style="REGULAR" size="14.0">
@@ -1952,12 +1855,281 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
       </color>
     </foreground_color>
   </widget>
-  <widget type="led" version="2.0.0">
-    <name>LED_15</name>
-    <pv_name>$(DEVICE):HVONstatus</pv_name>
-    <x>705</x>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Entry_1</name>
+    <pv_name>$(DEVICE)DeviceNickname</pv_name>
+    <x>563</x>
     <y>5</y>
-    <width>19</width>
-    <height>19</height>
+    <width>121</width>
+    <visible>false</visible>
+    <background_color>
+      <color red="153" green="153" blue="153">
+      </color>
+    </background_color>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Entry_2</name>
+    <x>27</x>
+    <y>4</y>
+    <width>166</width>
+    <background_color>
+      <color red="255" green="255" blue="153">
+      </color>
+    </background_color>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Device nickname</name>
+    <x>1</x>
+    <y>1</y>
+    <width>158</width>
+    <height>27</height>
+    <visible>false</visible>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_1</name>
+      <pv_name>$(DEVICE):DeviceNickname</pv_name>
+      <x>27</x>
+      <y>4</y>
+      <width>131</width>
+      <font>
+        <font family="Eras Demi ITC" style="REGULAR" size="14.0">
+        </font>
+      </font>
+      <foreground_color>
+        <color name="ActiveText" red="255" green="255" blue="0">
+        </color>
+      </foreground_color>
+      <background_color>
+        <color name="Text" red="0" green="0" blue="0">
+        </color>
+      </background_color>
+      <transparent>true</transparent>
+      <horizontal_alignment>1</horizontal_alignment>
+      <rules>
+        <rule name="New Rule" prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0 == 0">
+            <value>true</value>
+          </exp>
+          <exp bool_exp="pv0 == 1">
+            <value>false</value>
+          </exp>
+          <pv_name>loc://OpenEditMenu</pv_name>
+        </rule>
+      </rules>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>edit button</name>
+      <width>28</width>
+      <height>27</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <rules>
+        <rule name="New Rule" prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0 == 0">
+            <value>true</value>
+          </exp>
+          <exp bool_exp="pv0 == 1">
+            <value>false</value>
+          </exp>
+          <pv_name>loc://OpenEditMenu</pv_name>
+        </rule>
+      </rules>
+      <widget type="action_button" version="3.0.0">
+        <name>Action Button_5</name>
+        <actions>
+          <action type="write_pv">
+            <description>Edit device nickname</description>
+            <pv_name>$(pv_name)</pv_name>
+            <value>1</value>
+          </action>
+        </actions>
+        <pv_name>loc://OpenEditMenu</pv_name>
+        <text></text>
+        <width>25</width>
+        <height>25</height>
+        <foreground_color>
+          <color red="26" green="26" blue="26">
+          </color>
+        </foreground_color>
+        <background_color>
+          <color red="51" green="51" blue="51">
+          </color>
+        </background_color>
+        <tooltip>$(actions)</tooltip>
+      </widget>
+      <widget type="picture" version="2.0.0">
+        <name>Picture</name>
+        <file>image.png</file>
+        <width>24</width>
+        <height>24</height>
+        <opacity>0.85</opacity>
+      </widget>
+    </widget>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Error messages</name>
+    <x>478</x>
+    <y>266</y>
+    <width>254</width>
+    <height>46</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="group" version="3.0.0">
+      <name>error status</name>
+      <width>254</width>
+      <height>23</height>
+      <style>2</style>
+      <line_color>
+        <color red="153" green="153" blue="153">
+        </color>
+      </line_color>
+      <background_color>
+        <color red="240" green="249" blue="255" alpha="125">
+        </color>
+      </background_color>
+      <widget type="label" version="2.0.0">
+        <name>Label_24</name>
+        <text>Error status:</text>
+        <x>5</x>
+        <y>2</y>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_1</name>
+        <text>Voltage change below min</text>
+        <x>84</x>
+        <y>2</y>
+        <width>166</width>
+        <visible>false</visible>
+        <foreground_color>
+          <color name="STOP" red="255" green="0" blue="0">
+          </color>
+        </foreground_color>
+        <rules>
+          <rule name="New Rule" prop_id="visible" out_exp="false">
+            <exp bool_exp="pv0 !=0">
+              <value>true</value>
+            </exp>
+            <pv_name>$(DEVICE):SmallStepError</pv_name>
+          </rule>
+        </rules>
+      </widget>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>disconnect error message</name>
+      <text>Cannot enable HV:      Device off/disconnected</text>
+      <x>102</x>
+      <y>3</y>
+      <width>150</width>
+      <height>35</height>
+      <visible>false</visible>
+      <foreground_color>
+        <color name="STOP" red="255" green="0" blue="0">
+        </color>
+      </foreground_color>
+      <background_color>
+        <color red="224" green="229" blue="232">
+        </color>
+      </background_color>
+      <transparent>false</transparent>
+      <rules>
+        <rule name="New Rule" prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0 !=0">
+            <value>true</value>
+          </exp>
+          <pv_name>$(DEVICE):HVdisconnectError</pv_name>
+        </rule>
+      </rules>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_4</name>
+      <actions execute_as_one="true">
+        <action type="write_pv">
+          <description>Write PV</description>
+          <pv_name>$(DEVICE):SmallStepError</pv_name>
+          <value>0</value>
+        </action>
+        <action type="write_pv">
+          <description>Write PV</description>
+          <pv_name>$(DEVICE):HVdisconnectError</pv_name>
+          <value>0</value>
+        </action>
+      </actions>
+      <text>Clear message</text>
+      <y>26</y>
+      <height>20</height>
+      <rules>
+        <rule name="New Rule" prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0 == 0 &amp;&amp; pv1 == 0">
+            <value>false</value>
+          </exp>
+          <pv_name>$(DEVICE):SmallStepError</pv_name>
+          <pv_name>$(DEVICE):HVdisconnectError</pv_name>
+        </rule>
+      </rules>
+      <tooltip>$(actions)</tooltip>
+    </widget>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>X button_1</name>
+    <x>1</x>
+    <y>1</y>
+    <width>22</width>
+    <height>24</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="ellipse" version="2.0.0">
+      <name>Ellipse_10</name>
+      <x>2</x>
+      <y>3</y>
+      <width>19</width>
+      <height>19</height>
+      <line_width>1</line_width>
+      <line_color>
+        <color red="153" green="0" blue="0">
+        </color>
+      </line_color>
+      <background_color>
+        <color red="204" green="51" blue="51">
+        </color>
+      </background_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_47</name>
+      <text>X</text>
+      <x>6</x>
+      <y>4</y>
+      <width>16</width>
+      <font>
+        <font family="Liberation Sans" style="BOLD" size="14.0">
+        </font>
+      </font>
+      <foreground_color>
+        <color name="Header_ForeGround" red="255" green="255" blue="255">
+        </color>
+      </foreground_color>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_14</name>
+      <actions execute_as_one="true">
+        <action type="write_pv">
+          <description>Close</description>
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+        </action>
+        <action type="write_pv">
+          <description>close ui</description>
+          <pv_name>loc://LimitMenuOpen</pv_name>
+          <value>0</value>
+        </action>
+      </actions>
+      <pv_name>$(DEVICE):LimitMenuClosed.PROC</pv_name>
+      <text></text>
+      <width>21</width>
+      <height>23</height>
+      <transparent>true</transparent>
+      <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
   </widget>
 </display>
