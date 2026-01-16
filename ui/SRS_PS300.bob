@@ -1965,7 +1965,6 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
         <name>edit nickname_1</name>
         <width>198</width>
         <height>27</height>
-        <visible>false</visible>
         <style>3</style>
         <transparent>true</transparent>
         <rules>
@@ -1986,7 +1985,7 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
           <style>3</style>
           <transparent>true</transparent>
           <widget type="action_button" version="3.0.0">
-            <name>Action Button_29</name>
+            <name>Action Button_32</name>
             <actions>
               <action type="write_pv">
                 <description>Edit device nickname</description>
@@ -1996,8 +1995,9 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
             </actions>
             <pv_name>loc://OpenEditMenu</pv_name>
             <text></text>
-            <width>25</width>
-            <height>25</height>
+            <x>1</x>
+            <width>10</width>
+            <height>10</height>
             <foreground_color>
               <color red="26" green="26" blue="26">
               </color>
@@ -2016,6 +2016,30 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
             <height>24</height>
             <opacity>0.85</opacity>
           </widget>
+          <widget type="action_button" version="3.0.0">
+            <name>Action Button_29</name>
+            <actions>
+              <action type="write_pv">
+                <description>Edit device nickname</description>
+                <pv_name>$(pv_name)</pv_name>
+                <value>0</value>
+              </action>
+            </actions>
+            <pv_name>loc://OpenEditMenu</pv_name>
+            <text></text>
+            <width>25</width>
+            <height>25</height>
+            <foreground_color>
+              <color red="26" green="26" blue="26">
+              </color>
+            </foreground_color>
+            <background_color>
+              <color red="77" green="77" blue="77" alpha="1">
+              </color>
+            </background_color>
+            <tooltip>$(actions)</tooltip>
+            <border_alarm_sensitive>false</border_alarm_sensitive>
+          </widget>
         </widget>
         <widget type="textentry" version="3.0.0">
           <name>Text Entry_5</name>
@@ -2033,6 +2057,7 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
         <name>device nickname_1</name>
         <width>197</width>
         <height>27</height>
+        <visible>false</visible>
         <style>3</style>
         <transparent>true</transparent>
         <rules>
@@ -2102,7 +2127,7 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
               </color>
             </foreground_color>
             <background_color>
-              <color red="77" green="77" blue="77" alpha="1">
+              <color red="26" green="26" blue="26">
               </color>
             </background_color>
             <tooltip>$(actions)</tooltip>
