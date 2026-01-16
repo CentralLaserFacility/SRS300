@@ -1965,6 +1965,7 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
         <name>edit nickname_1</name>
         <width>198</width>
         <height>27</height>
+        <visible>false</visible>
         <style>3</style>
         <transparent>true</transparent>
         <rules>
@@ -2018,10 +2019,14 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
           </widget>
           <widget type="action_button" version="3.0.0">
             <name>Action Button_29</name>
-            <actions>
+            <actions execute_as_one="true">
               <action type="write_pv">
                 <description>Edit device nickname</description>
                 <pv_name>$(pv_name)</pv_name>
+                <value>0</value>
+              </action>
+              <action type="write_pv">
+                <pv_name>loc://swapName</pv_name>
                 <value>0</value>
               </action>
             </actions>
@@ -2044,7 +2049,7 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
         <widget type="textentry" version="3.0.0">
           <name>Text Entry_5</name>
           <pv_name>$(DEVICE):DeviceNickname</pv_name>
-          <x>28</x>
+          <x>59</x>
           <y>3</y>
           <width>170</width>
           <background_color>
@@ -2057,14 +2062,10 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
         <name>device nickname_1</name>
         <width>197</width>
         <height>27</height>
-        <visible>false</visible>
         <style>3</style>
         <transparent>true</transparent>
         <rules>
           <rule name="New Rule" prop_id="visible" out_exp="false">
-            <exp bool_exp="pv0 == 0">
-              <value>true</value>
-            </exp>
             <exp bool_exp="pv0 == 1">
               <value>false</value>
             </exp>
@@ -2074,7 +2075,7 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
         <widget type="textupdate" version="2.0.0">
           <name>Text Update_13</name>
           <pv_name>$(DEVICE):DeviceNickname</pv_name>
-          <x>27</x>
+          <x>59</x>
           <y>2</y>
           <width>170</width>
           <font>
@@ -2090,7 +2091,15 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
             </color>
           </background_color>
           <transparent>true</transparent>
-          <horizontal_alignment>2</horizontal_alignment>
+          <rules>
+            <rule name="New Rule" prop_id="visible" out_exp="false">
+              <exp bool_exp="pv0 == 1 || pv1 == 1">
+                <value>false</value>
+              </exp>
+              <pv_name>loc://OpenEditMenu</pv_name>
+              <pv_name>loc://swapName</pv_name>
+            </rule>
+          </rules>
         </widget>
         <widget type="group" version="3.0.0">
           <name>edit button_7</name>
@@ -2166,6 +2175,70 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
           </widget>
         </widget>
       </widget>
+    </widget>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_14</name>
+    <pv_name>$(DEVICE):DevicePrefix</pv_name>
+    <x>61</x>
+    <y>4</y>
+    <width>170</width>
+    <visible>false</visible>
+    <font>
+      <font family="Eras Demi ITC" style="REGULAR" size="14.0">
+      </font>
+    </font>
+    <foreground_color>
+      <color name="ActiveText" red="255" green="255" blue="0">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color name="Text" red="0" green="0" blue="0">
+      </color>
+    </background_color>
+    <transparent>true</transparent>
+    <rules>
+      <rule name="New Rule" prop_id="visible" out_exp="false">
+        <exp bool_exp="pv0 == 0 &amp;&amp; pv1 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://OpenEditMenu</pv_name>
+        <pv_name>loc://swapName</pv_name>
+      </rule>
+    </rules>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>swap button</name>
+    <x>34</x>
+    <y>2</y>
+    <width>28</width>
+    <height>27</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="bool_button" version="2.0.0">
+      <name>Boolean Button</name>
+      <pv_name>loc://swapName</pv_name>
+      <width>26</width>
+      <height>25</height>
+      <off_label></off_label>
+      <off_color>
+        <color red="26" green="26" blue="26">
+        </color>
+      </off_color>
+      <on_label></on_label>
+      <on_color>
+        <color red="26" green="26" blue="26">
+        </color>
+      </on_color>
+      <show_led>false</show_led>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="picture" version="2.0.0">
+      <name>Picture_14</name>
+      <file>swapIcon.png</file>
+      <width>24</width>
+      <height>24</height>
+      <opacity>0.85</opacity>
     </widget>
   </widget>
 </display>
