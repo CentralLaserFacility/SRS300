@@ -9,6 +9,7 @@
 !**/*App/Db/
 **.log
 **.sav*
+**.cfg*
 **/.metadata/*
 **BOY Examples*
 **BOY Image Library/*

@@ -19,27 +19,6 @@
     </action>
   </actions>
   <grid_visible>false</grid_visible>
-  <widget type="label" version="2.0.0">
-    <name>EDM activeXTextClass</name>
-    <text></text>
-    <width>731</width>
-    <height>27</height>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
-    <foreground_color>
-      <color name="ActiveText" red="255" green="255" blue="0">
-      </color>
-    </foreground_color>
-    <background_color>
-      <color name="48" red="0" green="0" blue="0">
-      </color>
-    </background_color>
-    <transparent>false</transparent>
-    <horizontal_alignment>1</horizontal_alignment>
-    <vertical_alignment>1</vertical_alignment>
-  </widget>
   <widget type="action_button" version="3.0.0">
     <name>Action Button</name>
     <actions>
@@ -135,8 +114,8 @@
       <transparent>false</transparent>
     </widget>
     <widget type="label" version="2.0.0">
-      <name>Desired Voltage</name>
-      <text>Desired Voltage:</text>
+      <name>Target Voltage</name>
+      <text>Target Voltage:</text>
       <x>36</x>
       <y>85</y>
       <width>112</width>
@@ -184,7 +163,7 @@
           <exp bool_exp="pv0==1 || pv1 == 0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
           <pv_name>$(DEVICE):HVONstatus</pv_name>
         </rule>
         <rule name="button text" prop_id="text" out_exp="false">
@@ -194,7 +173,7 @@
           <exp bool_exp="pv1 == 0">
             <value>HV disabled</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
           <pv_name>$(DEVICE):HVONstatus</pv_name>
         </rule>
       </rules>
@@ -210,7 +189,7 @@
           <value>0</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):VRAMPactive</pv_name>
+      <pv_name>$(DEVICE):RampActive</pv_name>
       <text>Halt ramp</text>
       <x>162</x>
       <y>212</y>
@@ -223,14 +202,14 @@
           <exp bool_exp="pv0==0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
         </rule>
       </rules>
       <tooltip>$(actions)</tooltip>
     </widget>
     <widget type="choice" version="2.0.0">
       <name>Auto or manual</name>
-      <pv_name>$(DEVICE):VRAMPmode</pv_name>
+      <pv_name>$(DEVICE):RampMode</pv_name>
       <x>55</x>
       <y>48</y>
       <width>190</width>
@@ -246,7 +225,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update DV</name>
-      <pv_name>$(DEVICE):desiredHV</pv_name>
+      <pv_name>$(DEVICE):TargetHV</pv_name>
       <x>158</x>
       <y>86</y>
       <width>95</width>
@@ -255,7 +234,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_RT</name>
-      <pv_name>$(DEVICE):VRAMPtimeSet</pv_name>
+      <pv_name>$(DEVICE):RampDuration</pv_name>
       <x>158</x>
       <y>113</y>
       <width>95</width>
@@ -264,7 +243,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_Ri</name>
-      <pv_name>$(DEVICE):VRAMPinterval</pv_name>
+      <pv_name>$(DEVICE):RampInterval</pv_name>
       <x>158</x>
       <y>141</y>
       <width>95</width>
@@ -273,7 +252,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_SS</name>
-      <pv_name>$(DEVICE):VRAMPstepSize</pv_name>
+      <pv_name>$(DEVICE):RampStepSize</pv_name>
       <x>158</x>
       <y>169</y>
       <width>95</width>
@@ -282,7 +261,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner DV</name>
-      <pv_name>$(DEVICE):desiredHV</pv_name>
+      <pv_name>$(DEVICE):TargetHV</pv_name>
       <x>158</x>
       <y>86</y>
       <precision>2</precision>
@@ -297,14 +276,14 @@
           <exp bool_exp="pv0==1">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
         </rule>
       </rules>
       <increment>100.0</increment>
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_RT</name>
-      <pv_name>$(DEVICE):VRAMPtimeSet</pv_name>
+      <pv_name>$(DEVICE):RampDuration</pv_name>
       <x>158</x>
       <y>113</y>
       <precision>2</precision>
@@ -319,8 +298,8 @@
           <exp bool_exp="pv0==1 || pv1==1">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
-          <pv_name>$(DEVICE):VRAMPmode</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
+          <pv_name>$(DEVICE):RampMode</pv_name>
         </rule>
       </rules>
       <maximum>1000000.0</maximum>
@@ -328,7 +307,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_Ri</name>
-      <pv_name>$(DEVICE):VRAMPinterval</pv_name>
+      <pv_name>$(DEVICE):RampInterval</pv_name>
       <x>158</x>
       <y>141</y>
       <precision>2</precision>
@@ -343,8 +322,8 @@
           <exp bool_exp="pv0==1 || pv1== 0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
-          <pv_name>$(DEVICE):VRAMPmode</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
+          <pv_name>$(DEVICE):RampMode</pv_name>
         </rule>
       </rules>
       <maximum>1000000.0</maximum>
@@ -352,7 +331,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_SS</name>
-      <pv_name>$(DEVICE):VRAMPstepSize</pv_name>
+      <pv_name>$(DEVICE):RampStepSize</pv_name>
       <x>158</x>
       <y>169</y>
       <show_units>true</show_units>
@@ -366,8 +345,8 @@
           <exp bool_exp="pv0==1 || pv1== 0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
-          <pv_name>$(DEVICE):VRAMPmode</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
+          <pv_name>$(DEVICE):RampMode</pv_name>
         </rule>
       </rules>
     </widget>
@@ -395,13 +374,13 @@
           <exp bool_exp="True">
             <expression>pvInt0</expression>
           </exp>
-          <pv_name>$(DEVICE):toolbarShow</pv_name>
+          <pv_name>loc://toolbarShow</pv_name>
         </rule>
       </rules>
     </widget>
     <widget type="bool_button" version="2.0.0">
       <name>toolbar</name>
-      <pv_name>$(DEVICE):toolbarShow</pv_name>
+      <pv_name>loc://toolbarShow</pv_name>
       <x>3</x>
       <y>441</y>
       <off_label>Show toolbar</off_label>
@@ -434,7 +413,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>txtCurrentNow_1</name>
-      <pv_name>$(DEVICE):OutputImA</pv_name>
+      <pv_name>$(DEVICE):OutputCurrentmA</pv_name>
       <x>471</x>
       <y>29</y>
       <width>93</width>
@@ -480,48 +459,6 @@
         <font family="Lato Heavy" style="REGULAR" size="16.0">
         </font>
       </font>
-    </widget>
-  </widget>
-  <widget type="group" version="3.0.0">
-    <name>error status</name>
-    <x>478</x>
-    <y>266</y>
-    <width>254</width>
-    <height>23</height>
-    <style>2</style>
-    <line_color>
-      <color red="153" green="153" blue="153">
-      </color>
-    </line_color>
-    <background_color>
-      <color red="240" green="249" blue="255" alpha="125">
-      </color>
-    </background_color>
-    <widget type="label" version="2.0.0">
-      <name>Label_24</name>
-      <text>Error status:</text>
-      <x>5</x>
-      <y>2</y>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_1</name>
-      <text>Voltage change below min</text>
-      <x>84</x>
-      <y>2</y>
-      <width>166</width>
-      <visible>false</visible>
-      <foreground_color>
-        <color name="STOP" red="255" green="0" blue="0">
-        </color>
-      </foreground_color>
-      <rules>
-        <rule name="New Rule" prop_id="visible" out_exp="false">
-          <exp bool_exp="pv0 !=0">
-            <value>true</value>
-          </exp>
-          <pv_name>$(DEVICE):smallStepError</pv_name>
-        </rule>
-      </rules>
     </widget>
   </widget>
   <widget type="label" version="2.0.0">
@@ -674,7 +611,7 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):hardReset</pv_name>
+      <pv_name>$(DEVICE):ResetSeq</pv_name>
       <text>Reset</text>
       <x>2</x>
       <y>178</y>
@@ -702,7 +639,7 @@
     </widget>
     <widget type="led" version="2.0.0">
       <name>LED_9</name>
-      <pv_name>$(DEVICE):VRAMPactive</pv_name>
+      <pv_name>$(DEVICE):RampActive</pv_name>
       <x>126</x>
       <y>34</y>
       <width>18</width>
@@ -721,7 +658,7 @@
           <value>0</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):tripClearSeq</pv_name>
+      <pv_name>$(DEVICE):TripClearSeq</pv_name>
       <text>Clear trip</text>
       <x>75</x>
       <y>178</y>
@@ -743,7 +680,7 @@
     </widget>
     <widget type="multi_state_led" version="2.0.0">
       <name>LED (Multi State)_2</name>
-      <pv_name>$(DEVICE):StableMultiState</pv_name>
+      <pv_name>$(DEVICE):stableMultiState</pv_name>
       <x>126</x>
       <y>61</y>
       <width>18</width>
@@ -798,7 +735,7 @@
         <exp bool_exp="pv0==1">
           <value>false</value>
         </exp>
-        <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+        <pv_name>loc://LimitMenuOpen</pv_name>
       </rule>
     </rules>
     <widget type="rectangle" version="2.0.0">
@@ -832,7 +769,7 @@
           <exp bool_exp="pv0==1">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):polarity</pv_name>
+          <pv_name>$(DEVICE):Polarity</pv_name>
         </rule>
       </rules>
       <widget type="ellipse" version="2.0.0">
@@ -885,7 +822,7 @@
           <exp bool_exp="pv0==1">
             <value>true</value>
           </exp>
-          <pv_name>$(DEVICE):polarity</pv_name>
+          <pv_name>$(DEVICE):Polarity</pv_name>
         </rule>
       </rules>
       <widget type="ellipse" version="2.0.0">
@@ -922,7 +859,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>txt_1</name>
-      <pv_name>$(DEVICE):polarity</pv_name>
+      <pv_name>$(DEVICE):Polarity</pv_name>
       <x>128</x>
       <y>39</y>
       <width>44</width>
@@ -936,7 +873,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>voltage limit</name>
-      <pv_name>$(DEVICE):desiredHV.HOPR</pv_name>
+      <pv_name>$(DEVICE):TargetHV.HOPR</pv_name>
       <x>130</x>
       <y>149</y>
       <width>72</width>
@@ -980,7 +917,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_6</name>
-      <pv_name>$(DEVICE):desiredHV.LOPR</pv_name>
+      <pv_name>$(DEVICE):TargetHV.LOPR</pv_name>
       <x>129</x>
       <y>120</y>
       <width>72</width>
@@ -1041,7 +978,7 @@
             <value>1</value>
           </action>
         </actions>
-        <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+        <pv_name>loc://LimitMenuOpen</pv_name>
         <text></text>
         <width>26</width>
         <height>26</height>
@@ -1050,6 +987,7 @@
           </color>
         </background_color>
         <tooltip>$(actions)</tooltip>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
       </widget>
       <widget type="picture" version="2.0.0">
         <name>Picture_3</name>
@@ -1061,7 +999,7 @@
         <actions>
           <action type="write_pv">
             <description>open advanced settings</description>
-            <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+            <pv_name>loc://LimitMenuOpen</pv_name>
             <value>1</value>
           </action>
         </actions>
@@ -1084,7 +1022,7 @@
         <exp bool_exp="pv0==0">
           <value>false</value>
         </exp>
-        <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+        <pv_name>loc://LimitMenuOpen</pv_name>
       </rule>
     </rules>
     <widget type="rectangle" version="2.0.0">
@@ -1154,7 +1092,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_7</name>
-      <pv_name>$(DEVICE):currentLimitmA</pv_name>
+      <pv_name>$(DEVICE):CurrentLimitmA</pv_name>
       <x>122</x>
       <y>85</y>
       <width>95</width>
@@ -1168,7 +1106,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_8</name>
-      <pv_name>$(DEVICE):currentTripLimitmA</pv_name>
+      <pv_name>$(DEVICE):CurrentTripLimitmA</pv_name>
       <x>122</x>
       <y>109</y>
       <width>95</width>
@@ -1190,11 +1128,11 @@
         </action>
         <action type="write_pv">
           <description>close ui</description>
-          <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+          <pv_name>loc://LimitMenuOpen</pv_name>
           <value>0</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):setNewLimitsPOS.PROC</pv_name>
+      <pv_name>$(DEVICE):SetNewLimitsPOS.PROC</pv_name>
       <text>Apply</text>
       <x>29</x>
       <y>140</y>
@@ -1208,7 +1146,7 @@
           <exp bool_exp="pv0!=0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):polarity</pv_name>
+          <pv_name>$(DEVICE):Polarity</pv_name>
         </rule>
       </rules>
       <tooltip>$(actions)</tooltip>
@@ -1223,8 +1161,8 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):resetLimits.PROC</pv_name>
-      <text>reset to default</text>
+      <pv_name>$(DEVICE):ResetLimits.PROC</pv_name>
+      <text>Reset to default</text>
       <x>14</x>
       <y>34</y>
       <width>102</width>
@@ -1246,11 +1184,11 @@
         </action>
         <action type="write_pv">
           <description>close ui</description>
-          <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+          <pv_name>loc://LimitMenuOpen</pv_name>
           <value>0</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):limitMenuClosed.PROC</pv_name>
+      <pv_name>$(DEVICE):LimitMenuClosed.PROC</pv_name>
       <text>Close</text>
       <x>134</x>
       <y>140</y>
@@ -1325,11 +1263,11 @@
           </action>
           <action type="write_pv">
             <description>close ui</description>
-            <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+            <pv_name>loc://LimitMenuOpen</pv_name>
             <value>0</value>
           </action>
         </actions>
-        <pv_name>$(DEVICE):limitMenuClosed.PROC</pv_name>
+        <pv_name>$(DEVICE):LimitMenuClosed.PROC</pv_name>
         <text></text>
         <width>21</width>
         <height>23</height>
@@ -1348,11 +1286,11 @@
         </action>
         <action type="write_pv">
           <description>close ui</description>
-          <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+          <pv_name>loc://LimitMenuOpen</pv_name>
           <value>0</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):setNewLimitsNEG.PROC</pv_name>
+      <pv_name>$(DEVICE):SetNewLimitsNEG.PROC</pv_name>
       <text>Apply</text>
       <x>29</x>
       <y>140</y>
@@ -1366,7 +1304,7 @@
           <exp bool_exp="pv0!=1">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):polarity</pv_name>
+          <pv_name>$(DEVICE):Polarity</pv_name>
         </rule>
       </rules>
       <tooltip>$(actions)</tooltip>
@@ -1374,7 +1312,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_9</name>
-      <pv_name>$(DEVICE):voltageLimitSET</pv_name>
+      <pv_name>$(DEVICE):VoltageLimitSet</pv_name>
       <x>122</x>
       <y>61</y>
       <width>95</width>
@@ -1423,7 +1361,7 @@
           <value>1</value>
         </action>
       </actions>
-      <pv_name>$(DEVICE):configMenuOpen</pv_name>
+      <pv_name>loc://ConfigMenuOpen</pv_name>
       <text>   ConfigMenu </text>
       <y>3</y>
       <width>106</width>
@@ -1434,11 +1372,12 @@
           <exp bool_exp="pv0!=0 || pv1 !=0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
-          <pv_name>$(DEVICE):configMenuOpen</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
+          <pv_name>loc://ConfigMenuOpen</pv_name>
         </rule>
       </rules>
       <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="picture" version="2.0.0">
       <name>Picture_4</name>
@@ -1450,7 +1389,7 @@
       <actions>
         <action type="write_pv">
           <description>open advanced settings</description>
-          <pv_name>$(DEVICE):limitMenuOpen</pv_name>
+          <pv_name>loc://LimitMenuOpen</pv_name>
           <value>1</value>
         </action>
       </actions>
@@ -1459,8 +1398,8 @@
           <exp bool_exp="pv0!=0 || pv1 !=0">
             <value>0.3</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
-          <pv_name>$(DEVICE):configMenuOpen</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
+          <pv_name>loc://ConfigMenuOpen</pv_name>
         </rule>
       </rules>
     </widget>
@@ -1483,7 +1422,7 @@
         <exp bool_exp="pv0 !=2">
           <value>false</value>
         </exp>
-        <pv_name>$(DEVICE):configMenuOpen</pv_name>
+        <pv_name>loc://ConfigMenuOpen</pv_name>
       </rule>
     </rules>
   </widget>
@@ -1505,7 +1444,7 @@
         <exp bool_exp="pv0 !=1">
           <value>false</value>
         </exp>
-        <pv_name>$(DEVICE):configMenuOpen</pv_name>
+        <pv_name>loc://ConfigMenuOpen</pv_name>
       </rule>
     </rules>
   </widget>
@@ -1526,7 +1465,7 @@
         <exp bool_exp="pv0 !=0">
           <value>true</value>
         </exp>
-        <pv_name>$(DEVICE):configMenuOpen</pv_name>
+        <pv_name>loc://ConfigMenuOpen</pv_name>
       </rule>
     </rules>
     <widget type="rectangle" version="2.0.0">
@@ -1648,11 +1587,11 @@
         <actions execute_as_one="true">
           <action type="write_pv">
             <description>close menu</description>
-            <pv_name>$(DEVICE):configMenuOpen</pv_name>
+            <pv_name>loc://ConfigMenuOpen</pv_name>
             <value>0</value>
           </action>
         </actions>
-        <pv_name>$(DEVICE):configMenuOpen</pv_name>
+        <pv_name>loc://ConfigMenuOpen</pv_name>
         <text></text>
         <width>21</width>
         <height>23</height>
@@ -1678,7 +1617,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update DV_1</name>
-      <pv_name>$(DEVICE):desiredHV</pv_name>
+      <pv_name>$(DEVICE):TargetHV</pv_name>
       <x>95</x>
       <y>42</y>
       <width>83</width>
@@ -1686,7 +1625,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_RT_1</name>
-      <pv_name>$(DEVICE):VRAMPtimeSet</pv_name>
+      <pv_name>$(DEVICE):RampDuration</pv_name>
       <x>95</x>
       <y>73</y>
       <width>83</width>
@@ -1695,7 +1634,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_Ri_1</name>
-      <pv_name>$(DEVICE):VRAMPinterval</pv_name>
+      <pv_name>$(DEVICE):RampInterval</pv_name>
       <x>95</x>
       <y>105</y>
       <width>83</width>
@@ -1704,7 +1643,7 @@
     </widget>
     <widget type="textupdate" version="2.0.0">
       <name>Text Update_SS_1</name>
-      <pv_name>$(DEVICE):VRAMPstepSize</pv_name>
+      <pv_name>$(DEVICE):RampStepSize</pv_name>
       <x>95</x>
       <y>136</y>
       <width>83</width>
@@ -1713,7 +1652,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner DV_2</name>
-      <pv_name>$(DEVICE):desiredHV</pv_name>
+      <pv_name>$(DEVICE):TargetHV</pv_name>
       <x>95</x>
       <y>42</y>
       <width>83</width>
@@ -1729,14 +1668,14 @@
           <exp bool_exp="pv0==1">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
         </rule>
       </rules>
       <increment>100.0</increment>
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_RT_2</name>
-      <pv_name>$(DEVICE):VRAMPtimeSet</pv_name>
+      <pv_name>$(DEVICE):RampDuration</pv_name>
       <x>95</x>
       <y>73</y>
       <width>83</width>
@@ -1752,8 +1691,8 @@
           <exp bool_exp="pv0==1 || pv1==1">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
-          <pv_name>$(DEVICE):VRAMPmode</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
+          <pv_name>$(DEVICE):RampMode</pv_name>
         </rule>
       </rules>
       <maximum>1000000.0</maximum>
@@ -1761,7 +1700,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_Ri_2</name>
-      <pv_name>$(DEVICE):VRAMPinterval</pv_name>
+      <pv_name>$(DEVICE):RampInterval</pv_name>
       <x>95</x>
       <y>105</y>
       <width>83</width>
@@ -1777,8 +1716,8 @@
           <exp bool_exp="pv0==1 || pv1== 0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
-          <pv_name>$(DEVICE):VRAMPmode</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
+          <pv_name>$(DEVICE):RampMode</pv_name>
         </rule>
       </rules>
       <maximum>1000000.0</maximum>
@@ -1786,7 +1725,7 @@
     </widget>
     <widget type="spinner" version="2.0.0">
       <name>Spinner_SS_2</name>
-      <pv_name>$(DEVICE):VRAMPstepSize</pv_name>
+      <pv_name>$(DEVICE):RampStepSize</pv_name>
       <x>95</x>
       <y>136</y>
       <width>83</width>
@@ -1801,14 +1740,14 @@
           <exp bool_exp="pv0==1 || pv1== 0">
             <value>false</value>
           </exp>
-          <pv_name>$(DEVICE):VRAMPactive</pv_name>
-          <pv_name>$(DEVICE):VRAMPmode</pv_name>
+          <pv_name>$(DEVICE):RampActive</pv_name>
+          <pv_name>$(DEVICE):RampMode</pv_name>
         </rule>
       </rules>
     </widget>
     <widget type="choice" version="2.0.0">
       <name>Auto or manual_1</name>
-      <pv_name>$(DEVICE):VRAMPmode</pv_name>
+      <pv_name>$(DEVICE):RampMode</pv_name>
       <x>29</x>
       <y>165</y>
       <width>133</width>
@@ -1824,49 +1763,429 @@
     </widget>
   </widget>
   <widget type="group" version="3.0.0">
-    <name>Refresh button</name>
-    <x>7</x>
-    <width>29</width>
+    <name>Error messages</name>
+    <x>478</x>
+    <y>266</y>
+    <width>254</width>
+    <height>46</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="group" version="3.0.0">
+      <name>error status</name>
+      <width>254</width>
+      <height>23</height>
+      <style>2</style>
+      <line_color>
+        <color red="153" green="153" blue="153">
+        </color>
+      </line_color>
+      <background_color>
+        <color red="240" green="249" blue="255" alpha="125">
+        </color>
+      </background_color>
+      <widget type="label" version="2.0.0">
+        <name>Label_24</name>
+        <text>Error status:</text>
+        <x>5</x>
+        <y>2</y>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>Label_1</name>
+        <text>Voltage change below min</text>
+        <x>84</x>
+        <y>2</y>
+        <width>166</width>
+        <visible>false</visible>
+        <foreground_color>
+          <color name="STOP" red="255" green="0" blue="0">
+          </color>
+        </foreground_color>
+        <rules>
+          <rule name="New Rule" prop_id="visible" out_exp="false">
+            <exp bool_exp="pv0 !=0">
+              <value>true</value>
+            </exp>
+            <pv_name>$(DEVICE):SmallStepError</pv_name>
+          </rule>
+        </rules>
+      </widget>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>disconnect error message</name>
+      <text>Cannot enable HV:      Device off/disconnected</text>
+      <x>102</x>
+      <y>3</y>
+      <width>150</width>
+      <height>35</height>
+      <visible>false</visible>
+      <foreground_color>
+        <color name="STOP" red="255" green="0" blue="0">
+        </color>
+      </foreground_color>
+      <background_color>
+        <color red="224" green="229" blue="232">
+        </color>
+      </background_color>
+      <transparent>false</transparent>
+      <rules>
+        <rule name="New Rule" prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0 !=0">
+            <value>true</value>
+          </exp>
+          <pv_name>$(DEVICE):HVdisconnectError</pv_name>
+        </rule>
+      </rules>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_4</name>
+      <actions execute_as_one="true">
+        <action type="write_pv">
+          <description>Write PV</description>
+          <pv_name>$(DEVICE):SmallStepError</pv_name>
+          <value>0</value>
+        </action>
+        <action type="write_pv">
+          <description>Write PV</description>
+          <pv_name>$(DEVICE):HVdisconnectError</pv_name>
+          <value>0</value>
+        </action>
+      </actions>
+      <text>Clear message</text>
+      <y>26</y>
+      <height>20</height>
+      <rules>
+        <rule name="New Rule" prop_id="visible" out_exp="false">
+          <exp bool_exp="pv0 == 0 &amp;&amp; pv1 == 0">
+            <value>false</value>
+          </exp>
+          <pv_name>$(DEVICE):SmallStepError</pv_name>
+          <pv_name>$(DEVICE):HVdisconnectError</pv_name>
+        </rule>
+      </rules>
+      <tooltip>$(actions)</tooltip>
+    </widget>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Header2</name>
+    <width>733</width>
     <height>29</height>
     <style>3</style>
     <transparent>true</transparent>
-    <widget type="action_button" version="3.0.0">
-      <name>Action Button_3</name>
-      <actions>
-        <action type="execute">
-          <description>Refresh display</description>
-          <script file="EmbeddedPy">
-            <text><![CDATA[# Embedded python script
+    <widget type="label" version="2.0.0">
+      <name>EDM activeXTextClass_3</name>
+      <text></text>
+      <width>731</width>
+      <height>27</height>
+      <font>
+        <font family="Eras Demi ITC" style="BOLD" size="14.0">
+        </font>
+      </font>
+      <foreground_color>
+        <color name="ActiveText" red="255" green="255" blue="0">
+        </color>
+      </foreground_color>
+      <background_color>
+        <color name="48" red="0" green="0" blue="0">
+        </color>
+      </background_color>
+      <transparent>false</transparent>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+    </widget>
+    <widget type="group" version="3.0.0">
+      <name>Refresh button_3</name>
+      <x>703</x>
+      <width>29</width>
+      <height>29</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="picture" version="2.0.0">
+        <name>Picture_11</name>
+        <file>refreshButton.png</file>
+        <width>29</width>
+        <height>29</height>
+      </widget>
+      <widget type="action_button" version="3.0.0">
+        <name>Action Button_28</name>
+        <actions>
+          <action type="execute">
+            <description>Refresh display</description>
+            <script file="EmbeddedPy">
+              <text><![CDATA[# Embedded python script
 from org.csstudio.display.builder.runtime.script import PVUtil, ScriptUtil
 ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
 ]]></text>
-          </script>
-        </action>
-      </actions>
-      <text></text>
-      <width>28</width>
-      <height>27</height>
+            </script>
+          </action>
+        </actions>
+        <text></text>
+        <width>28</width>
+        <height>27</height>
+        <foreground_color>
+          <color red="26" green="26" blue="26">
+          </color>
+        </foreground_color>
+        <background_color>
+          <color red="77" green="77" blue="77" alpha="1">
+          </color>
+        </background_color>
+        <tooltip>$(actions)</tooltip>
+      </widget>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_12</name>
+      <pv_name>$(DEVICE):SRSModel</pv_name>
+      <x>309</x>
+      <y>5</y>
+      <width>131</width>
+      <font>
+        <font family="Eras Demi ITC" style="BOLD" size="14.0">
+        </font>
+      </font>
+      <foreground_color>
+        <color name="ActiveText" red="255" green="255" blue="0">
+        </color>
+      </foreground_color>
       <background_color>
-        <color red="26" green="26" blue="26">
+        <color name="Text" red="0" green="0" blue="0">
         </color>
       </background_color>
-      <tooltip>$(actions)</tooltip>
+      <transparent>true</transparent>
+      <horizontal_alignment>1</horizontal_alignment>
     </widget>
-    <widget type="picture" version="2.0.0">
-      <name>Picture_2</name>
-      <file>refreshButton.png</file>
-      <width>29</width>
-      <height>29</height>
+    <widget type="group" version="3.0.0">
+      <name>Nickname_1</name>
+      <x>4</x>
+      <y>2</y>
+      <width>198</width>
+      <height>27</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="group" version="3.0.0">
+        <name>edit nickname_1</name>
+        <width>198</width>
+        <height>27</height>
+        <visible>false</visible>
+        <style>3</style>
+        <transparent>true</transparent>
+        <rules>
+          <rule name="New Rule" prop_id="visible" out_exp="false">
+            <exp bool_exp="pv0 == 0">
+              <value>false</value>
+            </exp>
+            <exp bool_exp="pv0 == 1">
+              <value>true</value>
+            </exp>
+            <pv_name>loc://OpenEditMenu</pv_name>
+          </rule>
+        </rules>
+        <widget type="group" version="3.0.0">
+          <name>edit button_6</name>
+          <width>28</width>
+          <height>27</height>
+          <style>3</style>
+          <transparent>true</transparent>
+          <widget type="action_button" version="3.0.0">
+            <name>Action Button_32</name>
+            <actions>
+              <action type="write_pv">
+                <description>Edit device nickname</description>
+                <pv_name>$(pv_name)</pv_name>
+                <value>0</value>
+              </action>
+            </actions>
+            <pv_name>loc://OpenEditMenu</pv_name>
+            <text></text>
+            <x>1</x>
+            <width>10</width>
+            <height>10</height>
+            <foreground_color>
+              <color red="26" green="26" blue="26">
+              </color>
+            </foreground_color>
+            <background_color>
+              <color red="26" green="26" blue="26">
+              </color>
+            </background_color>
+            <tooltip>$(actions)</tooltip>
+            <border_alarm_sensitive>false</border_alarm_sensitive>
+          </widget>
+          <widget type="picture" version="2.0.0">
+            <name>Picture_12</name>
+            <file>editIcon.png</file>
+            <width>24</width>
+            <height>24</height>
+            <opacity>0.85</opacity>
+          </widget>
+          <widget type="action_button" version="3.0.0">
+            <name>Action Button_29</name>
+            <actions execute_as_one="true">
+              <action type="write_pv">
+                <description>Edit device nickname</description>
+                <pv_name>$(pv_name)</pv_name>
+                <value>0</value>
+              </action>
+              <action type="write_pv">
+                <pv_name>loc://swapName</pv_name>
+                <value>0</value>
+              </action>
+            </actions>
+            <pv_name>loc://OpenEditMenu</pv_name>
+            <text></text>
+            <width>25</width>
+            <height>25</height>
+            <foreground_color>
+              <color red="26" green="26" blue="26">
+              </color>
+            </foreground_color>
+            <background_color>
+              <color red="77" green="77" blue="77" alpha="1">
+              </color>
+            </background_color>
+            <tooltip>$(actions)</tooltip>
+            <border_alarm_sensitive>false</border_alarm_sensitive>
+          </widget>
+        </widget>
+        <widget type="textentry" version="3.0.0">
+          <name>Text Entry_5</name>
+          <pv_name>$(DEVICE):DeviceNickname</pv_name>
+          <x>59</x>
+          <y>3</y>
+          <width>170</width>
+          <background_color>
+            <color red="255" green="255" blue="153">
+            </color>
+          </background_color>
+        </widget>
+      </widget>
+      <widget type="group" version="3.0.0">
+        <name>device nickname_1</name>
+        <width>197</width>
+        <height>27</height>
+        <style>3</style>
+        <transparent>true</transparent>
+        <rules>
+          <rule name="New Rule" prop_id="visible" out_exp="false">
+            <exp bool_exp="pv0 == 1">
+              <value>false</value>
+            </exp>
+            <pv_name>loc://OpenEditMenu</pv_name>
+          </rule>
+        </rules>
+        <widget type="textupdate" version="2.0.0">
+          <name>Text Update_13</name>
+          <pv_name>$(DEVICE):DeviceNickname</pv_name>
+          <x>59</x>
+          <y>2</y>
+          <width>170</width>
+          <font>
+            <font family="Eras Demi ITC" style="REGULAR" size="14.0">
+            </font>
+          </font>
+          <foreground_color>
+            <color name="ActiveText" red="255" green="255" blue="0">
+            </color>
+          </foreground_color>
+          <background_color>
+            <color name="Text" red="0" green="0" blue="0">
+            </color>
+          </background_color>
+          <transparent>true</transparent>
+          <rules>
+            <rule name="New Rule" prop_id="visible" out_exp="false">
+              <exp bool_exp="pv0 == 1 || pv1 == 1">
+                <value>false</value>
+              </exp>
+              <pv_name>loc://OpenEditMenu</pv_name>
+              <pv_name>loc://swapName</pv_name>
+            </rule>
+          </rules>
+        </widget>
+        <widget type="group" version="3.0.0">
+          <name>edit button_7</name>
+          <width>28</width>
+          <height>27</height>
+          <style>3</style>
+          <transparent>true</transparent>
+          <rules>
+            <rule name="New Rule" prop_id="visible" out_exp="false">
+              <exp bool_exp="pv0 == 0">
+                <value>true</value>
+              </exp>
+              <exp bool_exp="pv0 == 1">
+                <value>false</value>
+              </exp>
+              <pv_name>loc://OpenEditMenu</pv_name>
+            </rule>
+          </rules>
+          <widget type="action_button" version="3.0.0">
+            <name>Action Button_31</name>
+            <actions>
+              <action type="write_pv">
+                <description>Edit device nickname</description>
+                <pv_name>$(pv_name)</pv_name>
+                <value>1</value>
+              </action>
+            </actions>
+            <pv_name>loc://OpenEditMenu</pv_name>
+            <text></text>
+            <width>1</width>
+            <height>1</height>
+            <foreground_color>
+              <color red="26" green="26" blue="26">
+              </color>
+            </foreground_color>
+            <background_color>
+              <color red="26" green="26" blue="26">
+              </color>
+            </background_color>
+            <tooltip>$(actions)</tooltip>
+            <border_alarm_sensitive>false</border_alarm_sensitive>
+          </widget>
+          <widget type="picture" version="2.0.0">
+            <name>Picture_13</name>
+            <file>editIcon.png</file>
+            <width>24</width>
+            <height>24</height>
+            <opacity>0.9</opacity>
+          </widget>
+          <widget type="action_button" version="3.0.0">
+            <name>Action Button_30</name>
+            <actions>
+              <action type="write_pv">
+                <description>Edit device nickname</description>
+                <pv_name>$(pv_name)</pv_name>
+                <value>1</value>
+              </action>
+            </actions>
+            <pv_name>loc://OpenEditMenu</pv_name>
+            <text></text>
+            <width>25</width>
+            <height>25</height>
+            <foreground_color>
+              <color red="26" green="26" blue="26">
+              </color>
+            </foreground_color>
+            <background_color>
+              <color red="77" green="77" blue="77" alpha="1">
+              </color>
+            </background_color>
+            <tooltip>$(actions)</tooltip>
+            <border_alarm_sensitive>false</border_alarm_sensitive>
+          </widget>
+        </widget>
+      </widget>
     </widget>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <name>Text Update</name>
-    <pv_name>$(DEVICE):SRSModel</pv_name>
-    <x>309</x>
-    <y>5</y>
-    <width>131</width>
+    <name>Text Update_14</name>
+    <pv_name>$(DEVICE):DevicePrefix</pv_name>
+    <x>61</x>
+    <y>4</y>
+    <width>170</width>
+    <visible>false</visible>
     <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
+      <font family="Eras Demi ITC" style="REGULAR" size="14.0">
       </font>
     </font>
     <foreground_color>
@@ -1878,84 +2197,48 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
       </color>
     </background_color>
     <transparent>true</transparent>
-    <horizontal_alignment>1</horizontal_alignment>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>disconnect error message</name>
-    <text>Cannot enable HV:      Device off/disconnected</text>
-    <x>580</x>
-    <y>269</y>
-    <width>150</width>
-    <height>35</height>
-    <visible>false</visible>
-    <foreground_color>
-      <color name="STOP" red="255" green="0" blue="0">
-      </color>
-    </foreground_color>
-    <background_color>
-      <color red="224" green="229" blue="232">
-      </color>
-    </background_color>
-    <transparent>false</transparent>
     <rules>
       <rule name="New Rule" prop_id="visible" out_exp="false">
-        <exp bool_exp="pv0 !=0">
+        <exp bool_exp="pv0 == 0 &amp;&amp; pv1 == 1">
           <value>true</value>
         </exp>
-        <pv_name>$(DEVICE):HVdisconnectError</pv_name>
+        <pv_name>loc://OpenEditMenu</pv_name>
+        <pv_name>loc://swapName</pv_name>
       </rule>
     </rules>
   </widget>
-  <widget type="action_button" version="3.0.0">
-    <name>Action Button_4</name>
-    <actions execute_as_one="true">
-      <action type="write_pv">
-        <description>Write PV</description>
-        <pv_name>$(DEVICE):smallStepError</pv_name>
-        <value>0</value>
-      </action>
-      <action type="write_pv">
-        <description>Write PV</description>
-        <pv_name>$(DEVICE):HVdisconnectError</pv_name>
-        <value>0</value>
-      </action>
-    </actions>
-    <text>Clear message</text>
-    <x>478</x>
-    <y>292</y>
-    <height>20</height>
-    <rules>
-      <rule name="New Rule" prop_id="visible" out_exp="false">
-        <exp bool_exp="pv0 == 0 &amp;&amp; pv1 == 0">
-          <value>false</value>
-        </exp>
-        <pv_name>$(DEVICE):smallStepError</pv_name>
-        <pv_name>$(DEVICE):HVdisconnectError</pv_name>
-      </rule>
-    </rules>
-    <tooltip>$(actions)</tooltip>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_3</name>
-    <text>$(DEVICE)</text>
-    <x>53</x>
-    <y>5</y>
-    <width>157</width>
-    <font>
-      <font family="Eras Demi ITC" style="REGULAR" size="14.0">
-      </font>
-    </font>
-    <foreground_color>
-      <color name="ActiveText" red="255" green="255" blue="0">
-      </color>
-    </foreground_color>
-  </widget>
-  <widget type="led" version="2.0.0">
-    <name>LED_15</name>
-    <pv_name>$(DEVICE):HVONstatus</pv_name>
-    <x>705</x>
-    <y>5</y>
-    <width>19</width>
-    <height>19</height>
+  <widget type="group" version="3.0.0">
+    <name>swap button</name>
+    <x>34</x>
+    <y>2</y>
+    <width>28</width>
+    <height>27</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="bool_button" version="2.0.0">
+      <name>Boolean Button</name>
+      <pv_name>loc://swapName</pv_name>
+      <width>26</width>
+      <height>25</height>
+      <off_label></off_label>
+      <off_color>
+        <color red="26" green="26" blue="26">
+        </color>
+      </off_color>
+      <on_label></on_label>
+      <on_color>
+        <color red="26" green="26" blue="26">
+        </color>
+      </on_color>
+      <show_led>false</show_led>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="picture" version="2.0.0">
+      <name>Picture_14</name>
+      <file>swapIcon.png</file>
+      <width>24</width>
+      <height>24</height>
+      <opacity>0.85</opacity>
+    </widget>
   </widget>
 </display>

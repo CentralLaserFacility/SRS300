@@ -1,5 +1,6 @@
-$(P)VRAMPstepSize
-$(P)VRAMPinterval
-$(P)desiredHV
-$(P)VRAMPmode
-$(P)VRAMPtimeSet
+$(P)RampStepSize
+$(P)RampInterval
+$(P)TargetHV
+$(P)RampMode
+$(P)RampDuration
+$(P)DeviceNickname

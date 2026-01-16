@@ -65,7 +65,7 @@
     <pv>
       <display_name></display_name>
       <visible>true</visible>
-      <name>$(DEVICE):autoscaleControlMin</name>
+      <name>$(DEVICE):AutoscaleControlMin</name>
       <axis>0</axis>
       <color>
         <red>255</red>
@@ -85,7 +85,7 @@
     <pv>
       <display_name></display_name>
       <visible>true</visible>
-      <name>$(DEVICE):autoscaleControlMax</name>
+      <name>$(DEVICE):AutoscaleControlMax</name>
       <axis>0</axis>
       <color>
         <red>255</red>
@@ -93,7 +93,7 @@
         <blue>255</blue>
       </color>
       <trace_type>AREA</trace_type>
-      <linewidth>1</linewidth>
+      <linewidth>0</linewidth>
       <line_style>SOLID</line_style>
       <point_type>NONE</point_type>
       <point_size>1</point_size>
@@ -105,7 +105,7 @@
     <pv>
       <display_name></display_name>
       <visible>true</visible>
-      <name>$(DEVICE):C_IMAXmA</name>
+      <name>$(DEVICE):IMAXmA</name>
       <axis>1</axis>
       <color>
         <red>255</red>
@@ -113,8 +113,8 @@
         <blue>255</blue>
       </color>
       <trace_type>AREA</trace_type>
-      <linewidth>1</linewidth>
-      <line_style>DOT</line_style>
+      <linewidth>0</linewidth>
+      <line_style>SOLID</line_style>
       <point_type>NONE</point_type>
       <point_size>1</point_size>
       <waveform_index>0</waveform_index>
@@ -125,7 +125,7 @@
     <pv>
       <display_name></display_name>
       <visible>true</visible>
-      <name>$(DEVICE):currentGraphMin</name>
+      <name>$(DEVICE):CurrentGraphMin</name>
       <axis>1</axis>
       <color>
         <red>255</red>
@@ -145,7 +145,7 @@
     <pv>
       <display_name>Current</display_name>
       <visible>true</visible>
-      <name>$(DEVICE):OutputImA</name>
+      <name>$(DEVICE):OutputCurrentmA</name>
       <axis>1</axis>
       <color>
         <red>0</red>
@@ -165,7 +165,7 @@
     <pv>
       <display_name>Voltage</display_name>
       <visible>true</visible>
-      <name>$(DEVICE):absVoltage</name>
+      <name>$(DEVICE):AbsVoltage</name>
       <axis>0</axis>
       <color>
         <red>255</red>
