@@ -14,6 +14,17 @@ record(waveform, "$(DEVICE):IDN"){
     field(FTVL, "CHAR")
     field(NELM, "80")
 }
+record(stringin, "$(DEVICE):DevicePrefix"){
+    field(DESC, "Prefix for device")
+    field(VAL, "$(DEVICE)")
+    field(PINI, "YES")
+}
+record(stringin, "$(DEVICE):DeviceNickname"){
+    field(DESC, "Friendly name for device")
+    field(VAL, "$(DEVICE)")
+    field(PINI, "YES")
+}
+
 #__________________________________________________________________
 #______________________Status readbacks____________________________
 record(fanout, "$(DEVICE):ReadbackPoll"){
@@ -131,7 +142,7 @@ record(ao, "$(DEVICE):HVset"){
 record(seq, "$(DEVICE):VoltageMonitor"){
     field(DESC, "Monitor voltage")
     field(PINI, "YES")
-    field(SCAN, "0.1 second")
+    field(SCAN, ".1 second")
     field(LNK1, "$(DEVICE):OutputVget.PROC")
     field(LNK2, "$(DEVICE):HVstable.PROC")
     field(LNK3, "$(DEVICE):TargetVreached.PROC")
@@ -156,6 +167,7 @@ record(calc, "$(DEVICE):TargetVreached"){
     field(INPC, "$(DEVICE):Tolerance")
     field(CALC, "ABS(A - B) < C ? 1 : 0") #1=reached, 0=not reached
 }
+
 #__________________________________________________________________
 #____________________Enable/disable HV output______________________
 
