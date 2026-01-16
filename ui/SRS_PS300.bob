@@ -19,27 +19,6 @@
     </action>
   </actions>
   <grid_visible>false</grid_visible>
-  <widget type="label" version="2.0.0">
-    <name>EDM activeXTextClass</name>
-    <text></text>
-    <width>731</width>
-    <height>27</height>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
-    <foreground_color>
-      <color name="ActiveText" red="255" green="255" blue="0">
-      </color>
-    </foreground_color>
-    <background_color>
-      <color name="48" red="0" green="0" blue="0">
-      </color>
-    </background_color>
-    <transparent>false</transparent>
-    <horizontal_alignment>1</horizontal_alignment>
-    <vertical_alignment>1</vertical_alignment>
-  </widget>
   <widget type="action_button" version="3.0.0">
     <name>Action Button</name>
     <actions>
@@ -1784,79 +1763,6 @@
     </widget>
   </widget>
   <widget type="group" version="3.0.0">
-    <name>Refresh button</name>
-    <x>703</x>
-    <width>29</width>
-    <height>29</height>
-    <style>3</style>
-    <transparent>true</transparent>
-    <widget type="picture" version="2.0.0">
-      <name>Picture_2</name>
-      <file>refreshButton.png</file>
-      <width>29</width>
-      <height>29</height>
-    </widget>
-    <widget type="action_button" version="3.0.0">
-      <name>Action Button_3</name>
-      <actions>
-        <action type="execute">
-          <description>Refresh display</description>
-          <script file="EmbeddedPy">
-            <text><![CDATA[# Embedded python script
-from org.csstudio.display.builder.runtime.script import PVUtil, ScriptUtil
-ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
-]]></text>
-          </script>
-        </action>
-      </actions>
-      <text></text>
-      <width>28</width>
-      <height>27</height>
-      <foreground_color>
-        <color red="26" green="26" blue="26">
-        </color>
-      </foreground_color>
-      <background_color>
-        <color red="77" green="77" blue="77" alpha="1">
-        </color>
-      </background_color>
-      <tooltip>$(actions)</tooltip>
-    </widget>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <name>Text Update</name>
-    <pv_name>$(DEVICE):SRSModel</pv_name>
-    <x>309</x>
-    <y>5</y>
-    <width>131</width>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD" size="14.0">
-      </font>
-    </font>
-    <foreground_color>
-      <color name="ActiveText" red="255" green="255" blue="0">
-      </color>
-    </foreground_color>
-    <background_color>
-      <color name="Text" red="0" green="0" blue="0">
-      </color>
-    </background_color>
-    <transparent>true</transparent>
-    <horizontal_alignment>1</horizontal_alignment>
-  </widget>
-  <widget type="textentry" version="3.0.0">
-    <name>Text Entry_1</name>
-    <pv_name>$(DEVICE)DeviceNickname</pv_name>
-    <x>563</x>
-    <y>5</y>
-    <width>121</width>
-    <visible>false</visible>
-    <background_color>
-      <color red="153" green="153" blue="153">
-      </color>
-    </background_color>
-  </widget>
-  <widget type="group" version="3.0.0">
     <name>Error messages</name>
     <x>478</x>
     <y>266</y>
@@ -1960,78 +1866,61 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
     </widget>
   </widget>
   <widget type="group" version="3.0.0">
-    <name>edit nickname</name>
-    <x>643</x>
-    <y>880</y>
-    <width>283</width>
-    <height>49</height>
+    <name>Header2</name>
+    <width>733</width>
+    <height>29</height>
     <style>3</style>
     <transparent>true</transparent>
-    <rules>
-      <rule name="New Rule" prop_id="visible" out_exp="false">
-        <exp bool_exp="pv0 == 0">
-          <value>false</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>true</value>
-        </exp>
-        <pv_name>loc://OpenEditMenu</pv_name>
-      </rule>
-    </rules>
-    <widget type="action_button" version="3.0.0">
-      <name>Action Button_15</name>
-      <actions>
-        <action type="write_pv">
-          <description>Reset nickname</description>
-          <pv_name>$(pv_name)</pv_name>
-          <value>1</value>
-        </action>
-      </actions>
-      <pv_name>$(DEVICE):ResetNickname.PROC</pv_name>
-      <text>reset </text>
-      <x>219</x>
-      <y>2</y>
-      <width>43</width>
-      <height>20</height>
-      <tooltip>$(actions)</tooltip>
-    </widget>
-    <widget type="textentry" version="3.0.0">
-      <name>Text Entry_2</name>
-      <pv_name>$(DEVICE):DeviceNickname</pv_name>
-      <x>26</x>
-      <y>3</y>
-      <width>187</width>
+    <widget type="label" version="2.0.0">
+      <name>EDM activeXTextClass_3</name>
+      <text></text>
+      <width>731</width>
+      <height>27</height>
+      <font>
+        <font family="Eras Demi ITC" style="BOLD" size="14.0">
+        </font>
+      </font>
+      <foreground_color>
+        <color name="ActiveText" red="255" green="255" blue="0">
+        </color>
+      </foreground_color>
       <background_color>
-        <color red="255" green="255" blue="153">
+        <color name="48" red="0" green="0" blue="0">
         </color>
       </background_color>
+      <transparent>false</transparent>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
     </widget>
     <widget type="group" version="3.0.0">
-      <name>edit button_1</name>
-      <width>28</width>
-      <height>27</height>
+      <name>Refresh button_3</name>
+      <x>703</x>
+      <width>29</width>
+      <height>29</height>
       <style>3</style>
       <transparent>true</transparent>
       <widget type="picture" version="2.0.0">
-        <name>Picture_1</name>
-        <file>editIcon.png</file>
-        <width>24</width>
-        <height>24</height>
-        <opacity>0.85</opacity>
+        <name>Picture_11</name>
+        <file>refreshButton.png</file>
+        <width>29</width>
+        <height>29</height>
       </widget>
       <widget type="action_button" version="3.0.0">
-        <name>Action Button_16</name>
+        <name>Action Button_28</name>
         <actions>
-          <action type="write_pv">
-            <description>Edit device nickname</description>
-            <pv_name>$(pv_name)</pv_name>
-            <value>0</value>
+          <action type="execute">
+            <description>Refresh display</description>
+            <script file="EmbeddedPy">
+              <text><![CDATA[# Embedded python script
+from org.csstudio.display.builder.runtime.script import PVUtil, ScriptUtil
+ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
+]]></text>
+            </script>
           </action>
         </actions>
-        <pv_name>loc://OpenEditMenu</pv_name>
         <text></text>
-        <width>25</width>
-        <height>25</height>
+        <width>28</width>
+        <height>27</height>
         <foreground_color>
           <color red="26" green="26" blue="26">
           </color>
@@ -2041,62 +1930,16 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
           </color>
         </background_color>
         <tooltip>$(actions)</tooltip>
-        <border_alarm_sensitive>false</border_alarm_sensitive>
       </widget>
     </widget>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_3</name>
-    <text>$(DEVICE)</text>
-    <x>27</x>
-    <y>28</y>
-    <width>229</width>
-    <height>18</height>
-    <font>
-      <font family="Eras Demi ITC" style="BOLD_ITALIC" size="14.0">
-      </font>
-    </font>
-    <background_color>
-      <color red="0" green="0" blue="0">
-      </color>
-    </background_color>
-    <rules>
-      <rule name="New Rule" prop_id="visible" out_exp="false">
-        <exp bool_exp="pv0 == 0">
-          <value>false</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>true</value>
-        </exp>
-        <pv_name>loc://OpenEditMenu</pv_name>
-      </rule>
-    </rules>
-  </widget>
-  <widget type="group" version="3.0.0">
-    <name>Group</name>
-    <width>240</width>
-    <height>27</height>
-    <style>3</style>
-    <transparent>true</transparent>
-    <rules>
-      <rule name="New Rule" prop_id="visible" out_exp="false">
-        <exp bool_exp="pv0 == 0">
-          <value>true</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>false</value>
-        </exp>
-        <pv_name>loc://OpenEditMenu</pv_name>
-      </rule>
-    </rules>
     <widget type="textupdate" version="2.0.0">
-      <name>Text Update_1</name>
-      <pv_name>$(DEVICE):DeviceNickname</pv_name>
-      <x>30</x>
-      <y>4</y>
-      <width>210</width>
+      <name>Text Update_12</name>
+      <pv_name>$(DEVICE):SRSModel</pv_name>
+      <x>309</x>
+      <y>5</y>
+      <width>131</width>
       <font>
-        <font family="Eras Demi ITC" style="REGULAR" size="14.0">
+        <font family="Eras Demi ITC" style="BOLD" size="14.0">
         </font>
       </font>
       <foreground_color>
@@ -2108,75 +1951,172 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
         </color>
       </background_color>
       <transparent>true</transparent>
+      <horizontal_alignment>1</horizontal_alignment>
     </widget>
     <widget type="group" version="3.0.0">
-      <name>edit button</name>
-      <width>28</width>
+      <name>Nickname_1</name>
+      <x>4</x>
+      <y>2</y>
+      <width>198</width>
       <height>27</height>
       <style>3</style>
       <transparent>true</transparent>
-      <rules>
-        <rule name="New Rule" prop_id="visible" out_exp="false">
-          <exp bool_exp="pv0 == 0">
-            <value>true</value>
-          </exp>
-          <exp bool_exp="pv0 == 1">
-            <value>false</value>
-          </exp>
-          <pv_name>loc://OpenEditMenu</pv_name>
-        </rule>
-      </rules>
-      <widget type="picture" version="2.0.0">
-        <name>Picture</name>
-        <file>editIcon.png</file>
-        <width>24</width>
-        <height>24</height>
-        <opacity>0.9</opacity>
+      <widget type="group" version="3.0.0">
+        <name>edit nickname_1</name>
+        <width>198</width>
+        <height>27</height>
+        <visible>false</visible>
+        <style>3</style>
+        <transparent>true</transparent>
+        <rules>
+          <rule name="New Rule" prop_id="visible" out_exp="false">
+            <exp bool_exp="pv0 == 0">
+              <value>false</value>
+            </exp>
+            <exp bool_exp="pv0 == 1">
+              <value>true</value>
+            </exp>
+            <pv_name>loc://OpenEditMenu</pv_name>
+          </rule>
+        </rules>
+        <widget type="group" version="3.0.0">
+          <name>edit button_6</name>
+          <width>28</width>
+          <height>27</height>
+          <style>3</style>
+          <transparent>true</transparent>
+          <widget type="action_button" version="3.0.0">
+            <name>Action Button_29</name>
+            <actions>
+              <action type="write_pv">
+                <description>Edit device nickname</description>
+                <pv_name>$(pv_name)</pv_name>
+                <value>0</value>
+              </action>
+            </actions>
+            <pv_name>loc://OpenEditMenu</pv_name>
+            <text></text>
+            <width>25</width>
+            <height>25</height>
+            <foreground_color>
+              <color red="26" green="26" blue="26">
+              </color>
+            </foreground_color>
+            <background_color>
+              <color red="26" green="26" blue="26">
+              </color>
+            </background_color>
+            <tooltip>$(actions)</tooltip>
+            <border_alarm_sensitive>false</border_alarm_sensitive>
+          </widget>
+          <widget type="picture" version="2.0.0">
+            <name>Picture_12</name>
+            <file>editIcon.png</file>
+            <width>24</width>
+            <height>24</height>
+            <opacity>0.85</opacity>
+          </widget>
+        </widget>
+        <widget type="textentry" version="3.0.0">
+          <name>Text Entry_5</name>
+          <pv_name>$(DEVICE):DeviceNickname</pv_name>
+          <x>28</x>
+          <y>3</y>
+          <width>170</width>
+          <background_color>
+            <color red="255" green="255" blue="153">
+            </color>
+          </background_color>
+        </widget>
       </widget>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_5</name>
-        <actions>
-          <action type="write_pv">
-            <description>Edit device nickname</description>
-            <pv_name>$(pv_name)</pv_name>
-            <value>1</value>
-          </action>
-        </actions>
-        <pv_name>loc://OpenEditMenu</pv_name>
-        <text></text>
-        <width>25</width>
-        <height>25</height>
-        <foreground_color>
-          <color red="26" green="26" blue="26">
-          </color>
-        </foreground_color>
-        <background_color>
-          <color red="77" green="77" blue="77" alpha="1">
-          </color>
-        </background_color>
-        <tooltip>$(actions)</tooltip>
-        <border_alarm_sensitive>false</border_alarm_sensitive>
+      <widget type="group" version="3.0.0">
+        <name>device nickname_1</name>
+        <width>197</width>
+        <height>27</height>
+        <style>3</style>
+        <transparent>true</transparent>
+        <rules>
+          <rule name="New Rule" prop_id="visible" out_exp="false">
+            <exp bool_exp="pv0 == 0">
+              <value>true</value>
+            </exp>
+            <exp bool_exp="pv0 == 1">
+              <value>false</value>
+            </exp>
+            <pv_name>loc://OpenEditMenu</pv_name>
+          </rule>
+        </rules>
+        <widget type="textupdate" version="2.0.0">
+          <name>Text Update_13</name>
+          <pv_name>$(DEVICE):DeviceNickname</pv_name>
+          <x>27</x>
+          <y>2</y>
+          <width>170</width>
+          <font>
+            <font family="Eras Demi ITC" style="REGULAR" size="14.0">
+            </font>
+          </font>
+          <foreground_color>
+            <color name="ActiveText" red="255" green="255" blue="0">
+            </color>
+          </foreground_color>
+          <background_color>
+            <color name="Text" red="0" green="0" blue="0">
+            </color>
+          </background_color>
+          <transparent>true</transparent>
+          <horizontal_alignment>2</horizontal_alignment>
+        </widget>
+        <widget type="group" version="3.0.0">
+          <name>edit button_7</name>
+          <width>28</width>
+          <height>27</height>
+          <style>3</style>
+          <transparent>true</transparent>
+          <rules>
+            <rule name="New Rule" prop_id="visible" out_exp="false">
+              <exp bool_exp="pv0 == 0">
+                <value>true</value>
+              </exp>
+              <exp bool_exp="pv0 == 1">
+                <value>false</value>
+              </exp>
+              <pv_name>loc://OpenEditMenu</pv_name>
+            </rule>
+          </rules>
+          <widget type="picture" version="2.0.0">
+            <name>Picture_13</name>
+            <file>editIcon.png</file>
+            <width>24</width>
+            <height>24</height>
+            <opacity>0.9</opacity>
+          </widget>
+          <widget type="action_button" version="3.0.0">
+            <name>Action Button_30</name>
+            <actions>
+              <action type="write_pv">
+                <description>Edit device nickname</description>
+                <pv_name>$(pv_name)</pv_name>
+                <value>1</value>
+              </action>
+            </actions>
+            <pv_name>loc://OpenEditMenu</pv_name>
+            <text></text>
+            <width>25</width>
+            <height>25</height>
+            <foreground_color>
+              <color red="26" green="26" blue="26">
+              </color>
+            </foreground_color>
+            <background_color>
+              <color red="77" green="77" blue="77" alpha="1">
+              </color>
+            </background_color>
+            <tooltip>$(actions)</tooltip>
+            <border_alarm_sensitive>false</border_alarm_sensitive>
+          </widget>
+        </widget>
       </widget>
     </widget>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <name>Text Update_2</name>
-    <pv_name>$(DEVICE):DevicePrefix</pv_name>
-    <x>363</x>
-    <y>820</y>
-    <width>210</width>
-    <font>
-      <font family="Eras Demi ITC" style="REGULAR" size="14.0">
-      </font>
-    </font>
-    <foreground_color>
-      <color name="ActiveText" red="255" green="255" blue="0">
-      </color>
-    </foreground_color>
-    <background_color>
-      <color name="Text" red="0" green="0" blue="0">
-      </color>
-    </background_color>
-    <transparent>true</transparent>
   </widget>
 </display>
