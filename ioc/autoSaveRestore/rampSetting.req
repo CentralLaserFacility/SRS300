@@ -3,3 +3,4 @@ $(P)RampInterval
 $(P)TargetHV
 $(P)RampMode
 $(P)RampDuration
+$(P)DeviceNickname

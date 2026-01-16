@@ -13,9 +13,9 @@
   </background_color>
   <actions>
     <action type="write_pv">
+      <description>Write PV</description>
       <pv_name>$(DEVICE):VRAMPrun</pv_name>
       <value>0</value>
-      <description>Write PV</description>
     </action>
   </actions>
   <grid_visible>false</grid_visible>
@@ -44,9 +44,9 @@
     <name>Action Button</name>
     <actions>
       <action type="write_pv">
+        <description>Enable high voltage</description>
         <pv_name>$(DEVICE):HVenable</pv_name>
         <value>1</value>
-        <description>Enable high voltage</description>
       </action>
     </actions>
     <text>HV On</text>
@@ -70,9 +70,9 @@
     <name>Action Button_1</name>
     <actions>
       <action type="write_pv">
+        <description>Disable high voltage</description>
         <pv_name>$(DEVICE):HVenable</pv_name>
         <value>0</value>
-        <description>Disable high voltage</description>
       </action>
     </actions>
     <text>HV Off</text>
@@ -166,9 +166,9 @@
       <name>Start ramp</name>
       <actions>
         <action type="write_pv">
+          <description>Start ramp</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>Start ramp</description>
         </action>
       </actions>
       <pv_name>$(DEVICE):StartCharge.PROC</pv_name>
@@ -205,9 +205,9 @@
       <name>Halt ramp</name>
       <actions>
         <action type="write_pv">
+          <description>Halt ramp</description>
           <pv_name>$(pv_name)</pv_name>
           <value>0</value>
-          <description>Halt ramp</description>
         </action>
       </actions>
       <pv_name>$(DEVICE):RampActive</pv_name>
@@ -627,9 +627,9 @@
       <name>Reset button</name>
       <actions>
         <action type="write_pv">
+          <description>Reset</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>Reset</description>
         </action>
       </actions>
       <pv_name>$(DEVICE):ResetSeq</pv_name>
@@ -674,9 +674,9 @@
       <name>EDM activeMessageButtonClass_3</name>
       <actions>
         <action type="write_pv">
+          <description>Clear trip</description>
           <pv_name>$(pv_name)</pv_name>
           <value>0</value>
-          <description>Clear trip</description>
         </action>
       </actions>
       <pv_name>$(DEVICE):TripClearSeq</pv_name>
@@ -994,9 +994,9 @@
         <name>Action Button_17</name>
         <actions>
           <action type="write_pv">
+            <description>open advanced settings</description>
             <pv_name>$(pv_name)</pv_name>
             <value>1</value>
-            <description>open advanced settings</description>
           </action>
         </actions>
         <pv_name>loc://LimitMenuOpen</pv_name>
@@ -1019,9 +1019,9 @@
         <height>22</height>
         <actions>
           <action type="write_pv">
+            <description>open advanced settings</description>
             <pv_name>loc://LimitMenuOpen</pv_name>
             <value>1</value>
-            <description>open advanced settings</description>
           </action>
         </actions>
       </widget>
@@ -1143,14 +1143,14 @@
       <name>Apply- positive</name>
       <actions execute_as_one="true">
         <action type="write_pv">
+          <description>set limits</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>set limits</description>
         </action>
         <action type="write_pv">
+          <description>close ui</description>
           <pv_name>loc://LimitMenuOpen</pv_name>
           <value>0</value>
-          <description>close ui</description>
         </action>
       </actions>
       <pv_name>$(DEVICE):SetNewLimitsPOS.PROC</pv_name>
@@ -1177,9 +1177,9 @@
       <name>Action Button_11</name>
       <actions>
         <action type="write_pv">
+          <description>reset limits</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>reset limits</description>
         </action>
       </actions>
       <pv_name>$(DEVICE):ResetLimits.PROC</pv_name>
@@ -1199,14 +1199,14 @@
       <name>Action Button_12</name>
       <actions execute_as_one="true">
         <action type="write_pv">
+          <description>close seq</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>close seq</description>
         </action>
         <action type="write_pv">
+          <description>close ui</description>
           <pv_name>loc://LimitMenuOpen</pv_name>
           <value>0</value>
-          <description>close ui</description>
         </action>
       </actions>
       <pv_name>$(DEVICE):LimitMenuClosed.PROC</pv_name>
@@ -1278,14 +1278,14 @@
         <name>Action Button_13</name>
         <actions execute_as_one="true">
           <action type="write_pv">
+            <description>Close</description>
             <pv_name>$(pv_name)</pv_name>
             <value>1</value>
-            <description>Close</description>
           </action>
           <action type="write_pv">
+            <description>close ui</description>
             <pv_name>loc://LimitMenuOpen</pv_name>
             <value>0</value>
-            <description>close ui</description>
           </action>
         </actions>
         <pv_name>$(DEVICE):LimitMenuClosed.PROC</pv_name>
@@ -1301,14 +1301,14 @@
       <name>Apply- negative</name>
       <actions execute_as_one="true">
         <action type="write_pv">
+          <description>set limits</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>set limits</description>
         </action>
         <action type="write_pv">
+          <description>close ui</description>
           <pv_name>loc://LimitMenuOpen</pv_name>
           <value>0</value>
-          <description>close ui</description>
         </action>
       </actions>
       <pv_name>$(DEVICE):SetNewLimitsNEG.PROC</pv_name>
@@ -1377,9 +1377,9 @@
       <name>Action Button_18</name>
       <actions>
         <action type="write_pv">
+          <description>Open Config Menu</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>Open Config Menu</description>
         </action>
       </actions>
       <pv_name>loc://ConfigMenuOpen</pv_name>
@@ -1409,9 +1409,9 @@
       <height>22</height>
       <actions>
         <action type="write_pv">
+          <description>open advanced settings</description>
           <pv_name>loc://LimitMenuOpen</pv_name>
           <value>1</value>
-          <description>open advanced settings</description>
         </action>
       </actions>
       <rules>
@@ -1607,9 +1607,9 @@
         <name>Action Button_23</name>
         <actions execute_as_one="true">
           <action type="write_pv">
+            <description>close menu</description>
             <pv_name>loc://ConfigMenuOpen</pv_name>
             <value>0</value>
-            <description>close menu</description>
           </action>
         </actions>
         <pv_name>loc://ConfigMenuOpen</pv_name>
@@ -1790,33 +1790,37 @@
     <height>29</height>
     <style>3</style>
     <transparent>true</transparent>
+    <widget type="picture" version="2.0.0">
+      <name>Picture_2</name>
+      <file>refreshButton.png</file>
+      <width>29</width>
+      <height>29</height>
+    </widget>
     <widget type="action_button" version="3.0.0">
       <name>Action Button_3</name>
       <actions>
         <action type="execute">
+          <description>Refresh display</description>
           <script file="EmbeddedPy">
             <text><![CDATA[# Embedded python script
 from org.csstudio.display.builder.runtime.script import PVUtil, ScriptUtil
 ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
 ]]></text>
           </script>
-          <description>Refresh display</description>
         </action>
       </actions>
       <text></text>
       <width>28</width>
       <height>27</height>
-      <background_color>
+      <foreground_color>
         <color red="26" green="26" blue="26">
+        </color>
+      </foreground_color>
+      <background_color>
+        <color red="77" green="77" blue="77" alpha="1">
         </color>
       </background_color>
       <tooltip>$(actions)</tooltip>
-    </widget>
-    <widget type="picture" version="2.0.0">
-      <name>Picture_2</name>
-      <file>refreshButton.png</file>
-      <width>29</width>
-      <height>29</height>
     </widget>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1851,107 +1855,6 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
       <color red="153" green="153" blue="153">
       </color>
     </background_color>
-  </widget>
-  <widget type="group" version="3.0.0">
-    <name>Device nickname</name>
-    <x>1</x>
-    <y>1</y>
-    <width>158</width>
-    <height>27</height>
-    <visible>false</visible>
-    <style>3</style>
-    <transparent>true</transparent>
-    <rules>
-      <rule name="New Rule" prop_id="visible" out_exp="false">
-        <exp bool_exp="pv0 == 0">
-          <value>true</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>false</value>
-        </exp>
-        <pv_name>loc://OpenEditMenu</pv_name>
-      </rule>
-    </rules>
-    <widget type="textupdate" version="2.0.0">
-      <name>Text Update_1</name>
-      <pv_name>$(DEVICE):DeviceNickname</pv_name>
-      <x>27</x>
-      <y>4</y>
-      <width>131</width>
-      <font>
-        <font family="Eras Demi ITC" style="REGULAR" size="14.0">
-        </font>
-      </font>
-      <foreground_color>
-        <color name="ActiveText" red="255" green="255" blue="0">
-        </color>
-      </foreground_color>
-      <background_color>
-        <color name="Text" red="0" green="0" blue="0">
-        </color>
-      </background_color>
-      <transparent>true</transparent>
-      <horizontal_alignment>1</horizontal_alignment>
-      <rules>
-        <rule name="New Rule" prop_id="visible" out_exp="false">
-          <exp bool_exp="pv0 == 0">
-            <value>true</value>
-          </exp>
-          <exp bool_exp="pv0 == 1">
-            <value>false</value>
-          </exp>
-          <pv_name>loc://OpenEditMenu</pv_name>
-        </rule>
-      </rules>
-    </widget>
-    <widget type="group" version="3.0.0">
-      <name>edit button</name>
-      <width>28</width>
-      <height>27</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <rules>
-        <rule name="New Rule" prop_id="visible" out_exp="false">
-          <exp bool_exp="pv0 == 0">
-            <value>true</value>
-          </exp>
-          <exp bool_exp="pv0 == 1">
-            <value>false</value>
-          </exp>
-          <pv_name>loc://OpenEditMenu</pv_name>
-        </rule>
-      </rules>
-      <widget type="action_button" version="3.0.0">
-        <name>Action Button_5</name>
-        <actions>
-          <action type="write_pv">
-            <pv_name>$(pv_name)</pv_name>
-            <value>1</value>
-            <description>Edit device nickname</description>
-          </action>
-        </actions>
-        <pv_name>loc://OpenEditMenu</pv_name>
-        <text></text>
-        <width>25</width>
-        <height>25</height>
-        <foreground_color>
-          <color red="26" green="26" blue="26">
-          </color>
-        </foreground_color>
-        <background_color>
-          <color red="51" green="51" blue="51">
-          </color>
-        </background_color>
-        <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="picture" version="2.0.0">
-        <name>Picture</name>
-        <file>editIcon.png</file>
-        <width>24</width>
-        <height>24</height>
-        <opacity>0.85</opacity>
-      </widget>
-    </widget>
   </widget>
   <widget type="group" version="3.0.0">
     <name>Error messages</name>
@@ -2031,14 +1934,14 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
       <name>Action Button_4</name>
       <actions execute_as_one="true">
         <action type="write_pv">
+          <description>Write PV</description>
           <pv_name>$(DEVICE):SmallStepError</pv_name>
           <value>0</value>
-          <description>Write PV</description>
         </action>
         <action type="write_pv">
+          <description>Write PV</description>
           <pv_name>$(DEVICE):HVdisconnectError</pv_name>
           <value>0</value>
-          <description>Write PV</description>
         </action>
       </actions>
       <text>Clear message</text>
@@ -2058,9 +1961,9 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
   </widget>
   <widget type="group" version="3.0.0">
     <name>edit nickname</name>
-    <x>1</x>
-    <y>1</y>
-    <width>273</width>
+    <x>643</x>
+    <y>880</y>
+    <width>283</width>
     <height>49</height>
     <style>3</style>
     <transparent>true</transparent>
@@ -2075,98 +1978,139 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
         <pv_name>loc://OpenEditMenu</pv_name>
       </rule>
     </rules>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_15</name>
+      <actions>
+        <action type="write_pv">
+          <description>Reset nickname</description>
+          <pv_name>$(pv_name)</pv_name>
+          <value>1</value>
+        </action>
+      </actions>
+      <pv_name>$(DEVICE):ResetNickname.PROC</pv_name>
+      <text>reset </text>
+      <x>219</x>
+      <y>2</y>
+      <width>43</width>
+      <height>20</height>
+      <tooltip>$(actions)</tooltip>
+    </widget>
     <widget type="textentry" version="3.0.0">
       <name>Text Entry_2</name>
       <pv_name>$(DEVICE):DeviceNickname</pv_name>
       <x>26</x>
       <y>3</y>
-      <width>166</width>
+      <width>187</width>
       <background_color>
         <color red="255" green="255" blue="153">
         </color>
       </background_color>
     </widget>
     <widget type="group" version="3.0.0">
-      <name>X button_1</name>
-      <width>22</width>
-      <height>24</height>
-      <visible>false</visible>
+      <name>edit button_1</name>
+      <width>28</width>
+      <height>27</height>
       <style>3</style>
       <transparent>true</transparent>
-      <widget type="ellipse" version="2.0.0">
-        <name>Ellipse_10</name>
-        <x>2</x>
-        <y>3</y>
-        <width>19</width>
-        <height>19</height>
-        <line_width>1</line_width>
-        <line_color>
-          <color red="153" green="0" blue="0">
-          </color>
-        </line_color>
-        <background_color>
-          <color red="204" green="51" blue="51">
-          </color>
-        </background_color>
-      </widget>
-      <widget type="label" version="2.0.0">
-        <name>Label_47</name>
-        <text>X</text>
-        <x>6</x>
-        <y>4</y>
-        <width>16</width>
-        <font>
-          <font family="Liberation Sans" style="BOLD" size="14.0">
-          </font>
-        </font>
-        <foreground_color>
-          <color name="Header_ForeGround" red="255" green="255" blue="255">
-          </color>
-        </foreground_color>
+      <widget type="picture" version="2.0.0">
+        <name>Picture_1</name>
+        <file>editIcon.png</file>
+        <width>24</width>
+        <height>24</height>
+        <opacity>0.85</opacity>
       </widget>
       <widget type="action_button" version="3.0.0">
-        <name>Action Button_14</name>
-        <actions execute_as_one="true">
+        <name>Action Button_16</name>
+        <actions>
           <action type="write_pv">
+            <description>Edit device nickname</description>
             <pv_name>$(pv_name)</pv_name>
-            <value>1</value>
-            <description>Close</description>
-          </action>
-          <action type="write_pv">
-            <pv_name>loc://LimitMenuOpen</pv_name>
             <value>0</value>
-            <description>close ui</description>
           </action>
         </actions>
-        <pv_name>$(DEVICE):LimitMenuClosed.PROC</pv_name>
+        <pv_name>loc://OpenEditMenu</pv_name>
         <text></text>
-        <width>21</width>
-        <height>23</height>
-        <transparent>true</transparent>
+        <width>25</width>
+        <height>25</height>
+        <foreground_color>
+          <color red="26" green="26" blue="26">
+          </color>
+        </foreground_color>
+        <background_color>
+          <color red="77" green="77" blue="77" alpha="1">
+          </color>
+        </background_color>
         <tooltip>$(actions)</tooltip>
         <border_alarm_sensitive>false</border_alarm_sensitive>
       </widget>
     </widget>
-    <widget type="action_button" version="3.0.0">
-      <name>Action Button_15</name>
-      <actions>
-        <action type="write_pv">
-          <pv_name>$(pv_name)</pv_name>
-          <value>1</value>
-          <description>Reset nickname</description>
-        </action>
-      </actions>
-      <pv_name>$(DEVICE):ResetNickname.PROC</pv_name>
-      <text>reset </text>
-      <x>198</x>
-      <y>2</y>
-      <width>43</width>
-      <height>20</height>
-      <tooltip>$(actions)</tooltip>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_3</name>
+    <text>$(DEVICE)</text>
+    <x>27</x>
+    <y>28</y>
+    <width>229</width>
+    <height>18</height>
+    <font>
+      <font family="Eras Demi ITC" style="BOLD_ITALIC" size="14.0">
+      </font>
+    </font>
+    <background_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </background_color>
+    <rules>
+      <rule name="New Rule" prop_id="visible" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>false</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>true</value>
+        </exp>
+        <pv_name>loc://OpenEditMenu</pv_name>
+      </rule>
+    </rules>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Group</name>
+    <width>240</width>
+    <height>27</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <rules>
+      <rule name="New Rule" prop_id="visible" out_exp="false">
+        <exp bool_exp="pv0 == 0">
+          <value>true</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>false</value>
+        </exp>
+        <pv_name>loc://OpenEditMenu</pv_name>
+      </rule>
+    </rules>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_1</name>
+      <pv_name>$(DEVICE):DeviceNickname</pv_name>
+      <x>30</x>
+      <y>4</y>
+      <width>210</width>
+      <font>
+        <font family="Eras Demi ITC" style="REGULAR" size="14.0">
+        </font>
+      </font>
+      <foreground_color>
+        <color name="ActiveText" red="255" green="255" blue="0">
+        </color>
+      </foreground_color>
+      <background_color>
+        <color name="Text" red="0" green="0" blue="0">
+        </color>
+      </background_color>
+      <transparent>true</transparent>
     </widget>
     <widget type="group" version="3.0.0">
-      <name>edit button_1</name>
+      <name>edit button</name>
       <width>28</width>
       <height>27</height>
       <style>3</style>
@@ -2182,13 +2126,20 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
           <pv_name>loc://OpenEditMenu</pv_name>
         </rule>
       </rules>
+      <widget type="picture" version="2.0.0">
+        <name>Picture</name>
+        <file>editIcon.png</file>
+        <width>24</width>
+        <height>24</height>
+        <opacity>0.9</opacity>
+      </widget>
       <widget type="action_button" version="3.0.0">
-        <name>Action Button_16</name>
+        <name>Action Button_5</name>
         <actions>
           <action type="write_pv">
-            <pv_name>$(pv_name)</pv_name>
-            <value>0</value>
             <description>Edit device nickname</description>
+            <pv_name>$(pv_name)</pv_name>
+            <value>1</value>
           </action>
         </actions>
         <pv_name>loc://OpenEditMenu</pv_name>
@@ -2200,45 +2151,32 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
           </color>
         </foreground_color>
         <background_color>
-          <color red="51" green="51" blue="51">
+          <color red="77" green="77" blue="77" alpha="1">
           </color>
         </background_color>
         <tooltip>$(actions)</tooltip>
-      </widget>
-      <widget type="picture" version="2.0.0">
-        <name>Picture_1</name>
-        <file>editIcon.png</file>
-        <width>24</width>
-        <height>24</height>
-        <opacity>0.85</opacity>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
       </widget>
     </widget>
   </widget>
-  <widget type="label" version="2.0.0">
-    <name>Label_3</name>
-    <text>Prefix: $(DEVICE)</text>
-    <x>29</x>
-    <y>28</y>
-    <width>229</width>
-    <height>18</height>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_2</name>
+    <pv_name>$(DEVICE):DevicePrefix</pv_name>
+    <x>363</x>
+    <y>820</y>
+    <width>210</width>
     <font>
       <font family="Eras Demi ITC" style="REGULAR" size="14.0">
       </font>
     </font>
+    <foreground_color>
+      <color name="ActiveText" red="255" green="255" blue="0">
+      </color>
+    </foreground_color>
     <background_color>
-      <color red="0" green="0" blue="0">
+      <color name="Text" red="0" green="0" blue="0">
       </color>
     </background_color>
-    <rules>
-      <rule name="New Rule" prop_id="visible" out_exp="false">
-        <exp bool_exp="pv0 == 0">
-          <value>true</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>false</value>
-        </exp>
-        <pv_name>loc://OpenEditMenu</pv_name>
-      </rule>
-    </rules>
+    <transparent>true</transparent>
   </widget>
 </display>
