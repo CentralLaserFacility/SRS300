@@ -2084,6 +2084,30 @@ ScriptUtil.openDisplay(widget, "SRS_PS300.bob", "REPLACE", None)
               <pv_name>loc://OpenEditMenu</pv_name>
             </rule>
           </rules>
+          <widget type="action_button" version="3.0.0">
+            <name>Action Button_31</name>
+            <actions>
+              <action type="write_pv">
+                <description>Edit device nickname</description>
+                <pv_name>$(pv_name)</pv_name>
+                <value>1</value>
+              </action>
+            </actions>
+            <pv_name>loc://OpenEditMenu</pv_name>
+            <text></text>
+            <width>1</width>
+            <height>1</height>
+            <foreground_color>
+              <color red="26" green="26" blue="26">
+              </color>
+            </foreground_color>
+            <background_color>
+              <color red="77" green="77" blue="77" alpha="1">
+              </color>
+            </background_color>
+            <tooltip>$(actions)</tooltip>
+            <border_alarm_sensitive>false</border_alarm_sensitive>
+          </widget>
           <widget type="picture" version="2.0.0">
             <name>Picture_13</name>
             <file>editIcon.png</file>
