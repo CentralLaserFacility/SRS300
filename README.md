@@ -17,7 +17,7 @@ For safe ramping:
 - If a user is unsure as to appropriate values for ramping of a device, configMenu is used so that users can save and load in settings other users have used with titles and descriptions.
 
 ## Substitutions, limits and inputs
-If the IOC is restarted but the GUI isn't, there is sometimes an issue with the input boxes. This is fixed by refreshing the GUI, there is a refresh button in the top left corner for this purpose.
+If the IOC is restarted but the GUI isn't, there is sometimes an issue with the input boxes. This is fixed by refreshing the GUI, there is a refresh button in the top right corner for this purpose.
 
 To allow for substitutions to change dynamically, sequence records are used to set limits on start and may be used to set new limits during run time if polarity is switched.
 
