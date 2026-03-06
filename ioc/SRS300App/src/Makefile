@@ -41,7 +41,6 @@ SRS300_LIBS += utilities
 SRS300_LIBS += seq pv
 SRS300_SYS_LIBS += pcrecpp
 SRS300_SYS_LIBS += pcre
-
 # SRS300_registerRecordDeviceDriver.cpp derives from SRS300.dbd
 SRS300_SRCS += SRS300_registerRecordDeviceDriver.cpp
 SRS300_SRCS += ramp.c

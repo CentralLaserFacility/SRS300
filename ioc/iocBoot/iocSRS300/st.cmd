@@ -7,8 +7,15 @@
 
 # LANTRONIX RS232 adapter address
 #
-epicsEnvSet("MODEL","$(MODEL=370)")
-epicsEnvSet("ADDR","192.168.0.20:10002")
+# epicsEnvSet("MODEL","$(MODEL=375)")
+# epicsEnvSet("ADDR","192.168.0.20:10002")
+# epicsEnvSet("A","-1")
+# epicsEnvSet("PORT","L0")
+
+# GPIB adapter address
+#
+epicsEnvSet("MODEL","$(MODEL=375)")
+epicsEnvSet("ADDR","192.168.1.20:1234")
 epicsEnvSet("A","-1")
 epicsEnvSet("PORT","L0")
 
