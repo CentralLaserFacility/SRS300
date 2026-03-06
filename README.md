@@ -26,7 +26,7 @@ If the device's polarity is negative, inputs regarding voltage must include the 
 There are two 'popup' menus in the GUI, one for ramp configurations and the other for device limits (voltage maximum, current maximum and current trip limit) both can be accessed via buttons with the gear icon.
 
 ## Hardware connections
-The SRS PS375 and PS370 communicate via a serial connection which is converted to ethernet however some models, such as the PS310, must instead use a GPIB to ethernet controller.
+The SRS PS375 and PS370 communicate via a serial connection which is converted to ethernet however some models, such as the PS310, must instead use a GPIB to ethernet controller. For information on setup of the Prologix GPIB-Ethernet converter see Documentation/GPIB-Ethernet_Controller_setup.pdf
 
 ## Documentation and manuals:
 Most information in either manual is applicable to both earlier and later models
