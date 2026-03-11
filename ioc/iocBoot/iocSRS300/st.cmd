@@ -31,7 +31,18 @@ cd "${TOP}"
 dbLoadDatabase "dbd/SRS300.dbd"
 SRS300_registerRecordDeviceDriver pdbbase
 
-drvAsynIPPortConfigure("L0","$(ADDR)",0,0,0)
+#drvPrologixGPIBConfigure("$(PORT)","$(ADDR)",0,0)
+drvAsynIPPortConfigure("$(PORT)","$(ADDR)",0,0,0)
+
+# epicsThreadSleep(0.2)
+
+# # Set Prologix modes
+# asynOctetWrite("L0", "++mode 1", 0)
+# asynOctetWrite("L0", "++auto 1", 0)
+# asynOctetWrite("L0", "++eoi 1", 0)
+# asynOctetWrite("L0", "++read_tmo_ms 2000", 0)
+# asynOctetWrite("L0", "++addr 14", 0)
+# epicsThreadSleep(0.2)
 
 ## Load record instances
 dbLoadRecords("$(ASYN)/db/asynRecord.db","P=$(DEVICE):, R=asyn,PORT=$(PORT),ADDR=0,OMAX=256,IMAX=256")

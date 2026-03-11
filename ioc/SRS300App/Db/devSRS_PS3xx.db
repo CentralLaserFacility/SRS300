@@ -30,7 +30,7 @@ record(stringin, "$(DEVICE):DeviceNickname"){
 record(fanout, "$(DEVICE):ReadbackPoll"){
     field(DESC, "Head of readback chain")
     field(PINI, "YES")
-    field(SCAN, ".1 second")
+    field(SCAN, ".5 second")
     field(LNK1, "$(DEVICE):STBget")
     field(LNK2, "$(DEVICE):HVONstatus")
     field(LNK3, "$(DEVICE):ILIMstatus")

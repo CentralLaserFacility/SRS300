@@ -10,7 +10,11 @@
 @readtimeout  { disconnect; }
 @mismatch     { disconnect; }
 
-ReplyTimeout = 500;
+
+ReplyTimeout = 2000;#***
+ReadTimeout = 1000;
+LockTimeout = 2000;
+WriteTimeout = 100; #default
 InTerminator = "\n";
 OutTerminator = "\n";
 
@@ -45,6 +49,7 @@ hvOffOn {
 
 setting {
     out "\$1 %f";
+   # @init { out "\$1?"; out "++read eoi"; in "%f"; }
     @init { out "\$1?"; in "%f"; }
 }
 
