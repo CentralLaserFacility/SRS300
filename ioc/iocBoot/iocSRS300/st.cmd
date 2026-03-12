@@ -14,8 +14,8 @@
 
 # GPIB adapter address
 #
-epicsEnvSet("MODEL","$(MODEL=375)")
-epicsEnvSet("ADDR","192.168.1.20:1234")
+epicsEnvSet("MODEL","$(MODEL=370)")
+epicsEnvSet("ADDR","192.168.1.50:1234")
 epicsEnvSet("A","-1")
 epicsEnvSet("PORT","L0")
 
@@ -33,6 +33,9 @@ SRS300_registerRecordDeviceDriver pdbbase
 
 #drvPrologixGPIBConfigure("$(PORT)","$(ADDR)",0,0)
 drvAsynIPPortConfigure("$(PORT)","$(ADDR)",0,0,0)
+
+asynSetTraceMask("$(PORT)", 0, 0x09)
+asynSetTraceIOMask("$(PORT)", 0, 0x02)
 
 # epicsThreadSleep(0.2)
 

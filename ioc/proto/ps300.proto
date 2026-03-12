@@ -49,7 +49,6 @@ hvOffOn {
 
 setting {
     out "\$1 %f";
-   # @init { out "\$1?"; out "++read eoi"; in "%f"; }
     @init { out "\$1?"; in "%f"; }
 }
 
