@@ -34,8 +34,8 @@ SRS300_registerRecordDeviceDriver pdbbase
 #drvPrologixGPIBConfigure("$(PORT)","$(ADDR)",0,0)
 drvAsynIPPortConfigure("$(PORT)","$(ADDR)",0,0,0)
 
-asynSetTraceMask("$(PORT)", 0, 0x09)
-asynSetTraceIOMask("$(PORT)", 0, 0x02)
+# asynSetTraceMask("$(PORT)", 0, 0x09)
+# asynSetTraceIOMask("$(PORT)", 0, 0x02)
 
 # epicsThreadSleep(0.2)
 

@@ -30,7 +30,7 @@ record(stringin, "$(DEVICE):DeviceNickname"){
 record(fanout, "$(DEVICE):ReadbackPoll"){
     field(DESC, "Head of readback chain")
     field(PINI, "YES")
-    field(SCAN, "2 second")
+    field(SCAN, ".1 second")
     field(LNK1, "$(DEVICE):STBget")
     field(LNK2, "$(DEVICE):HVONstatus")
     field(LNK3, "$(DEVICE):ILIMstatus")
@@ -115,7 +115,7 @@ record(calc, "$(DEVICE):stableMultiState"){
 record(ai, "$(DEVICE):OutputIget"){
     field(DESC, "Output current readback")
     field(DTYP, "stream")
-    #***field(SCAN, ".1 second")
+    field(SCAN, ".1 second")
     field(INP,  "@ps300.proto getF(IOUT) $(PORT) $(A)")
     field(EGU,  "A")
     field(PREC, "4")
@@ -142,12 +142,10 @@ record(ao, "$(DEVICE):HVset"){
 record(seq, "$(DEVICE):VoltageMonitor"){
     field(DESC, "Monitor voltage")
     field(PINI, "YES")
-    field(SCAN, "2 second")
+    field(SCAN, ".1 second")
     field(LNK1, "$(DEVICE):OutputVget.PROC")
     field(LNK2, "$(DEVICE):HVstable.PROC")
     field(LNK3, "$(DEVICE):TargetVreached.PROC")
-    field(DLY4, "0.5")
-    field(LNK4, "$(DEVICE):OutputIget.PROC")#***
 }
 record(ai, "$(DEVICE):OutputVget"){
     field(DESC, "Output voltage readback")
@@ -243,7 +241,7 @@ record(mbbiDirect, "$(DEVICE):ESRget"){
     field(DESC, "get event status register")
     field(DTYP, "stream")
     field(INP, "@ps300.proto getD(*ESR) $(PORT) $(A)")
-    field(SCAN, "2 second")
+    #field(SCAN, "2 second")
     field(FLNK, "$(DEVICE):PONget")
 }
 
