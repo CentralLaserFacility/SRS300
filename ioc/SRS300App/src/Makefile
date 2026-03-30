@@ -28,6 +28,7 @@ SRS300_DBD += rampLogic.dbd
 #endif
 SRS300_DBD += drvAsynIPPort.dbd
 SRS300_DBD += asSupport.dbd
+SRS300_DBD += drvPrologixGPIB.dbd
 
 # Add all the support libraries needed by this IOC
 #SRS300_LIBS += xxx
@@ -41,6 +42,7 @@ SRS300_LIBS += utilities
 SRS300_LIBS += seq pv
 SRS300_SYS_LIBS += pcrecpp
 SRS300_SYS_LIBS += pcre
+
 # SRS300_registerRecordDeviceDriver.cpp derives from SRS300.dbd
 SRS300_SRCS += SRS300_registerRecordDeviceDriver.cpp
 SRS300_SRCS += ramp.c

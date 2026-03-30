@@ -11,19 +11,17 @@
 @mismatch     { disconnect; }
 
 
-ReplyTimeout = 2000;#***
-ReadTimeout = 1000;
-#LockTimeout = 2000;
+ReplyTimeout = 2000;
+ReadTimeout = 2000;
+LockTimeout = 15000;
 WriteTimeout = 100; #default
 InTerminator = "\n";
 OutTerminator = "\n";
 
 getIDN {
     out "*IDN?";
-    wait 500;
-    out "++read eoi";
     in "%\$1[^\r\n]";
-    #ExtraInput = Ignore;
+    ExtraInput = Ignore;
 }
 
 cmd {
@@ -35,25 +33,35 @@ setD {
 }
 getD {
     out "\$1?";
-    wait 500;
-    out "++read eoi";
     in "%d";
-    #ExtraInput = Ignore;
+    ExtraInput = Ignore;
 }
 
 getF {
     out "\$1?";
-    wait 500;
-    out "++read eoi";
     in "%f";
-    #ExtraInput = Ignore;
+    ExtraInput = Ignore;
 }
 
+#scans with waits for timeout reduction when using GPIB
+scanD {
+    wait 25;
+    out "\$1?";
+    in "%d";
+    ExtraInput = Ignore;
+}
+scanF {
+    wait 25;
+    out "\$1?";
+    in "%f";
+    ExtraInput = Ignore;
+}
 hvOffOn {
     out "%{HVOF|HVON}";
 }
 
 setting {
     out "\$1 %f";
-    @init { out "\$1?"; wait 500; out "++read eoi"; in "%f";}
+    @init { out "\$1?"; in "%f";}
 }
+

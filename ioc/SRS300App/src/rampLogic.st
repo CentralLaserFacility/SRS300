@@ -1,8 +1,6 @@
 program rampLogic
 %%#define RAMPING 1
 %%#define IDLE 0
-%%#define REGULAR_SCAN 6 //regular scan = 1 second
-//to change default scan see scan menu and change 6 accordingly
 %%#define PASSIVE 0 // 0 = passive scanning
 %%#define END 1 // 1 = ramp ended
 %%#define SCAN_DELAY 1.45 //delay time for voltage to stabilize after setting new voltage
@@ -18,6 +16,7 @@ double interval;
 short StartCharge;// 1 = ramping, 0 = Idle
 double HVset;
 short VoltageMonitorScan; 
+short RegularScan; 
 double MinStepSize;
 short Tolerance; //Tolerance for stopping ramping
 double newVoltage;
@@ -34,6 +33,7 @@ assign interval to "{DEVICE}:RampInterval";
 assign StartCharge to "{DEVICE}:RampActive";
 assign HVset to "{DEVICE}:HVset";
 assign VoltageMonitorScan to "{DEVICE}:VoltageMonitor.SCAN";
+assign RegularScan to "{DEVICE}:ReadbackPoll.SCAN";
 assign monitorPROC to "{DEVICE}:VoltageMonitor.PROC";
 assign MinStepSize to "{DEVICE}:MinStepSize"; 
 assign Tolerance to "{DEVICE}:Tolerance";
@@ -48,6 +48,7 @@ monitor StartCharge;
 monitor MinStepSize;
 monitor Tolerance;
 monitor HVonStatus;
+monitor RegularScan;
 
 ss RampState{
 
@@ -59,7 +60,7 @@ ss RampState{
             //if HV is off, do not ramp
             StartCharge = IDLE;
             EndCharge = END;
-            VoltageMonitorScan = REGULAR_SCAN;
+            VoltageMonitorScan = RegularScan;
             pvPut(StartCharge);
             pvPut(EndCharge);
             pvPut(VoltageMonitorScan);
@@ -91,7 +92,7 @@ ss RampState{
         when (presentVoltage >= (targetVoltage-Tolerance) || StartCharge == IDLE || HVonStatus == DISABLED){ //stops ramping and returns to initial
             StartCharge = IDLE;
             EndCharge = END;
-            VoltageMonitorScan = REGULAR_SCAN;
+            VoltageMonitorScan = RegularScan;
             pvPut(StartCharge);
             pvPut(EndCharge);
             pvPut(VoltageMonitorScan);
@@ -113,7 +114,7 @@ ss RampState{
         when (presentVoltage<=(targetVoltage+Tolerance) || StartCharge == IDLE || HVonStatus == DISABLED){ //stops ramping and returns to initial
             StartCharge = IDLE;
             EndCharge = END;
-            VoltageMonitorScan = REGULAR_SCAN;
+            VoltageMonitorScan = RegularScan;
             pvPut(StartCharge);
             pvPut(EndCharge);
             pvPut(VoltageMonitorScan);
@@ -126,7 +127,7 @@ ss RampState{
     state StableDelay{ 
         when (delay(SCAN_DELAY)){// delays by 1.45 seconds to allow voltage to stabilize
             //set back to regular scanning while safe
-            VoltageMonitorScan = REGULAR_SCAN;
+            VoltageMonitorScan = RegularScan;
             pvPut(VoltageMonitorScan);
             monitorPROC = 1; //force to update immediately after delay
             pvPut(monitorPROC);

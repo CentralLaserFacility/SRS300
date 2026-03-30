@@ -30,7 +30,7 @@ record(stringin, "$(DEVICE):DeviceNickname"){
 record(fanout, "$(DEVICE):ReadbackPoll"){
     field(DESC, "Head of readback chain")
     field(PINI, "YES")
-    field(SCAN, ".1 second")
+    field(SCAN, "$(SCANRATE)")
     field(LNK1, "$(DEVICE):STBget")
     field(LNK2, "$(DEVICE):HVONstatus")
     field(LNK3, "$(DEVICE):ILIMstatus")
@@ -41,7 +41,7 @@ record(fanout, "$(DEVICE):ReadbackPoll"){
 record(mbbiDirect, "$(DEVICE):STBget"){
     field(DESC, "SCPI get status byte")
     field(DTYP, "stream")
-    field(INP,  "@ps300.proto getD(*STB) $(PORT) $(A)")
+    field(INP,  "@ps300.proto $(READ)D(*STB) $(PORT) $(A)")
     field(SIML, "$(DEVICE):SIM")
     field(SIOL, "$(DEVICE):SIM:STB")
 }
@@ -115,8 +115,8 @@ record(calc, "$(DEVICE):stableMultiState"){
 record(ai, "$(DEVICE):OutputIget"){
     field(DESC, "Output current readback")
     field(DTYP, "stream")
-    field(SCAN, ".1 second")
-    field(INP,  "@ps300.proto getF(IOUT) $(PORT) $(A)")
+    field(SCAN, "$(SCANRATE)")
+    field(INP,  "@ps300.proto $(READ)F(IOUT) $(PORT) $(A)")
     field(EGU,  "A")
     field(PREC, "4")
     field(FLNK, "$(DEVICE):OutputCurrentmA")
@@ -142,7 +142,7 @@ record(ao, "$(DEVICE):HVset"){
 record(seq, "$(DEVICE):VoltageMonitor"){
     field(DESC, "Monitor voltage")
     field(PINI, "YES")
-    field(SCAN, ".1 second")
+    field(SCAN, "$(SCANRATE)")
     field(LNK1, "$(DEVICE):OutputVget.PROC")
     field(LNK2, "$(DEVICE):HVstable.PROC")
     field(LNK3, "$(DEVICE):TargetVreached.PROC")
@@ -150,7 +150,7 @@ record(seq, "$(DEVICE):VoltageMonitor"){
 record(ai, "$(DEVICE):OutputVget"){
     field(DESC, "Output voltage readback")
     field(DTYP, "stream")
-    field(INP,  "@ps300.proto getF(VOUT) $(PORT) $(A)")
+    field(INP,  "@ps300.proto $(READ)F(VOUT) $(PORT) $(A)")
     field(EGU,  "V")
     field(FLNK, "$(DEVICE):AbsVoltage")
 }
@@ -268,3 +268,4 @@ record(seq, "$(DEVICE):PONseq"){
     #in devSRS_PS3xx_sequences.template
     field(PINI, "YES")
 }
+

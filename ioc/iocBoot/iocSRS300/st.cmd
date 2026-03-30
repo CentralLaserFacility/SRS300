@@ -5,19 +5,24 @@
 
 < envPaths
 
-# LANTRONIX RS232 adapter address
+epicsEnvSet("MODEL","$(MODEL=370)")
+epicsEnvSet("PORT","L0")
+
+# LANTRONIX RS232 adapter address + macros
 #
-# epicsEnvSet("MODEL","$(MODEL=375)")
 # epicsEnvSet("ADDR","192.168.0.20:10002")
 # epicsEnvSet("A","-1")
-# epicsEnvSet("PORT","L0")
-
-# GPIB adapter address
+# epicsEnvSet("SCANRATE", ".1 second")
+# epicsEnvSet("READ", "GET")
 #
-epicsEnvSet("MODEL","$(MODEL=370)")
+
+# GPIB adapter address + macros
+#
 epicsEnvSet("ADDR","192.168.1.50:1234")
-epicsEnvSet("A","-1")
-epicsEnvSet("PORT","L0")
+epicsEnvSet("A","14")
+epicsEnvSet("SCANRATE", ".2 second")
+epicsEnvSet("READ", "SCAN")
+#
 
 epicsEnvSet("STREAM_PROTOCOL_PATH", "${TOP}/proto") 
 
@@ -31,25 +36,17 @@ cd "${TOP}"
 dbLoadDatabase "dbd/SRS300.dbd"
 SRS300_registerRecordDeviceDriver pdbbase
 
-#drvPrologixGPIBConfigure("$(PORT)","$(ADDR)",0,0)
+
 drvAsynIPPortConfigure("$(PORT)","$(ADDR)",0,0,0)
+
 
 # asynSetTraceMask("$(PORT)", 0, 0x09)
 # asynSetTraceIOMask("$(PORT)", 0, 0x02)
 
-# epicsThreadSleep(0.2)
-
-# # Set Prologix modes
-# asynOctetWrite("L0", "++mode 1", 0)
-# asynOctetWrite("L0", "++auto 1", 0)
-# asynOctetWrite("L0", "++eoi 1", 0)
-# asynOctetWrite("L0", "++read_tmo_ms 2000", 0)
-# asynOctetWrite("L0", "++addr 14", 0)
-# epicsThreadSleep(0.2)
 
 ## Load record instances
 dbLoadRecords("$(ASYN)/db/asynRecord.db","P=$(DEVICE):, R=asyn,PORT=$(PORT),ADDR=0,OMAX=256,IMAX=256")
-dbLoadRecords("db/devSRS_PS3xx.db","PORT=$(PORT),DEVICE=$(DEVICE), A=$(A), MODEL=$(MODEL)")
+dbLoadRecords("db/devSRS_PS3xx.db","PORT=$(PORT),DEVICE=$(DEVICE), A=$(A), MODEL=$(MODEL), SCANRATE=$(SCANRATE), READ=$(READ)")
 dbLoadTemplate("db/devSRS_PS3xx.substitutions","PORT=$(PORT),DEVICE=$(DEVICE), A=$(A), MODEL=$(MODEL)")
 dbLoadRecords("db/devSRS_PS3xx_ui.db","PORT=$(PORT),DEVICE=$(DEVICE), A=$(A), MODEL=$(MODEL)")
 dbLoadRecords("db/devSRS_PS3xx_ramp.db","PORT=$(PORT),DEVICE=$(DEVICE), A=$(A), MODEL=$(MODEL)")
