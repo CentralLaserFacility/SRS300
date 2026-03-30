@@ -240,8 +240,8 @@ record(bo, "$(DEVICE):TripClear"){
 record(mbbiDirect, "$(DEVICE):ESRget"){
     field(DESC, "get event status register")
     field(DTYP, "stream")
-    field(INP, "@ps300.proto getD(*ESR) $(PORT) $(A)")
-    #field(SCAN, "2 second")
+    field(INP, "@ps300.proto $(READ)D(*ESR) $(PORT) $(A)")
+    field(SCAN, "10 second")
     field(FLNK, "$(DEVICE):PONget")
 }
 
