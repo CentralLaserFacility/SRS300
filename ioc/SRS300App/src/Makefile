@@ -28,7 +28,6 @@ SRS300_DBD += rampLogic.dbd
 #endif
 SRS300_DBD += drvAsynIPPort.dbd
 SRS300_DBD += asSupport.dbd
-SRS300_DBD += drvPrologixGPIB.dbd
 
 # Add all the support libraries needed by this IOC
 #SRS300_LIBS += xxx
